@@ -47,6 +47,7 @@ def main():
     ap.add_argument("--sin-fabrica", action="store_true", help="no crear agentes nuevos en esta ejecución")
     ap.add_argument("--kronos-tiempo", type=int, default=1500, help="segundos máximos calculando previsiones")
     ap.add_argument("--kronos-max", type=int, default=None, help="máximo de velas nuevas de Kronos por temporalidad en esta ejecución")
+    ap.add_argument("--solo-kronos", action="store_true", help="solo calcular previsiones de Kronos (sin agentes ni panel)")
     ap.add_argument("--datos-locales", default=None)
     ap.add_argument("--hoy", default=None, help="fecha simulada AAAA-MM-DD (pruebas)")
     args = ap.parse_args()
@@ -71,6 +72,10 @@ def main():
             break
         except Exception as e:  # noqa: BLE001
             print(f"Aviso: fallo calculando previsiones de Kronos {tf} ({e}); se usan las ya guardadas.")
+
+    if args.solo_kronos:
+        print("Previsiones de Kronos guardadas.")
+        return
 
     ac = Academia(ROOT, mk, kronos=kronos, today=today)
     counts = ac.day(fabrica=not args.sin_fabrica)
