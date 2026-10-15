@@ -199,13 +199,28 @@ class Academia:
         sk = inventor.score(v_known, cfg["cap"], vyears, temper)
         si = inventor.score(v_inv, cfg["cap"], vyears, temper)
         propia = si > sk
+
+        # si su elección opera igual que otro agente (en validación), prueba con su otra opción
+        def firma_of(r):
+            return hashlib.sha1(repr([(str(mk.ts[t["i"]].date()), t["side"]) for t in r.trades]).encode()).hexdigest()[:12]
+
+        def twin_of(f):
+            return next((x for x in self.state["agents"] if x.get("firma") == f and x is not ag), None)
+
+        firma = firma_of(v_inv if propia else v_known)
+        twin = twin_of(firma)
+        cambio = False
+        if twin:
+            alt = firma_of(v_known if propia else v_inv)
+            if not twin_of(alt) and (v_known if propia else v_inv).n_buys > 0:
+                propia, firma, twin, cambio = not propia, alt, None, True
         ag.update(
             estudio=dict(probadas=n_tested, familia=g["family"], label=FAMILIES[g["family"]]["label"],
                          desc=describe(g, p, u), entreno=r_known.summary(), validacion=v_known.summary()),
             invento=dict(desc=inventor.describe(rule, mk.bpd), entreno=r_inv.summary(), validacion=v_inv.summary(),
                          generaciones=hist),
-            eleccion="propia" if propia else "conocida",
-            genome=g, params=p, regla=rule,
+            eleccion="propia" if propia else "conocida", cambio_por_copia=cambio,
+            genome=g, params=p, regla=rule, firma=firma,
         )
         ag["label"] = "Estrategia propia" if propia else FAMILIES[g["family"]]["label"]
         ag["desc"] = ag["invento"]["desc"] if propia else ag["estudio"]["desc"]
@@ -225,9 +240,7 @@ class Academia:
             fails.append(f"llegó a caer un {re.maxdd * 100:.0f} % (máximo {crit['caida_maxima_pct']} %)")
         if re.dead:
             fails.append("se quedó sin dinero")
-        firma = hashlib.sha1(repr([(str(mk.ts[t["i"]].date()), t["side"]) for t in re.trades]).encode()).hexdigest()[:12]
-        twin = next((x for x in self.state["agents"] if x.get("firma") == firma and x is not ag), None)
-        ag.update(firma=firma, exam=re.summary(), examinado=self.today.isoformat())
+        ag.update(exam=re.summary(), examinado=self.today.isoformat())
         if twin:
             ag["status"], ag["motivo"] = "suspendido", f"Opera exactamente igual que {twin['name']}, no aporta nada nuevo."
         elif fails:

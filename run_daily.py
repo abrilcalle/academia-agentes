@@ -61,7 +61,7 @@ def main():
     kronos = {}
     ktfs = [t for t in cfg["kronos"]["temporalidades"] if t in mk]
     for k, tf in enumerate(ktfs):
-        kronos[tf] = kronos_signal.load(ROOT, mk[tf])
+        kronos[tf] = kronos_signal.load(ROOT, mk[tf], cfg)
         if args.sin_kronos or not cfg["fabrica"]["usar_kronos"]:
             continue
         try:

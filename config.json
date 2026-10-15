@@ -57,20 +57,20 @@
     ],
     "por_temporalidad": {
       "1d": {
-        "contexto": 360,
+        "contexto": 120,
         "horizonte": 7
       },
       "4h": {
-        "contexto": 360,
+        "contexto": 120,
         "horizonte": 12
       },
       "1h": {
-        "contexto": 480,
+        "contexto": 120,
         "horizonte": 24
       }
     },
     "caminos": 8,
     "max_velas_nuevas_por_ejecucion": 600,
-    "_nota": "Añade \"1h\" a temporalidades si quieres Kronos también en velas de 1 hora (rellenar su histórico lleva muchas horas)."
+    "_nota": "Contexto de 120 velas: con 360 las previsiones diarias salían disparadas (diagnóstico del 15/10/2026). Añade \"1h\" a temporalidades si quieres Kronos también en velas de 1 hora."
   }
 }

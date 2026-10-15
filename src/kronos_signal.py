@@ -22,8 +22,12 @@ import numpy as np
 _MODEL = {}
 
 
-def cache_path(root, tf):
-    return os.path.join(root, "data", f"kronos_{tf}.csv")
+def cache_path(root, tf, cfg):
+    """Un archivo por temporalidad y ajustes: si cambian el modelo o el contexto, se empieza de cero."""
+    k = cfg["kronos"]
+    t = k["por_temporalidad"][tf]
+    tag = f"{k['modelo'].split('/')[-1].lower()}_c{t['contexto']}_h{t['horizonte']}"
+    return os.path.join(root, "data", f"kronos_{tf}_{tag}.csv")
 
 
 def load_cache(path):
@@ -53,8 +57,8 @@ def as_arrays(cache, ts):
     return dict(med=med, up=up)
 
 
-def load(root, mk):
-    p = cache_path(root, mk.tf)
+def load(root, mk, cfg):
+    p = cache_path(root, mk.tf, cfg)
     return as_arrays(load_cache(p), mk.ts) if os.path.exists(p) else None
 
 
@@ -76,7 +80,7 @@ def compute(root, mk, cfg, budget_s=None, max_new=None, log=print):
     k = cfg["kronos"]
     tcfg = k["por_temporalidad"][mk.tf]
     ctx, hz, paths = tcfg["contexto"], tcfg["horizonte"], k["caminos"]
-    path = cache_path(root, mk.tf)
+    path = cache_path(root, mk.tf, cfg)
     cache = load_cache(path)
     first = dt.datetime.fromisoformat(cfg["entreno"][0])
     todo = [i for i, d in enumerate(mk.ts) if d >= first and i >= ctx and d not in cache]
