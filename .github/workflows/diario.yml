@@ -1,0 +1,51 @@
+name: Academia diaria
+
+on:
+  schedule:
+    - cron: "20 0 * * *"   # cada día a las 00:20 UTC (02:20 en Madrid en verano), con la vela de ayer ya cerrada
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: academia
+  cancel-in-progress: false
+
+jobs:
+  dia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+          pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-kronos.txt
+          git clone --depth 1 https://github.com/shiyu-coder/Kronos.git vendor/Kronos
+
+      - name: Guardar el modelo Kronos entre ejecuciones
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: kronos-modelos-v1
+
+      - name: Ejecutar el día
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python run_daily.py --kronos-tiempo 1200
+
+      - name: Guardar resultados
+        run: |
+          git config user.name "academia-bot"
+          git config user.email "academia-bot@users.noreply.github.com"
+          git add state data docs
+          git diff --cached --quiet || git commit -m "Día $(date -u +%F)"
+          git push

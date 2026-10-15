@@ -1,0 +1,76 @@
+{
+  "mercado": "BTC-EUR",
+  "comision_pct": 0.25,
+  "deslizamiento_pct": 0.05,
+  "saldo_inicial_eur": 100,
+  "entreno": [
+    "2018-01-01",
+    "2021-12-31"
+  ],
+  "validacion": [
+    "2022-01-01",
+    "2023-12-31"
+  ],
+  "examen": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "aprobar_examen": {
+    "ganancia_minima_pct": 10,
+    "operaciones_minimas": 8,
+    "caida_maxima_pct": 40
+  },
+  "simulado": {
+    "dias": 90,
+    "caida_maxima_pct": 25,
+    "ganancia_minima_pct": 5,
+    "max_agentes_a_la_vez": 30
+  },
+  "fabrica": {
+    "primera_promocion": 100,
+    "agentes_nuevos_por_dia": 10,
+    "minutos_maximos": 45,
+    "temporalidades": {
+      "1d": 2,
+      "4h": 1,
+      "1h": 1
+    },
+    "poblacion_inventor": 30,
+    "generaciones_inventor": 15,
+    "usar_kronos": true
+  },
+  "cartera": {
+    "pausados": [],
+    "_nota": "Escribe aquí los nombres de los agentes que quieras pausar, por ejemplo [\"Marcos\"]. Los agentes listos que no estén pausados forman tu cartera."
+  },
+  "informe_mensual": {
+    "meses_para_recomendar": 3,
+    "minimo_agentes_en_combinacion": 2,
+    "maximo_agentes_en_combinacion": 5
+  },
+  "kronos": {
+    "modelo": "NeoQuasar/Kronos-small",
+    "tokenizer": "NeoQuasar/Kronos-Tokenizer-base",
+    "temporalidades": [
+      "1d",
+      "4h"
+    ],
+    "por_temporalidad": {
+      "1d": {
+        "contexto": 360,
+        "horizonte": 7
+      },
+      "4h": {
+        "contexto": 360,
+        "horizonte": 12
+      },
+      "1h": {
+        "contexto": 480,
+        "horizonte": 24
+      }
+    },
+    "caminos": 8,
+    "max_velas_nuevas_por_ejecucion": 600,
+    "_nota": "Añade \"1h\" a temporalidades si quieres Kronos también en velas de 1 hora (rellenar su histórico lleva muchas horas)."
+  }
+}

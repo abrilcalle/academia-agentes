@@ -1,1 +1,70 @@
-# academia-agentes
+# Academia de Agentes
+
+Agentes de trading que aprenden solos sobre BTC-EUR (Bitvavo) y se ejecutan gratis cada día en GitHub.
+
+## Cómo aprende cada agente
+1. **Nace** con un nombre, una temporalidad (velas de 1 día, 4 horas o 1 hora) y una personalidad: prudente, equilibrada o atrevida (cuánto le preocupan las caídas).
+2. **Estudia (2018–2021):** prueba las estrategias conocidas (medias, rupturas de las Tortugas, RSI, Bollinger, MACD, momentum, control de volatilidad, stops ATR, RSI-2 de Connors y Kronos cuando haya previsiones) con sus parámetros, filtros y stops.
+3. **Inventa (2018–2021):** parte de las 3 estrategias que mejor le fueron (y, si hay previsiones, de "ceñirse a Kronos") y crea reglas propias que va perfeccionando generación a generación (algoritmo evolutivo: se quedan las mejores, se cruzan y se cambian un poco). Sus reglas pueden combinar:
+   - condiciones de entrada y salida (medias, máximos y mínimos, RSI, impulso, volatilidad, Bollinger, MACD, previsiones de Kronos);
+   - **stop que sube con el precio** (a un 3, 5 o 10 % del máximo alcanzado, o a varias veces el ATR): si entra a 10 y sube a 14, el stop va subiendo y asegura casi todo el recorrido;
+   - objetivo de beneficio fijo o **el precio que prevé Kronos**;
+   - **cuánto arriesgar** en cada operación (20 %, 50 % o todo el fondo) o ajustarlo a la volatilidad;
+   - tiempo máximo en una operación.
+   Tras un stop o un objetivo, no vuelve a entrar hasta que aparezca una señal de entrada nueva.
+4. **Elige (2022–2023):** compara su mejor estrategia conocida con la suya en dos años que no usó para ajustar nada y se queda con la que funciona mejor.
+5. **Examen (2024–2025):** opera sin tocar nada. Aprueba si gana al menos un 10 % tras comisiones, hace 8 operaciones o más, no cae más de un 40 % y no opera igual que otro agente.
+6. **Simulado:** los aprobados operan 90 días con 100 € ficticios y precios reales. Si caen más de un 25 % se retiran; si acaban con +5 % o más quedan **listos para dinero real** y siguen operando en simulado.
+
+El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempre haya alumnos buscando un nuevo ganador.
+
+## Informe mensual
+El día 1 de cada mes te llega un aviso y el panel muestra el informe del mes anterior:
+- Cuánto ganó o perdió cada agente y cuántas operaciones perdió.
+- **Qué combinación habría ganado más** con el mismo dinero (a toro pasado).
+- **Quién amortiguó las pérdidas de quién:** "Elena perdió 3 operaciones (−11,90 €). En esos días Vera ganó +3,20 €: con Vera activada habrías perdido 3,20 € menos".
+- **Agentes que se mueven igual**, porque tener varios así no reparte el riesgo.
+- **Recomendación para el mes siguiente:** la combinación que mejor equilibra ganancia y caídas en los últimos 3 meses (no solo el último), sin juntar agentes que hacen lo mismo. Te dice a quién activar y a quién pausar.
+
+**Tu cartera** son los agentes listos que no has pausado. Para pausar o reactivar, edita `config.json` → `cartera.pausados` (por ejemplo `["Marcos", "Sara"]`) o pídemelo.
+
+Nada pasa a dinero real solo. Esa parte está sin hacer a propósito: se activará cuando tú lo decidas.
+
+---
+
+## Puesta en marcha
+La forma fácil: conecta GitHub a Claude y pídele que lo instale. Si lo haces tú:
+
+1. **Repositorio:** en github.com, **+ → New repository**, nombre `academia-agentes`, **Public**, **Create repository**. Sube todo el contenido de esta carpeta, incluida `.github`.
+2. **Permisos:** Settings → Actions → General → Workflow permissions → **Read and write permissions** → Save.
+3. **Avisos al móvil (opcional):** instala la app **ntfy**, suscríbete a un canal con un nombre difícil de adivinar (p. ej. `academia-7f3k9q2`) y guárdalo en Settings → Secrets and variables → Actions → New repository secret con el nombre `NTFY_TOPIC`.
+4. **Panel:** Settings → Pages → Deploy from a branch → `main` / `/docs`. Quedará en `https://TU-USUARIO.github.io/academia-agentes/`. En el iPhone: Compartir → Añadir a pantalla de inicio.
+5. **Primer día:** Actions → Academia diaria → Run workflow. El primero tarda más (crea 100 agentes y descarga años de velas por horas). Después se ejecuta solo cada noche.
+6. **Kronos:** Actions → Rellenar histórico de Kronos → Run workflow, y repítelo hasta que el panel muestre las previsiones de Kronos al 100 %. Por defecto se calculan para velas diarias y de 4 horas (unas 22.000 previsiones desde 2018: varias tandas de 5 horas). Hasta llegar al 90 % los agentes estudian sin Kronos; los que nazcan después ya pueden usarlo.
+
+## Ajustes (`config.json`)
+| Ajuste | Qué hace |
+|---|---|
+| `comision_pct`, `deslizamiento_pct` | Coste de cada compra o venta (Bitvavo: 0,25 % en el nivel inicial) |
+| `entreno`, `validacion`, `examen` | Años de cada fase |
+| `aprobar_examen`, `simulado` | Mínimos para pasar de nivel |
+| `fabrica.primera_promocion`, `agentes_nuevos_por_dia` | Cuántos agentes nacen |
+| `fabrica.temporalidades` | Peso de cada temporalidad al crear agentes (`1d`, `4h`, `1h`) |
+| `fabrica.poblacion_inventor`, `generaciones_inventor` | Cuánto se esfuerza cada agente al inventar |
+| `cartera.pausados` | Agentes que no quieres en tu cartera |
+| `informe_mensual` | Meses que mira la recomendación y tamaño de las combinaciones |
+
+## Probar en tu ordenador
+```
+pip install numpy
+python run_daily.py --sin-kronos
+```
+
+## Cosas a tener en cuenta
+- **Muchos agentes, muchos aprobados por suerte.** Con 100 alumnos alguno aprobará por casualidad. Por eso el simulado en vivo es el filtro que cuenta, y el informe mensual sigue vigilando a los listos.
+- **Inventar es fácil; inventar algo que funcione fuera del entreno, no.** Por eso la estrategia propia solo se elige si gana a la conocida en 2022–23, años que el agente no usó para ajustarla.
+- **Velas de 1 hora = más operaciones = más comisiones.** Muchas estrategias rápidas mueren por eso. No se incluyen velas de 15 minutos: con las comisiones de Bitvavo casi nunca salen a cuenta.
+- **Kronos pudo ver 2024–25 al entrenarse.** El modelo se publicó en 2025, así que los exámenes de agentes que usan Kronos pueden salir mejor de lo que son. Para ellos, solo el simulado en vivo es fiable.
+- **Los stops se comprueban al cierre de cada vela** (cada hora, 4 horas o día según el agente), no en cada movimiento del precio.
+- **La recomendación del informe no es una garantía.** Lo que mejor fue en los últimos meses puede no serlo el siguiente.
+- Esto no es asesoramiento financiero. Resultados pasados no garantizan resultados futuros.
