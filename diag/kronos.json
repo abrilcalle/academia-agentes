@@ -1,0 +1,314 @@
+{
+ "cpus": 4,
+ "pruebas": [
+  {
+   "tf": "1d",
+   "fecha": "2021-03-01 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 360,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 8.2,
+   "cierre": 41213.0,
+   "real_al_final": 44096.0,
+   "real_ret": 0.07,
+   "med": -0.4625,
+   "up": 0.0,
+   "camino_1": [
+    40962.8,
+    39165.3,
+    39194.9,
+    36634.1,
+    30372.8,
+    25110.1,
+    26335.2
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2023-06-01 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 360,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 7.7,
+   "cierre": 24929.0,
+   "real_al_final": 24571.0,
+   "real_ret": -0.0144,
+   "med": 0.1057,
+   "up": 1.0,
+   "camino_1": [
+    25058.9,
+    25088.2,
+    25409.6,
+    26727.2,
+    27100.2,
+    26937.7,
+    27040.2
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2024-11-01 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 360,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 7.5,
+   "cierre": 64188.0,
+   "real_al_final": 71418.0,
+   "real_ret": 0.1126,
+   "med": 0.0008,
+   "up": 0.5,
+   "camino_1": [
+    63771.4,
+    65408.6,
+    65406.5,
+    64643.0,
+    64032.1,
+    63159.6,
+    63435.3
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2026-10-10 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 360,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 7.5,
+   "cierre": 74059.0,
+   "real_al_final": 72903.0,
+   "real_ret": -0.0156,
+   "med": -0.1707,
+   "up": 0.0,
+   "camino_1": [
+    72130.9,
+    58249.0,
+    57464.8,
+    57343.0,
+    55689.2,
+    56113.8,
+    54009.8
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2026-10-10 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 360,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close"
+   ],
+   "segundos": 7.4,
+   "cierre": 74059.0,
+   "real_al_final": 72903.0,
+   "real_ret": -0.0156,
+   "med": -0.0767,
+   "up": 0.125,
+   "camino_1": [
+    74802.9,
+    75133.0,
+    71507.1,
+    71824.6,
+    69189.6,
+    61948.8,
+    60010.9
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2026-10-10 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 120,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 2.1,
+   "cierre": 74059.0,
+   "real_al_final": 72903.0,
+   "real_ret": -0.0156,
+   "med": -0.0036,
+   "up": 0.5,
+   "camino_1": [
+    73359.1,
+    73441.7,
+    74618.5,
+    76804.7,
+    77644.0,
+    76166.9,
+    74929.9
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2024-11-01 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 120,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 2.1,
+   "cierre": 64188.0,
+   "real_al_final": 71418.0,
+   "real_ret": 0.1126,
+   "med": 0.0103,
+   "up": 0.625,
+   "camino_1": [
+    68403.2,
+    66288.0,
+    66664.8,
+    67881.2,
+    68026.9,
+    68306.3,
+    67736.0
+   ]
+  },
+  {
+   "tf": "1d",
+   "fecha": "2026-10-10 00:00:00",
+   "modelo": "Kronos-mini",
+   "ctx": 360,
+   "hz": 7,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 3.3,
+   "cierre": 74059.0,
+   "real_al_final": 72903.0,
+   "real_ret": -0.0156,
+   "med": -0.0255,
+   "up": 0.125,
+   "camino_1": [
+    73710.2,
+    71595.5,
+    74872.4,
+    74053.4,
+    76360.2,
+    73076.5,
+    72232.6
+   ]
+  },
+  {
+   "tf": "4h",
+   "fecha": "2026-10-10 00:00:00",
+   "modelo": "Kronos-small",
+   "ctx": 360,
+   "hz": 12,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 13.2,
+   "cierre": 73710.0,
+   "real_al_final": 74520.0,
+   "real_ret": 0.011,
+   "med": -0.0119,
+   "up": 0.0,
+   "camino_1": [
+    74290.2,
+    74224.0,
+    74141.1,
+    74336.4,
+    74470.3,
+    74440.4,
+    73849.7,
+    73202.2,
+    71972.9,
+    71594.6,
+    69922.7,
+    70551.8
+   ]
+  },
+  {
+   "tf": "4h",
+   "fecha": "2026-10-10 00:00:00",
+   "modelo": "Kronos-mini",
+   "ctx": 360,
+   "hz": 12,
+   "caminos": 8,
+   "columnas": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+   ],
+   "segundos": 2.1,
+   "cierre": 73710.0,
+   "real_al_final": 74520.0,
+   "real_ret": 0.011,
+   "med": 0.0214,
+   "up": 0.875,
+   "camino_1": [
+    74083.6,
+    74420.7,
+    74692.3,
+    74813.1,
+    75269.5,
+    74859.3,
+    75400.0,
+    75138.0,
+    74774.1,
+    74817.7,
+    75602.0,
+    73923.4
+   ]
+  }
+ ]
+}
