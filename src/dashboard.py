@@ -112,11 +112,17 @@ def month_name(key):
     return f"{MESES[m - 1]} de {y}"
 
 
+def lost_txt(n):
+    if not n:
+        return ""
+    return f" ({n} perdida)" if n == 1 else f" ({n} perdidas)"
+
+
 def report_html(rep, open_=True):
     rows = "".join(
         f"<tr><td><strong>{e(r['name'])}</strong>{' <span class=muted>(pausado)</span>' if r.get('pausado') else ''}<br><span class='muted'>{e(r['label'])} · {e(r['tf'])}</span></td>"
         f"<td class='num {'up' if r['ret'] >= 0 else 'down'}'>{pct(r['ret'])}<br>{eur(r['pnl'])}</td>"
-        f"<td class='num'>{r['trades']}{(f' ({r["lost"]} perdida)' if r['lost'] == 1 else f' ({r["lost"]} perdidas)') if r['lost'] else ''}</td></tr>" for r in rep["filas"])
+        f"<td class='num'>{r['trades']}{lost_txt(r['lost'])}</td></tr>" for r in rep["filas"])
     rec = rep.get("recomendacion")
     body = f"""<p class="muted" style="font-size:.85rem">Tu cartera ({e(rep['cartera_txt'])}: {e(', '.join(rep['cartera']))}) terminó el mes en <strong class="{'up' if rep['ret_cartera'] >= 0 else 'down'}">{pct(rep['ret_cartera'])}</strong> sobre {eur(rep['capital'])} ficticios.</p>
 <ul>{''.join(f'<li>{e(c)}</li>' for c in rep['conclusiones'])}</ul>
