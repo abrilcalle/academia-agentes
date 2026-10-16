@@ -11,6 +11,7 @@ import datetime as dt
 import json
 import os
 import sys
+import time
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(ROOT, "src"))
@@ -60,13 +61,16 @@ def main():
     print(f"Velas diarias: {d.ts[0].date()} -> {d.ts[-1].date()}. BTC cierra en {d.I.c[-1]:,.0f} €. Temporalidades: {', '.join(mk)}")
 
     kronos = {}
+    t_k = time.time()
     ktfs = [t for t in cfg["kronos"]["temporalidades"] if t in mk]
     for k, tf in enumerate(ktfs):
         kronos[tf] = kronos_signal.load(ROOT, mk[tf], cfg)
         if args.sin_kronos or not cfg["fabrica"]["usar_kronos"]:
             continue
         try:
-            kronos[tf] = kronos_signal.compute(ROOT, mk[tf], cfg, budget_s=args.kronos_tiempo / len(ktfs), max_new=args.kronos_max)
+            left = args.kronos_tiempo - (time.time() - t_k)  # el tiempo que no use una temporalidad pasa a la siguiente
+            share = left / (len(ktfs) - k)
+            kronos[tf] = kronos_signal.compute(ROOT, mk[tf], cfg, budget_s=max(60, share), max_new=args.kronos_max)
         except ImportError as e:
             print(f"Kronos no está instalado en este equipo ({e}); se usan las previsiones ya guardadas.")
             break
