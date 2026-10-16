@@ -5,8 +5,9 @@ import numpy as np
 class Ind:
     """Calcula y memoriza indicadores para un conjunto de velas (o, h, l, c)."""
 
-    def __init__(self, o, h, l, c, bpy=365):
+    def __init__(self, o, h, l, c, bpy=365, v=None):
         self.o, self.h, self.l, self.c = (np.asarray(x, dtype=float) for x in (o, h, l, c))
+        self.v = np.asarray(v, dtype=float) if v is not None else None
         self.bpy = bpy  # velas por año (365 en diario, 8760 en 1h)
         self.n = len(self.c)
         self._m = {}

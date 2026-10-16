@@ -15,6 +15,7 @@ import random
 
 import numpy as np
 
+import patterns as PT
 from backtest import run
 
 # ------------------------------------------------------------------ condiciones
@@ -27,13 +28,19 @@ def pools(bpd):
     return dict(N=sorted(set(n)), RSI_N=[2, 7, 14], RSI_LO=[10, 20, 30, 40], RSI_HI=[55, 65, 75, 85],
                 ROC_N=[5, 10, 20, 60] + ([7 * bpd, 30 * bpd] if bpd > 1 else []), ROC_X=[0.0, 0.02, 0.05, 0.1],
                 VOL_N=[20, 60] + ([30 * bpd] if bpd > 1 else []), VOL_X=[0.3, 0.5, 0.7, 0.9], Z_X=[1.0, 1.5, 2.0, 2.5],
-                KR=[0.0, 0.01, 0.02])
+                KR=[0.0, 0.01, 0.02],
+                PAT_N=[30, 60, 120], PAT_TOL=[0.01, 0.02, 0.03, 0.05], FLAG_IMP=[0.05, 0.08, 0.12], VOL_MULT=[1.5, 2.0, 3.0])
 
 
 KINDS_ENTRY = ["sobre_media", "cruce_alcista", "rsi_bajo", "rompe_maximo", "impulso_sube", "vol_baja", "z_bajo",
                "macd_pos", "impulso_baja", "bajo_media"]
+# figuras de chartismo (ver patterns.py)
+PATTERNS_ENTRY = ["doble_suelo", "triple_suelo", "hch_invertido", "triangulo", "bandera", "rebote_soporte",
+                  "ruptura_volumen", "volumen_alto"]
+PATTERNS_EXIT = ["doble_techo", "hch", "pierde_soporte"]
+KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY
 KINDS_EXIT = ["bajo_media", "cruce_bajista", "rsi_alto", "pierde_minimo", "impulso_baja", "vol_alta", "z_alto",
-              "macd_neg", "sobre_media"]
+              "macd_neg", "sobre_media"] + PATTERNS_EXIT
 
 
 def random_cond(rng, kinds, P, kronos=False):
@@ -56,6 +63,15 @@ def random_cond(rng, kinds, P, kronos=False):
         return [k, rng.choice([20, 50]), rng.choice(P["Z_X"])]
     if k == "kronos_alcista":
         return [k, rng.choice(P["KR"])]
+    if k in ("doble_suelo", "triple_suelo", "hch_invertido", "triangulo", "rebote_soporte",
+             "doble_techo", "hch", "pierde_soporte"):
+        return [k, rng.choice(P["PAT_N"]), rng.choice(P["PAT_TOL"])]
+    if k == "bandera":
+        return [k, rng.choice(P["PAT_N"]), rng.choice(P["FLAG_IMP"])]
+    if k == "ruptura_volumen":
+        return [k, rng.choice(P["N"]), rng.choice(P["VOL_MULT"])]
+    if k == "volumen_alto":
+        return [k, rng.choice(P["VOL_MULT"])]
     return [k]
 
 
@@ -98,6 +114,14 @@ def cond_array(I, c, kronos=None):
             return (kronos["med"] > c[1]) & (kronos["up"] >= 0.6) if kronos is not None else np.zeros(I.n, bool)
         if k == "kronos_bajista":
             return (kronos["med"] < 0) if kronos is not None else np.zeros(I.n, bool)
+        pat = {"doble_suelo": PT.double_bottom, "triple_suelo": PT.triple_bottom, "hch_invertido": PT.inv_head_shoulders,
+               "triangulo": PT.asc_triangle, "rebote_soporte": PT.support_bounce, "doble_techo": PT.double_top,
+               "hch": PT.head_shoulders, "pierde_soporte": PT.support_break, "bandera": PT.bull_flag,
+               "ruptura_volumen": PT.resistance_break_volume}
+        if k in pat:
+            return pat[k](I, c[1], c[2])
+        if k == "volumen_alto":
+            return PT.volume_ratio(I) > c[1]
     raise ValueError(k)
 
 
@@ -132,6 +156,17 @@ def cond_text(c, bpd):
         "macd_neg": lambda: "el MACD gira a la baja",
         "kronos_alcista": lambda: f"Kronos prevé una subida de más del {c[1] * 100:.0f} %",
         "kronos_bajista": lambda: "Kronos prevé una bajada",
+        "doble_suelo": lambda: f"completa un doble suelo (W) en las últimas {S(c[1])}",
+        "triple_suelo": lambda: f"completa un triple suelo en las últimas {S(c[1])}",
+        "hch_invertido": lambda: f"completa un hombro-cabeza-hombro invertido en las últimas {S(c[1])}",
+        "triangulo": lambda: f"rompe un triángulo ascendente de las últimas {S(c[1])}",
+        "bandera": lambda: f"completa una bandera alcista (patrón N) tras subir más de un {c[2] * 100:.0f} %",
+        "rebote_soporte": lambda: f"rebota en un soporte de las últimas {S(c[1])}",
+        "ruptura_volumen": lambda: f"rompe el máximo de {S(c[1])} con {str(c[2]).replace('.', ',').rstrip('0').rstrip(',')} veces el volumen normal",
+        "volumen_alto": lambda: f"hay {str(c[1]).replace('.', ',').rstrip('0').rstrip(',')} veces el volumen normal",
+        "doble_techo": lambda: f"completa un doble techo (M) en las últimas {S(c[1])}",
+        "hch": lambda: f"completa un hombro-cabeza-hombro en las últimas {S(c[1])}",
+        "pierde_soporte": lambda: f"pierde un soporte de las últimas {S(c[1])}",
     }[k]
     return t()
 
@@ -150,6 +185,17 @@ def describe(rule, bpd):
     if rule["hold"]:
         outs.append(f"pasan {rule['hold']} días")
     s += ". Sale si " + " o ".join(outs) + "."
+    g = []
+    if rule.get("pyr"):
+        g.append(f"empieza con media posición y la completa si gana un {rule['pyr'] * 100:.0f} %")
+    if rule.get("be"):
+        g.append(f"al ganar un {rule['be'] * 100:.0f} % sube el stop al precio de entrada")
+    if rule.get("stall"):
+        g.append(f"si en {rule['stall']} {'día' if rule['stall'] == 1 else 'días'} no avanza, acerca el stop a un 1,5 %")
+    if rule.get("shrink") and rule.get("trail"):
+        g.append("cuanto más gana, más ajusta el stop")
+    if g:
+        s += " Gestión: " + "; ".join(g) + "."
     if rule.get("frac", 1.0) < 1:
         s += f" Usa el {rule['frac'] * 100:.0f} % del fondo en cada operación."
     if rule["sizing"] == "riesgo":
@@ -159,7 +205,10 @@ def describe(rule, bpd):
 
 FRAC = [1.0, 1.0, 0.5, 0.2]          # parte del fondo que arriesga en cada operación
 TRAIL = [0, 0, 0.03, 0.05, 0.1]      # stop que sube con el precio, a este % del máximo alcanzado
-TP = [0, 0, 0.05, 0.1, 0.2]          # objetivo de beneficio fijo
+TP = [0, 0, 0.05, 0.08, 0.1, 0.2]    # objetivo de beneficio fijo
+BE = [0, 0, 0.02, 0.03, 0.05]        # al ganar esto, el stop sube al precio de entrada
+STALL = [0, 0, 1, 3, 7]              # días sin avanzar tras los que se acerca el stop
+PYR = [0, 0, 0.02, 0.04]             # entra con media posición y la completa al ganar esto
 
 
 def random_rule(rng, P, kronos=False):
@@ -167,7 +216,8 @@ def random_rule(rng, P, kronos=False):
                 exit=[random_cond(rng, KINDS_EXIT, P, kronos) for _ in range(rng.randint(1, 2))],
                 stop=rng.choice([0, 0, 2, 3, 4]), tp=rng.choice(TP + (["kronos"] if kronos else [])),
                 trail=rng.choice(TRAIL), hold=rng.choice([0, 0, 3, 10, 30]),
-                sizing=rng.choice(["completo", "riesgo"]), frac=rng.choice(FRAC))
+                sizing=rng.choice(["completo", "riesgo"]), frac=rng.choice(FRAC),
+                be=rng.choice(BE), stall=rng.choice(STALL), pyr=rng.choice(PYR), shrink=rng.random() < 0.5)
 
 
 # ------------------------------------------------------------------ de estrategia a exposición
@@ -186,11 +236,13 @@ def exposure(I, rule, kronos=None, bpd=1):
     if tp == "kronos" and kmed is None:
         tp = 0
     atr = I.atr(14) if stop else None
+    be, stall, pyr, shrink = rule.get("be", 0), rule.get("stall", 0) * bpd, rule.get("pyr", 0), rule.get("shrink", False)
     C = I.c.tolist()
     ent_l, ex_l = ent.tolist(), ex.tolist()
     atr_l = atr.tolist() if stop else None
     w = [0.0] * I.n
     pos, entry_px, best, since, target, blocked = False, 0.0, 0.0, 0, 0.0, False
+    size, floor = 1.0, 0.0
     for i in range(I.n):
         px = C[i]
         if blocked and not ent_l[i]:
@@ -198,6 +250,8 @@ def exposure(I, rule, kronos=None, bpd=1):
         if not pos:
             if ent_l[i] and not blocked:
                 pos, entry_px, best, since = True, px, px, 0
+                size = 0.5 if pyr else 1.0
+                floor = 0.0
                 if tp == "kronos":  # objetivo = precio que prevé Kronos al entrar
                     m = kmed[i]
                     target = px * (1 + m) if (m == m and m > 0.005) else px * 1.05
@@ -206,13 +260,24 @@ def exposure(I, rule, kronos=None, bpd=1):
         else:
             since += 1
             best = max(best, px)
+            gain = best / entry_px - 1
+            if pyr and size < 1 and px / entry_px - 1 >= pyr:
+                size = 1.0  # va a favor: completa la posición
+            if be and gain >= be:
+                floor = max(floor, entry_px * 1.006)  # stop a precio de entrada (cubre comisiones)
+            if stall and since == stall and gain < 0.01:
+                floor = max(floor, px * 0.985)  # no avanza: acerca el stop para perder lo mínimo
             out = ex_l[i]
             forced = False
             if stop and atr_l[i] == atr_l[i] and px < best - stop * atr_l[i]:
                 forced = True
             if tp and px >= target:
                 forced = True
-            if trail and px < best * (1 - trail):  # el stop sube con el precio y asegura el recorrido
+            if trail:
+                t = trail * max(0.4, 1 - gain / 0.10) if shrink else trail
+                if px < best * (1 - t):  # el stop sube con el precio y asegura el recorrido
+                    forced = True
+            if floor and px < floor:
                 forced = True
             if forced:
                 out, blocked = True, True
@@ -220,7 +285,7 @@ def exposure(I, rule, kronos=None, bpd=1):
                 out = True
             if out:
                 pos = False
-        w[i] = 1.0 if pos else 0.0
+        w[i] = size if pos else 0.0
     w = np.array(w) * rule.get("frac", 1.0)
     if rule["sizing"] == "riesgo":
         v = I.rvol(min(len(I.c) - 1, 30 * bpd))
@@ -271,10 +336,18 @@ def mutate(rng, rule, P, kronos=False):
         r["tp"] = rng.choice(TP + (["kronos"] if kronos else []))
     elif op < 0.9:
         r["trail"] = rng.choice(TRAIL)
-    elif op < 0.94:
+    elif op < 0.92:
         r["frac"] = rng.choice(FRAC)
-    elif op < 0.97:
+    elif op < 0.94:
         r["hold"] = rng.choice([0, 3, 10, 30])
+    elif op < 0.955:
+        r["be"] = rng.choice(BE)
+    elif op < 0.97:
+        r["stall"] = rng.choice(STALL)
+    elif op < 0.98:
+        r["pyr"] = rng.choice(PYR)
+    elif op < 0.99:
+        r["shrink"] = not r.get("shrink", False)
     else:
         r["sizing"] = "riesgo" if r["sizing"] == "completo" else "completo"
     return r
@@ -283,7 +356,7 @@ def mutate(rng, rule, P, kronos=False):
 def _tweak(rng, c, P):
     c = c[:]
     if len(c) > 1 and isinstance(c[1], int):
-        for key in ("N", "RSI_N", "ROC_N", "VOL_N"):
+        for key in ("N", "RSI_N", "ROC_N", "VOL_N", "PAT_N"):
             if c[1] in P[key]:
                 lst = P[key]
                 j = max(0, min(len(lst) - 1, lst.index(c[1]) + rng.choice([-1, 1])))
@@ -300,7 +373,9 @@ def cross(rng, a, b):
                 exit=[c[:] for c in rng.choice([a["exit"], b["exit"]])],
                 stop=rng.choice([a["stop"], b["stop"]]), tp=rng.choice([a["tp"], b["tp"]]),
                 hold=rng.choice([a["hold"], b["hold"]]), sizing=rng.choice([a["sizing"], b["sizing"]]),
-                trail=rng.choice([a.get("trail", 0), b.get("trail", 0)]), frac=rng.choice([a.get("frac", 1.0), b.get("frac", 1.0)]))
+                trail=rng.choice([a.get("trail", 0), b.get("trail", 0)]), frac=rng.choice([a.get("frac", 1.0), b.get("frac", 1.0)]),
+                be=rng.choice([a.get("be", 0), b.get("be", 0)]), stall=rng.choice([a.get("stall", 0), b.get("stall", 0)]),
+                pyr=rng.choice([a.get("pyr", 0), b.get("pyr", 0)]), shrink=rng.choice([a.get("shrink", False), b.get("shrink", False)]))
 
 
 def evolve(mk, seeds, window, cfg, rng, temper, kronos=None, pop=30, gens=15, log=None):
@@ -349,7 +424,7 @@ def evolve(mk, seeds, window, cfg, rng, temper, kronos=None, pop=30, gens=15, lo
 
 def seed_from_family(family, p, bpd):
     """Traduce la mejor estrategia conocida que estudió el agente a reglas editables (su experiencia)."""
-    base = dict(stop=0, tp=0, hold=0, sizing="completo", trail=0, frac=1.0)
+    base = dict(stop=0, tp=0, hold=0, sizing="completo", trail=0, frac=1.0, be=0, stall=0, pyr=0, shrink=False)
     t = {
         "sma": lambda: dict(entry=[["cruce_alcista", p["fast"], p["slow"]]], exit=[["cruce_bajista", p["fast"], p["slow"]]]),
         "donchian": lambda: dict(entry=[["rompe_maximo", p["entry"]]], exit=[["pierde_minimo", p["exit"]]]),
@@ -364,3 +439,14 @@ def seed_from_family(family, p, bpd):
         "kronos": lambda: dict(entry=[["kronos_alcista", p["thr"]]], exit=[["kronos_bajista"]], tp="kronos", trail=0.03),
     }[family]()
     return {**base, **t}
+
+
+def pattern_seed(rng, P, kronos=False):
+    """Una idea de partida basada en una figura de chartismo, con gestión activa del stop."""
+    entry = [random_cond(rng, PATTERNS_ENTRY, P, kronos)]
+    if rng.random() < 0.5:
+        entry.append(random_cond(rng, ["sobre_media", "cruce_alcista", "vol_baja"], P, kronos))
+    return dict(entry=entry, exit=[random_cond(rng, PATTERNS_EXIT, P, kronos)],
+                stop=rng.choice([2, 3]), tp=rng.choice([0, 0.05, 0.08]), trail=rng.choice([0.03, 0.05]),
+                hold=0, sizing="completo", frac=1.0, be=rng.choice([0.02, 0.03]), stall=rng.choice([1, 3]),
+                pyr=rng.choice([0, 0.02]), shrink=True)

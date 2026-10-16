@@ -182,6 +182,9 @@ class Academia:
                 rule["entry"].append(["vol_baja", 30 * mk.bpd if mk.bpd > 1 else 30, 0.9])
             rule["entry"] = rule["entry"][:3]
             seeds.append(rule)
+        P = inventor.pools(mk.bpd)
+        for _ in range(3):  # ideas de partida con figuras de chartismo (W, M, HCH, banderas, soportes...)
+            seeds.append(inventor.pattern_seed(self.rng, P, kr is not None))
         if kr is not None:  # con previsiones de Kronos disponibles, "ceñirse a Kronos" siempre es una opción de partida
             seeds.append(inventor.seed_from_family("kronos", dict(thr=0.01), mk.bpd))
         tr = self.window(mk, "entreno")

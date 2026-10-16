@@ -13,7 +13,7 @@ class Market:
         self.tf = tf
         self.ts = list(ts)
         self.bpd = BARS_PER_DAY[tf]
-        self.I = Ind(o, h, l, c, bpy=365 * self.bpd)
+        self.I = Ind(o, h, l, c, bpy=365 * self.bpd, v=v)
         self.v = v
         self.n = len(self.ts)
 
