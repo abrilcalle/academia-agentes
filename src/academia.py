@@ -192,7 +192,13 @@ class Academia:
         for _ in range(3):  # ideas de partida con figuras de chartismo (W, M, HCH, banderas, soportes...)
             seeds.append(inventor.pattern_seed(self.rng, P, kr is not None))
         ideas = self.internet_ideas()
-        estudiadas = self.rng.sample(ideas, min(2, len(ideas))) if ideas else []
+        # prioriza las ideas que menos agentes han estudiado (así las nuevas se prueban pronto)
+        uso = {}
+        for x in self.state["agents"]:
+            for nm in x.get("ideas_internet", []):
+                uso[nm] = uso.get(nm, 0) + 1
+        orden = sorted(ideas, key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))
+        estudiadas = orden[:2]
         for idea in estudiadas:  # estrategias de cursos, vídeos y artículos de internet
             r = dict(idea["regla"])
             r["entry"] = [list(x) for x in r["entry"]]
