@@ -69,9 +69,9 @@ def pct(v):
 
 
 def spark(vals, cap, up):
-    if not vals or len(vals) < 2:
+    if not vals or len(vals) < 7:  # con menos de una semana el gráfico solo enseña ruido
         return ""
-    lo, hi = min(min(vals), cap), max(max(vals), cap)
+    lo, hi = min(min(vals), cap * 0.95), max(max(vals), cap * 1.05)  # escala mínima de ±5 % para no exagerar céntimos
     rng = (hi - lo) or 1
     W, H = 300, 34
     pts = " ".join(f"{i * W / (len(vals) - 1):.1f},{H - 2 - (v - lo) / rng * (H - 4):.1f}" for i, v in enumerate(vals))
