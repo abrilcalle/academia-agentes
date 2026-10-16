@@ -1,0 +1,42 @@
+name: Descargar vídeos de trading
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "40 23 * * 0"   # cada domingo, antes de la ejecución diaria
+
+permissions:
+  contents: write
+
+concurrency:
+  group: academia
+  cancel-in-progress: false
+
+jobs:
+  videos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Instalar yt-dlp
+        run: pip install -U yt-dlp
+      - name: Descargar subtítulos
+        run: python scripts/videos.py
+      - name: Guardar
+        if: always()
+        run: |
+          rm -rf videos/_tmp
+          git config user.name "academia-bot"
+          git config user.email "academia-bot@users.noreply.github.com"
+          git add videos
+          git diff --cached --quiet || git commit -m "Vídeos de trading $(date -u +%F)"
+          git pull --rebase -X theirs origin main
+          git push
