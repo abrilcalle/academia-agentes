@@ -2,8 +2,8 @@ name: Descargar vídeos de trading
 
 on:
   workflow_dispatch: {}
-  schedule:
-    - cron: "40 23 * * 0"   # cada domingo, antes de la ejecución diaria
+  # Sin ejecución automática: YouTube bloquea las descargas desde los servidores de GitHub
+  # salvo que se añadan cookies de una cuenta (secreto YT_COOKIES). Ver README.
 
 permissions:
   contents: write
@@ -29,7 +29,11 @@ jobs:
       - name: Instalar yt-dlp
         run: pip install -U yt-dlp
       - name: Descargar subtítulos
-        run: python scripts/videos.py
+        env:
+          YT_COOKIES: ${{ secrets.YT_COOKIES }}
+        run: |
+          if [ -n "$YT_COOKIES" ]; then printf '%s' "$YT_COOKIES" > /tmp/cookies.txt; fi
+          python scripts/videos.py
       - name: Guardar
         if: always()
         run: |

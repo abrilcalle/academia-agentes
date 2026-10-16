@@ -116,6 +116,12 @@ class Academia:
         except Exception as e:  # noqa: BLE001
             self.log(f"Aviso: no se pudo enviar la notificación ({e})")
 
+    def internet_ideas(self):
+        if not hasattr(self, "_ideas"):
+            p = os.path.join(self.root, "ideas", "estrategias_internet.json")
+            self._ideas = json.load(open(p))["ideas"] if os.path.exists(p) else []
+        return self._ideas
+
     def exposure(self, ag):
         """Exposición (0..1) de un agente en todas las velas de su temporalidad."""
         if ag["id"] not in self._w:
@@ -185,6 +191,14 @@ class Academia:
         P = inventor.pools(mk.bpd)
         for _ in range(3):  # ideas de partida con figuras de chartismo (W, M, HCH, banderas, soportes...)
             seeds.append(inventor.pattern_seed(self.rng, P, kr is not None))
+        ideas = self.internet_ideas()
+        estudiadas = self.rng.sample(ideas, min(2, len(ideas))) if ideas else []
+        for idea in estudiadas:  # estrategias de cursos, vídeos y artículos de internet
+            r = dict(idea["regla"])
+            r["entry"] = [list(x) for x in r["entry"]]
+            r["exit"] = [list(x) for x in r["exit"]]
+            seeds.append(r)
+        ag["ideas_internet"] = [i["nombre"] for i in estudiadas]
         if kr is not None:  # con previsiones de Kronos disponibles, "ceñirse a Kronos" siempre es una opción de partida
             seeds.append(inventor.seed_from_family("kronos", dict(thr=0.01), mk.bpd))
         tr = self.window(mk, "entreno")

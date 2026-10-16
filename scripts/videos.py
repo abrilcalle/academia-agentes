@@ -49,6 +49,8 @@ def main():
                "--sub-langs", "es.*,en.*", "--sub-format", "vtt", "--match-filter", "duration > 240 & duration < 3600",
                "--print-to-file", "%(id)s\t%(title)s\t%(channel)s\t%(duration)s\t%(view_count)s", os.path.join(tmp, "meta.tsv"),
                "-o", os.path.join(tmp, "%(id)s.%(ext)s"), "--ignore-errors", "--no-warnings", "--sleep-requests", "1"]
+        if os.path.exists("/tmp/cookies.txt"):
+            cmd += ["--cookies", "/tmp/cookies.txt"]
         p = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
         if p.returncode not in (0, 1):
             errores.append(f"{q}: {p.stderr[-300:]}")

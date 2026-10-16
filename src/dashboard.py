@@ -97,7 +97,7 @@ def card(ag, cfg, gold=False, compact=False):
     exam = ag.get("exam", {})
     return f"""<article class="card{' gold' if gold else ''}">
   <div class="top"><span class="name">{e(ag['name'])} {pill(ag['status'])}</span><span class="eq {'up' if ret >= 0 else 'down'}">{eur(final)}</span></div>
-  <p class="desc"><strong>{e(ag['label'])}</strong> · {e(ag.get('tf_label', ''))} · {e(ag.get('personalidad', ''))}{'' if compact else '<br>' + e(ag.get('desc', ''))}</p>
+  <p class="desc"><strong>{e(ag['label'])}</strong> · {e(ag.get('tf_label', ''))} · {e(ag.get('personalidad', ''))}{'' if compact else '<br>' + e(ag.get('desc', ''))}{'' if compact or not ag.get('ideas_internet') else '<br><span class=muted>Estudió de internet: ' + e(', '.join(ag['ideas_internet'])) + '</span>'}</p>
   {'' if compact else spark(p.get('eq', []), cap, ret >= 0)}
   <div class="bar" aria-label="Día {days} de {total}"><i style="width:{min(100, days / total * 100):.0f}%"></i></div>
   <div class="meta"><span>día {days} de {total}</span><span>{pct(ret)}</span><span>caída máx {p.get('maxdd', 0) * 100:.0f} %</span><span>{p.get('trades', 0)} operaciones</span>{f'<span>{pos_txt}</span>' if pos_txt else ''}<span>examen {pct(exam.get('ret', 0))}</span></div>
