@@ -24,7 +24,7 @@
     "dias": 90,
     "caida_maxima_pct": 25,
     "ganancia_minima_pct": 5,
-    "max_agentes_a_la_vez": 30
+    "max_agentes_a_la_vez": 100
   },
   "fabrica": {
     "primera_promocion": 100,
