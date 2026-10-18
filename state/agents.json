@@ -7,7 +7,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -126,7 +126,16 @@
     "wins": 12
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +14,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "b9f6ac2dd2",
@@ -135,7 +144,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -258,7 +267,16 @@
     "wins": 4
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +35,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "2fb362a7a2",
@@ -267,7 +285,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "tsmom",
@@ -380,7 +398,16 @@
     "wins": 14
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +12,2 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "c7d5b0afea",
@@ -517,18 +544,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -549,7 +577,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -671,7 +699,16 @@
     "wins": 8
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +39,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "cfda95399e",
@@ -812,7 +849,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -936,7 +973,16 @@
     "wins": 18
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +14,7 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "d68cfd2b08",
@@ -1235,8 +1281,8 @@
    "paper_start": "2026-10-15",
    "paper": {
     "days": 3,
-    "final": 99.17,
-    "ret": -0.0083,
+    "final": 99.12,
+    "ret": -0.0088,
     "fees": 0.3,
     "maxdd": 0.0234,
     "dead": false,
@@ -1246,7 +1292,7 @@
     "eq": [
      100.22,
      99.23,
-     99.17
+     99.12
     ],
     "last_trades": [
      {
@@ -1421,7 +1467,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -1541,7 +1587,16 @@
     "wins": 4
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +29,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "d4fa088b59",
@@ -1667,18 +1722,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -1831,7 +1887,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -1952,7 +2008,16 @@
     "wins": 3
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +37,5 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "933287ab47",
@@ -2218,18 +2283,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -2250,7 +2316,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -2369,7 +2435,16 @@
     "wins": 3
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +23,6 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "aa133a1e7a",
@@ -2378,7 +2453,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "tsmom",
@@ -2501,7 +2576,16 @@
     "wins": 14
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +18,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "00b00b7fa8",
@@ -2510,7 +2594,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -2634,7 +2718,16 @@
     "wins": 7
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +36,6 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "fa4b939847",
@@ -2771,18 +2864,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -2925,18 +3019,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -3210,7 +3305,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -3334,7 +3429,16 @@
     "wins": 8
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +34,1 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "93d09bfa75",
@@ -3343,7 +3447,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -3465,7 +3569,16 @@
     "wins": 10
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +35,8 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "6854c8902f",
@@ -3474,7 +3587,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "tsmom",
@@ -3593,7 +3706,16 @@
     "wins": 16
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +17,1 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "e58a97391c",
@@ -3730,8 +3852,8 @@
    "paper_start": "2026-10-15",
    "paper": {
     "days": 3,
-    "final": 99.17,
-    "ret": -0.0083,
+    "final": 99.12,
+    "ret": -0.0088,
     "fees": 0.3,
     "maxdd": 0.0234,
     "dead": false,
@@ -3741,7 +3863,7 @@
     "eq": [
      100.22,
      99.23,
-     99.17
+     99.12
     ],
     "last_trades": [
      {
@@ -3762,7 +3884,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -3887,7 +4009,16 @@
     "wins": 20
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +31,1 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "f9a8ae386b",
@@ -4030,7 +4161,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -4156,7 +4287,16 @@
     "wins": 4
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +24,7 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "24ebf4c054",
@@ -4165,7 +4305,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -4284,7 +4424,16 @@
     "wins": 14
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +22,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "f687e2df24",
@@ -4943,7 +5092,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -5062,7 +5211,16 @@
     "wins": 9
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +22,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "c30d5b42ab",
@@ -5195,7 +5353,7 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
+    "days": 3,
     "final": 100.0,
     "ret": 0.0,
     "fees": 0.0,
@@ -5205,6 +5363,7 @@
     "closed": 0,
     "wins": 0,
     "eq": [
+     100.0,
      100.0,
      100.0
     ],
@@ -5466,18 +5625,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -5498,7 +5658,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "tsmom",
@@ -5616,7 +5776,16 @@
     "wins": 14
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +10,1 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "08e452533b",
@@ -5625,7 +5794,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -5744,7 +5913,16 @@
     "wins": 16
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +26,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "78855d343e",
@@ -5753,7 +5931,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -5876,7 +6054,16 @@
     "wins": 9
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +20,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "cb1da6b5bf",
@@ -6141,7 +6328,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "tsmom",
@@ -6268,7 +6455,16 @@
     "wins": 9
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +12,2 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "3793ff9a7e",
@@ -6529,18 +6725,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -6686,8 +6883,8 @@
    "paper_start": "2026-10-15",
    "paper": {
     "days": 3,
-    "final": 99.17,
-    "ret": -0.0083,
+    "final": 99.12,
+    "ret": -0.0088,
     "fees": 0.3,
     "maxdd": 0.0234,
     "dead": false,
@@ -6697,7 +6894,7 @@
     "eq": [
      100.22,
      99.23,
-     99.17
+     99.12
     ],
     "last_trades": [
      {
@@ -6851,7 +7048,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -6973,7 +7170,16 @@
     "wins": 10
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +27,5 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "a157977cfb",
@@ -7111,7 +7317,7 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
+    "days": 3,
     "final": 100.0,
     "ret": 0.0,
     "fees": 0.0,
@@ -7121,6 +7327,7 @@
     "closed": 0,
     "wins": 0,
     "eq": [
+     100.0,
      100.0,
      100.0
     ],
@@ -7135,7 +7342,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -7260,7 +7467,16 @@
     "wins": 9
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +33,8 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "4fe4398b9d",
@@ -7391,18 +7607,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -7706,18 +7923,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -7870,7 +8088,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -7994,7 +8212,16 @@
     "wins": 11
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +27,2 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "6b3deab68d",
@@ -8003,7 +8230,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -8129,7 +8356,16 @@
     "wins": 3
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +36,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "f5c86dff42",
@@ -8426,7 +8662,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -8545,7 +8781,16 @@
     "wins": 14
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +13,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "a9e9cc007a",
@@ -8812,18 +9057,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -8970,18 +9216,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -9125,7 +9372,7 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
+    "days": 3,
     "final": 100.0,
     "ret": 0.0,
     "fees": 0.0,
@@ -9135,6 +9382,7 @@
     "closed": 0,
     "wins": 0,
     "eq": [
+     100.0,
      100.0,
      100.0
     ],
@@ -9149,7 +9397,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -9275,7 +9523,16 @@
     "wins": 12
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +21,8 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "5477ee5c02",
@@ -9839,18 +10096,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -10123,7 +10381,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "tsmom",
@@ -10244,7 +10502,16 @@
     "wins": 12
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +28,1 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "692b8defd3",
@@ -10538,7 +10805,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -10663,7 +10930,16 @@
     "wins": 19
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +13,6 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "bf7cafd45d",
@@ -10933,18 +11209,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -10965,7 +11242,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -11084,7 +11361,16 @@
     "wins": 16
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +26,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "7b29030d2c",
@@ -11093,7 +11379,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "atrevido",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -11217,7 +11503,16 @@
     "wins": 21
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +39,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "8964c7fb37",
@@ -11483,7 +11778,7 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
+    "days": 3,
     "final": 100.0,
     "ret": 0.0,
     "fees": 0.0,
@@ -11493,6 +11788,7 @@
     "closed": 0,
     "wins": 0,
     "eq": [
+     100.0,
      100.0,
      100.0
     ],
@@ -11886,7 +12182,7 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
+    "days": 3,
     "final": 100.0,
     "ret": 0.0,
     "fees": 0.0,
@@ -11896,6 +12192,7 @@
     "closed": 0,
     "wins": 0,
     "eq": [
+     100.0,
      100.0,
      100.0
     ],
@@ -12300,7 +12597,7 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
+    "days": 3,
     "final": 100.0,
     "ret": 0.0,
     "fees": 0.0,
@@ -12310,6 +12607,7 @@
     "closed": 0,
     "wins": 0,
     "eq": [
+     100.0,
      100.0,
      100.0
     ],
@@ -12324,7 +12622,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -12449,7 +12747,16 @@
     "wins": 10
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +21,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "3c148e17a8",
@@ -12458,7 +12765,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "donchian",
@@ -12578,7 +12885,16 @@
     "wins": 9
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +40,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "0fb4a2327e",
@@ -12721,7 +13037,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -12845,7 +13161,16 @@
     "wins": 15
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +32,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "b854fc65f7",
@@ -12987,7 +13312,7 @@
    "tf": "1h",
    "tf_label": "velas de 1 hora",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -13112,7 +13437,16 @@
     "wins": 16
    },
    "examinado": "2026-10-15",
-   "motivo": "Aprobó el examen con +10,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "0ed93e4315",
@@ -13771,18 +14105,19 @@
    "motivo": "Empieza el simulado con precios reales.",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 2,
-    "final": 98.73,
-    "ret": -0.0127,
+    "days": 3,
+    "final": 98.62,
+    "ret": -0.0138,
     "fees": 0.3,
-    "maxdd": 0.0127,
+    "maxdd": 0.0138,
     "dead": false,
     "trades": 1,
     "closed": 0,
     "wins": 0,
     "eq": [
      100.0,
-     98.73
+     98.73,
+     98.62
     ],
     "last_trades": [
      {
@@ -13803,7 +14138,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 117,
     "familia": "donchian",
@@ -13924,7 +14259,16 @@
     "wins": 8
    },
    "examinado": "2026-10-16",
-   "motivo": "Aprobó el examen con +50,4 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "4050e415a0",
@@ -13933,7 +14277,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 117,
     "familia": "donchian",
@@ -14054,7 +14398,16 @@
     "wins": 8
    },
    "examinado": "2026-10-16",
-   "motivo": "Aprobó el examen con +45,3 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "e7b4772034",
@@ -14063,7 +14416,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 117,
     "familia": "donchian",
@@ -14179,7 +14532,16 @@
     "wins": 7
    },
    "examinado": "2026-10-16",
-   "motivo": "Aprobó el examen con +46,6 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "af99e070c3",
@@ -14723,7 +15085,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "estudio": {
     "probadas": 111,
     "familia": "sma",
@@ -14848,7 +15210,16 @@
     "wins": 14
    },
    "examinado": "2026-10-16",
-   "motivo": "Aprobó el examen con +19,9 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "61b31c89b5",
@@ -15115,7 +15486,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "ideas_internet": [
     "Hombro-cabeza-hombro invertido",
     "RSI(2) de Larry Connors"
@@ -15246,7 +15617,16 @@
     "wins": 5
    },
    "examinado": "2026-10-17",
-   "motivo": "Aprobó el examen con +41,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "5f51ae0bb8",
@@ -15255,7 +15635,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "ideas_internet": [
     "Ruptura de triángulo ascendente",
     "Comprar la caída en tendencia alcista"
@@ -15381,7 +15761,16 @@
     "wins": 5
    },
    "examinado": "2026-10-17",
-   "motivo": "Aprobó el examen con +57,9 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "cbfbef5337",
@@ -16086,7 +16475,7 @@
    "tf": "4h",
    "tf_label": "velas de 4 horas",
    "personalidad": "prudente",
-   "status": "cola",
+   "status": "simulado",
    "ideas_internet": [
     "Salida Chandelier (tendencia)",
     "Compra en capitulación con volumen"
@@ -16214,7 +16603,16 @@
     "wins": 14
    },
    "examinado": "2026-10-17",
-   "motivo": "Aprobó el examen con +15,0 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
   },
   {
    "id": "4c0470f565",
@@ -16361,7 +16759,7 @@
    "tf": "1d",
    "tf_label": "velas diarias",
    "personalidad": "equilibrado",
-   "status": "cola",
+   "status": "simulado",
    "ideas_internet": [
     "MACD con RSI",
     "Tortugas: ruptura de 55 días"
@@ -16485,7 +16883,1487 @@
     "wins": 4
    },
    "examinado": "2026-10-17",
-   "motivo": "Aprobó el examen con +80,1 %."
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "445e3636da",
+   "name": "Gemma 2",
+   "born": "2026-10-18",
+   "tf": "4h",
+   "tf_label": "velas de 4 horas",
+   "personalidad": "prudente",
+   "status": "suspendido",
+   "ideas_internet": [
+    "Swing cripto de 4 h: retroceso a la EMA 50 con RSI",
+    "Squeeze de Bollinger"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 100 velas; stop dinámico a 2,5 ATR; ajusta la posición a la volatilidad (objetivo 50 % anual)",
+    "entreno": {
+     "final": 533.89,
+     "ret": 4.3389,
+     "fees": 98.48,
+     "maxdd": 0.2355,
+     "dead": false,
+     "trades": 168,
+     "closed": 69,
+     "wins": 24
+    },
+    "validacion": {
+     "final": 150.7,
+     "ret": 0.507,
+     "fees": 24.71,
+     "maxdd": 0.1566,
+     "dead": false,
+     "trades": 57,
+     "closed": 38,
+     "wins": 15
+    }
+   },
+   "invento": {
+    "desc": "Entra si la media de 10 velas está por encima de la de 100 velas y la volatilidad de 30 días está por debajo del 90 %. Sale si pierde el mínimo de 50 velas o salta un stop dinámico a 2.5 ATR o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio).",
+    "entreno": {
+     "final": 768.76,
+     "ret": 6.6876,
+     "fees": 93.25,
+     "maxdd": 0.2197,
+     "dead": false,
+     "trades": 50,
+     "closed": 50,
+     "wins": 21
+    },
+    "validacion": {
+     "final": 147.43,
+     "ret": 0.4743,
+     "fees": 24.15,
+     "maxdd": 0.1883,
+     "dead": false,
+     "trades": 37,
+     "closed": 37,
+     "wins": 16
+    },
+    "generaciones": [
+     4.3723,
+     4.3723,
+     4.3723,
+     4.3723,
+     4.3723,
+     5.0903,
+     5.0903,
+     5.0341,
+     7.8225,
+     7.8225,
+     7.8225,
+     7.8225,
+     7.8225,
+     7.8225,
+     6.6876
+    ]
+   },
+   "eleccion": "conocida",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "sma",
+    "filter": "ninguno",
+    "stop": 2.5,
+    "sizing": "riesgo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 100
+   },
+   "regla": {
+    "entry": [
+     [
+      "cruce_alcista",
+      10,
+      100
+     ],
+     [
+      "vol_baja",
+      180,
+      0.9
+     ]
+    ],
+    "exit": [
+     [
+      "pierde_minimo",
+      50
+     ]
+    ],
+    "stop": 2.5,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0.1,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false
+   },
+   "firma": "c0df62a4f07f",
+   "label": "Cruce de medias móviles",
+   "desc": "media 10 / 100 velas; stop dinámico a 2,5 ATR; ajusta la posición a la volatilidad (objetivo 50 % anual)",
+   "exam": {
+    "final": 122.26,
+    "ret": 0.2226,
+    "fees": 32.84,
+    "maxdd": 0.2597,
+    "dead": false,
+    "trades": 62,
+    "closed": 42,
+    "wins": 14
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Opera exactamente igual que Iker, no aporta nada nuevo."
+  },
+  {
+   "id": "4694d5bddf",
+   "name": "Iker 2",
+   "born": "2026-10-18",
+   "tf": "1h",
+   "tf_label": "velas de 1 hora",
+   "personalidad": "equilibrado",
+   "status": "simulado",
+   "ideas_internet": [
+    "Plantilla de tendencia de Minervini (VCP)",
+    "Regla 2 de Granville (caída bajo una media que sube)"
+   ],
+   "estudio": {
+    "probadas": 111,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 200 velas",
+    "entreno": {
+     "final": 397.37,
+     "ret": 2.9737,
+     "fees": 243.95,
+     "maxdd": 0.4642,
+     "dead": false,
+     "trades": 184,
+     "closed": 184,
+     "wins": 43
+    },
+    "validacion": {
+     "final": 51.22,
+     "ret": -0.4878,
+     "fees": 38.1,
+     "maxdd": 0.6283,
+     "dead": false,
+     "trades": 113,
+     "closed": 113,
+     "wins": 19
+    }
+   },
+   "invento": {
+    "desc": "Entra si completa un triple suelo en las últimas 5 días y rompe el máximo de 200 velas con 1,5 veces el volumen normal y rompe el máximo de 50 velas. Sale si la media de 10 velas está por debajo de la de 200 velas o la media de 5 velas está por debajo de la de 200 velas. Gestión: empieza con media posición y la completa si gana un 2 %; si en 1 día no avanza, acerca el stop a un 1,5 %. Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 648.35,
+     "ret": 5.4835,
+     "fees": 38.06,
+     "maxdd": 0.1603,
+     "dead": false,
+     "trades": 80,
+     "closed": 44,
+     "wins": 19
+    },
+    "validacion": {
+     "final": 133.61,
+     "ret": 0.3361,
+     "fees": 9.98,
+     "maxdd": 0.2648,
+     "dead": false,
+     "trades": 41,
+     "closed": 26,
+     "wins": 5
+    },
+    "generaciones": [
+     3.3253,
+     3.3253,
+     3.7235,
+     3.7235,
+     4.6876,
+     5.053,
+     5.053,
+     5.2035,
+     5.2035,
+     5.2035,
+     5.2035,
+     5.4835,
+     5.4835,
+     5.4835,
+     5.4835
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "sma",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 200
+   },
+   "regla": {
+    "entry": [
+     [
+      "triple_suelo",
+      120,
+      0.05
+     ],
+     [
+      "ruptura_volumen",
+      200,
+      1.5
+     ],
+     [
+      "rompe_maximo",
+      50
+     ]
+    ],
+    "exit": [
+     [
+      "cruce_bajista",
+      10,
+      200
+     ],
+     [
+      "cruce_bajista",
+      5,
+      200
+     ]
+    ],
+    "stop": 0,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "riesgo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 1,
+    "pyr": 0.02,
+    "shrink": true
+   },
+   "firma": "ffc0b4c5ba74",
+   "label": "Estrategia propia",
+   "desc": "Entra si completa un triple suelo en las últimas 5 días y rompe el máximo de 200 velas con 1,5 veces el volumen normal y rompe el máximo de 50 velas. Sale si la media de 10 velas está por debajo de la de 200 velas o la media de 5 velas está por debajo de la de 200 velas. Gestión: empieza con media posición y la completa si gana un 2 %; si en 1 día no avanza, acerca el stop a un 1,5 %. Ajusta la posición a la volatilidad.",
+   "exam": {
+    "final": 110.29,
+    "ret": 0.1029,
+    "fees": 15.58,
+    "maxdd": 0.1577,
+    "dead": false,
+    "trades": 51,
+    "closed": 30,
+    "wins": 8
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "5e29d1d0bf",
+   "name": "Lucas 3",
+   "born": "2026-10-18",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "personalidad": "equilibrado",
+   "status": "simulado",
+   "ideas_internet": [
+    "Double 7 de Connors",
+    "MACD bajo cero sobre la EMA 200 (Trading Rush)"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "donchian",
+    "label": "Rupturas de Donchian",
+    "desc": "entra al romper 20 días, sale al perder 10",
+    "entreno": {
+     "final": 900.35,
+     "ret": 8.0035,
+     "fees": 34.13,
+     "maxdd": 0.3751,
+     "dead": false,
+     "trades": 16,
+     "closed": 16,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 83.78,
+     "ret": -0.1622,
+     "fees": 5.52,
+     "maxdd": 0.3358,
+     "dead": false,
+     "trades": 12,
+     "closed": 11,
+     "wins": 1
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 20 días y la volatilidad de 10 días está por debajo del 70 % y el MACD gira al alza. Sale si pierde el mínimo de 10 días o pierde el mínimo de 200 días o salta un stop dinámico a 4 ATR. Gestión: al ganar un 3 % sube el stop al precio de entrada; si en 1 día no avanza, acerca el stop a un 1,5 %.",
+    "entreno": {
+     "final": 1508.68,
+     "ret": 14.0868,
+     "fees": 36.1,
+     "maxdd": 0.2565,
+     "dead": false,
+     "trades": 15,
+     "closed": 15,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 102.28,
+     "ret": 0.0228,
+     "fees": 6.7,
+     "maxdd": 0.2722,
+     "dead": false,
+     "trades": 13,
+     "closed": 12,
+     "wins": 2
+    },
+    "generaciones": [
+     8.0035,
+     8.0035,
+     7.5047,
+     11.0377,
+     11.0377,
+     11.6985,
+     11.6985,
+     11.6985,
+     13.5619,
+     13.5619,
+     13.5619,
+     13.5619,
+     13.5619,
+     14.0868,
+     14.0868
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "donchian",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "entry": 20,
+    "exit": 10
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_maximo",
+      20
+     ],
+     [
+      "vol_baja",
+      10,
+      0.7
+     ],
+     [
+      "macd_pos"
+     ]
+    ],
+    "exit": [
+     [
+      "pierde_minimo",
+      10
+     ],
+     [
+      "pierde_minimo",
+      200
+     ]
+    ],
+    "stop": 4,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0.03,
+    "stall": 1,
+    "pyr": 0,
+    "shrink": true
+   },
+   "firma": "1cd7254fb264",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 20 días y la volatilidad de 10 días está por debajo del 70 % y el MACD gira al alza. Sale si pierde el mínimo de 10 días o pierde el mínimo de 200 días o salta un stop dinámico a 4 ATR. Gestión: al ganar un 3 % sube el stop al precio de entrada; si en 1 día no avanza, acerca el stop a un 1,5 %.",
+   "exam": {
+    "final": 179.97,
+    "ret": 0.7997,
+    "fees": 8.84,
+    "maxdd": 0.1729,
+    "dead": false,
+    "trades": 10,
+    "closed": 10,
+    "wins": 4
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "f8d3c15424",
+   "name": "Pablo 3",
+   "born": "2026-10-18",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "personalidad": "equilibrado",
+   "status": "simulado",
+   "ideas_internet": [
+    "Ruptura de la banda superior de Bollinger",
+    "Método de 3 días de máximos y mínimos (Connors)"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "donchian",
+    "label": "Rupturas de Donchian",
+    "desc": "entra al romper 20 días, sale al perder 10",
+    "entreno": {
+     "final": 900.35,
+     "ret": 8.0035,
+     "fees": 34.13,
+     "maxdd": 0.3751,
+     "dead": false,
+     "trades": 16,
+     "closed": 16,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 83.78,
+     "ret": -0.1622,
+     "fees": 5.52,
+     "maxdd": 0.3358,
+     "dead": false,
+     "trades": 12,
+     "closed": 11,
+     "wins": 1
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 20 días y sube más de un 2 % en 10 días. Sale si pierde el mínimo de 10 días o completa un doble techo (M) en las últimas 60 días o salta un stop dinámico a 3 ATR. Gestión: si en 1 día no avanza, acerca el stop a un 1,5 %.",
+    "entreno": {
+     "final": 1365.28,
+     "ret": 12.6528,
+     "fees": 42.85,
+     "maxdd": 0.2953,
+     "dead": false,
+     "trades": 17,
+     "closed": 17,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 89.62,
+     "ret": -0.1038,
+     "fees": 7.04,
+     "maxdd": 0.3351,
+     "dead": false,
+     "trades": 15,
+     "closed": 14,
+     "wins": 1
+    },
+    "generaciones": [
+     8.0035,
+     8.866,
+     8.866,
+     12.7988,
+     10.3038,
+     10.3038,
+     10.3038,
+     13.9861,
+     13.9861,
+     11.686,
+     11.686,
+     12.2379,
+     12.2379,
+     12.2379,
+     12.2379
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "donchian",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "entry": 20,
+    "exit": 10
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_maximo",
+      20
+     ],
+     [
+      "impulso_sube",
+      10,
+      0.02
+     ]
+    ],
+    "exit": [
+     [
+      "pierde_minimo",
+      10
+     ],
+     [
+      "doble_techo",
+      60,
+      0.03
+     ]
+    ],
+    "stop": 3,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 1,
+    "pyr": 0,
+    "shrink": false
+   },
+   "firma": "2ede402a9c34",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 20 días y sube más de un 2 % en 10 días. Sale si pierde el mínimo de 10 días o completa un doble techo (M) en las últimas 60 días o salta un stop dinámico a 3 ATR. Gestión: si en 1 día no avanza, acerca el stop a un 1,5 %.",
+   "exam": {
+    "final": 149.19,
+    "ret": 0.4919,
+    "fees": 9.33,
+    "maxdd": 0.233,
+    "dead": false,
+    "trades": 12,
+    "closed": 12,
+    "wins": 5
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "03d6fb06d0",
+   "name": "Marcos 3",
+   "born": "2026-10-18",
+   "tf": "4h",
+   "tf_label": "velas de 4 horas",
+   "personalidad": "atrevido",
+   "status": "simulado",
+   "ideas_internet": [
+    "Ruptura de volatilidad de Larry Williams",
+    "Rebote en soporte con RSI bajo"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 200 velas; solo opera si la volatilidad reciente está por debajo del 80 % anual",
+    "entreno": {
+     "final": 867.45,
+     "ret": 7.6745,
+     "fees": 111.38,
+     "maxdd": 0.4028,
+     "dead": false,
+     "trades": 66,
+     "closed": 66,
+     "wins": 29
+    },
+    "validacion": {
+     "final": 97.96,
+     "ret": -0.0204,
+     "fees": 12.85,
+     "maxdd": 0.4132,
+     "dead": false,
+     "trades": 27,
+     "closed": 27,
+     "wins": 7
+    }
+   },
+   "invento": {
+    "desc": "Entra si la media de 20 velas está por encima de la de 200 velas y sube más de un 5 % en 20 velas y rebota en un soporte de las últimas 100 velas. Sale si la media de 10 velas está por debajo de la de 200 velas o salta un stop dinámico a 4 ATR o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio).",
+    "entreno": {
+     "final": 1531.79,
+     "ret": 14.3179,
+     "fees": 107.14,
+     "maxdd": 0.2276,
+     "dead": false,
+     "trades": 38,
+     "closed": 38,
+     "wins": 22
+    },
+    "validacion": {
+     "final": 123.47,
+     "ret": 0.2347,
+     "fees": 9.64,
+     "maxdd": 0.2545,
+     "dead": false,
+     "trades": 16,
+     "closed": 16,
+     "wins": 6
+    },
+    "generaciones": [
+     7.5,
+     7.5,
+     5.6207,
+     5.6207,
+     5.6207,
+     8.7864,
+     11.138,
+     11.5066,
+     12.1403,
+     12.1403,
+     12.0579,
+     14.8347,
+     14.8347,
+     14.3179,
+     14.3179
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "sma",
+    "filter": "calma",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 200
+   },
+   "regla": {
+    "entry": [
+     [
+      "cruce_alcista",
+      20,
+      200
+     ],
+     [
+      "impulso_sube",
+      20,
+      0.05
+     ],
+     [
+      "rebote_soporte",
+      100,
+      0.05
+     ]
+    ],
+    "exit": [
+     [
+      "cruce_bajista",
+      10,
+      200
+     ]
+    ],
+    "stop": 4,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0.1,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false
+   },
+   "firma": "f73d0b677e33",
+   "label": "Estrategia propia",
+   "desc": "Entra si la media de 20 velas está por encima de la de 200 velas y sube más de un 5 % en 20 velas y rebota en un soporte de las últimas 100 velas. Sale si la media de 10 velas está por debajo de la de 200 velas o salta un stop dinámico a 4 ATR o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio).",
+   "exam": {
+    "final": 117.1,
+    "ret": 0.171,
+    "fees": 12.49,
+    "maxdd": 0.3562,
+    "dead": false,
+    "trades": 20,
+    "closed": 20,
+    "wins": 10
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "b412f678a2",
+   "name": "Luis 3",
+   "born": "2026-10-18",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "personalidad": "prudente",
+   "status": "simulado",
+   "ideas_internet": [
+    "Spring de Wyckoff",
+    "Holy Grail de Linda Raschke"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "donchian",
+    "label": "Rupturas de Donchian",
+    "desc": "entra al romper 20 días, sale al perder 10",
+    "entreno": {
+     "final": 900.35,
+     "ret": 8.0035,
+     "fees": 34.13,
+     "maxdd": 0.3751,
+     "dead": false,
+     "trades": 16,
+     "closed": 16,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 83.78,
+     "ret": -0.1622,
+     "fees": 5.52,
+     "maxdd": 0.3358,
+     "dead": false,
+     "trades": 12,
+     "closed": 11,
+     "wins": 1
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 10 días y rompe el máximo de 20 días con 1,5 veces el volumen normal y el precio está sobre su media de 20 días. Sale si está más bajo que hace 10 días o el MACD gira a la baja o salta un stop dinámico a 2 ATR.",
+    "entreno": {
+     "final": 781.95,
+     "ret": 6.8195,
+     "fees": 27.62,
+     "maxdd": 0.1897,
+     "dead": false,
+     "trades": 19,
+     "closed": 19,
+     "wins": 13
+    },
+    "validacion": {
+     "final": 74.61,
+     "ret": -0.2539,
+     "fees": 6.66,
+     "maxdd": 0.3141,
+     "dead": false,
+     "trades": 14,
+     "closed": 14,
+     "wins": 3
+    },
+    "generaciones": [
+     2.0238,
+     3.0361,
+     6.3989,
+     6.3989,
+     6.4859,
+     4.8461,
+     6.4405,
+     6.4405,
+     6.4405,
+     6.4405,
+     6.4405,
+     6.7285,
+     6.7325,
+     6.7325,
+     6.8195
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": true,
+   "genome": {
+    "family": "donchian",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "entry": 20,
+    "exit": 10
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_maximo",
+      10
+     ],
+     [
+      "ruptura_volumen",
+      20,
+      1.5
+     ],
+     [
+      "sobre_media",
+      20
+     ]
+    ],
+    "exit": [
+     [
+      "impulso_baja",
+      10,
+      0.0
+     ],
+     [
+      "macd_neg"
+     ]
+    ],
+    "stop": 2,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": true
+   },
+   "firma": "d7ff40f980a1",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 10 días y rompe el máximo de 20 días con 1,5 veces el volumen normal y el precio está sobre su media de 20 días. Sale si está más bajo que hace 10 días o el MACD gira a la baja o salta un stop dinámico a 2 ATR.",
+   "exam": {
+    "final": 131.29,
+    "ret": 0.3129,
+    "fees": 9.98,
+    "maxdd": 0.1753,
+    "dead": false,
+    "trades": 14,
+    "closed": 14,
+    "wins": 6
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "c55f29f013",
+   "name": "Sara 3",
+   "born": "2026-10-18",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "personalidad": "atrevido",
+   "status": "simulado",
+   "ideas_internet": [
+    "Triple pantalla de Elder",
+    "Rango alcista del RSI (Cardwell)"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "donchian",
+    "label": "Rupturas de Donchian",
+    "desc": "entra al romper 20 días, sale al perder 10",
+    "entreno": {
+     "final": 900.35,
+     "ret": 8.0035,
+     "fees": 34.13,
+     "maxdd": 0.3751,
+     "dead": false,
+     "trades": 16,
+     "closed": 16,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 83.78,
+     "ret": -0.1622,
+     "fees": 5.52,
+     "maxdd": 0.3358,
+     "dead": false,
+     "trades": 12,
+     "closed": 11,
+     "wins": 1
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 20 días. Sale si el precio está bajo su media de 50 días o salta un stop dinámico a 3 ATR. Gestión: al ganar un 2 % sube el stop al precio de entrada.",
+    "entreno": {
+     "final": 1538.65,
+     "ret": 14.3865,
+     "fees": 31.78,
+     "maxdd": 0.3173,
+     "dead": false,
+     "trades": 17,
+     "closed": 17,
+     "wins": 7
+    },
+    "validacion": {
+     "final": 103.11,
+     "ret": 0.0311,
+     "fees": 6.43,
+     "maxdd": 0.3629,
+     "dead": false,
+     "trades": 14,
+     "closed": 13,
+     "wins": 2
+    },
+    "generaciones": [
+     8.0035,
+     8.0035,
+     9.7196,
+     9.7196,
+     9.7196,
+     9.7196,
+     9.7196,
+     9.7196,
+     11.0266,
+     12.3211,
+     12.3211,
+     13.8887,
+     13.8887,
+     13.8887,
+     14.3865
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "donchian",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "entry": 20,
+    "exit": 10
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_maximo",
+      20
+     ]
+    ],
+    "exit": [
+     [
+      "bajo_media",
+      50
+     ]
+    ],
+    "stop": 3,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0.02,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false
+   },
+   "firma": "ecfdf1764fd1",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 20 días. Sale si el precio está bajo su media de 50 días o salta un stop dinámico a 3 ATR. Gestión: al ganar un 2 % sube el stop al precio de entrada.",
+   "exam": {
+    "final": 194.22,
+    "ret": 0.9422,
+    "fees": 10.23,
+    "maxdd": 0.1648,
+    "dead": false,
+    "trades": 11,
+    "closed": 11,
+    "wins": 4
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "fa3193ad86",
+   "name": "Elena 3",
+   "born": "2026-10-18",
+   "tf": "1h",
+   "tf_label": "velas de 1 hora",
+   "personalidad": "prudente",
+   "status": "simulado",
+   "ideas_internet": [
+    "Ichimoku: cruce Tenkan/Kijun sobre la nube (aproximado)",
+    "Momento semanal cripto (Liu y Tsyvinski)"
+   ],
+   "estudio": {
+    "probadas": 111,
+    "familia": "tsmom",
+    "label": "Momentum temporal",
+    "desc": "mira las últimas 30 velas; stop dinámico a 4 ATR; ajusta la posición a la volatilidad (objetivo 50 % anual)",
+    "entreno": {
+     "final": 88.44,
+     "ret": -0.1156,
+     "fees": 27.24,
+     "maxdd": 0.2257,
+     "dead": false,
+     "trades": 157,
+     "closed": 48,
+     "wins": 18
+    },
+    "validacion": {
+     "final": 121.58,
+     "ret": 0.2158,
+     "fees": 16.82,
+     "maxdd": 0.1927,
+     "dead": false,
+     "trades": 76,
+     "closed": 26,
+     "wins": 10
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 50 días con 1,5 veces el volumen normal y el precio está sobre su media de 20 velas y rompe el máximo de 50 velas. Sale si completa un hombro-cabeza-hombro en las últimas 5 días o completa un hombro-cabeza-hombro en las últimas 5 días o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio) o pasan 30 días. Gestión: empieza con media posición y la completa si gana un 2 %; al ganar un 2 % sube el stop al precio de entrada; si en 1 día no avanza, acerca el stop a un 1,5 %.",
+    "entreno": {
+     "final": 423.75,
+     "ret": 3.2375,
+     "fees": 39.84,
+     "maxdd": 0.1963,
+     "dead": false,
+     "trades": 52,
+     "closed": 30,
+     "wins": 11
+    },
+    "validacion": {
+     "final": 130.42,
+     "ret": 0.3042,
+     "fees": 6.03,
+     "maxdd": 0.1473,
+     "dead": false,
+     "trades": 19,
+     "closed": 11,
+     "wins": 3
+    },
+    "generaciones": [
+     0.2661,
+     0.2796,
+     0.2777,
+     0.3452,
+     0.353,
+     0.4272,
+     0.4272,
+     0.6206,
+     0.6983,
+     0.6983,
+     1.0672,
+     1.0672,
+     1.3131,
+     2.5777,
+     2.5777
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "tsmom",
+    "filter": "ninguno",
+    "stop": 4,
+    "sizing": "riesgo"
+   },
+   "params": {
+    "look": 30
+   },
+   "regla": {
+    "entry": [
+     [
+      "ruptura_volumen",
+      1200,
+      1.5
+     ],
+     [
+      "sobre_media",
+      20
+     ],
+     [
+      "rompe_maximo",
+      50
+     ]
+    ],
+    "exit": [
+     [
+      "hch",
+      120,
+      0.02
+     ],
+     [
+      "hch",
+      120,
+      0.05
+     ]
+    ],
+    "stop": 0,
+    "tp": 0,
+    "hold": 30,
+    "sizing": "completo",
+    "trail": 0.1,
+    "frac": 1.0,
+    "be": 0.02,
+    "stall": 1,
+    "pyr": 0.02,
+    "shrink": false
+   },
+   "firma": "3d7d8073f4d8",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 50 días con 1,5 veces el volumen normal y el precio está sobre su media de 20 velas y rompe el máximo de 50 velas. Sale si completa un hombro-cabeza-hombro en las últimas 5 días o completa un hombro-cabeza-hombro en las últimas 5 días o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio) o pasan 30 días. Gestión: empieza con media posición y la completa si gana un 2 %; al ganar un 2 % sube el stop al precio de entrada; si en 1 día no avanza, acerca el stop a un 1,5 %.",
+   "exam": {
+    "final": 123.61,
+    "ret": 0.2361,
+    "fees": 9.9,
+    "maxdd": 0.2245,
+    "dead": false,
+    "trades": 29,
+    "closed": 17,
+    "wins": 3
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "b5db2e4cf6",
+   "name": "Irene 3",
+   "born": "2026-10-18",
+   "tf": "4h",
+   "tf_label": "velas de 4 horas",
+   "personalidad": "atrevido",
+   "status": "simulado",
+   "ideas_internet": [
+    "RSI clásico 30/70 (Wilder)",
+    "Múltiplo de Mayer (BTC frente a su media de 200)"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 200 velas; solo opera si la volatilidad reciente está por debajo del 80 % anual",
+    "entreno": {
+     "final": 867.45,
+     "ret": 7.6745,
+     "fees": 111.38,
+     "maxdd": 0.4028,
+     "dead": false,
+     "trades": 66,
+     "closed": 66,
+     "wins": 29
+    },
+    "validacion": {
+     "final": 97.96,
+     "ret": -0.0204,
+     "fees": 12.85,
+     "maxdd": 0.4132,
+     "dead": false,
+     "trades": 27,
+     "closed": 27,
+     "wins": 7
+    }
+   },
+   "invento": {
+    "desc": "Entra si la media de 20 velas está por encima de la de 200 velas y sube más de un 5 % en 7 días y rompe el máximo de 10 velas. Sale si la media de 10 velas está por debajo de la de 200 velas. Gestión: al ganar un 3 % sube el stop al precio de entrada.",
+    "entreno": {
+     "final": 1790.82,
+     "ret": 16.9082,
+     "fees": 61.73,
+     "maxdd": 0.2853,
+     "dead": false,
+     "trades": 23,
+     "closed": 23,
+     "wins": 11
+    },
+    "validacion": {
+     "final": 129.87,
+     "ret": 0.2987,
+     "fees": 7.73,
+     "maxdd": 0.2255,
+     "dead": false,
+     "trades": 13,
+     "closed": 13,
+     "wins": 3
+    },
+    "generaciones": [
+     7.5,
+     9.004,
+     9.004,
+     9.4294,
+     7.7885,
+     7.7885,
+     14.0184,
+     14.0184,
+     15.0318,
+     15.0318,
+     15.0318,
+     15.0318,
+     15.5468,
+     15.5468,
+     16.9082
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "sma",
+    "filter": "calma",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 200
+   },
+   "regla": {
+    "entry": [
+     [
+      "cruce_alcista",
+      20,
+      200
+     ],
+     [
+      "impulso_sube",
+      42,
+      0.05
+     ],
+     [
+      "rompe_maximo",
+      10
+     ]
+    ],
+    "exit": [
+     [
+      "cruce_bajista",
+      10,
+      200
+     ]
+    ],
+    "stop": 0,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0.03,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false
+   },
+   "firma": "81b40ce004ff",
+   "label": "Estrategia propia",
+   "desc": "Entra si la media de 20 velas está por encima de la de 200 velas y sube más de un 5 % en 7 días y rompe el máximo de 10 velas. Sale si la media de 10 velas está por debajo de la de 200 velas. Gestión: al ganar un 3 % sube el stop al precio de entrada.",
+   "exam": {
+    "final": 127.82,
+    "ret": 0.2782,
+    "fees": 14.37,
+    "maxdd": 0.2615,
+    "dead": false,
+    "trades": 18,
+    "closed": 18,
+    "wins": 2
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Empieza el simulado con precios reales.",
+   "paper_start": "2026-10-18",
+   "paper": {
+    "days": 0,
+    "final": 100,
+    "ret": 0.0,
+    "maxdd": 0.0,
+    "trades": 0,
+    "eq": []
+   }
+  },
+  {
+   "id": "f9ba5415ee",
+   "name": "Diego 3",
+   "born": "2026-10-18",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "personalidad": "equilibrado",
+   "status": "suspendido",
+   "ideas_internet": [
+    "Retroceso a la EMA de 20 en tendencia",
+    "Medias múltiples de Guppy (GMMA)"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "donchian",
+    "label": "Rupturas de Donchian",
+    "desc": "entra al romper 20 días, sale al perder 10",
+    "entreno": {
+     "final": 900.35,
+     "ret": 8.0035,
+     "fees": 34.13,
+     "maxdd": 0.3751,
+     "dead": false,
+     "trades": 16,
+     "closed": 16,
+     "wins": 8
+    },
+    "validacion": {
+     "final": 83.78,
+     "ret": -0.1622,
+     "fees": 5.52,
+     "maxdd": 0.3358,
+     "dead": false,
+     "trades": 12,
+     "closed": 11,
+     "wins": 1
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 20 días. Sale si el precio está bajo su media de 50 días o pierde un soporte de las últimas 60 días o salta un stop dinámico a 3 ATR. Gestión: al ganar un 2 % sube el stop al precio de entrada.",
+    "entreno": {
+     "final": 1578.99,
+     "ret": 14.7899,
+     "fees": 32.12,
+     "maxdd": 0.3173,
+     "dead": false,
+     "trades": 17,
+     "closed": 17,
+     "wins": 7
+    },
+    "validacion": {
+     "final": 103.11,
+     "ret": 0.0311,
+     "fees": 6.43,
+     "maxdd": 0.3629,
+     "dead": false,
+     "trades": 14,
+     "closed": 13,
+     "wins": 2
+    },
+    "generaciones": [
+     8.0035,
+     8.0035,
+     8.0035,
+     8.0035,
+     10.3038,
+     10.3038,
+     10.3038,
+     10.3038,
+     10.3038,
+     10.3038,
+     12.2266,
+     12.2266,
+     12.2266,
+     12.2266,
+     12.2266
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "genome": {
+    "family": "donchian",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "entry": 20,
+    "exit": 10
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_maximo",
+      20
+     ]
+    ],
+    "exit": [
+     [
+      "bajo_media",
+      50
+     ],
+     [
+      "pierde_soporte",
+      60,
+      0.01
+     ]
+    ],
+    "stop": 3,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0.02,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false
+   },
+   "firma": "ecfdf1764fd1",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 20 días. Sale si el precio está bajo su media de 50 días o pierde un soporte de las últimas 60 días o salta un stop dinámico a 3 ATR. Gestión: al ganar un 2 % sube el stop al precio de entrada.",
+   "exam": {
+    "final": 194.22,
+    "ret": 0.9422,
+    "fees": 10.23,
+    "maxdd": 0.1648,
+    "dead": false,
+    "trades": 11,
+    "closed": 11,
+    "wins": 4
+   },
+   "examinado": "2026-10-18",
+   "motivo": "Opera exactamente igual que Sara 3, no aporta nada nuevo."
   }
  ],
  "creado": "2026-10-15",
@@ -16537,6 +18415,35 @@
     "suspendido": 47
    },
    "novedades": []
+  },
+  {
+   "fecha": "2026-10-18",
+   "estados": {
+    "simulado": 81,
+    "suspendido": 49
+   },
+   "novedades": [
+    "Javi aprueba el examen: Ganó +23,5 % en 2024-25 con su propia estrategia (velas diarias). Empieza 90 días en simulado con 100 € ficticios.",
+    "Iker aprueba el examen: Ganó +22,3 % en 2024-25 con Cruce de medias móviles (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Diana aprueba el examen: Ganó +22,3 % en 2024-25 con su propia estrategia (velas diarias). Empieza 90 días en simulado con 100 € ficticios.",
+    "Elena 2 aprueba el examen: Ganó +21,8 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Tere 2 aprueba el examen: Ganó +21,4 % en 2024-25 con su propia estrategia (velas diarias). Empieza 90 días en simulado con 100 € ficticios.",
+    "Biel aprueba el examen: Ganó +20,0 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Olga 2 aprueba el examen: Ganó +19,9 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Zoe aprueba el examen: Ganó +18,0 % en 2024-25 con Momentum temporal (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Jaime aprueba el examen: Ganó +17,1 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Marcos 3 aprueba el examen: Ganó +17,1 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Darío 2 aprueba el examen: Ganó +15,0 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Irene aprueba el examen: Ganó +14,7 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Lucas aprueba el examen: Ganó +14,4 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Fran 2 aprueba el examen: Ganó +13,6 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Lucas 2 aprueba el examen: Ganó +13,3 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Bruno aprueba el examen: Ganó +12,2 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Marcos aprueba el examen: Ganó +12,2 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Iker 2 aprueba el examen: Ganó +10,3 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios.",
+    "Lola aprueba el examen: Ganó +10,1 % en 2024-25 con su propia estrategia (velas de 4 horas). Empieza 90 días en simulado con 100 € ficticios.",
+    "Zoe 2 aprueba el examen: Ganó +10,0 % en 2024-25 con su propia estrategia (velas de 1 hora). Empieza 90 días en simulado con 100 € ficticios."
+   ]
   }
  ],
  "informes": [
@@ -16545,11 +18452,11 @@
    "vacio": true
   }
  ],
- "actualizado": "2026-10-17",
- "ultimo_dia_con_datos": "2026-10-16",
- "precio_btc_eur": 72545.0,
+ "actualizado": "2026-10-18",
+ "ultimo_dia_con_datos": "2026-10-17",
+ "precio_btc_eur": 72468.0,
  "kronos_cobertura": {
   "1d": 1.0,
-  "4h": 0.776
+  "4h": 0.974
  }
 }
