@@ -52,7 +52,7 @@
     "usar_kronos": true
   },
   "operadores_diarios": {
-    "_nota": "Agentes que operan casi cada día con una estrategia para cada tipo de mercado (alcista, lateral, bajista) y buscan acabar cada semana en positivo tras comisiones.",
+    "_nota": "Agentes con una estrategia para cada tipo de mercado (alcista, lateral, bajista) cuyo objetivo es acabar CADA SEMANA en positivo tras comisiones. No tienen que operar cada día.",
     "parte_de_los_nuevos": 0.7,
     "temporalidades": {
       "1h": 1,
@@ -66,28 +66,29 @@
     },
     "aprobar_validacion": {
       "ganancia_minima_pct": 0,
-      "dias_operando_por_semana": 1.5,
+      "dias_operando_por_semana": 0.5,
       "semanas_en_positivo_pct": 40,
       "peor_semana_pct": 12,
       "caida_maxima_pct": 30,
       "ganancia_media_por_operacion_pct": 0.0
     },
     "aprobar_examen": {
-      "ganancia_minima_pct": 10,
-      "dias_operando_por_semana": 2,
-      "semanas_en_positivo_pct": 50,
+      "ganancia_minima_pct": 0,
+      "dias_operando_por_semana": 0.5,
+      "semanas_en_positivo_pct": 55,
       "peor_semana_pct": 8,
       "caida_maxima_pct": 20,
       "ganancia_media_por_operacion_pct": 0.2
     },
     "examen_2": {
       "ganancia_minima_pct": 0,
-      "dias_operando_por_semana": 2,
-      "semanas_en_positivo_pct": 50,
+      "dias_operando_por_semana": 0.5,
+      "semanas_en_positivo_pct": 55,
       "peor_semana_pct": 8,
       "caida_maxima_pct": 20,
       "ganancia_media_por_operacion_pct": 0.2
-    }
+    },
+    "objetivo_semanal_pct": 1
   },
   "cartera": {
     "pausados": [],

@@ -304,6 +304,7 @@ class Academia:
         temper = TEMPER[ag["personalidad"]]
         P = inventor.pools(mk.bpd)
         cd = self.cfg["operadores_diarios"]
+        diario.OBJETIVO_SEMANAL = cd.get("objetivo_semanal_pct", 1) / 100
 
         # ideas de partida: estrategias de internet y de chartismo, cada una probada en un tipo de mercado
         seeds = []

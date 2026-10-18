@@ -1,5 +1,7 @@
 """Operadores diarios: agentes que operan casi cada día y buscan acabar CADA SEMANA en positivo tras comisiones.
 
+No hace falta que operen cada día: lo que cuenta es acabar la semana en positivo (mejor si +1 % o más).
+
 Cada operador tiene tres estrategias, una por tipo de mercado, y un detector que decide cuál usar:
   - alcista: el precio está sobre su media y el mercado avanza con tendencia
   - lateral: el precio va y viene sin tendencia clara
@@ -19,6 +21,7 @@ HOLD_D = [1, 1, 2, 3, 5]                       # días máximos que dura una ope
 TP_D = [0, 0.01, 0.015, 0.02, 0.03, 0.05]       # objetivo de beneficio
 TRAIL_D = [0, 0.01, 0.015, 0.02, 0.03]          # stop que sube con el precio
 MIN_NET_D = [0.007, 0.01, 0.015]                # ganancia mínima para cerrar por señal (las comisiones ida y vuelta son 0,6 %)
+OBJETIVO_SEMANAL = 0.01                        # semana "buena": +1 % o más, ya con comisiones (config: objetivo_semanal_pct)
 REG_MA = [20, 50, 100]                          # media (en días) que separa alcista de bajista
 REG_ER = [3, 7, 14]                             # días con los que se mide si hay tendencia
 REG_X = [0.15, 0.2, 0.3]                        # eficiencia mínima para considerar que hay tendencia
@@ -89,6 +92,7 @@ def stats(mk, r):
     buys = sum(t["side"] == "compra" for t in r.trades)
     days = len({mk.ts[t["i"]].date() for t in r.trades if t["side"] == "compra"})
     return dict(semanas=int(len(wk)), sem_pos=float(np.mean(wk > 0.0005)) if len(wk) else 0.0,
+                sem_objetivo=float(np.mean(wk >= OBJETIVO_SEMANAL)) if len(wk) else 0.0,
                 sem_neg=float(np.mean(wk < -0.0005)) if len(wk) else 0.0,
                 media_sem=float(np.mean(wk)) if len(wk) else 0.0, peor_sem=float(np.min(wk)) if len(wk) else 0.0,
                 ops_sem=buys / n, dias_sem=days / n)
@@ -99,10 +103,10 @@ def score(mk, r, temper):
     if r.final <= 0 or r.dead:
         return -9.0, None
     s = stats(mk, r)
-    pts = 1.5 * s["sem_pos"] - 1.0 * s["sem_neg"] + 25 * s["media_sem"]
+    pts = 1.5 * s["sem_pos"] - 1.5 * s["sem_neg"] + 1.0 * s["sem_objetivo"] + 25 * s["media_sem"]
     pts -= temper * 3 * max(0.0, -s["peor_sem"] - 0.04)       # semanas muy malas restan
     pts -= temper * max(0.0, r.maxdd - 0.15)
-    pts -= 0.5 * max(0.0, 3 - s["dias_sem"])                    # quiere operar al menos 3 días por semana
+    pts -= 0.5 * max(0.0, 1 - s["dias_sem"])                    # para ganar cada semana tiene que operar casi todas las semanas
     if r.closed and r.avg_trade < 0.002:                         # cada operación debe dejar algo tras comisiones
         pts -= 0.3 + 30 * (0.002 - r.avg_trade)
     return pts, s
