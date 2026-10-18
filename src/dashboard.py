@@ -348,12 +348,22 @@ def build(root, ac):
     # 1. avisos para Abril
     avp = os.path.join(root, "avisos", "avisos.json")
     hoy = ac.today.isoformat()
-    avisos = [x for x in (json.load(open(avp))["avisos"] if os.path.exists(avp) else [])
-              if x.get("estado") == "pendiente" and x.get("desde", "") <= hoy]  # "desde": recordatorios que aparecen más adelante
+    todos = [x for x in (json.load(open(avp))["avisos"] if os.path.exists(avp) else [])
+             if x.get("estado") == "pendiente" and x.get("desde", "") <= hoy]  # "desde": recordatorios que aparecen más adelante
+    avisos = [x for x in todos if x["tipo"] in ("decidir", "hacer")]
+    guardado = [x for x in todos if x["tipo"] in ("idea", "recordatorio")]
+    futuros = [x for x in (json.load(open(avp))["avisos"] if os.path.exists(avp) else [])
+               if x.get("estado") == "pendiente" and x.get("desde", "") > hoy]
     if avisos:
         sections.append('<section><h2>Avisos para Abril</h2>' + "".join(
             f'<div class="alert"><span class="t">{"🟡 Decide" if x["tipo"] == "decidir" else "🔵 Tarea"} · {e(x["titulo"])}</span><p>{e(x["texto"])}</p>'
             f'<span class="muted mono" style="font-size:.72rem">{e(x["fecha"])}</span></div>' for x in avisos) + "</section>")
+
+    if guardado or futuros:
+        sections.append('<details class="report"><summary>Tus recordatorios e ideas guardadas</summary><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">'
+                        + "".join(f'<div><strong>{"💡 Idea" if x["tipo"] == "idea" else "📌 Recordatorio"} · {e(x["titulo"])}</strong><p style="font-size:.85rem">{e(x["texto"])}</p></div>' for x in guardado)
+                        + "".join(f'<div><strong>⏰ A partir del {x["desde"][8:10]}/{x["desde"][5:7]} · {e(x["titulo"])}</strong><p style="font-size:.85rem">{e(x["texto"])}</p></div>' for x in futuros)
+                        + '</div></details>')
 
     # 2. equipos
     teams = st.get("equipos") or {}
