@@ -86,7 +86,11 @@ def load_other_assets(cfg, local, today, use_intraday):
             print(f"{market}: velas diarias {m['1d'].ts[0].date()} -> {m['1d'].ts[-1].date()}, cierra en {m['1d'].I.c[-1]:,.2f} €")
         except Exception as e:  # noqa: BLE001
             print(f"Aviso: no se pudieron cargar los datos de {market} ({e}); hoy se sigue sin él.")
+            FALLOS.append(f"No se pudieron descargar los precios de {market} ({e}). Hoy no nacen agentes de ese mercado; si se repite, lo reviso.")
     return out
+
+
+FALLOS = []
 
 
 def main():
@@ -130,6 +134,8 @@ def main():
 
     otros = load_other_assets(cfg, args.datos_locales, today, intraday)
     ac = Academia(ROOT, mk, kronos=kronos, today=today, otros=otros)
+    for k, txt in enumerate(FALLOS):
+        ac.alerta(f"datos_{k}", "hacer", txt)
     counts = ac.day(fabrica=not args.sin_fabrica)
     rep = informe.maybe_report(ac)
     ac.save()

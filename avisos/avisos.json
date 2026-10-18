@@ -1,0 +1,13 @@
+{
+  "_nota": "Avisos para Abril: solo cosas importantes que ella deba decidir o hacer. Los mantiene Claude (y la revisión diaria). estado: pendiente o resuelto. tipo: decidir o hacer.",
+  "avisos": [
+    {
+      "id": "yt-cookies",
+      "fecha": "2026-10-16",
+      "tipo": "hacer",
+      "titulo": "Cookies de YouTube",
+      "texto": "Para que los agentes aprendan de vídeos de YouTube: con un ordenador, exporta las cookies de una cuenta de Google secundaria y guárdalas en GitHub como secreto YT_COOKIES. Pídeme los pasos cuando te pongas.",
+      "estado": "pendiente"
+    }
+  ]
+}

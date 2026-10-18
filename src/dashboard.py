@@ -1,5 +1,6 @@
 """Genera el panel docs/index.html (una página estática pensada para el móvil)."""
 import html
+import json
 import os
 
 STATUS = {
@@ -56,6 +57,22 @@ details summary{cursor:pointer;font-weight:600;font-size:.9rem}
 .wk .track{height:10px;position:relative;background:transparent}
 .wk .track i{position:absolute;top:0;height:100%;border-radius:3px}
 .wk .track::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;border-left:1px solid var(--line)}
+.alert{background:var(--wait-soft);border:1px solid var(--wait);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.alert .t{font-weight:600}.alert p{font-size:.88rem;max-width:64ch}
+.team{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.team.lead{border-color:var(--up);box-shadow:0 0 0 1px var(--up) inset}
+.big{font-family:var(--f-display);font-size:2rem;font-weight:700;line-height:1}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.kpi{background:var(--bg);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font-family:var(--f-mono);font-size:.95rem;font-weight:500}.kpi span{font-size:.72rem;color:var(--muted);line-height:1.25}
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}
+.stack i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.78rem}
+.legend span{display:inline-flex;align-items:center;gap:5px}.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.members{display:flex;flex-direction:column;gap:4px;font-size:.82rem}
+.member{display:grid;grid-template-columns:1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+.markets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+@media (max-width:520px){.markets{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .empty{font-size:.88rem;color:var(--muted);padding:12px 14px;border:1px dashed var(--line);border-radius:12px}
 """
 
@@ -90,6 +107,10 @@ def spark(vals, cap, up):
 def asset(ag):
     a = ag.get("activo", "BTC-EUR").split("-")[0]
     return "Oro" if a == "PAXG" else a
+
+
+def price_txt(p):
+    return eur(p) if p >= 10 else f"{p:.4f} €".replace(".", ",")
 
 
 def pill(status):
@@ -227,6 +248,79 @@ def sim_html(ac, sim, cola, cfg):
     return "".join(out)
 
 
+ASSET_COL = {"BTC": "#F2A900", "ETH": "#6F7CF2", "SOL": "#14B88A", "XRP": "#3B8FD9", "EUR": "var(--line)"}
+
+
+def team_card(tm, cfg, agents_by_id, lead=False):
+    from equipos import TIPOS
+    info = TIPOS.get(tm["id"], dict(nombre=tm["id"], lema=""))
+    if not tm.get("periodos"):
+        return (f'<article class="team"><div class="top"><span class="name">{e(info["nombre"])}</span><span class="pill wait">Sin equipo todavía</span></div>'
+                f'<p class="desc">{e(info["lema"])}. {e(tm.get("vacio", ""))} Se vuelve a intentar cada día con los agentes nuevos.</p></article>')
+    cap0 = tm["capital_inicial"]
+    v = tm.get("valor", cap0)
+    st = tm.get("stats", {})
+    wk = tm.get("semanas", [])
+    done = [w for w in wk if w["completa"]]
+    cur = wk[-1] if wk else None
+    per = tm["periodos"][-1]
+    ini = tm["inicio"]
+    # reparto del dinero ahora
+    ahora = tm.get("ahora") or []
+    by_asset = {}
+    for m in ahora:
+        a = m["activo"].split("-")[0]
+        by_asset[a] = by_asset.get(a, 0) + m["invertido"]
+    invested = sum(by_asset.values())
+    by_asset["EUR"] = max(0.0, v - invested)
+    bar = "".join(f'<i style="width:{x / v * 100:.1f}%;background:{ASSET_COL.get(a, "var(--accent)")}" title="{e(a)}"></i>' for a, x in by_asset.items() if v and x > 0.01)
+    legend = "".join(f'<span><i style="background:{ASSET_COL.get(a, "var(--accent)")}"></i>{e("En euros" if a == "EUR" else a)} {eur(x)}</span>' for a, x in by_asset.items() if x > 0.01)
+    contrib = tm.get("aportacion", {})
+    rows = []
+    for m in ahora:
+        a = agents_by_id.get(m["id"], {})
+        estado = ("comprado" if m["posicion"] > 0.05 else "esperando señal")
+        c = contrib.get(m["id"])
+        rows.append(f'<div class="member"><span><strong>{e(m["name"])}</strong> <span class="muted">· {e(m["activo"].split("-")[0])} · {e(m["tf"])} · {e(a.get("label", ""))}</span><br>'
+                    f'<span class="muted">{e(estado)}{"" if c is None else " · ha aportado " + ("+" if c >= 0 else "−") + eur(abs(c))}</span></span>'
+                    f'<span class="mono" style="text-align:right">{eur(m["euros"])}</span></div>')
+    p1, p2 = per["pruebas"]["p1"], per["pruebas"]["p2"]
+    prm = per["params"]
+    how = []
+    if prm["boost"] > 0:
+        how.append(f"da hasta {prm['boost'] + prm['base']:g} veces más dinero a quien tiene una operación abierta")
+    if prm["base"] == 0:
+        how.append("el dinero solo va a los agentes con operación abierta; el resto espera en euros")
+    how.append(f"nadie maneja más del {prm['cap'] * 100:.0f} % de la cartera")
+    how.append("los agentes con mejor nota en las pruebas reciben más")
+    weeks_rows = []
+    mx = max([abs(w["pct"]) for w in wk[-8:]] + [0.002])
+    for w in reversed(wk[-8:]):
+        width = min(50, abs(w["pct"]) / mx * 50)
+        left = 50 if w["pct"] >= 0 else 50 - width
+        col = "var(--up)" if w["eur"] >= 0 else "var(--down)"
+        lbl = f"{w['inicio'][8:10]}/{w['inicio'][5:7]}" if w["completa"] else "esta semana"
+        weeks_rows.append(f'<div class="wk"><span class="mono muted">{e(lbl)}</span><span class="track"><i style="left:{left:.1f}%;width:{width:.1f}%;background:{col}"></i></span>'
+                          f'<span class="mono {"up" if w["eur"] >= 0 else "down"}" style="text-align:right">{"+" if w["eur"] >= 0 else "−"}{eur(abs(w["eur"]))}</span></div>')
+    green = sum(w["eur"] > 0 for w in done)
+    return f"""<article class="team{' lead' if lead else ''}">
+<div class="top"><span class="name">{e(info['nombre'])}{' <span class="pill ok">va primero</span>' if lead else ''}</span><span class="muted" style="font-size:.8rem">{e(info['lema'])}</span></div>
+<div class="top"><span class="big mono {'up' if v >= cap0 else 'down'}">{eur(v)}</span><span class="mono {'up' if v >= cap0 else 'down'}">{pct(v / cap0 - 1)} desde el {ini[8:10]}/{ini[5:7]}</span></div>
+{spark(tm.get('curva', []), cap0, v >= cap0)}
+<div class="kpis"><div class="kpi"><b class="{'up' if cur and cur['eur'] >= 0 else 'down'}">{('+' if cur['eur'] >= 0 else '−') + eur(abs(cur['eur'])) if cur else '—'}</b><span>esta semana</span></div>
+<div class="kpi"><b>{green} de {len(done)}</b><span>semanas en verde</span></div>
+<div class="kpi"><b>{pct(min((w['pct'] for w in done), default=0))}</b><span>peor semana</span></div></div>
+<div><p class="eyebrow" style="margin-bottom:6px">Dónde está el dinero ahora</p><div class="stack">{bar}</div><div class="legend" style="margin-top:6px">{legend}</div></div>
+<div class="members"><p class="eyebrow">Miembros y dinero que maneja cada uno</p>{''.join(rows)}</div>
+{'<div class="weeks">' + ''.join(weeks_rows) + '</div>' if weeks_rows else ''}
+<details><summary>Cómo se eligió este equipo</summary><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:.85rem">
+<p>Entre todos los agentes que aprobaron los dos exámenes, esta combinación y este reparto fueron los mejores para su objetivo en 2024–25 y también ganaron en 2026.</p>
+<p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · {p1['verde'] * 100:.0f} % semanas en verde · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · {p2['verde'] * 100:.0f} % semanas en verde · peor semana {pct(p2['peor'])}</p>
+<p>Reparto: {e('; '.join(how))}. Cada día al cierre se reparte de nuevo (moverlo cuesta comisiones, ya descontadas).</p>
+<p class="muted">Se vuelve a elegir el día 1 de cada mes; el dinero del equipo sigue. Ojo: en 2026 los agentes ya estaban filtrados por su examen, así que la prueba de verdad es este simulado.</p></div></details>
+</article>"""
+
+
 def team_html(eq, goal=None):
     if not eq or not eq.get("semanas"):
         return ""
@@ -268,56 +362,81 @@ def team_html(eq, goal=None):
 def build(root, ac):
     st, cfg = ac.state, ac.cfg
     agents = st["agents"]
+    by_id = {a["id"]: a for a in agents}
     by = lambda s: [a for a in agents if a["status"] == s]  # noqa: E731
     listos = sorted(by("listo"), key=lambda a: -a.get("paper", {}).get("ret", 0))
     sim = sorted(by("simulado"), key=lambda a: -a.get("paper", {}).get("ret", 0))
-    cola, esperando = by("cola"), by("esperando")
-    suspendidos, retirados = by("suspendido"), by("retirado")
+    cola = by("cola")
     recent = sorted([a for a in agents if a.get("examinado")], key=lambda a: (a["examinado"], a["name"]), reverse=True)[:20]
     news = ac.news
-
+    goal = cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 65, "peor_semana_pct": 3, "meses": 3})
     sections = []
-    reps = [r for r in st.get("informes", []) if not r.get("vacio")]
-    if reps:
-        sections.append(report_html(reps[-1]))
-    if listos:
-        sections.append('<section><h2>Listos para dinero real</h2><p class="muted" style="font-size:.85rem">Superaron el examen y el simulado. Solo pasan a dinero real si tú lo decides.</p>'
-                        + "".join(card(a, cfg, gold=True, compact=k >= 5) for k, a in enumerate(listos)) + "</section>")
-    sections.insert(0, team_html(st.get("equipo"), cfg.get("objetivo_equipo")))
-    sections.append(sim_html(ac, sim, cola, cfg))
-    sections.append('<section><h2>Novedades de hoy</h2>' + (
-        '<ul class="news">' + "".join(f"<li>{e(n)}</li>" for n in news) + "</ul>" if news else '<p class="empty">Sin novedades: los agentes siguen operando.</p>') + "</section>")
+
+    # 1. avisos para Abril
+    avp = os.path.join(root, "avisos", "avisos.json")
+    avisos = [x for x in (json.load(open(avp))["avisos"] if os.path.exists(avp) else []) if x.get("estado") == "pendiente"]
+    if avisos:
+        sections.append('<section><h2>Avisos para Abril</h2>' + "".join(
+            f'<div class="alert"><span class="t">{"🟡 Decide" if x["tipo"] == "decidir" else "🔵 Tarea"} · {e(x["titulo"])}</span><p>{e(x["texto"])}</p>'
+            f'<span class="muted mono" style="font-size:.72rem">{e(x["fecha"])}</span></div>' for x in avisos) + "</section>")
+
+    # 2. equipos
+    teams = st.get("equipos") or {}
+    if teams:
+        order = sorted(teams.values(), key=lambda t: -(t.get("valor", 0) if t.get("periodos") else -1))
+        lead = order[0]["id"] if order and order[0].get("periodos") and order[0].get("dias", 0) > 0 else None
+        sections.append('<section><h2>Tus equipos</h2><p class="muted" style="font-size:.85rem">Cada equipo tiene una cartera de '
+                        f'{eur(cfg["saldo_inicial_eur"])} ficticios y reparte el dinero entre sus agentes (de BTC, ETH, SOL o XRP) según quién tiene la mejor operación. '
+                        f'Objetivo para dinero real: {goal["semanas_en_verde_pct"]} % de semanas en verde, ninguna peor de −{goal["peor_semana_pct"]} % y en positivo durante {goal["meses"]} meses.</p>'
+                        + "".join(team_card(t, cfg, by_id, lead=t["id"] == lead) for t in order) + "</section>")
+
+    # 3. mercados
+    mks = st.get("mercados") or {}
+    if mks:
+        sections.append('<section><h2>Mercados</h2><div class="markets">' + "".join(
+            f'<div class="step"><span class="lbl">{e(k.split("-")[0])}</span><span class="mono" style="font-weight:500">{price_txt(m["precio"])}</span>'
+            f'<span class="mono {"up" if m["semana"] >= 0 else "down"}" style="font-size:.78rem">{pct(m["semana"])} semana</span></div>' for k, m in mks.items()) + "</div></section>")
+
+    # 4. cantera
+    assets = {}
+    for a in agents:
+        k = asset(a)
+        t = assets.setdefault(k, [0, 0])
+        t[0] += 1
+        t[1] += a["status"] in ("simulado", "listo")
+    cant = " · ".join(f"{k}: {v[1]} en simulado de {v[0]} creados" for k, v in sorted(assets.items(), key=lambda x: -x[1][0]))
     rows = "".join(
-        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(asset(a))} · {e(a.get('tf', ''))}</span></td>"
+        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(asset(a))} · {e(a.get('tf', ''))} · {e(a['label'])}</span></td>"
+        f"<td class='num {'up' if a.get('paper', {}).get('ret', 0) > 0.001 else 'down' if a.get('paper', {}).get('ret', 0) < -0.001 else ''}'>{pct(a.get('paper', {}).get('ret', 0))}<br><span class='muted'>día {a.get('paper', {}).get('days', 0)}</span></td>"
+        f"<td>{e(estado_txt(a))}</td></tr>" for a in listos + sim)
+    sections.append(f"""<section><h2>Cantera</h2><p class="muted" style="font-size:.85rem">Cada noche nacen agentes nuevos. Solo los que aprueban los exámenes de 2024–25 y 2026 pueden entrar en un equipo; los hijos, además, tienen que superar a su padre. {e(cant)}.</p>
+<div class="funnel"><div class="step"><span class="n mono">{len(agents)}</span><span class="lbl">creados</span></div><div class="step"><span class="n mono">{len(sim) + len(listos)}</span><span class="lbl">aprobados (simulado)</span></div>
+<div class="step"><span class="n mono">{len(cola)}</span><span class="lbl">en cola</span></div><div class="step"><span class="n mono">{len(by('suspendido'))}</span><span class="lbl">suspendidos</span></div></div>
+<details class="report"><summary>Ver los {len(sim) + len(listos)} agentes aprobados</summary><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Simulado</th><th>Ahora</th></tr></thead><tbody>{rows}</tbody></table></div></details></section>""")
+
+    # 5. novedades y el resto, plegado
+    sections.append('<section><h2>Novedades de hoy</h2>' + (
+        '<ul class="news">' + "".join(f"<li>{e(n)}</li>" for n in news[:15]) + "</ul>" if news else '<p class="empty">Sin novedades.</p>') + "</section>")
+    rows = "".join(
+        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(asset(a))} · {e(a.get('tf', ''))} · {e(a['label'])}</span></td>"
         f"<td class='num {'up' if a.get('exam', {}).get('ret', 0) >= 0 else 'down'}'>{pct(a.get('exam', {}).get('ret', 0)) if a.get('exam') else '—'}</td>"
         f"<td>{pill(a['status'])}<br><span class='muted'>{e(a.get('motivo', ''))}</span></td></tr>" for a in recent)
-    sections.append('<section><h2>Últimos examinados</h2><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Examen 24–25</th><th>Resultado</th></tr></thead><tbody>'
-                    + rows + "</tbody></table></div></section>")
-    sections.append(learning_html(agents))
-    if len(reps) > 1:
-        sections.append("<section><h2>Informes anteriores</h2>" + "".join(report_html(r, open_=False) for r in reversed(reps[:-1])) + "</section>")
-    if esperando:
-        sections.append('<section><h2>Esperando datos</h2>' + "".join(
-            f'<article class="card"><div class="top"><span class="name">{e(a["name"])} {pill(a["status"])}</span></div><p class="desc">{e(a["label"])} · {e(a.get("motivo", ""))}</p></article>'
-            for a in esperando) + "</section>")
+    more = ['<details class="report"><summary>Últimos examinados</summary><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Examen 24–25</th><th>Resultado</th></tr></thead><tbody>'
+            + rows + "</tbody></table></div></details>"]
+    reps = [r for r in st.get("informes", []) if not r.get("vacio")]
+    more += [report_html(r, open_=False) for r in reversed(reps)]
+    sections.append("<section><h2>Más detalle</h2>" + "".join(more) + "</section>")
 
     page = f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex"><title>Academia de Agentes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>{CSS}</style></head><body><div class="wrap">
-<header style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">{e(cfg['mercado'])} · actualizado {e(st.get('actualizado', ''))}</span>
+<header style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">Dinero ficticio · actualizado {e(st.get('actualizado', ''))}</span>
 <h1>Academia de Agentes</h1>
-<p class="muted">BTC cerró ayer en <span class="mono">{eur(st.get('precio_btc_eur', 0))}</span>. Cada día nacen agentes nuevos para BTC, ETH, SOL y XRP; estudian estrategias conocidas e inventan la suya con 2018–21, eligen la mejor con 2022–23 y se examinan con 2024–25. Los que aprueban operan {cfg['simulado']['dias']} días con 100 € ficticios y precios reales.</p></header>
-<div class="funnel">
-<div class="step"><span class="n mono">{len(agents)}</span><span class="lbl">Agentes creados</span></div>
-<div class="step"><span class="n mono">{len(suspendidos)}</span><span class="lbl">Suspendidos en el examen</span></div>
-<div class="step"><span class="n mono">{len(sim) + len(cola)}</span><span class="lbl">En simulado o en cola</span></div>
-<div class="step{' gold' if listos else ''}"><span class="n mono">{len(listos)}</span><span class="lbl">Listos para dinero real</span></div>
-</div>
+<p class="muted">Equipos de agentes que operan BTC, ETH, SOL y XRP en Bitvavo con dinero ficticio, precios reales y comisiones reales.</p></header>
 {''.join(sections)}
 <section class="foot">
-<p>{len(retirados)} agentes retirados tras el simulado. Previsiones de Kronos: {e(', '.join(f'{k} {v * 100:.0f} %' for k, v in (st.get('kronos_cobertura') or {}).items()) or 'todavía ninguna')} (los agentes las usan al llegar al 90 %).</p>
-<p>Comisiones de Bitvavo descontadas: {str(cfg['comision_pct']).replace('.', ',')} % por orden más {str(cfg['deslizamiento_pct']).replace('.', ',')} % de deslizamiento. Datos hasta el {e(st.get('ultimo_dia_con_datos', ''))}.</p>
+<p>Comisiones de Bitvavo descontadas: órdenes limitadas al {str(cfg.get('comision_maker_pct', cfg['comision_pct'])).replace('.', ',')} % (si no se llenan, a mercado al {str(cfg['comision_pct']).replace('.', ',')} % más {str(cfg['deslizamiento_pct']).replace('.', ',')} % de deslizamiento). Datos hasta el {e(st.get('ultimo_dia_con_datos', ''))}.</p>
 <p>Todo es dinero ficticio. Resultados pasados no garantizan resultados futuros.</p>
 </section></div></body></html>"""
     os.makedirs(os.path.join(root, "docs"), exist_ok=True)

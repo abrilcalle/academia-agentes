@@ -21,6 +21,24 @@ Agentes de trading que aprenden solos sobre BTC-EUR (Bitvavo) y se ejecutan grat
 
 El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempre haya alumnos buscando un nuevo ganador.
 
+## Equipos (lo principal)
+
+- Un **equipo** es un grupo de agentes (pueden ser de BTC, ETH, SOL y XRP a la vez) que comparte **una sola cartera de 100 € ficticios**.
+- Cada día, al cierre, el equipo **reparte el dinero**: más a quien tiene una operación abierta y mejor nota en las pruebas; nadie puede manejar más de un tope; lo que sobra espera en euros. Mover dinero entre agentes paga comisiones.
+- Hay **tres equipos compitiendo**: Ganancia (ganar lo máximo), Semanas en verde (el máximo de semanas en positivo) y Equilibrio.
+- Se forman **automáticamente**: se prueban combinaciones y repartos con 2024–25 y tienen que ganar también en 2026. Si ninguna gana, ese equipo se queda vacío y se reintenta cada día. El **día 1 de cada mes** se vuelven a elegir los miembros; el dinero del equipo sigue.
+- Código: `src/equipos.py`.
+
+## Hijos
+
+- Los agentes nuevos parten también de las reglas de los 2 que más ganan en simulado (mismo mercado, temporalidad y tipo; si su mercado aún no tiene ganadores, de otro mercado).
+- **Un hijo solo se queda si supera a su padre** en las pruebas (2024–25 y 2026 seguidos). Los que operan exactamente igual que otro agente se descartan.
+
+## Avisos para Abril
+
+- `avisos/avisos.json`: solo cosas importantes que Abril tiene que decidir o hacer. El panel las muestra arriba.
+- Una revisión diaria (Claude) comprueba si las condiciones (comisiones, tipo de órdenes, mercados, reglas de equipos y objetivos) siguen siendo las mejores y, si hay algo que permitiría ganar más, lo explica ahí para decidirlo juntas.
+
 ## Operadores diarios
 
 La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo es **acabar cada semana en positivo tras comisiones**, mejor si es +1 % o más (`objetivo_semanal_pct`). No tienen que operar cada día.

@@ -23,6 +23,7 @@ import urllib.request
 import numpy as np
 
 import diario
+import equipos
 import inventor
 from backtest import run
 from market import TF_LABEL
@@ -56,6 +57,7 @@ class Academia:
         self.log = log
         self.news = []
         self.state = self._load()
+        self.state["incidencias"] = {}
         self.rng = random.Random(int(self.today.strftime("%Y%m%d")) + len(self.state["agents"]))
         self._w = {}
 
@@ -70,6 +72,9 @@ class Academia:
         self.state["actualizado"] = self.today.isoformat()
         self.state["ultimo_dia_con_datos"] = self.daily.ts[-1].date().isoformat()
         self.state["precio_btc_eur"] = round(float(self.daily.I.c[-1]), 2)
+        mk_all = {self.cfg["mercado"]: self.daily, **{k: v["1d"] for k, v in self.otros.items()}}
+        self.state["mercados"] = {k: dict(precio=round(float(m.I.c[-1]), 4), semana=round(float(m.I.c[-1] / m.I.c[-8] - 1), 4),
+                                          mes=round(float(m.I.c[-1] / m.I.c[-31] - 1), 4)) for k, m in mk_all.items()}
         self.state["kronos_cobertura"] = {tf: self.kronos_coverage(tf) for tf in self.cfg["kronos"]["temporalidades"] if tf in self.mk}
         with open(self.state_path, "w") as f:
             json.dump(self.state, f, ensure_ascii=False, indent=1)
@@ -112,6 +117,11 @@ class Academia:
              and (x.get("estilo") == "diario") == (estilo == "diario") and x.get("regla")
              and (estilo == "diario" or x.get("eleccion") == "propia")
              and (x.get("paper") or {}).get("ret", 0) > 0.002]
+        if not c:  # mercado nuevo sin ganadores todavía: aprende de los ganadores de otros mercados (misma temporalidad y tipo)
+            c = [x for x in self.state["agents"] if x["status"] in ("simulado", "listo") and x["tf"] == ag["tf"]
+                 and (x.get("estilo") == "diario") == (estilo == "diario") and x.get("regla")
+                 and (estilo == "diario" or x.get("eleccion") == "propia")
+                 and (x.get("paper") or {}).get("ret", 0) > 0.002]
         return sorted(c, key=lambda x: -x["paper"]["ret"])[:2]
 
     def ideas_for(self, activo):
@@ -135,6 +145,10 @@ class Academia:
                 if f"{n} {k}" not in used:
                     return f"{n} {k}"
             k += 1
+
+    def alerta(self, key, tipo, texto):  # incidencia técnica: la revisa Claude, no se enseña a Abril
+        """Incidencias de la ejecución (se rehacen cada día). Las revisa la revisión diaria de Claude; no son avisos para Abril."""
+        self.state.setdefault("incidencias", {})[key] = dict(tipo=tipo, texto=texto, fecha=self.today.isoformat())
 
     def notify(self, title, msg):
         self.news.append(f"{title}: {msg}")
@@ -432,6 +446,17 @@ class Academia:
             ag["status"] = "suspendido"
             ag["motivo"] = "Aprobó 2024–25 pero no el examen de 2026: " + "; ".join(fails) + "."
             return False
+        # un hijo solo se queda si mejora a sus padres en las pruebas (2024–25 y 2026 seguidos)
+        mine = (1 + ag["exam"]["ret"]) * (1 + r.ret) - 1
+        for pn in ag.get("padres", []):
+            p = next((x for x in self.state["agents"] if x["name"] == pn), None)
+            if p and p.get("exam") and p.get("exam2"):
+                theirs = (1 + p["exam"]["ret"]) * (1 + p["exam2"]["ret"]) - 1
+                if mine <= theirs:
+                    ag["status"] = "suspendido"
+                    ag["motivo"] = (f"Es hijo de {pn} pero no lo mejora: en las pruebas (2024–26) ganó {pc(mine)} y su padre {pc(theirs)}. "
+                                    "Solo se quedan los hijos que superan a sus padres.")
+                    return False
         ag["motivo"] = f"Aprobó los dos exámenes: {pc(ag['exam']['ret'])} en 2024–25 y {pc(r.ret)} en 2026."
         return True
 
@@ -586,6 +611,11 @@ class Academia:
         if fabrica:
             self.factory()
         self.paper()
+        try:
+            equipos.update(self, self.log)
+        except Exception as e:  # noqa: BLE001
+            self.log(f"Aviso: fallo calculando los equipos ({e})")
+            self.alerta("fallo_equipos", "hacer", f"Ha fallado el cálculo de los equipos ({e}).")
         counts = {}
         for a in self.state["agents"]:
             counts[a["status"]] = counts.get(a["status"], 0) + 1
