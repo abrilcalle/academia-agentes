@@ -252,11 +252,11 @@ ASSET_COL = {"BTC": "#F2A900", "ETH": "#6F7CF2", "SOL": "#14B88A", "XRP": "#3B8F
 
 
 def team_card(tm, cfg, agents_by_id, lead=False):
-    from equipos import TIPOS
-    info = TIPOS.get(tm["id"], dict(nombre=tm["id"], lema=""))
+    from equipos import PRUDENCIAS, TIPOS
+    info = TIPOS.get(tm["id"], dict(nombre=tm["id"], puesto=0))
     if not tm.get("periodos"):
         return (f'<article class="team"><div class="top"><span class="name">{e(info["nombre"])}</span><span class="pill wait">Sin equipo todavía</span></div>'
-                f'<p class="desc">{e(info["lema"])}. {e(tm.get("vacio", ""))} Se vuelve a buscar cada día con los agentes nuevos.</p></article>')
+                f'<p class="desc">{e(tm.get("vacio", ""))} Se vuelve a buscar cada día con los agentes nuevos.</p></article>')
     cap0 = tm["capital_inicial"]
     v = tm.get("valor", cap0)
     st = tm.get("stats", {})
@@ -310,8 +310,9 @@ def team_card(tm, cfg, agents_by_id, lead=False):
                          for a, c in sorted(per_asset.items(), key=lambda x: -x[1]))
     miembros_txt = ", ".join(f"{m['name']} ({m['activo'].split('-')[0]})" for m in ahora)
     return f"""<article class="team{' lead' if lead else ''}">
-<div class="top"><span class="name">{e(info['nombre'])}{' <span class="pill ok">va primero</span>' if lead else ''}{' <span class="pill wait">en observación</span>' if per.get('observacion') else ''}</span><span class="muted" style="font-size:.8rem">{e(info['lema'])}</span></div>
-{('<p class="desc">Ningún grupo cumple aún todas las condiciones; este es el que más se acerca y ganó en las dos pruebas, así que corre para ver si en equipo funciona mejor. Cada día se busca uno que las cumpla. ' + e(per['observacion']) + '</p>') if per.get('observacion') else ''}
+<div class="top"><span class="name">{e(info['nombre'])} <span class="pill live">{info['puesto']}º en la prueba de 2026</span>{' <span class="pill ok">va primero</span>' if lead else ''}</span></div>
+<p class="muted" style="font-size:.8rem">Prudencia {per['params'].get('prudencia', 1)} · {e(PRUDENCIAS.get(per['params'].get('prudencia', 1), ''))}.
+{(' <span class="down">En 2026 no cumplió todas las condiciones: ' + e(per['cumple']) + '.</span>') if per.get('cumple') else ' <span class="up">En 2026 cumplió todas las condiciones.</span>'}</p>
 <div class="top"><span class="big mono {'up' if v >= cap0 else 'down'}">{eur(v)}</span><span class="mono {'up' if v >= cap0 else 'down'}">{pct(v / cap0 - 1)} desde el {ini[8:10]}/{ini[5:7]}</span></div>
 <p class="muted" style="font-size:.78rem">Empezó con {eur(cap0)} ficticios. Las semanas cuentan de lunes a domingo y solo cuando están completas.</p>
 {spark(tm.get('curva', []), cap0, v >= cap0)}
@@ -324,7 +325,7 @@ def team_card(tm, cfg, agents_by_id, lead=False):
 <div class="members"><p class="eyebrow">Miembros y dinero que maneja cada uno</p>{''.join(rows)}</div>
 {'<div class="weeks">' + ''.join(weeks_rows) + '</div>' if weeks_rows else ''}
 <details><summary>Cómo se eligió este equipo</summary><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:.85rem">
-<p>Cada agente operó solo en su examen de 2024–25. Con los que aprobaron, se buscó qué combinación ganaba más cumpliendo juntos las condiciones usando solo 2024–25. Después el equipo hizo su prueba con 2026 (enero–hoy), que no se usó para elegirlo.</p>
+<p>1) Pasaron todos los agentes que ganaron dinero en su examen de 2024–25. 2) Con ellos se formaron equipos usando solo 2024–25, con cada grado de prudencia y forma de repartir. 3) Cada equipo hizo la prueba de 2026 (enero–hoy). 4) Se quedaron los 3 mejores: primero los que más semanas ganaron y, entre parecidos, el que más ganó.</p>
 <p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · ganó el {p1['verde'] * 100:.0f} % de las semanas · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · ganó el {p2['verde'] * 100:.0f} % de las semanas · peor semana {pct(p2['peor'])}</p>
 <p>Reparto: {e('; '.join(how))}. Cada día al cierre se reparte de nuevo (moverlo cuesta comisiones, ya descontadas).</p>
 <p class="muted">Se vuelve a elegir el día 1 de cada mes; el dinero del equipo sigue.</p></div></details>
@@ -357,11 +358,13 @@ def build(root, ac):
     # 2. equipos
     teams = st.get("equipos") or {}
     if teams:
-        order = sorted(teams.values(), key=lambda t: -(t.get("valor", 0) if t.get("periodos") else -1))
-        lead = order[0]["id"] if order and order[0].get("periodos") and order[0].get("dias", 0) > 0 else None
+        from equipos import TIPOS
+        order = sorted(teams.values(), key=lambda t: TIPOS.get(t["id"], {}).get("puesto", 9))  # podio: 1º, 2º, 3º
+        running = [t for t in order if t.get("periodos") and t.get("dias", 0) > 0]
+        lead = max(running, key=lambda t: t.get("valor", 0))["id"] if running and len({t.get("valor") for t in running}) > 1 else None
         sections.append('<section><h2>Tus equipos</h2><p class="muted" style="font-size:.85rem">Cada equipo tiene una cartera de '
                         f'{eur(cfg["saldo_inicial_eur"])} ficticios y reparte el dinero entre sus agentes (de BTC, ETH, SOL o XRP) priorizando las operaciones con más probabilidad × ganancia. '
-                        f'Todos buscan ganar lo máximo; solo cambia lo prudentes que son al priorizar. Condiciones que cumplieron juntos en las pruebas: ganar más del {goal["semanas_en_verde_pct"]} % de las semanas, '
+                        f'Son el podio de la prueba de 2026. Todos buscan ganar lo máximo; solo cambia lo prudentes que son al priorizar. Condiciones que buscamos: ganar más del {goal["semanas_en_verde_pct"]} % de las semanas, '
                         f'al menos un {goal.get("ganancia_minima_anual_pct", 0)} % al año y no caer más de un {goal.get("caida_maxima_pct", 100)} %. '
                         f'Para dinero real tendrán que repetirlo aquí durante {goal["meses"]} meses.</p>'
                         + "".join(team_card(t, cfg, by_id, lead=t["id"] == lead) for t in order) + "</section>")

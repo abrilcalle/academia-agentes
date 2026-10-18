@@ -24,10 +24,14 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 ## Equipos (lo principal)
 
 - Un **equipo** es un grupo de agentes (pueden ser de BTC, ETH, SOL y XRP a la vez) que comparte **una sola cartera de 100 € ficticios**.
-- Cada agente opera solo en su examen de 2024–25. Con los que aprueban, el algoritmo busca usando **solo 2024–25** qué agentes **juntos** cumplen las condiciones (`objetivo_equipo`: ganar más de la mitad de las semanas, al menos un 10 % al año y no caer más de un 25 %) y se queda con el que **más gana**. Después el equipo hace su **prueba de 2026** (enero–hoy), que no se usó para elegirlo; el examen de 2026 de cada agente por separado es solo informativo (`examen_2.obligatorio`). Si ningún grupo las cumple, no hay equipo (se reintenta cada día).
-- **Todos buscan ganar lo máximo.** Solo cambia la **prudencia al priorizar**: cada agente estima, para su operación abierta, la probabilidad de que acabe ganando y cuánto suele ganar (con su propio historial y el tipo de mercado). El dinero va primero a las operaciones con más probabilidad^prudencia × ganancia. Halcón (prudencia 1), Lobo (2) y Tortuga (3).
+- Cómo se forman (`src/equipos.py`), automáticamente:
+  1. Pasan **todos los agentes que ganaron dinero** (tras comisiones) en su examen de 2024–25 (sin clones).
+  2. Con ellos se forman equipos usando **solo 2024–25**: los que más ganan cumpliendo las condiciones (`objetivo_equipo`: ganar más de la mitad de las semanas, al menos un 10 % al año y no caer más de un 25 %), con cada **grado de prudencia** y cada forma de repartir.
+  3. Cada equipo hace la **prueba de 2026** (enero–hoy).
+  4. Se queda el **podio**: Halcón (1º), Lobo (2º) y Tortuga (3º); primero los que cumplen las condiciones en 2026, luego los que más semanas ganan y, entre parecidos, el que más gana.
+- **Todos buscan ganar lo máximo.** La prudencia solo cambia cómo priorizan: cada agente estima, para su operación abierta, la probabilidad de que acabe ganando y cuánto suele ganar (con su historial y el tipo de mercado); el dinero va primero a las operaciones con más probabilidad^prudencia × ganancia (1 = nada conservador, 3 = muy conservador).
 - Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
-- El **día 1 de cada mes** se vuelven a buscar los equipos; el dinero de cada equipo sigue. Código: `src/equipos.py`.
+- El **día 1 de cada mes** se repite todo; el dinero de cada puesto del podio sigue.
 
 ## Hijos
 

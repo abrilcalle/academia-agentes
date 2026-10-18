@@ -25,11 +25,15 @@ import numpy as np
 
 from backtest import run
 
+# el podio: 1º, 2º y 3º en la prueba de 2026
 TIPOS = {
-    "halcon": dict(nombre="Equipo Halcón", prudencia=1, lema="Prioriza por probabilidad × ganancia"),
-    "lobo": dict(nombre="Equipo Lobo", prudencia=2, lema="Prioriza dando más peso a la probabilidad"),
-    "tortuga": dict(nombre="Equipo Tortuga", prudencia=3, lema="Prioriza sobre todo las operaciones más seguras"),
+    "halcon": dict(nombre="Equipo Halcón", puesto=1),
+    "lobo": dict(nombre="Equipo Lobo", puesto=2),
+    "tortuga": dict(nombre="Equipo Tortuga", puesto=3),
 }
+PRUDENCIAS = {1: "nada conservador: prioriza por probabilidad × ganancia",
+              2: "algo conservador: da más peso a la probabilidad",
+              3: "muy conservador: prioriza las operaciones más seguras"}
 PARAMS = [dict(reserva=r, cap=c) for r, c in itertools.product([0.1, 0.25, 0.5], [0.35, 0.6, 1.0])]
 HIST = "2022-01-01"                 # desde aquí se recuerdan las operaciones de cada agente para estimar probabilidades
 P1 = ("2024-01-01", "2025-12-31")   # se buscan con estos años
@@ -215,34 +219,45 @@ def objective(s, goal):
 # ------------------------------------------------------------------ formar equipos
 
 def build(ac, last_day, log=print):
-    """Busca, para cada nivel de prudencia, el equipo que más gana cumpliendo las condiciones en 2024–25 y en 2026."""
+    """1) Pasan todos los agentes que ganaron dinero (tras comisiones) en su examen de 2024–25.
+    2) Con ellos se forman equipos usando solo 2024–25 (los que más ganan cumpliendo las condiciones), con cada
+       grado de prudencia y cada forma de repartir.
+    3) Cada equipo hace la prueba de 2026 (enero–hoy).
+    4) Se quedan los 3 mejores (podio): primero los que ganan más semanas, y entre parecidos, el que más gana.
+    Devuelve dict puesto -> propuesta."""
     goal = ac.cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 50, "ganancia_minima_anual_pct": 10, "caida_maxima_pct": 25})
-    cands = [a for a in ac.state["agents"] if a["status"] in ("cola", "simulado", "listo")]
+    cands = [a for a in ac.state["agents"] if a.get("exam") and a["exam"].get("ret", 0) > 0 and a["status"] != "retirado"]
+    seen, uniq = set(), []
+    for a in cands:  # fuera clones
+        f = a.get("firma2026") or a["id"]
+        if f in seen:
+            continue
+        seen.add(f)
+        uniq.append(a)
+    cands = uniq
     if len(cands) < 2:
-        return {t: dict(motivo="Todavía no hay al menos 2 agentes que hayan aprobado el examen.") for t in TIPOS}
+        return {t: dict(motivo="Todavía no hay al menos 2 agentes que ganaran dinero en su examen.") for t in TIPOS}
     days, R, E, P, G = matrix(ac, cands, P1[0], last_day)
     p1_end = dt.date.fromisoformat(P1[1])
     k1 = sum(1 for d in days if d <= p1_end)
     k2 = days.index(dt.date.fromisoformat(P2_FROM)) if dt.date.fromisoformat(P2_FROM) in days else k1
-    # preselección: los 18 con mejor rentabilidad/volatilidad en 2024–25, sin dos que se muevan casi igual
     with np.errstate(invalid="ignore", divide="ignore"):
         sharpe = np.nan_to_num(R[:, :k1].mean(axis=1) / R[:, :k1].std(axis=1))
     chosen = []
-    for j in np.argsort(-sharpe):
-        if len(chosen) >= 18:
+    for j in np.argsort(-sharpe):  # los 24 mejores en 2024–25, sin dos que se muevan casi igual
+        if len(chosen) >= 24:
             break
-        if R[j, :k1].std() == 0:
+        if R[j, :k1].std() == 0 or R[j, :k1].sum() <= 0:
             continue
         if any(np.corrcoef(R[j, :k1], R[i, :k1])[0, 1] > 0.9 for i in chosen):
             continue
         chosen.append(int(j))
-    out = {}
-    for tipo, info in TIPOS.items():
-        pr = info["prudencia"]
-        best = None
+    log(f"Equipos: {len(cands)} agentes ganaron dinero en su examen; se combinan los {len(chosen)} mejores y distintos.")
+    teams = []
+    for pr in PRUDENCIAS:
         for prm in PARAMS:
             team, cur = [], -1e9
-            while len(team) < MAX_MIEMBROS:  # va añadiendo al agente que más mejora al equipo
+            while len(team) < MAX_MIEMBROS:  # elige con 2024–25: va añadiendo al que más mejora al equipo
                 add = None
                 for j in chosen:
                     if j in team:
@@ -258,33 +273,37 @@ def build(ac, last_day, log=print):
             if len(team) < 2:
                 continue
             v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm)
-            s1 = stats(days[:k1], v1)
             v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm)
-            s2 = stats(days[k2:], v2)
-            f1, f2 = fails(s1, goal), fails(s2, goal)
-            passed = not f1 and not f2
-            cand = (passed, s1["ret"] if passed else objective(s1, goal) + objective(s2, goal), team, prm, s1, s2, f1, f2)
-            if best is None or (cand[0], cand[1]) > (best[0], best[1]):
-                best = cand
-        if best is None or not best[0]:
-            txt = "Ningún grupo de agentes cumple juntos las condiciones en 2024–25 y en 2026."
-            if best:
-                _, _, team, prm, s1, s2, f1, f2 = best
-                txt += (f" El que más se acerca ({', '.join(cands[j]['name'] for j in team)}): en 2024–25 {'; '.join(f1) or 'cumple'}; "
-                        f"en 2026 {'; '.join(f2) or 'cumple'}.")
-                if s1["ret"] > 0 and s2["ret"] > 0:
-                    # nadie cumple: corre el grupo que más se acerca, en observación, por si en equipo funciona mejor
-                    out[tipo] = dict(miembros=[cands[j]["id"] for j in team], params=dict(prm, prudencia=pr),
-                                     pruebas=dict(p1=s1, p2=s2), observacion=txt)
-                    log(f"{info['nombre']} (en observación): {txt}")
-                    continue
-            out[tipo] = dict(motivo=txt)
-            log(f"{info['nombre']}: {txt}")
+            s1, s2 = stats(days[:k1], v1), stats(days[k2:], v2)
+            teams.append(dict(team=team, prm=dict(prm, prudencia=pr), s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
+                              rank=s2["verde"] + 2 * s2["ret"]))
+    teams.sort(key=lambda t: (not t["f2"], t["rank"]), reverse=True)  # primero los que cumplen en 2026, luego semanas ganadas + ganancia
+    podium, used = [], []
+    for t in teams:  # 3 equipos distintos (si hay)
+        key = (sorted(t["team"]), t["prm"]["prudencia"])
+        if sorted(t["team"]) in [u[0] for u in used]:
             continue
-        _, _, idx, prm, s1, s2, _, _ = best
-        out[tipo] = dict(miembros=[cands[j]["id"] for j in idx], params=dict(prm, prudencia=pr), pruebas=dict(p1=s1, p2=s2), observacion=None)
-        log(f"{info['nombre']}: {', '.join(cands[j]['name'] + ' (' + cands[j].get('activo', 'BTC-EUR').split('-')[0] + ')' for j in idx)} | "
-            f"2024–25 {s1['ret'] * 100:+.1f} %, 2026 {s2['ret'] * 100:+.1f} % ({s2['verde'] * 100:.0f} % semanas ganando)")
+        used.append(key)
+        podium.append(t)
+        if len(podium) == 3:
+            break
+    for t in teams:  # si no hay 3 grupos distintos, completa con otra prudencia
+        if len(podium) == 3:
+            break
+        key = (sorted(t["team"]), t["prm"]["prudencia"])
+        if key not in used:
+            used.append(key)
+            podium.append(t)
+    out = {}
+    for (slot, info), t in zip(TIPOS.items(), podium + [None] * 3):
+        if t is None:
+            out[slot] = dict(motivo="No hay suficientes combinaciones distintas.")
+            continue
+        out[slot] = dict(miembros=[cands[j]["id"] for j in t["team"]], params=t["prm"], pruebas=dict(p1=t["s1"], p2=t["s2"]),
+                         cumple="; ".join(t["f2"]) or None)
+        log(f"{info['nombre']} ({info['puesto']}º): {', '.join(cands[j]['name'] + ' (' + cands[j].get('activo', 'BTC-EUR').split('-')[0] + ')' for j in t['team'])} | "
+            f"prudencia {t['prm']['prudencia']} | 2024–25 {t['s1']['ret'] * 100:+.1f} % | 2026 {t['s2']['ret'] * 100:+.1f} %, "
+            f"ganó {t['s2']['verde'] * 100:.0f} % de las semanas, caída máx {t['s2']['dd'] * 100:.0f} %")
     return out
 
 
@@ -299,8 +318,7 @@ def update(ac, log=print):
     teams = st.setdefault("equipos", {})
     for k in [k for k in teams if k not in TIPOS]:
         teams.pop(k)
-    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1
-            or teams[t]["periodos"][-1].get("observacion")}  # los que están en observación se revisan cada día
+    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1}
     if need:
         props = build(ac, last_day, log)
         for t in need:
@@ -312,7 +330,6 @@ def update(ac, log=print):
                 continue  # si ya tenía miembros, sigue con ellos
             tm.pop("vacio", None)
             if tm["periodos"] and tm["periodos"][-1]["miembros"] == p["miembros"] and tm["periodos"][-1]["params"] == p["params"]:
-                tm["periodos"][-1]["observacion"] = p.get("observacion")
                 continue
             if tm["inicio"] is None:
                 tm["inicio"] = start.isoformat()
