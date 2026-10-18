@@ -10,7 +10,7 @@ Cómo se forman (automático):
   - Candidatos: agentes que aprobaron los dos exámenes (en simulado o listos).
   - Se prueban combinaciones y repartos con 2024–25 y deben salir ganadoras también en 2026.
   - Tres equipos compiten, cada uno con un objetivo distinto:
-      Ganancia (ganar lo máximo), Semanas en verde (acabar en positivo el máximo de semanas), Equilibrio.
+      Halcón (ganar lo máximo), Hormiga (acabar en positivo el máximo de semanas) y Tortuga (equilibrio).
   - Cada mes se vuelve a elegir a los miembros con los datos más recientes; el dinero del equipo sigue.
 """
 import datetime as dt
@@ -21,9 +21,9 @@ import numpy as np
 from backtest import run
 
 TIPOS = {
-    "ganancia": dict(nombre="Equipo Ganancia", lema="Busca ganar lo máximo"),
-    "verde": dict(nombre="Equipo Semanas en verde", lema="Busca acabar en positivo el máximo de semanas"),
-    "equilibrio": dict(nombre="Equipo Equilibrio", lema="Busca ganar sin semanas malas"),
+    "ganancia": dict(nombre="Equipo Halcón", lema="Busca ganar lo máximo"),
+    "verde": dict(nombre="Equipo Hormiga", lema="Busca acabar en positivo el máximo de semanas"),
+    "equilibrio": dict(nombre="Equipo Tortuga", lema="Busca ganar sin semanas malas"),
 }
 PARAMS = [dict(base=b, boost=k, cap=c) for b, k, c in itertools.product([1.0, 0.3, 0.0], [0.0, 2.0, 6.0], [0.35, 0.6, 1.0])
           if not (b == 0 and k == 0)]

@@ -25,7 +25,7 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 
 - Un **equipo** es un grupo de agentes (pueden ser de BTC, ETH, SOL y XRP a la vez) que comparte **una sola cartera de 100 € ficticios**.
 - Cada día, al cierre, el equipo **reparte el dinero**: más a quien tiene una operación abierta y mejor nota en las pruebas; nadie puede manejar más de un tope; lo que sobra espera en euros. Mover dinero entre agentes paga comisiones.
-- Hay **tres equipos compitiendo**: Ganancia (ganar lo máximo), Semanas en verde (el máximo de semanas en positivo) y Equilibrio.
+- Hay **tres equipos compitiendo**: Halcón (ganar lo máximo), Hormiga (el máximo de semanas en positivo) y Tortuga (equilibrio).
 - Se forman **automáticamente**: se prueban combinaciones y repartos con 2024–25 y tienen que ganar también en 2026. Si ninguna gana, ese equipo se queda vacío y se reintenta cada día. El **día 1 de cada mes** se vuelven a elegir los miembros; el dinero del equipo sigue.
 - Código: `src/equipos.py`.
 

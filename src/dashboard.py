@@ -302,14 +302,26 @@ def team_card(tm, cfg, agents_by_id, lead=False):
         lbl = f"{w['inicio'][8:10]}/{w['inicio'][5:7]}" if w["completa"] else "esta semana"
         weeks_rows.append(f'<div class="wk"><span class="mono muted">{e(lbl)}</span><span class="track"><i style="left:{left:.1f}%;width:{width:.1f}%;background:{col}"></i></span>'
                           f'<span class="mono {"up" if w["eur"] >= 0 else "down"}" style="text-align:right">{"+" if w["eur"] >= 0 else "−"}{eur(abs(w["eur"]))}</span></div>')
-    green = sum(w["eur"] > 0 for w in done)
+    green = sum(w["eur"] > 0.005 for w in done)
+    red = sum(w["eur"] < -0.005 for w in done)
+    # lo que ha aportado cada mercado sobre los 100 € del equipo
+    per_asset = {}
+    for i, c in contrib.items():
+        a = asset(agents_by_id.get(i, {}))
+        per_asset[a] = per_asset.get(a, 0.0) + c
+    asset_rows = "".join(f'<div class="kpi"><b class="{"up" if c >= 0 else "down"}">{"+" if c >= 0 else "−"}{eur(abs(c))}</b><span>{e(a)} · {pct(c / cap0)} sobre {eur(cap0)}</span></div>'
+                         for a, c in sorted(per_asset.items(), key=lambda x: -x[1]))
+    miembros_txt = ", ".join(f"{m['name']} ({m['activo'].split('-')[0]})" for m in ahora)
     return f"""<article class="team{' lead' if lead else ''}">
 <div class="top"><span class="name">{e(info['nombre'])}{' <span class="pill ok">va primero</span>' if lead else ''}</span><span class="muted" style="font-size:.8rem">{e(info['lema'])}</span></div>
 <div class="top"><span class="big mono {'up' if v >= cap0 else 'down'}">{eur(v)}</span><span class="mono {'up' if v >= cap0 else 'down'}">{pct(v / cap0 - 1)} desde el {ini[8:10]}/{ini[5:7]}</span></div>
+<p class="muted" style="font-size:.78rem">Empezó con {eur(cap0)} ficticios. Las semanas cuentan de lunes a domingo y solo cuando están completas.</p>
 {spark(tm.get('curva', []), cap0, v >= cap0)}
-<div class="kpis"><div class="kpi"><b class="{'up' if cur and cur['eur'] >= 0 else 'down'}">{('+' if cur['eur'] >= 0 else '−') + eur(abs(cur['eur'])) if cur else '—'}</b><span>esta semana</span></div>
-<div class="kpi"><b>{green} de {len(done)}</b><span>semanas en verde</span></div>
-<div class="kpi"><b>{pct(min((w['pct'] for w in done), default=0))}</b><span>peor semana</span></div></div>
+<p style="font-size:.88rem"><strong>Formado por:</strong> {e(miembros_txt)}</p>
+<div class="kpis"><div class="kpi"><b class="{'' if not cur or abs(cur['eur']) < 0.005 else 'up' if cur['eur'] > 0 else 'down'}">{(('+' if cur['eur'] >= 0 else '−') + eur(abs(cur['eur'])) + ' (' + pct(cur['pct']) + ')') if cur else '0,00 €'}</b><span>esta semana, acumulado</span></div>
+<div class="kpi"><b class="up">{green}</b><span>semanas en positivo</span></div>
+<div class="kpi"><b class="down">{red}</b><span>semanas en negativo</span></div></div>
+{('<div><p class="eyebrow" style="margin-bottom:6px">Qué ha aportado cada mercado</p><div class="kpis">' + asset_rows + '</div></div>') if asset_rows else ''}
 <div><p class="eyebrow" style="margin-bottom:6px">Dónde está el dinero ahora</p><div class="stack">{bar}</div><div class="legend" style="margin-top:6px">{legend}</div></div>
 <div class="members"><p class="eyebrow">Miembros y dinero que maneja cada uno</p>{''.join(rows)}</div>
 {'<div class="weeks">' + ''.join(weeks_rows) + '</div>' if weeks_rows else ''}
