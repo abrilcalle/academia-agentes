@@ -155,6 +155,46 @@ def learning_html(agents):
 </div><p class="muted" style="font-size:.82rem">Por temporalidad: {e(tf_txt)}.</p></section>"""
 
 
+def btc_change_since(ac, day):
+    mk = ac.daily
+    try:
+        i = mk.idx(day) - 1  # cierre del día anterior al inicio
+        return float(mk.I.c[-1] / mk.I.c[max(i, 0)] - 1)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def sim_html(ac, sim, cola, cfg):
+    if not sim:
+        return '<section><h2>Ganadores</h2><p class="empty">Ningún agente en simulado todavía.</p></section>'
+    rets = [(a, a.get("paper", {}).get("ret", 0.0), a.get("paper", {}).get("trades", 0)) for a in sim]
+    win = [a for a, r, _ in rets if r > 0.001]
+    lose = [a for a, r, _ in rets if r < -0.001]
+    wait = [a for a, r, t in rets if abs(r) <= 0.001]
+    first = min(a["paper_start"] for a in sim)
+    btc = btc_change_since(ac, first)
+    btc_txt = f" BTC {'ha subido' if btc >= 0 else 'ha bajado'} un {abs(btc) * 100:.1f} % desde el {first[8:10]}/{first[5:7]}, cuando empezó el simulado.".replace(".", ",", 1) if btc is not None else ""
+    out = ['<section><h2>Ganadores</h2>',
+           f'<div class="learn"><div class="step"><span class="n mono up">{len(win)}</span><span class="lbl">ganando</span></div>'
+           f'<div class="step"><span class="n mono">{len(wait)}</span><span class="lbl">con sus 100 € intactos, esperando su señal</span></div>'
+           f'<div class="step"><span class="n mono down">{len(lose)}</span><span class="lbl">perdiendo</span></div></div>']
+    if win:
+        out.append("".join(card(a, cfg, gold=k == 0, compact=k >= 3) for k, a in enumerate(sorted(win, key=lambda a: -a["paper"]["ret"])[:10])))
+    else:
+        out.append(f'<p class="empty">Todavía ningún agente va en positivo.{e(btc_txt)} Es normal en los primeros días: la mayoría solo compra cuando ve su señal, y los que compraron se han movido con BTC.</p>')
+    rows = "".join(
+        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(a.get('tf', ''))}</span></td>"
+        f"<td class='num'>día {a.get('paper', {}).get('days', 0)}</td>"
+        f"<td class='num {'up' if a.get('paper', {}).get('ret', 0) > 0.001 else 'down' if a.get('paper', {}).get('ret', 0) < -0.001 else ''}'>{eur(a.get('paper', {}).get('final', 100))}<br>{pct(a.get('paper', {}).get('ret', 0))}</td>"
+        f"<td>{'dentro de BTC' if (a.get('paper', {}).get('posicion') or 0) > 0.05 else 'esperando señal'}</td></tr>"
+        for a in sorted(sim, key=lambda a: -a.get("paper", {}).get("ret", 0)))
+    out.append(f'<details class="report"><summary>Ver los {len(sim)} agentes en simulado</summary><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Progreso</th><th style="text-align:right">Saldo</th><th>Ahora</th></tr></thead><tbody>{rows}</tbody></table></div></details>')
+    if cola:
+        out.append(f'<p class="muted" style="font-size:.85rem">{len(cola)} aprobados más esperan hueco.</p>')
+    out.append("</section>")
+    return "".join(out)
+
+
 def build(root, ac):
     st, cfg = ac.state, ac.cfg
     agents = st["agents"]
@@ -173,10 +213,7 @@ def build(root, ac):
     if listos:
         sections.append('<section><h2>Listos para dinero real</h2><p class="muted" style="font-size:.85rem">Superaron el examen y el simulado. Solo pasan a dinero real si tú lo decides.</p>'
                         + "".join(card(a, cfg, gold=True, compact=k >= 5) for k, a in enumerate(listos)) + "</section>")
-    sections.append('<section><h2>En simulado</h2>'
-                    + ("".join(card(a, cfg, compact=k >= 3) for k, a in enumerate(sim)) if sim else '<p class="empty">Ningún agente en simulado todavía.</p>')
-                    + (f'<p class="muted" style="font-size:.85rem">{len(cola)} aprobados más esperan hueco.</p>' if cola else "")
-                    + "</section>")
+    sections.append(sim_html(ac, sim, cola, cfg))
     sections.append('<section><h2>Novedades de hoy</h2>' + (
         '<ul class="news">' + "".join(f"<li>{e(n)}</li>" for n in news) + "</ul>" if news else '<p class="empty">Sin novedades: los agentes siguen operando.</p>') + "</section>")
     rows = "".join(
