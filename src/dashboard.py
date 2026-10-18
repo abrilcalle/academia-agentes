@@ -310,7 +310,8 @@ def team_card(tm, cfg, agents_by_id, lead=False):
                          for a, c in sorted(per_asset.items(), key=lambda x: -x[1]))
     miembros_txt = ", ".join(f"{m['name']} ({m['activo'].split('-')[0]})" for m in ahora)
     return f"""<article class="team{' lead' if lead else ''}">
-<div class="top"><span class="name">{e(info['nombre'])}{' <span class="pill ok">va primero</span>' if lead else ''}</span><span class="muted" style="font-size:.8rem">{e(info['lema'])}</span></div>
+<div class="top"><span class="name">{e(info['nombre'])}{' <span class="pill ok">va primero</span>' if lead else ''}{' <span class="pill wait">en observación</span>' if per.get('observacion') else ''}</span><span class="muted" style="font-size:.8rem">{e(info['lema'])}</span></div>
+{('<p class="desc">Ningún grupo cumple aún todas las condiciones; este es el que más se acerca y ganó en las dos pruebas, así que corre para ver si en equipo funciona mejor. Cada día se busca uno que las cumpla. ' + e(per['observacion']) + '</p>') if per.get('observacion') else ''}
 <div class="top"><span class="big mono {'up' if v >= cap0 else 'down'}">{eur(v)}</span><span class="mono {'up' if v >= cap0 else 'down'}">{pct(v / cap0 - 1)} desde el {ini[8:10]}/{ini[5:7]}</span></div>
 <p class="muted" style="font-size:.78rem">Empezó con {eur(cap0)} ficticios. Las semanas cuentan de lunes a domingo y solo cuando están completas.</p>
 {spark(tm.get('curva', []), cap0, v >= cap0)}

@@ -272,11 +272,17 @@ def build(ac, last_day, log=print):
                 _, _, team, prm, s1, s2, f1, f2 = best
                 txt += (f" El que más se acerca ({', '.join(cands[j]['name'] for j in team)}): en 2024–25 {'; '.join(f1) or 'cumple'}; "
                         f"en 2026 {'; '.join(f2) or 'cumple'}.")
+                if s1["ret"] > 0 and s2["ret"] > 0:
+                    # nadie cumple: corre el grupo que más se acerca, en observación, por si en equipo funciona mejor
+                    out[tipo] = dict(miembros=[cands[j]["id"] for j in team], params=dict(prm, prudencia=pr),
+                                     pruebas=dict(p1=s1, p2=s2), observacion=txt)
+                    log(f"{info['nombre']} (en observación): {txt}")
+                    continue
             out[tipo] = dict(motivo=txt)
             log(f"{info['nombre']}: {txt}")
             continue
         _, _, idx, prm, s1, s2, _, _ = best
-        out[tipo] = dict(miembros=[cands[j]["id"] for j in idx], params=dict(prm, prudencia=pr), pruebas=dict(p1=s1, p2=s2))
+        out[tipo] = dict(miembros=[cands[j]["id"] for j in idx], params=dict(prm, prudencia=pr), pruebas=dict(p1=s1, p2=s2), observacion=None)
         log(f"{info['nombre']}: {', '.join(cands[j]['name'] + ' (' + cands[j].get('activo', 'BTC-EUR').split('-')[0] + ')' for j in idx)} | "
             f"2024–25 {s1['ret'] * 100:+.1f} %, 2026 {s2['ret'] * 100:+.1f} % ({s2['verde'] * 100:.0f} % semanas ganando)")
     return out
@@ -293,7 +299,8 @@ def update(ac, log=print):
     teams = st.setdefault("equipos", {})
     for k in [k for k in teams if k not in TIPOS]:
         teams.pop(k)
-    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1}
+    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1
+            or teams[t]["periodos"][-1].get("observacion")}  # los que están en observación se revisan cada día
     if need:
         props = build(ac, last_day, log)
         for t in need:
@@ -305,6 +312,7 @@ def update(ac, log=print):
                 continue  # si ya tenía miembros, sigue con ellos
             tm.pop("vacio", None)
             if tm["periodos"] and tm["periodos"][-1]["miembros"] == p["miembros"] and tm["periodos"][-1]["params"] == p["params"]:
+                tm["periodos"][-1]["observacion"] = p.get("observacion")
                 continue
             if tm["inicio"] is None:
                 tm["inicio"] = start.isoformat()
