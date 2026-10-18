@@ -359,11 +359,18 @@ def build(root, ac):
             f'<div class="alert"><span class="t">{"🟡 Decide" if x["tipo"] == "decidir" else "🔵 Tarea"} · {e(x["titulo"])}</span><p>{e(x["texto"])}</p>'
             f'<span class="muted mono" style="font-size:.72rem">{e(x["fecha"])}</span></div>' for x in avisos) + "</section>")
 
-    if guardado or futuros:
-        sections.append('<details class="report"><summary>Tus recordatorios e ideas guardadas</summary><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">'
-                        + "".join(f'<div><strong>{"💡 Idea" if x["tipo"] == "idea" else "📌 Recordatorio"} · {e(x["titulo"])}</strong><p style="font-size:.85rem">{e(x["texto"])}</p></div>' for x in guardado)
-                        + "".join(f'<div><strong>⏰ A partir del {x["desde"][8:10]}/{x["desde"][5:7]} · {e(x["titulo"])}</strong><p style="font-size:.85rem">{e(x["texto"])}</p></div>' for x in futuros)
-                        + '</div></details>')
+    recs = [x for x in guardado if x["tipo"] == "recordatorio"]
+    ideas = [x for x in guardado if x["tipo"] == "idea"]
+    if recs or futuros:
+        sections.append('<section><h2>Recordatorios</h2>'
+                        + "".join(f'<div class="card"><strong>📌 {e(x["titulo"])}</strong><p class="desc">{e(x["texto"])}</p></div>' for x in recs)
+                        + "".join(f'<div class="card"><strong>⏰ A partir del {x["desde"][8:10]}/{x["desde"][5:7]} · {e(x["titulo"])}</strong><p class="desc">{e(x["texto"])}</p></div>' for x in futuros)
+                        + '</section>')
+    if ideas:
+        sections.append('<section><h2>Ideas pendientes</h2>'
+                        + "".join(f'<div class="card"><strong>💡 {e(x["titulo"])}</strong><p class="desc">{e(x["texto"])}</p>'
+                                  f'<span class="muted mono" style="font-size:.72rem">apuntada el {x["fecha"][8:10]}/{x["fecha"][5:7]}</span></div>' for x in ideas)
+                        + '</section>')
 
     # 2. equipos
     teams = st.get("equipos") or {}
