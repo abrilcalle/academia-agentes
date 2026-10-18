@@ -146,8 +146,7 @@ class Academia:
             best = None
             g = dict(family=f, filter="ninguno", stop=0, sizing="completo")
             for p in FAMILIES[f]["grid"]:
-                r = run(mk.I, signal(mk.I, g, p, kr), a, b, cfg)
-                s = inventor.score(r, cfg["cap"], years, temper)
+                s, r = inventor.robust(mk, signal(mk.I, g, p, kr), (a, b), cfg, temper)
                 if best is None or s > best[0]:
                     best = (s, g, p, r)
             found.append(best)
@@ -160,8 +159,8 @@ class Academia:
                         g = dict(family=g0["family"], filter=fl, stop=st, sizing=sz)
                         if g == g0:
                             continue
-                        r = run(mk.I, signal(mk.I, g, p, kr), a, b, cfg)
-                        extra.append((inventor.score(r, cfg["cap"], years, temper), g, p, r))
+                        s, r = inventor.robust(mk, signal(mk.I, g, p, kr), (a, b), cfg, temper)
+                        extra.append((s, g, p, r))
         allc = sorted(found + extra, key=lambda t: -t[0])
         return allc[:3], len(found) and sum(len(FAMILIES[f]["grid"]) for f in fams) + len(extra)
 
@@ -217,10 +216,8 @@ class Academia:
         vyears = (va[1] - va[0] + 1) / (365 * mk.bpd)
         w_known = signal(mk.I, g, p, kr)
         w_inv = inventor.exposure(mk.I, rule, kr, mk.bpd)
-        v_known = run(mk.I, w_known, *va, cfg)
-        v_inv = run(mk.I, w_inv, *va, cfg)
-        sk = inventor.score(v_known, cfg["cap"], vyears, temper)
-        si = inventor.score(v_inv, cfg["cap"], vyears, temper)
+        sk, v_known = inventor.robust(mk, w_known, va, cfg, temper)
+        si, v_inv = inventor.robust(mk, w_inv, va, cfg, temper)
         propia = si > sk
 
         # si su elección opera igual que otro agente (en validación), prueba con su otra opción
@@ -273,7 +270,33 @@ class Academia:
             ag["status"], ag["motivo"] = "suspendido", "No aprobó: " + "; ".join(fails) + "."
         else:
             ag["status"], ag["motivo"] = "cola", f"Aprobó el examen con {pc(re.ret)}."
+            self.exam2(ag)
         return ag
+
+    def exam2(self, ag):
+        """Segundo examen: el mercado de este año (2026), que no se usó para nada antes."""
+        c2 = self.cfg.get("examen_2")
+        if not c2:
+            return True
+        mk = self.mk[ag["tf"]]
+        a, b = mk.idx(c2["periodo"][0]), min(mk.end_idx(c2["periodo"][1]), mk.n - 1)
+        r = run(mk.I, self.exposure(ag), a, b, self.run_cfg())
+        ag["exam2"] = r.summary()
+        fails = []
+        if r.ret * 100 < c2["ganancia_minima_pct"]:
+            fails.append(f"en 2026 {'perdió' if r.ret < 0 else 'ganó'} un {abs(r.ret) * 100:.1f} % (mínimo {c2['ganancia_minima_pct']:+g} %)".replace(".", ","))
+        if r.n_buys < c2["operaciones_minimas"]:
+            fails.append(f"en 2026 solo hizo {r.n_buys} operaciones (mínimo {c2['operaciones_minimas']})")
+        if r.maxdd * 100 > c2["caida_maxima_pct"]:
+            fails.append(f"en 2026 llegó a caer un {r.maxdd * 100:.0f} % (máximo {c2['caida_maxima_pct']} %)")
+        if r.closed and r.avg_trade * 100 < c2.get("ganancia_media_por_operacion_pct", 0):
+            fails.append(f"en 2026 ganó de media un {r.avg_trade * 100:.1f} % por operación".replace(".", ","))
+        if fails:
+            ag["status"] = "suspendido"
+            ag["motivo"] = "Aprobó 2024–25 pero no el examen de 2026: " + "; ".join(fails) + "."
+            return False
+        ag["motivo"] = f"Aprobó los dos exámenes: {pc(ag['exam']['ret'])} en 2024–25 y {pc(r.ret)} en 2026."
+        return True
 
     def make_agent(self):
         fz = self.cfg["fabrica"]
@@ -313,6 +336,11 @@ class Academia:
     def paper(self):
         sim = self.cfg["simulado"]
         cfg = self.run_cfg()
+        # los que se aprobaron antes de existir el examen de 2026 también tienen que pasarlo
+        for ag in self.state["agents"]:
+            if ag["status"] in ("cola", "simulado") and "exam2" not in ag:
+                if not self.exam2(ag):
+                    self.log(f"{ag['name']} sale del simulado: {ag['motivo']}")
         active = [a for a in self.state["agents"] if a["status"] == "simulado"]
         queue = sorted([a for a in self.state["agents"] if a["status"] == "cola"], key=lambda a: -a["exam"]["ret"])
         start = (self.daily.ts[-1] + dt.timedelta(days=1)).date().isoformat()

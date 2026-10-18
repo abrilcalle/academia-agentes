@@ -29,6 +29,7 @@ def pools(bpd):
                 ROC_N=[5, 10, 20, 60] + ([7 * bpd, 30 * bpd] if bpd > 1 else []), ROC_X=[0.0, 0.02, 0.05, 0.1],
                 VOL_N=[20, 60] + ([30 * bpd] if bpd > 1 else []), VOL_X=[0.3, 0.5, 0.7, 0.9], Z_X=[1.0, 1.5, 2.0, 2.5],
                 KR=[0.0, 0.01, 0.02],
+                ER_N=[20, 50, 100], ER_X=[0.15, 0.25, 0.35],
                 PAT_N=[30, 60, 120], PAT_TOL=[0.01, 0.02, 0.03, 0.05], FLAG_IMP=[0.05, 0.08, 0.12], VOL_MULT=[1.5, 2.0, 3.0],
                 DELTA_N=[1, 5, 20] + ([bpd, 5 * bpd] if bpd > 1 else []), DELTA_X=[0.02, 0.05, 0.1])
 
@@ -39,10 +40,11 @@ KINDS_ENTRY = ["sobre_media", "cruce_alcista", "rsi_bajo", "rompe_maximo", "impu
 PATTERNS_ENTRY = ["doble_suelo", "triple_suelo", "hch_invertido", "triangulo", "bandera", "rebote_soporte",
                   "ruptura_volumen", "volumen_alto"]
 PATTERNS_EXIT = ["doble_techo", "hch", "pierde_soporte"]
+REGIME = ["en_tendencia", "mercado_lateral"]
 # flujo de órdenes (delta de Binance; sin datos nunca se cumplen)
 FLOW_ENTRY = ["delta_compra", "absorcion", "divergencia_delta"]
 FLOW_EXIT = ["delta_venta"]
-KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY + FLOW_ENTRY
+KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY + FLOW_ENTRY + REGIME
 KINDS_EXIT = ["bajo_media", "cruce_bajista", "rsi_alto", "pierde_minimo", "impulso_baja", "vol_alta", "z_alto",
               "macd_neg", "sobre_media"] + PATTERNS_EXIT + FLOW_EXIT
 
@@ -82,6 +84,8 @@ def random_cond(rng, kinds, P, kronos=False):
         return [k, rng.choice(P["VOL_MULT"])]
     if k == "divergencia_delta":
         return [k, rng.choice(P["N"][:4])]
+    if k in ("en_tendencia", "mercado_lateral"):
+        return [k, rng.choice(P["ER_N"]), rng.choice(P["ER_X"])]
     return [k]
 
 
@@ -140,6 +144,10 @@ def cond_array(I, c, kronos=None):
             return PT.absorption(I, c[1])
         if k == "divergencia_delta":
             return PT.delta_divergence(I, c[1])
+        if k == "en_tendencia":
+            return I.er(c[1]) > c[2]
+        if k == "mercado_lateral":
+            return I.er(c[1]) < c[2]
     raise ValueError(k)
 
 
@@ -190,6 +198,8 @@ def cond_text(c, bpd):
         "delta_venta": lambda: f"dominan las ventas agresivas {W(c[1])} (delta de menos del -{c[2] * 100:.0f} %)",
         "absorcion": lambda: f"hay absorción compradora ({str(c[1]).replace('.', ',').rstrip('0').rstrip(',')} veces el volumen normal, con ventas agresivas, pero cierra en la mitad alta de la vela)",
         "divergencia_delta": lambda: f"marca un mínimo de {S(c[1])} pero el delta acumulado no (divergencia: se agotan los vendedores)",
+        "en_tendencia": lambda: f"el mercado está en tendencia (últimas {S(c[1])})",
+        "mercado_lateral": lambda: f"el mercado está lateral, sin tendencia (últimas {S(c[1])})",
     }[k]
     return t()
 
@@ -340,6 +350,27 @@ def score(r, cap, years, temper):
     return s
 
 
+def robust(mk, w, window, cfg, temper):
+    """Puntúa una estrategia año por año dentro de la ventana: cuenta la media y, sobre todo,
+    el peor año, para premiar a las que funcionan en mercados alcistas, bajistas y laterales.
+    Devuelve (puntuación, resultado de toda la ventana)."""
+    a, b = window
+    full = run(mk.I, w, a, b, cfg)
+    y0, y1 = mk.ts[a].year, mk.ts[b].year
+    scores = []
+    for y in range(y0, y1 + 1):
+        ya, yb = max(a, mk.idx(f"{y}-01-01")), min(b, mk.end_idx(f"{y}-12-31"))
+        if yb - ya < 60 * mk.bpd:
+            continue
+        r = run(mk.I, w, ya, yb, cfg)
+        scores.append(score(r, cfg["cap"], (yb - ya + 1) / (365 * mk.bpd), temper))
+    years = (b - a + 1) / (365 * mk.bpd)
+    total = score(full, cfg["cap"], years, temper)
+    if not scores:
+        return total, full
+    return 0.4 * total + 0.6 * (0.5 * (sum(scores) / len(scores)) + 0.5 * min(scores)), full
+
+
 # ------------------------------------------------------------------ evolución
 
 
@@ -425,8 +456,7 @@ def evolve(mk, seeds, window, cfg, rng, temper, kronos=None, pop=30, gens=15, lo
         key = repr(rule)
         if key not in cache:
             w = exposure(I, rule, kronos if kr else None, mk.bpd)
-            r = run(I, w, a, b, cfg)
-            cache[key] = (score(r, cfg["cap"], years, temper), r)
+            cache[key] = robust(mk, w, (a, b), cfg, temper)
         return cache[key]
 
     popn = [s for s in seeds][:pop // 3]

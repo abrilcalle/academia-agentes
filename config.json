@@ -21,6 +21,17 @@
     "caida_maxima_pct": 40,
     "ganancia_media_por_operacion_pct": 1.0
   },
+  "examen_2": {
+    "periodo": [
+      "2026-01-01",
+      "2026-09-30"
+    ],
+    "ganancia_minima_pct": 0,
+    "operaciones_minimas": 2,
+    "caida_maxima_pct": 25,
+    "ganancia_media_por_operacion_pct": 0.5,
+    "_nota": "Segundo examen con el mercado de este año. Para pasar al simulado hay que aprobar los dos."
+  },
   "simulado": {
     "dias": 90,
     "caida_maxima_pct": 25,

@@ -134,6 +134,20 @@ class Ind:
                 return (self.c - self.sma(n)) / self.stdev(n)
         return self._memo(("z", n), f)
 
+    def er(self, n):
+        """Eficiencia de Kaufman (0 = lateral, 1 = tendencia limpia) de las últimas n velas."""
+        def f():
+            r = np.full(self.n, np.nan)
+            if self.n > n:
+                d = np.abs(np.diff(self.c, prepend=self.c[0]))
+                cs = np.cumsum(d)
+                path = cs[n:] - cs[:-n]
+                net = np.abs(self.c[n:] - self.c[:-n])
+                with np.errstate(invalid="ignore", divide="ignore"):
+                    r[n:] = np.where(path > 0, net / path, 0.0)
+            return r
+        return self._memo(("er", n), f)
+
     def macd_hist(self, f=12, s=26, sig=9):
         def g():
             line = self.ema_of(self.c, f) - self.ema_of(self.c, s)
