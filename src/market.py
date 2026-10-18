@@ -9,11 +9,11 @@ TF_LABEL = {"1d": "velas diarias", "4h": "velas de 4 horas", "1h": "velas de 1 h
 
 
 class Market:
-    def __init__(self, tf, ts, o, h, l, c, v=None):
+    def __init__(self, tf, ts, o, h, l, c, v=None, flow=None):
         self.tf = tf
         self.ts = list(ts)
         self.bpd = BARS_PER_DAY[tf]
-        self.I = Ind(o, h, l, c, bpy=365 * self.bpd, v=v)
+        self.I = Ind(o, h, l, c, bpy=365 * self.bpd, v=v, flow=flow)
         self.v = v
         self.n = len(self.ts)
 

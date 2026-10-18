@@ -29,7 +29,8 @@ def pools(bpd):
                 ROC_N=[5, 10, 20, 60] + ([7 * bpd, 30 * bpd] if bpd > 1 else []), ROC_X=[0.0, 0.02, 0.05, 0.1],
                 VOL_N=[20, 60] + ([30 * bpd] if bpd > 1 else []), VOL_X=[0.3, 0.5, 0.7, 0.9], Z_X=[1.0, 1.5, 2.0, 2.5],
                 KR=[0.0, 0.01, 0.02],
-                PAT_N=[30, 60, 120], PAT_TOL=[0.01, 0.02, 0.03, 0.05], FLAG_IMP=[0.05, 0.08, 0.12], VOL_MULT=[1.5, 2.0, 3.0])
+                PAT_N=[30, 60, 120], PAT_TOL=[0.01, 0.02, 0.03, 0.05], FLAG_IMP=[0.05, 0.08, 0.12], VOL_MULT=[1.5, 2.0, 3.0],
+                DELTA_N=[1, 5, 20] + ([bpd, 5 * bpd] if bpd > 1 else []), DELTA_X=[0.02, 0.05, 0.1])
 
 
 KINDS_ENTRY = ["sobre_media", "cruce_alcista", "rsi_bajo", "rompe_maximo", "impulso_sube", "vol_baja", "z_bajo",
@@ -38,9 +39,12 @@ KINDS_ENTRY = ["sobre_media", "cruce_alcista", "rsi_bajo", "rompe_maximo", "impu
 PATTERNS_ENTRY = ["doble_suelo", "triple_suelo", "hch_invertido", "triangulo", "bandera", "rebote_soporte",
                   "ruptura_volumen", "volumen_alto"]
 PATTERNS_EXIT = ["doble_techo", "hch", "pierde_soporte"]
-KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY
+# flujo de órdenes (delta de Binance; sin datos nunca se cumplen)
+FLOW_ENTRY = ["delta_compra", "absorcion", "divergencia_delta"]
+FLOW_EXIT = ["delta_venta"]
+KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY + FLOW_ENTRY
 KINDS_EXIT = ["bajo_media", "cruce_bajista", "rsi_alto", "pierde_minimo", "impulso_baja", "vol_alta", "z_alto",
-              "macd_neg", "sobre_media"] + PATTERNS_EXIT
+              "macd_neg", "sobre_media"] + PATTERNS_EXIT + FLOW_EXIT
 
 
 def random_cond(rng, kinds, P, kronos=False):
@@ -72,6 +76,12 @@ def random_cond(rng, kinds, P, kronos=False):
         return [k, rng.choice(P["N"]), rng.choice(P["VOL_MULT"])]
     if k == "volumen_alto":
         return [k, rng.choice(P["VOL_MULT"])]
+    if k in ("delta_compra", "delta_venta"):
+        return [k, rng.choice(P["DELTA_N"]), rng.choice(P["DELTA_X"])]
+    if k == "absorcion":
+        return [k, rng.choice(P["VOL_MULT"])]
+    if k == "divergencia_delta":
+        return [k, rng.choice(P["N"][:4])]
     return [k]
 
 
@@ -122,6 +132,14 @@ def cond_array(I, c, kronos=None):
             return pat[k](I, c[1], c[2])
         if k == "volumen_alto":
             return PT.volume_ratio(I) > c[1]
+        if k == "delta_compra":
+            return I.delta_avg(c[1]) > c[2]
+        if k == "delta_venta":
+            return I.delta_avg(c[1]) < -c[2]
+        if k == "absorcion":
+            return PT.absorption(I, c[1])
+        if k == "divergencia_delta":
+            return PT.delta_divergence(I, c[1])
     raise ValueError(k)
 
 
@@ -137,6 +155,7 @@ def span(n, bpd):
 def cond_text(c, bpd):
     k = c[0]
     S = lambda n: span(n, bpd)  # noqa: E731
+    W = lambda n: "en la vela" if n == 1 else ("en el último día" if n == bpd else f"durante {S(n)}")  # noqa: E731
     t = {
         "sobre_media": lambda: f"el precio está sobre su media de {S(c[1])}",
         "bajo_media": lambda: f"el precio está bajo su media de {S(c[1])}",
@@ -167,6 +186,10 @@ def cond_text(c, bpd):
         "doble_techo": lambda: f"completa un doble techo (M) en las últimas {S(c[1])}",
         "hch": lambda: f"completa un hombro-cabeza-hombro en las últimas {S(c[1])}",
         "pierde_soporte": lambda: f"pierde un soporte de las últimas {S(c[1])}",
+        "delta_compra": lambda: f"dominan las compras agresivas {W(c[1])} (delta de más del {c[2] * 100:.0f} %)",
+        "delta_venta": lambda: f"dominan las ventas agresivas {W(c[1])} (delta de menos del -{c[2] * 100:.0f} %)",
+        "absorcion": lambda: f"hay absorción compradora ({str(c[1]).replace('.', ',').rstrip('0').rstrip(',')} veces el volumen normal, con ventas agresivas, pero cierra en la mitad alta de la vela)",
+        "divergencia_delta": lambda: f"marca un mínimo de {S(c[1])} pero el delta acumulado no (divergencia: se agotan los vendedores)",
     }[k]
     return t()
 
@@ -366,7 +389,7 @@ def mutate(rng, rule, P, kronos=False):
 def _tweak(rng, c, P):
     c = c[:]
     if len(c) > 1 and isinstance(c[1], int):
-        for key in ("N", "RSI_N", "ROC_N", "VOL_N", "PAT_N"):
+        for key in ("N", "RSI_N", "ROC_N", "VOL_N", "PAT_N", "DELTA_N"):
             if c[1] in P[key]:
                 lst = P[key]
                 j = max(0, min(len(lst) - 1, lst.index(c[1]) + rng.choice([-1, 1])))

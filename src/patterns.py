@@ -9,6 +9,9 @@ Figuras de entrada (alcistas): doble suelo (W), triple suelo, hombro-cabeza-homb
 triángulo ascendente, bandera alcista / patrón N, rebote en zona de soporte (demanda),
 ruptura de resistencia con volumen.
 Figuras de salida (bajistas): doble techo (M), hombro-cabeza-hombro, pérdida de soporte.
+
+Flujo de órdenes (necesita el delta de Binance; sin datos nunca se cumplen): absorción compradora
+y divergencia de delta.
 """
 import numpy as np
 
@@ -265,3 +268,34 @@ def resistance_break_volume(I, n, vol):
         with np.errstate(invalid="ignore"):
             return (I.c > I.hh(n)) & (volume_ratio(I) > vol)
     return _memo(I, ("RBV", n, vol), f)
+
+
+# ------------------------------------------------------------------ flujo de órdenes
+
+
+def absorption(I, mult, n=20):
+    """Absorción compradora: vela con `mult` veces el volumen normal, dominada por ventas agresivas
+    (delta < -10 %), pero que cierra en la mitad alta de su rango: alguien compró todo lo que se vendió."""
+    def f():
+        d = I.delta()
+        rng_ = I.h - I.l
+        with np.errstate(invalid="ignore", divide="ignore"):
+            pos = np.where(rng_ > 0, (I.c - I.l) / rng_, 0.5)
+            return (volume_ratio(I, n) > mult) & (d < -0.1) & (pos >= 0.5)
+    return _memo(I, ("ABS", mult, n), f)
+
+
+def delta_divergence(I, n):
+    """Divergencia de delta: el precio cierra bajo el mínimo de las n velas anteriores, pero el delta
+    acumulado (CVD) sigue por encima de su mínimo de esas velas: la presión vendedora se agota."""
+    def f():
+        out = np.zeros(I.n, bool)
+        if I.n <= n:
+            return out
+        cvd = I.cvd()
+        prev_min = np.full(I.n, np.nan)
+        prev_min[n:] = np.lib.stride_tricks.sliding_window_view(cvd, n).min(axis=1)[:-1]
+        have = np.isfinite(I.delta_avg(n))  # hay datos de flujo en toda la ventana
+        with np.errstate(invalid="ignore"):
+            return (I.c < I.ll(n)) & (cvd > prev_min) & have
+    return _memo(I, ("DIVD", n), f)

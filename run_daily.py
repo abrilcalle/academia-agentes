@@ -35,10 +35,23 @@ def load_markets(cfg, local, today, use_intraday):
     else:
         d1 = datamod.update(os.path.join(ROOT, "data", "btc_eur_1d.csv"), "1d", cfg["mercado"], since=dt.datetime(2017, 1, 1))
         h1 = datamod.update(os.path.join(ROOT, "data", "btc_eur_1h") + "/", "1h", cfg["mercado"], since=dt.datetime(2017, 12, 1)) if use_intraday else {}
-    mk = {"1d": Market("1d", *datamod.to_arrays(d1, "1d"))}
+    # flujo de órdenes (delta de Binance): opcional, los agentes funcionan sin él
+    if local:
+        flow = datamod.load_flow(os.path.join(local, "btc_flujo_1h"))
+        flow = {k: v for k, v in flow.items() if k < cut}
+    else:
+        flow = datamod.update_flow(os.path.join(ROOT, "data", "btc_eur_flujo_1h"), cfg.get("flujo_simbolo", "BTCEUR"))
+
+    def market(tf, candles, hours):
+        arr = datamod.to_arrays(candles, tf)
+        return Market(tf, *arr, flow=datamod.flow_arrays(flow, arr[0], hours) if flow else None)
+
+    mk = {"1d": market("1d", d1, 24)}
     if h1:
-        mk["1h"] = Market("1h", *datamod.to_arrays(h1, "1h"))
-        mk["4h"] = Market("4h", *datamod.to_arrays(datamod.resample(h1, 4), "4h"))
+        mk["1h"] = market("1h", h1, 1)
+        mk["4h"] = market("4h", datamod.resample(h1, 4), 4)
+    if flow:
+        print(f"Flujo de órdenes: {min(flow).date()} -> {max(flow).date()} ({len(flow)} horas)")
     return mk
 
 

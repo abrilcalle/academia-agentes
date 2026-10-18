@@ -10,6 +10,8 @@ Piezas permitidas en "entry" y "exit" (lista de condiciones; entrada = todas, sa
   ["doble_suelo", N, tol] ["triple_suelo", N, tol] ["hch_invertido", N, tol] ["triangulo", N, tol]
   ["rebote_soporte", N, tol] ["doble_techo", N, tol] ["hch", N, tol] ["pierde_soporte", N, tol]
   ["bandera", N, subida_min] ["ruptura_volumen", N, veces_volumen] ["volumen_alto", veces_volumen]
+  Flujo de órdenes (delta = compras agresivas menos ventas agresivas, de Binance desde 2020):
+  ["delta_compra", N, nivel] ["delta_venta", N, nivel] ["absorcion", veces_volumen] ["divergencia_delta", N]
   (N = número de velas; pct, tol y subida en tanto por uno: 0.05 = 5 %)
 Gestión: stop (ATR: 0, 2, 3, 4), tp (0 o tanto por uno), trail (0 o tanto por uno), hold (días, 0 = sin límite),
   sizing ("completo" o "riesgo"), frac (0.2-1), be (tanto por uno), stall (días), pyr (tanto por uno), shrink (true/false),
@@ -30,7 +32,8 @@ def main():
     data = json.load(open(os.path.join(ROOT, "ideas", "estrategias_internet.json")))
     rng = np.random.default_rng(1)
     c = 30000 * np.exp(np.cumsum(rng.normal(0, 0.03, 1500)))
-    I = Ind(c * 1.0, c * 1.02, c * 0.98, c, v=rng.uniform(100, 1000, 1500))
+    v = rng.uniform(100, 1000, 1500)
+    I = Ind(c * 1.0, c * 1.02, c * 0.98, c, v=v, flow=(v, v * rng.uniform(0.3, 0.7, 1500)))
     names, errs = set(), []
     for k, idea in enumerate(data["ideas"]):
         n = idea.get("nombre", f"#{k}")

@@ -3,6 +3,10 @@
 Fuente principal: Bitvavo (el exchange donde se operará). Para los años anteriores a que Bitvavo
 tenga histórico se completa con Bitstamp BTC/EUR. Solo se guardan velas ya cerradas (hora UTC).
 Las fechas se guardan como datetime UTC sin zona horaria.
+
+Flujo de órdenes (order flow): de Binance BTC/EUR (desde 2020) se guarda, por cada hora, el volumen
+total y el volumen de compradores agresivos (los que compran a mercado). Con eso se calcula el
+"delta": quién empuja en cada vela. Es opcional: si no se puede descargar, los agentes siguen sin él.
 """
 import csv
 import datetime as dt
@@ -14,6 +18,8 @@ import urllib.request
 UA = {"User-Agent": "academia-agentes/1.0"}
 BITVAVO = "https://api.bitvavo.com/v2/{market}/candles?interval={interval}&limit=1440{end}"
 BITSTAMP = "https://www.bitstamp.net/api/v2/ohlc/{pair}/?step={step}&limit=1000&start={start}"
+BINANCE = ["https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1h&limit=1000&startTime={start}",
+           "https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1h&limit=1000&startTime={start}"]
 STEP = {"1d": 86400, "4h": 14400, "1h": 3600}
 
 
@@ -155,6 +161,96 @@ def update(path, interval="1d", market="BTC-EUR", since=dt.datetime(2017, 1, 1),
         raise RuntimeError(f"No hay datos {interval}: revisa la conexión con Bitvavo/Bitstamp.")
     save_csv(path, merged)
     return merged
+
+
+# ------------------------------------------------------------------ flujo de órdenes (Binance)
+
+
+def parse_binance_flow(rows):
+    """klines de Binance -> dict datetime -> (volumen_total, volumen_compradores_agresivos)"""
+    return {_utc(int(r[0]) / 1000): (float(r[5]), float(r[9])) for r in rows}
+
+
+def fetch_binance_flow(symbol, since, now):
+    out, start = {}, _secs(since) * 1000
+    while True:
+        rows = None
+        for url in BINANCE:
+            try:
+                rows = _get(url.format(symbol=symbol, start=start))
+                break
+            except Exception:  # noqa: BLE001
+                continue
+        if rows is None:
+            raise RuntimeError("Binance no responde")
+        new = {k: v for k, v in parse_binance_flow(rows).items() if k not in out}
+        if not new:
+            break
+        out.update(new)
+        last = max(new)
+        if last + dt.timedelta(hours=1) >= now or len(rows) < 1000:
+            break
+        start = _secs(last) * 1000 + 3600 * 1000
+        time.sleep(0.2)
+    return out
+
+
+def load_flow(path):
+    out = {}
+    files = [os.path.join(path, f) for f in sorted(os.listdir(path)) if f.endswith(".csv")] if os.path.isdir(path) else []
+    for fp in files:
+        with open(fp) as f:
+            for r in csv.DictReader(f):
+                out[dt.datetime.fromisoformat(r["ts"])] = (float(r["volume"]), float(r["taker_buy"]))
+    return out
+
+
+def save_flow(path, flow):
+    os.makedirs(path, exist_ok=True)
+    months = {}
+    for d, v in flow.items():
+        months.setdefault(d.strftime("%Y-%m"), {})[d] = v
+    for m, part in months.items():
+        fp = os.path.join(path, f"{m}.csv")
+        txt = "ts,volume,taker_buy\n" + "".join(f"{d.isoformat(timespec='minutes')},{round(v, 6)},{round(b, 6)}\n"
+                                                 for d, (v, b) in sorted(part.items()))
+        if not os.path.exists(fp) or open(fp).read() != txt:
+            with open(fp, "w") as f:
+                f.write(txt)
+
+
+def update_flow(path, symbol="BTCEUR", since=dt.datetime(2020, 1, 1), log=print):
+    """Descarga el flujo de órdenes por horas que falta. Si falla, devuelve lo que ya había (o {})."""
+    now = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+    flow = load_flow(path)
+    try:
+        start = (max(flow) - dt.timedelta(hours=5)) if flow else since
+        new = fetch_binance_flow(symbol, start, now)
+        flow.update(new)
+        log(f"Binance flujo de órdenes 1h: {len(new)} horas descargadas")
+    except Exception as e:  # noqa: BLE001
+        log(f"Aviso: no se pudo descargar el flujo de órdenes de Binance ({e}); se usa el guardado")
+    flow = {d: v for d, v in flow.items() if d + dt.timedelta(hours=1) <= now}
+    if flow:
+        save_flow(path, flow)
+    return flow
+
+
+def flow_arrays(flow, ts, hours):
+    """Suma el flujo de 1h en las velas `ts` de `hours` horas. Devuelve (volumen, compras) con NaN si no hay datos."""
+    import math
+    idx = {d: k for k, d in enumerate(ts)}
+    vol, buy = [math.nan] * len(ts), [math.nan] * len(ts)
+    for d, (v, b) in flow.items():
+        k = d.replace(hour=d.hour - d.hour % hours, minute=0) if hours < 24 else d.replace(hour=0, minute=0)
+        j = idx.get(k)
+        if j is None:
+            continue
+        if vol[j] != vol[j]:
+            vol[j], buy[j] = 0.0, 0.0
+        vol[j] += v
+        buy[j] += b
+    return vol, buy
 
 
 def resample(candles, hours):

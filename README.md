@@ -12,6 +12,7 @@ Agentes de trading que aprenden solos sobre BTC-EUR (Bitvavo) y se ejecutan grat
    - **cuánto arriesgar** en cada operación (20 %, 50 % o todo el fondo) o ajustarlo a la volatilidad;
    - tiempo máximo en una operación.
    - **figuras de chartismo**: doble suelo (W), doble techo (M), triple suelo, hombro-cabeza-hombro (normal e invertido), triángulo ascendente, bandera alcista / patrón N, rebote en soporte (zona de demanda), pérdida de soporte y ruptura con volumen alto;
+   - **flujo de órdenes (order flow)**: delta (compras agresivas menos ventas agresivas, de Binance BTC/EUR desde 2020), absorción compradora y divergencia de delta. Solo el delta por vela: el libro de órdenes (layering) no tiene histórico gratuito;
    - **gestión activa de la operación** (sin apalancamiento): empezar con media posición y completarla si va a favor, subir el stop al precio de entrada al ganar un 2–5 %, acercar el stop si la operación no avanza en 1–7 días y ajustar el stop cada vez más cuanto más gana.
    Tras un stop o un objetivo, no vuelve a entrar hasta que aparezca una señal de entrada nueva.
 4. **Elige (2022–2023):** compara su mejor estrategia conocida con la suya en dos años que no usó para ajustar nada y se queda con la que funciona mejor.
