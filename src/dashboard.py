@@ -164,6 +164,22 @@ def btc_change_since(ac, day):
         return None
 
 
+def estado_txt(a):
+    p = a.get("paper") or {}
+    if (p.get("posicion") or 0) > 0.05:
+        compras = [t for t in p.get("last_trades", []) if t["tipo"] == "compra"]
+        if compras:
+            t = compras[-1]
+            f = t["fecha"]
+            return f"operación abierta: compró el {f[8:10]}/{f[5:7]} a {t['precio']:,.0f} €".replace(",", ".")
+        return "operación abierta"
+    cerradas = [t for t in p.get("last_trades", []) if t.get("resultado") is not None]
+    if cerradas:
+        r = cerradas[-1]["resultado"]
+        return f"esperando señal (última operación: {'+' if r >= 0 else '−'}{abs(r):.2f} €)".replace(".", ",")
+    return "esperando señal, aún no ha operado"
+
+
 def sim_html(ac, sim, cola, cfg):
     if not sim:
         return '<section><h2>Ganadores</h2><p class="empty">Ningún agente en simulado todavía.</p></section>'
@@ -176,17 +192,17 @@ def sim_html(ac, sim, cola, cfg):
     btc_txt = f" BTC {'ha subido' if btc >= 0 else 'ha bajado'} un {abs(btc) * 100:.1f} % desde el {first[8:10]}/{first[5:7]}, cuando empezó el simulado.".replace(".", ",", 1) if btc is not None else ""
     out = ['<section><h2>Ganadores</h2>',
            f'<div class="learn"><div class="step"><span class="n mono up">{len(win)}</span><span class="lbl">ganando</span></div>'
-           f'<div class="step"><span class="n mono">{len(wait)}</span><span class="lbl">con sus 100 € intactos, esperando su señal</span></div>'
-           f'<div class="step"><span class="n mono down">{len(lose)}</span><span class="lbl">perdiendo</span></div></div>']
+           f'<div class="step"><span class="n mono">{len(wait)}</span><span class="lbl">sin operar aún, con sus 100 € intactos</span></div>'
+           f'<div class="step"><span class="n mono down">{len(lose)}</span><span class="lbl">por debajo de 100 € (casi todos con la operación aún abierta)</span></div></div>']
     if win:
         out.append("".join(card(a, cfg, gold=k == 0, compact=k >= 3) for k, a in enumerate(sorted(win, key=lambda a: -a["paper"]["ret"])[:10])))
     else:
-        out.append(f'<p class="empty">Todavía ningún agente va en positivo.{e(btc_txt)} Es normal en los primeros días: la mayoría solo compra cuando ve su señal, y los que compraron se han movido con BTC.</p>')
+        out.append(f'<p class="empty">Todavía ningún agente va en positivo.{e(btc_txt)} Los que están por debajo de 100 € tienen casi todos la operación todavía abierta: el saldo se recalcula cada día al precio actual y aún puede acabar en ganancia o pérdida.</p>')
     rows = "".join(
         f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(a.get('tf', ''))}</span></td>"
         f"<td class='num'>día {a.get('paper', {}).get('days', 0)}</td>"
         f"<td class='num {'up' if a.get('paper', {}).get('ret', 0) > 0.001 else 'down' if a.get('paper', {}).get('ret', 0) < -0.001 else ''}'>{eur(a.get('paper', {}).get('final', 100))}<br>{pct(a.get('paper', {}).get('ret', 0))}</td>"
-        f"<td>{'dentro de BTC' if (a.get('paper', {}).get('posicion') or 0) > 0.05 else 'esperando señal'}</td></tr>"
+        f"<td>{e(estado_txt(a))}</td></tr>"
         for a in sorted(sim, key=lambda a: -a.get("paper", {}).get("ret", 0)))
     out.append(f'<details class="report"><summary>Ver los {len(sim)} agentes en simulado</summary><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Progreso</th><th style="text-align:right">Saldo</th><th>Ahora</th></tr></thead><tbody>{rows}</tbody></table></div></details>')
     if cola:
