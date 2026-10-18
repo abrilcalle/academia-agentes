@@ -58,7 +58,7 @@ def series(ac, ag):
     daily = mk.daily(r.eq, a)
     trades, entry = [], None
     for t in r.trades:
-        if t["side"] == "compra" and entry is None:
+        if t["side"] in ("compra", "corto") and entry is None:
             entry = t
         if "pnl" in t:
             trades.append(dict(entra=mk.ts[entry["i"]].date() if entry else mk.ts[t["i"]].date(),
@@ -85,6 +85,27 @@ def maxdd(curve):
     return float(np.max((peak - curve) / peak)) if len(curve) else 0.0
 
 
+def weeks_of(curve, days):
+    """Rentabilidad de cada semana (lunes a domingo) de una curva diaria."""
+    ends = {}
+    for v, d in zip(curve, days):
+        ends[d.isocalendar()[:2]] = v
+    vals = [curve[0]] + list(ends.values())
+    return np.array(vals[1:]) / np.array(vals[:-1]) - 1
+
+
+def team_score(curve, days, goal):
+    """Lo que buscas: muchas semanas en verde, ninguna muy mala, y ganar en el total."""
+    wk = weeks_of(curve, days)
+    if not len(wk):
+        return -9, 0.0, 0.0
+    green = float(np.mean(wk > 0))
+    worst = float(wk.min())
+    r = curve[-1] - 1
+    s = green + 2 * r - 3 * max(0.0, -worst - goal["peor_semana_pct"] / 100) - (0.5 if r <= 0 else 0)
+    return s, green, worst
+
+
 def build_report(ac, month_start):
     cfg = ac.cfg
     cap = cfg["saldo_inicial_eur"]
@@ -109,7 +130,7 @@ def build_report(ac, month_start):
         end_val = value_at(d["daily"], me, cap)
         full = dt.date.fromisoformat(d["ag"]["paper_start"]) <= ms
         tr = [t for t in d["trades"] if ms <= t["sale"] <= me]
-        rows.append(dict(name=n, status=d["ag"]["status"], tf=d["ag"]["tf"], eleccion=d["ag"]["eleccion"],
+        rows.append(dict(name=n, status=d["ag"]["status"], tf=d["ag"].get("activo", "BTC-EUR").split("-")[0].replace("PAXG", "Oro") + " " + d["ag"]["tf"], eleccion=d["ag"]["eleccion"],
                          label=d["ag"]["label"], ret=end_val / start_val - 1, pnl=end_val - start_val,
                          trades=len(tr), lost=sum(1 for t in tr if t["pnl"] < 0), full=full,
                          pausado=n in pausados))
@@ -194,7 +215,8 @@ def build_report(ac, month_start):
         mat = {n: v / v[0] for n, v in mat.items()}
         lo = min(icfg["minimo_agentes_en_combinacion"], len(ok))
         hi = min(icfg["maximo_agentes_en_combinacion"], len(ok))
-        ranked = sorted(ok, key=lambda n: -(mat[n][-1] - 1) / max(maxdd(mat[n]), 0.03))[:12]
+        goal = cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 65, "peor_semana_pct": 3})
+        ranked = sorted(ok, key=lambda n: -team_score(mat[n], days, goal)[0])[:12]
         rets = {n: np.diff(np.log(v)) for n, v in mat.items()}
 
         def too_alike(combo):  # dos agentes que se mueven casi igual no reparten el riesgo
@@ -211,18 +233,20 @@ def build_report(ac, month_start):
                     continue
                 curve = combo_curve(np.vstack([mat[n] for n in combo]))
                 r, dd = curve[-1] - 1, maxdd(curve)
-                s = r / max(dd, 0.03)
+                s, green, worst = team_score(curve, days, goal)
                 if best is None or s > best[0]:
-                    best = (s, combo, r, dd)
+                    best = (s, combo, r, dd, green, worst)
         if best:
             cur = [n for n in cartera if n in mat]
             cr, cdd = ((combo_curve(np.vstack([mat[n] for n in cur]))[-1] - 1), maxdd(combo_curve(np.vstack([mat[n] for n in cur])))) if cur else (0.0, 0.0)
-            _, combo, r, dd = best
+            _, combo, r, dd, green, worst = best
+            cg = team_score(combo_curve(np.vstack([mat[n] for n in cur])), days, goal)[1] if cur else 0.0
             activar = [n for n in combo if n not in cartera]
             pausar = [n for n in cartera if n not in combo]
             perfil = "es más conservadora" if dd < cdd - 0.01 else ("es más arriesgada" if dd > cdd + 0.01 else "tiene un riesgo parecido")
-            txt = (f"Para el mes que viene te recomiendo {names(combo)}. Desde el {days[0].strftime('%d/%m')} esta combinación habría ganado "
-                   f"{pc(r)} con una caída máxima del {dd * 100:.0f} %, frente a {pc(cr)} y {cdd * 100:.0f} % de tu cartera actual: {perfil}.")
+            txt = (f"Para el mes que viene te recomiendo {names(combo)}. Desde el {days[0].strftime('%d/%m')} esta combinación habría acabado en verde "
+                   f"el {green * 100:.0f} % de las semanas (tu objetivo: {goal['semanas_en_verde_pct']} %), con su peor semana en {pc(worst)} y {pc(r)} en total "
+                   f"(caída máxima del {dd * 100:.0f} %). Tu cartera actual: {cg * 100:.0f} % de semanas en verde y {pc(cr)}; la nueva {perfil}.")
             if activar:
                 txt += f" Activa a {names(activar)}."
             if pausar:
@@ -231,7 +255,7 @@ def build_report(ac, month_start):
                 txt += " Tu cartera actual ya es la mejor combinación: no cambies nada."
             if len(days) < 45:
                 txt += f" Ojo: solo hay {len(days)} días de datos, todavía es pronto para fiarse."
-            rec = dict(combo=list(combo), ret=r, dd=dd, activar=activar, pausar=pausar, texto=txt, desde=days[0].isoformat())
+            rec = dict(combo=list(combo), ret=r, dd=dd, semanas_verde=green, peor_semana=worst, activar=activar, pausar=pausar, texto=txt, desde=days[0].isoformat())
 
     return dict(mes=ms.strftime("%Y-%m"), titulo=ms.strftime("%m/%Y"), cartera=cartera, cartera_txt=cartera_txt,
                 ret_cartera=ret_cart, capital=capital, filas=rows, conclusiones=insights, recomendacion=rec,

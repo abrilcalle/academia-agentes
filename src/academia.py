@@ -43,8 +43,9 @@ def pc(x):
 
 
 class Academia:
-    def __init__(self, root, markets, kronos=None, today=None, log=print):
+    def __init__(self, root, markets, kronos=None, today=None, log=print, otros=None):
         self.root = root
+        self.otros = otros or {}  # otros mercados (ETH-EUR, SOL-EUR...): dict mercado -> dict tf -> Market
         self.cfg = json.load(open(os.path.join(root, "config.json")))
         self.state_path = os.path.join(root, "state", "agents.json")
         self.mk = markets  # dict tf -> Market
@@ -73,7 +74,10 @@ class Academia:
             json.dump(self.state, f, ensure_ascii=False, indent=1)
 
     def run_cfg(self):
-        return dict(fee=self.cfg["comision_pct"], slip=self.cfg["deslizamiento_pct"], cap=self.cfg["saldo_inicial_eur"])
+        c = self.cfg
+        return dict(fee=c["comision_pct"], slip=c["deslizamiento_pct"], cap=c["saldo_inicial_eur"],
+                    maker=c.get("comision_maker_pct", c["comision_pct"]), limit=c.get("ordenes_limitadas", False),
+                    borrow_h=c.get("corto_interes_hora_pct", 0.0))
 
     def window(self, mk, key):
         a, b = self.cfg[key]
@@ -85,6 +89,32 @@ class Academia:
         mk = self.mk[tf]
         a, b = self.window(mk, "entreno")[0], self.window(mk, "examen")[1]
         return round(float(np.mean(~np.isnan(self.kronos[tf]["med"][a:b + 1]))), 3)
+
+    def m(self, ag):
+        """Las velas del mercado y la temporalidad de un agente."""
+        a = ag.get("activo", self.cfg["mercado"])
+        return self.mk[ag["tf"]] if a == self.cfg["mercado"] else self.otros[a][ag["tf"]]
+
+    def kr_ag(self, ag):
+        """Kronos solo está calculado para BTC."""
+        return self.kr_for(ag["tf"]) if ag.get("activo", self.cfg["mercado"]) == self.cfg["mercado"] else None
+
+    def pref(self, ag):
+        a = ag.get("activo", self.cfg["mercado"])
+        return "" if a == self.cfg["mercado"] else a
+
+    def parents(self, ag, estilo):
+        """Los agentes que van ganando en simulado (mismo mercado, temporalidad y tipo): sus hijos parten de sus reglas."""
+        main = self.cfg["mercado"]
+        c = [x for x in self.state["agents"] if x["status"] in ("simulado", "listo")
+             and x.get("activo", main) == ag.get("activo", main) and x["tf"] == ag["tf"]
+             and (x.get("estilo") == "diario") == (estilo == "diario") and x.get("regla")
+             and (estilo == "diario" or x.get("eleccion") == "propia")
+             and (x.get("paper") or {}).get("ret", 0) > 0.002]
+        return sorted(c, key=lambda x: -x["paper"]["ret"])[:2]
+
+    def ideas_for(self, activo):
+        return [i for i in self.internet_ideas() if not i.get("activos") or activo in i["activos"]]
 
     def kr_for(self, tf):
         ok = self.cfg["fabrica"]["usar_kronos"] and self.kronos_coverage(tf) > 0.9
@@ -126,8 +156,8 @@ class Academia:
     def exposure(self, ag):
         """Exposición (0..1) de un agente en todas las velas de su temporalidad."""
         if ag["id"] not in self._w:
-            mk = self.mk[ag["tf"]]
-            kr = self.kr_for(ag["tf"])
+            mk = self.m(ag)
+            kr = self.kr_ag(ag)
             if ag.get("estilo") == "diario":
                 w = diario.exposure(mk.I, ag["regla"], kr, mk.bpd)
             elif ag["eleccion"] == "propia":
@@ -169,8 +199,8 @@ class Academia:
 
     def school(self, ag):
         cfg = self.run_cfg()
-        mk = self.mk[ag["tf"]]
-        kr = self.kr_for(ag["tf"])
+        mk = self.m(ag)
+        kr = self.kr_ag(ag)
         temper = TEMPER[ag["personalidad"]]
         u = "días" if mk.bpd == 1 else "velas"
 
@@ -193,7 +223,7 @@ class Academia:
         P = inventor.pools(mk.bpd)
         for _ in range(3):  # ideas de partida con figuras de chartismo (W, M, HCH, banderas, soportes...)
             seeds.append(inventor.pattern_seed(self.rng, P, kr is not None))
-        ideas = self.internet_ideas()
+        ideas = [i for i in self.ideas_for(ag.get("activo", self.cfg["mercado"])) if i["regla"].get("lado") != "corto"]  # los clásicos solo compran
         # prioriza las ideas que menos agentes han estudiado (así las nuevas se prueban pronto)
         uso = {}
         for x in self.state["agents"]:
@@ -207,6 +237,9 @@ class Academia:
             r["exit"] = [list(x) for x in r["exit"]]
             seeds.append(r)
         ag["ideas_internet"] = [i["nombre"] for i in estudiadas]
+        padres = self.parents(ag, "clasico")
+        seeds[:0] = [json.loads(json.dumps(x["regla"])) for x in padres]  # aprende de los que ya ganan con dinero ficticio
+        ag["padres"] = [x["name"] for x in padres]
         if kr is not None:  # con previsiones de Kronos disponibles, "ceñirse a Kronos" siempre es una opción de partida
             seeds.append(inventor.seed_from_family("kronos", dict(thr=0.01), mk.bpd))
         tr = self.window(mk, "entreno")
@@ -225,7 +258,7 @@ class Academia:
 
         # si su elección opera igual que otro agente (en validación), prueba con su otra opción
         def firma_of(r):
-            return hashlib.sha1(repr([(str(mk.ts[t["i"]].date()), t["side"]) for t in r.trades]).encode()).hexdigest()[:12]
+            return hashlib.sha1((self.pref(ag) + repr([(str(mk.ts[t["i"]].date()), t["side"]) for t in r.trades])).encode()).hexdigest()[:12]
 
         def twin_of(f):
             return next((x for x in self.state["agents"] if x.get("firma") == f and x is not ag), None)
@@ -299,8 +332,8 @@ class Academia:
 
     def school_diario(self, ag):
         cfg = self.run_cfg()
-        mk = self.mk[ag["tf"]]
-        kr = self.kr_for(ag["tf"])
+        mk = self.m(ag)
+        kr = self.kr_ag(ag)
         temper = TEMPER[ag["personalidad"]]
         P = inventor.pools(mk.bpd)
         cd = self.cfg["operadores_diarios"]
@@ -312,12 +345,15 @@ class Academia:
         for x in self.state["agents"]:
             for nm in x.get("ideas_internet", []):
                 uso[nm] = uso.get(nm, 0) + 1
-        ideas = sorted(self.internet_ideas(), key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:3]
+        ideas = sorted(self.ideas_for(ag.get("activo", self.cfg["mercado"])), key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:3]
         for idea in ideas:
             seeds.append(diario.from_sub(self.rng, P, kr is not None, idea["regla"]))
         for _ in range(2):
             seeds.append(diario.from_sub(self.rng, P, kr is not None, inventor.pattern_seed(self.rng, P, kr is not None)))
         ag["ideas_internet"] = [i["nombre"] for i in ideas]
+        padres = self.parents(ag, "diario")
+        seeds[:0] = [json.loads(json.dumps(x["regla"])) for x in padres]  # aprende de los operadores que ya ganan en simulado
+        ag["padres"] = [x["name"] for x in padres]
 
         tr = self.window(mk, "entreno")
         rule, r_tr, hist, _ = diario.evolve(mk, seeds, tr, cfg, self.rng, temper, kr,
@@ -333,7 +369,7 @@ class Academia:
             rv = run(mk.I, diario.exposure(mk.I, v, kr, mk.bpd), va[0], va[1], cfg)
             sv2 = diario.stats(mk, rv)
             buenos += rv.ret > 0 and sv2["sem_pos"] >= sv2["sem_neg"]
-        firma = hashlib.sha1(repr([(str(mk.ts[t["i"]]), t["side"]) for t in r_va.trades]).encode()).hexdigest()[:12]
+        firma = hashlib.sha1((self.pref(ag) + repr([(str(mk.ts[t["i"]]), t["side"]) for t in r_va.trades])).encode()).hexdigest()[:12]
         twin = next((x for x in self.state["agents"] if x.get("firma") == firma and x is not ag), None)
         ag.update(estilo="diario", eleccion="diario", regla=rule, firma=firma, label="Operador diario",
                   desc=diario.describe(rule, mk.bpd),
@@ -365,7 +401,7 @@ class Academia:
         c2 = self.cfg.get("examen_2")
         if not c2:
             return True
-        mk = self.mk[ag["tf"]]
+        mk = self.m(ag)
         a, b = mk.idx(c2["periodo"][0]), min(mk.end_idx(c2["periodo"][1]), mk.n - 1)
         r = run(mk.I, self.exposure(ag), a, b, self.run_cfg())
         ag["exam2"] = r.summary()
@@ -383,7 +419,7 @@ class Academia:
             ag["exam2_semanas"] = s
             fails = [x for x in fails if "operaciones (mínimo" not in x] + [x for x in wf if "ganó un" not in x and "perdió un" not in x]
         # no tiene sentido tener dos agentes que en 2026 hicieron exactamente lo mismo
-        f2 = hashlib.sha1(repr([(str(mk.ts[t["i"]]), t["side"]) for t in r.trades]).encode()).hexdigest()[:12] if r.trades else None
+        f2 = hashlib.sha1((self.pref(ag) + repr([(str(mk.ts[t["i"]]), t["side"]) for t in r.trades])).encode()).hexdigest()[:12] if r.trades else None
         ag["firma2026"] = f2
         twin = next((x for x in self.state["agents"] if f2 and x is not ag and x.get("firma2026") == f2
                      and x["status"] in ("cola", "simulado", "listo")), None)
@@ -399,23 +435,22 @@ class Academia:
     def make_agent(self):
         fz = self.cfg["fabrica"]
         cd = self.cfg.get("operadores_diarios")
-        if cd and self.rng.random() < cd["parte_de_los_nuevos"]:
-            tfs = [t for t in cd["temporalidades"] if t in self.mk] or ["1d"]
-            tf = self.rng.choices(tfs, weights=[cd["temporalidades"][t] for t in tfs])[0]
-            name = self.new_name()
-            ag = dict(id=hashlib.sha1(f"{name}{tf}{self.today}{self.rng.random()}".encode()).hexdigest()[:10],
-                      name=name, born=self.today.isoformat(), tf=tf, tf_label=TF_LABEL[tf],
-                      personalidad=self.rng.choice(list(TEMPER)), status="nuevo")
-            return self.school_diario(ag)
-        tfs = list(fz["temporalidades"].keys())
-        tf = self.rng.choices(tfs, weights=[fz["temporalidades"][t] for t in tfs])[0]
-        if tf not in self.mk:
-            tf = "1d"
+        # mercado: BTC o uno de los otros que se hayan podido cargar hoy
+        main = self.cfg["mercado"]
+        pesos = {k: v.get("peso", 1) for k, v in self.cfg.get("activos", {main: {"peso": 1}}).items()
+                 if not k.startswith("_") and (k == main or k in self.otros)}
+        pesos = pesos or {main: 1}
+        activo = self.rng.choices(list(pesos), weights=list(pesos.values()))[0]
+        avail = self.mk if activo == main else self.otros[activo]
+        diario_ = bool(cd) and self.rng.random() < cd["parte_de_los_nuevos"]
+        opts = cd["temporalidades"] if diario_ else fz["temporalidades"]
+        tfs = [t for t in opts if t in avail] or ["1d"]
+        tf = self.rng.choices(tfs, weights=[opts.get(t, 1) for t in tfs])[0]
         name = self.new_name()
         ag = dict(id=hashlib.sha1(f"{name}{tf}{self.today}{self.rng.random()}".encode()).hexdigest()[:10],
-                  name=name, born=self.today.isoformat(), tf=tf, tf_label=TF_LABEL[tf],
+                  name=name, born=self.today.isoformat(), tf=tf, tf_label=TF_LABEL[tf], activo=activo,
                   personalidad=self.rng.choice(list(TEMPER)), status="nuevo")
-        return self.school(ag)
+        return self.school_diario(ag) if diario_ else self.school(ag)
 
     # ------------------------------------------------------------ fábrica
     def factory(self):
@@ -429,13 +464,13 @@ class Academia:
             made += 1
             elig = ("ser operador diario" if ag.get("estilo") == "diario" else "su estrategia propia" if ag["eleccion"] == "propia"
                     else f"una conocida ({ag['estudio']['label']})")
-            self.log(f"{ag['name']} ({ag['tf']}, {ag['personalidad']}) eligió {elig}: examen {pc(ag['exam']['ret'])} -> {ag['status']}")
+            self.log(f"{ag['name']} ({ag.get('activo', 'BTC-EUR')} {ag['tf']}, {ag['personalidad']}) eligió {elig}: examen {pc(ag['exam']['ret'])} -> {ag['status']}")
         self.log(f"Fábrica: {made} agente{'s' if made != 1 else ''} nuevo{'s' if made != 1 else ''} en {time.time() - t0:.0f} s.")
 
     # ------------------------------------------------------------ simulado en vivo
     def paper_run(self, ag):
         """Resultado del simulado de un agente desde su inicio hasta la última vela."""
-        mk = self.mk[ag["tf"]]
+        mk = self.m(ag)
         a = mk.idx(ag["paper_start"])
         if a > mk.n - 1:
             return None, mk, a
@@ -468,7 +503,7 @@ class Academia:
             if r is not None and ag["name"] not in paused:
                 team_days.append((dt.date.fromisoformat(ag["paper_start"]), mk.daily(r.eq, a)))
                 for t in r.trades:
-                    if t["side"] == "compra":
+                    if t["side"] in ("compra", "corto"):
                         d = mk.ts[t["i"]].date()
                         team_ops[d] = team_ops.get(d, 0) + 1
             if r is None:
@@ -539,7 +574,7 @@ class Academia:
                               ops=sum(team_ops[k] for k in days_ops), dias_con_ops=len(days_ops)))
             monday += dt.timedelta(days=7)
         dl = val[last] - val[last - dt.timedelta(days=1)] if last - dt.timedelta(days=1) in val else 0.0
-        self.state["equipo"] = dict(miembros=len(team_days), capital=cap * len(team_days), semanas=weeks[-12:],
+        self.state["equipo"] = dict(miembros=len(team_days), capital=cap * len(team_days), semanas=weeks[-26:],
                                     ayer=dict(fecha=last.isoformat(), eur=round(dl, 2), ops=team_ops.get(last, 0)))
 
     # ------------------------------------------------------------ día completo

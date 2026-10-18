@@ -55,6 +55,40 @@ def load_markets(cfg, local, today, use_intraday):
     return mk
 
 
+def load_other_assets(cfg, local, today, use_intraday):
+    """Los demás mercados (ETH, SOL, oro...). Si uno falla, se sigue sin él."""
+    out = {}
+    for market, info in cfg.get("activos", {}).items():
+        if market.startswith("_") or market == cfg["mercado"]:
+            continue
+        slug = market.replace("-", "_").lower()  # eth_eur
+        short = market.split("-")[0].lower()
+        since = dt.datetime.fromisoformat(info.get("desde", "2017-12-01"))
+        try:
+            if local:
+                d1 = datamod.load_csv(os.path.join(local, f"{short}_1d.csv"))
+                h1p = os.path.join(local, f"{short}_1h")
+                h1 = datamod.load_csv(h1p if os.path.exists(h1p) else h1p + ".csv") if use_intraday else {}
+                cut = dt.datetime(today.year, today.month, today.day)
+                d1 = {k: v for k, v in d1.items() if k < cut}
+                h1 = {k: v for k, v in h1.items() if k < cut}
+                if not d1:
+                    continue
+            else:
+                bs = info.get("bitstamp", "auto")
+                d1 = datamod.update(os.path.join(ROOT, "data", f"{slug}_1d.csv"), "1d", market, since=since, bitstamp=bs)
+                h1 = datamod.update(os.path.join(ROOT, "data", f"{slug}_1h") + "/", "1h", market, since=since, bitstamp=bs) if use_intraday else {}
+            m = {"1d": Market("1d", *datamod.to_arrays(d1, "1d"))}
+            if h1:
+                m["1h"] = Market("1h", *datamod.to_arrays(h1, "1h"))
+                m["4h"] = Market("4h", *datamod.to_arrays(datamod.resample(h1, 4), "4h"))
+            out[market] = m
+            print(f"{market}: velas diarias {m['1d'].ts[0].date()} -> {m['1d'].ts[-1].date()}, cierra en {m['1d'].I.c[-1]:,.2f} €")
+        except Exception as e:  # noqa: BLE001
+            print(f"Aviso: no se pudieron cargar los datos de {market} ({e}); hoy se sigue sin él.")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sin-kronos", action="store_true")
@@ -94,7 +128,8 @@ def main():
         print("Previsiones de Kronos guardadas.")
         return
 
-    ac = Academia(ROOT, mk, kronos=kronos, today=today)
+    otros = load_other_assets(cfg, args.datos_locales, today, intraday)
+    ac = Academia(ROOT, mk, kronos=kronos, today=today, otros=otros)
     counts = ac.day(fabrica=not args.sin_fabrica)
     rep = informe.maybe_report(ac)
     ac.save()

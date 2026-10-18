@@ -132,7 +132,7 @@ def save_csv(path, candles):
         f.write(_rows(candles))
 
 
-def update(path, interval="1d", market="BTC-EUR", since=dt.datetime(2017, 1, 1), log=print):
+def update(path, interval="1d", market="BTC-EUR", since=dt.datetime(2017, 1, 1), log=print, bitstamp="auto"):
     """Descarga lo que falta, guarda el CSV y devuelve dict datetime -> (o,h,l,c,v)."""
     step = STEP[interval]
     now = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
@@ -147,18 +147,21 @@ def update(path, interval="1d", market="BTC-EUR", since=dt.datetime(2017, 1, 1),
     if not merged or min(merged) > since + dt.timedelta(days=7):
         until = (min(merged) - dt.timedelta(seconds=step)) if merged else now
         try:
-            bs = fetch_bitstamp("btceur", step, since, until)
+            pair = market.replace("-", "").lower() if bitstamp == "auto" else bitstamp
+            if not pair:
+                raise RuntimeError("sin histórico alternativo para este mercado")
+            bs = fetch_bitstamp(pair, step, since, until)
             added = 0
             for d, v in bs.items():
                 if d not in merged and d <= until:
                     merged[d] = v
                     added += 1
-            log(f"Bitstamp BTC/EUR {interval}: {added} velas antiguas añadidas")
+            log(f"Bitstamp {pair} {interval}: {added} velas antiguas añadidas")
         except Exception as e:  # noqa: BLE001
             log(f"Aviso: no se pudo descargar {interval} de Bitstamp ({e})")
     merged = {d: v[:5] for d, v in merged.items() if since <= d and d + dt.timedelta(seconds=step) <= now}
     if not merged:
-        raise RuntimeError(f"No hay datos {interval}: revisa la conexión con Bitvavo/Bitstamp.")
+        raise RuntimeError(f"No hay datos {market} {interval}: revisa la conexión con Bitvavo/Bitstamp.")
     save_csv(path, merged)
     return merged
 

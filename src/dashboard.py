@@ -52,7 +52,7 @@ details summary{cursor:pointer;font-weight:600;font-size:.9rem}
 .learn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 @media (max-width:520px){.learn{grid-template-columns:1fr}}
 .weeks{display:flex;flex-direction:column;gap:4px}
-.wk{display:grid;grid-template-columns:5.5rem 1fr 6.5rem;gap:8px;align-items:center;font-size:.8rem}
+.wk{display:grid;grid-template-columns:7.5rem 1fr 6.5rem;gap:8px;align-items:center;font-size:.8rem}
 .wk .track{height:10px;position:relative;background:transparent}
 .wk .track i{position:absolute;top:0;height:100%;border-radius:3px}
 .wk .track::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;border-left:1px solid var(--line)}
@@ -87,6 +87,11 @@ def spark(vals, cap, up):
             f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>')
 
 
+def asset(ag):
+    a = ag.get("activo", "BTC-EUR").split("-")[0]
+    return "Oro" if a == "PAXG" else a
+
+
 def pill(status):
     lbl, cls = STATUS.get(status, (status, "wait"))
     return f'<span class="pill {cls}">{e(lbl)}</span>'
@@ -98,11 +103,11 @@ def card(ag, cfg, gold=False, compact=False):
     days, total = p.get("days", 0), cfg["simulado"]["dias"]
     final, ret = p.get("final", cap), p.get("ret", 0.0)
     pos = p.get("posicion")
-    pos_txt = "" if pos is None else ("dentro de BTC" if pos > 0.05 else "fuera, en euros")
+    pos_txt = "" if pos is None else ("comprado" if pos > 0.05 else "en corto" if pos < -0.05 else "fuera, en euros")
     exam = ag.get("exam", {})
     return f"""<article class="card{' gold' if gold else ''}">
   <div class="top"><span class="name">{e(ag['name'])} {pill(ag['status'])}</span><span class="eq {'up' if ret >= 0 else 'down'}">{eur(final)}</span></div>
-  <p class="desc"><strong>{e(ag['label'])}</strong> · {e(ag.get('tf_label', ''))} · {e(ag.get('personalidad', ''))}{'' if compact else '<br>' + e(ag.get('desc', ''))}{'' if compact or not ag.get('ideas_internet') else '<br><span class=muted>Estudió de internet: ' + e(', '.join(ag['ideas_internet'])) + '</span>'}</p>
+  <p class="desc"><strong>{e(ag['label'])}</strong> · {e(asset(ag))} · {e(ag.get('tf_label', ''))} · {e(ag.get('personalidad', ''))}{'' if compact else '<br>' + e(ag.get('desc', ''))}{'' if compact or not ag.get('ideas_internet') else '<br><span class=muted>Estudió de internet: ' + e(', '.join(ag['ideas_internet'])) + '</span>'}{'' if compact or not ag.get('padres') else '<br><span class=muted>Hijo de: ' + e(', '.join(ag['padres'])) + '</span>'}</p>
   {'' if compact else spark(p.get('eq', []), cap, ret >= 0)}
   <div class="bar" aria-label="Día {days} de {total}"><i style="width:{min(100, days / total * 100):.0f}%"></i></div>
   <div class="meta"><span>día {days} de {total}</span><span>{pct(ret)}</span><span>caída máx {p.get('maxdd', 0) * 100:.0f} %</span><span>{p.get('trades', 0)} operaciones</span>{f'<span>{pos_txt}</span>' if pos_txt else ''}<span>examen {pct(exam.get('ret', 0))}</span></div>
@@ -174,12 +179,15 @@ def btc_change_since(ac, day):
 
 def estado_txt(a):
     p = a.get("paper") or {}
-    if (p.get("posicion") or 0) > 0.05:
-        compras = [t for t in p.get("last_trades", []) if t["tipo"] == "compra"]
+    pos = p.get("posicion") or 0
+    if abs(pos) > 0.05:
+        tipo = "compra" if pos > 0 else "corto"
+        compras = [t for t in p.get("last_trades", []) if t["tipo"] == tipo]
         if compras:
             t = compras[-1]
             f = t["fecha"]
-            return f"operación abierta: compró el {f[8:10]}/{f[5:7]} a {t['precio']:,.0f} €".replace(",", ".")
+            verbo = "compró" if pos > 0 else "vendió en corto (gana si baja)"
+            return f"operación abierta: {verbo} el {f[8:10]}/{f[5:7]} a {t['precio']:,.0f} €".replace(",", ".")
         return "operación abierta"
     cerradas = [t for t in p.get("last_trades", []) if t.get("resultado") is not None]
     if cerradas:
@@ -207,7 +215,7 @@ def sim_html(ac, sim, cola, cfg):
     else:
         out.append(f'<p class="empty">Todavía ningún agente va en positivo.{e(btc_txt)} Los que están por debajo de 100 € tienen casi todos la operación todavía abierta: el saldo se recalcula cada día al precio actual y aún puede acabar en ganancia o pérdida.</p>')
     rows = "".join(
-        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(a.get('tf', ''))}</span></td>"
+        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(asset(a))} · {e(a.get('tf', ''))}</span></td>"
         f"<td class='num'>día {a.get('paper', {}).get('days', 0)}</td>"
         f"<td class='num {'up' if a.get('paper', {}).get('ret', 0) > 0.001 else 'down' if a.get('paper', {}).get('ret', 0) < -0.001 else ''}'>{eur(a.get('paper', {}).get('final', 100))}<br>{pct(a.get('paper', {}).get('ret', 0))}</td>"
         f"<td>{e(estado_txt(a))}</td></tr>"
@@ -219,12 +227,24 @@ def sim_html(ac, sim, cola, cfg):
     return "".join(out)
 
 
-def team_html(eq):
+def team_html(eq, goal=None):
     if not eq or not eq.get("semanas"):
         return ""
+    goal = goal or {"semanas_en_verde_pct": 65, "peor_semana_pct": 3, "meses": 3}
     ws = eq["semanas"]
     cur = ws[-1]
     done = [w for w in ws if w["completa"]]
+    need = round(goal["meses"] * 52 / 12)
+    last = done[-need:]
+    gp = (sum(w["eur"] > 0 for w in last) / len(last)) if last else 0.0
+    worst = min((w["pct"] for w in last), default=0.0)
+    tot = sum(w["eur"] for w in last)
+    ok = len(last) >= need and gp * 100 >= goal["semanas_en_verde_pct"] and worst > -goal["peor_semana_pct"] / 100 and tot > 0
+    goal_txt = (f'<p class="rec"><strong>Objetivo del equipo:</strong> al menos el {goal["semanas_en_verde_pct"]} % de las semanas en verde, ninguna peor de −{goal["peor_semana_pct"]} % '
+                f'y en positivo, durante {goal["meses"]} meses ({need} semanas). '
+                + (f'<strong class="up">¡Conseguido!</strong> Puedes plantearte dinero real.' if ok else
+                   f'Ahora: {len(last)} de {need} semanas, {gp * 100:.0f} % en verde, peor semana {pct(worst)}, total {"+" if tot >= 0 else "−"}{eur(abs(tot))}.')
+                + '</p>')
     pos = sum(w["eur"] > 0 for w in done)
     mx = max([abs(w["pct"]) for w in ws] + [0.002])
     rows = []
@@ -237,10 +257,11 @@ def team_html(eq):
                     f'<span class="mono {"up" if w["eur"] >= 0 else "down"}" style="text-align:right">{"+" if w["eur"] >= 0 else "−"}{eur(abs(w["eur"]))}</span></div>')
     ay = eq.get("ayer") or {}
     return f"""<section><h2>Semana del equipo</h2>
-<div class="learn"><div class="step"><span class="n mono {'up' if cur['eur'] >= 0 else 'down'}">{'+' if cur['eur'] >= 0 else '−'}{eur(abs(cur['eur']))}</span><span class="lbl">esta semana ({pct(cur['pct'])}), con {cur['ops']} operaciones en {cur['dias_con_ops']} días</span></div>
+<div class="learn"><div class="step"><span class="n mono {'up' if cur['eur'] >= 0 else 'down'}">{'+' if cur['eur'] >= 0 else '−'}{eur(abs(cur['eur']))}</span><span class="lbl">esta semana ({pct(cur['pct'])}), con {cur['ops']} operaci{'ón' if cur['ops'] == 1 else 'ones'} en {cur['dias_con_ops']} día{'' if cur['dias_con_ops'] == 1 else 's'}</span></div>
 <div class="step"><span class="n mono {'up' if ay.get('eur', 0) >= 0 else 'down'}">{'+' if ay.get('eur', 0) >= 0 else '−'}{eur(abs(ay.get('eur', 0)))}</span><span class="lbl">ayer, con {ay.get('ops', 0)} operaciones</span></div>
 <div class="step"><span class="n mono">{pos} de {len(done)}</span><span class="lbl">semanas completas en positivo</span></div></div>
 <div class="weeks">{''.join(rows)}</div>
+{goal_txt}
 <p class="muted" style="font-size:.8rem">Suma de los {eq['miembros']} agentes en simulado o listos (sin los pausados), {eur(eq['capital'])} ficticios en total, ya con comisiones. Semanas de lunes a domingo.</p></section>"""
 
 
@@ -262,12 +283,12 @@ def build(root, ac):
     if listos:
         sections.append('<section><h2>Listos para dinero real</h2><p class="muted" style="font-size:.85rem">Superaron el examen y el simulado. Solo pasan a dinero real si tú lo decides.</p>'
                         + "".join(card(a, cfg, gold=True, compact=k >= 5) for k, a in enumerate(listos)) + "</section>")
-    sections.insert(0, team_html(st.get("equipo")))
+    sections.insert(0, team_html(st.get("equipo"), cfg.get("objetivo_equipo")))
     sections.append(sim_html(ac, sim, cola, cfg))
     sections.append('<section><h2>Novedades de hoy</h2>' + (
         '<ul class="news">' + "".join(f"<li>{e(n)}</li>" for n in news) + "</ul>" if news else '<p class="empty">Sin novedades: los agentes siguen operando.</p>') + "</section>")
     rows = "".join(
-        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(a.get('tf', ''))}</span></td>"
+        f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(a['label'])} · {e(asset(a))} · {e(a.get('tf', ''))}</span></td>"
         f"<td class='num {'up' if a.get('exam', {}).get('ret', 0) >= 0 else 'down'}'>{pct(a.get('exam', {}).get('ret', 0)) if a.get('exam') else '—'}</td>"
         f"<td>{pill(a['status'])}<br><span class='muted'>{e(a.get('motivo', ''))}</span></td></tr>" for a in recent)
     sections.append('<section><h2>Últimos examinados</h2><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Examen 24–25</th><th>Resultado</th></tr></thead><tbody>'
@@ -286,7 +307,7 @@ def build(root, ac):
 <style>{CSS}</style></head><body><div class="wrap">
 <header style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">{e(cfg['mercado'])} · actualizado {e(st.get('actualizado', ''))}</span>
 <h1>Academia de Agentes</h1>
-<p class="muted">BTC cerró ayer en <span class="mono">{eur(st.get('precio_btc_eur', 0))}</span>. Cada día nacen agentes nuevos, estudian estrategias conocidas e inventan la suya con 2018–21, eligen la mejor con 2022–23 y se examinan con 2024–25. Los que aprueban operan {cfg['simulado']['dias']} días con 100 € ficticios y precios reales.</p></header>
+<p class="muted">BTC cerró ayer en <span class="mono">{eur(st.get('precio_btc_eur', 0))}</span>. Cada día nacen agentes nuevos para BTC, ETH, SOL y oro; estudian estrategias conocidas e inventan la suya con 2018–21, eligen la mejor con 2022–23 y se examinan con 2024–25. Los que aprueban operan {cfg['simulado']['dias']} días con 100 € ficticios y precios reales.</p></header>
 <div class="funnel">
 <div class="step"><span class="n mono">{len(agents)}</span><span class="lbl">Agentes creados</span></div>
 <div class="step"><span class="n mono">{len(suspendidos)}</span><span class="lbl">Suspendidos en el examen</span></div>

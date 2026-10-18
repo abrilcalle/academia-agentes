@@ -54,18 +54,40 @@ def _fix(sub):
     return sub
 
 
+def inverted(I):
+    """El gráfico "dado la vuelta" (1/precio): una estrategia que compra en él vende en corto en el real.
+    Así las mismas reglas (RSI, figuras, rupturas...) sirven para ganar cuando el precio cae."""
+    if getattr(I, "_inv", None) is None:
+        from indicators import Ind
+        flow = None
+        if not np.all(np.isnan(I.fv)):
+            flow = (I.fv, I.fv - I.fb)  # los compradores agresivos pasan a ser vendedores
+        J = Ind(1 / I.o, 1 / I.l, 1 / I.h, 1 / I.c, bpy=I.bpy, v=I.v, flow=flow)
+        J.hour, J.dow = getattr(I, "hour", None), getattr(I, "dow", None)
+        J._inv = I
+        I._inv = J
+    return I._inv
+
+
 def exposure(I, rule, kronos=None, bpd=24):
     masks = regime_masks(I, rule["regimen"], bpd)
-    w = np.zeros(I.n)
+    rg = rule["regimen"]
+    long_w, short_w = np.zeros(I.n), np.zeros(I.n)
     for k in REGIMES:
         sub = rule.get(k)
         if not sub:
             continue
         # la estrategia de cada régimen solo ABRE operaciones cuando el detector dice que estamos en ese régimen
-        rg = rule["regimen"]
-        s = dict(sub, entry=sub["entry"] + [["_mask", ("regmask", rg["ma"], rg["er"], rg["x"], k)]])
-        w = np.maximum(w, V.exposure(I, s, kronos, bpd))
-    return np.clip(w, 0, 1)
+        key = ("regmask", rg["ma"], rg["er"], rg["x"], k)
+        s = dict(sub, entry=sub["entry"] + [["_mask", key]])
+        if sub.get("lado") == "corto":
+            J = inverted(I)
+            J._m[key] = masks[k]
+            ks = None if kronos is None else dict(med=-kronos["med"], up=1 - kronos["up"])
+            short_w = np.maximum(short_w, V.exposure(J, s, ks, bpd))
+        else:
+            long_w = np.maximum(long_w, V.exposure(I, s, kronos, bpd))
+    return np.clip(long_w - short_w, -1, 1)
 
 
 # ------------------------------------------------------------------ medir semanas
@@ -89,8 +111,8 @@ def weekly(mk, r):
 def stats(mk, r):
     wk = weekly(mk, r)
     n = max(1, len(wk))
-    buys = sum(t["side"] == "compra" for t in r.trades)
-    days = len({mk.ts[t["i"]].date() for t in r.trades if t["side"] == "compra"})
+    buys = sum(t["side"] in ("compra", "corto") for t in r.trades)
+    days = len({mk.ts[t["i"]].date() for t in r.trades if t["side"] in ("compra", "corto")})
     return dict(semanas=int(len(wk)), sem_pos=float(np.mean(wk > 0.0005)) if len(wk) else 0.0,
                 sem_objetivo=float(np.mean(wk >= OBJETIVO_SEMANAL)) if len(wk) else 0.0,
                 sem_neg=float(np.mean(wk < -0.0005)) if len(wk) else 0.0,
@@ -131,8 +153,10 @@ def robust(mk, w, window, cfg, temper):
 
 # ------------------------------------------------------------------ inventar
 
-def random_sub(rng, P, kr):
+def random_sub(rng, P, kr, regime=None):
     r = V.random_rule(rng, P, kr)
+    # en mercado bajista suele interesar vender en corto; en los demás, a veces también
+    r["lado"] = "corto" if rng.random() < {"bajista": 0.7, "lateral": 0.3}.get(regime, 0.1) else "largo"
     r.update(hold=rng.choice(HOLD_D), tp=rng.choice(TP_D), trail=rng.choice(TRAIL_D), min_net=rng.choice(MIN_NET_D),
              pyr=0, frac=rng.choice([1.0, 1.0, 0.5]))
     return _fix(r)
@@ -141,14 +165,14 @@ def random_sub(rng, P, kr):
 def random_rule(rng, P, kr):
     rule = dict(regimen=dict(ma=rng.choice(REG_MA), er=rng.choice(REG_ER), x=rng.choice(REG_X)))
     for k in REGIMES:
-        rule[k] = None if (k == "bajista" and rng.random() < 0.3) else random_sub(rng, P, kr)
+        rule[k] = None if (k == "bajista" and rng.random() < 0.15) else random_sub(rng, P, kr, k)
     return rule
 
 
 def from_sub(rng, P, kr, sub):
     """Una idea de partida: usa una estrategia (de internet, chartismo...) en uno de los regímenes."""
     rule = random_rule(rng, P, kr)
-    k = rng.choice(REGIMES)
+    k = "bajista" if sub.get("lado") == "corto" else rng.choice(REGIMES)
     s = dict(sub)
     s["entry"] = [list(c) for c in sub["entry"]][:3]
     s["exit"] = [list(c) for c in sub["exit"]]
@@ -167,7 +191,7 @@ def mutate(rng, rule, P, kr):
         return r
     k = rng.choice(REGIMES)
     if r[k] is None:
-        r[k] = random_sub(rng, P, kr)
+        r[k] = random_sub(rng, P, kr, k)
     elif k == "bajista" and op < 0.17:
         r[k] = None  # en mercado bajista, quedarse fuera también es una opción
     elif op < 0.3:
@@ -178,6 +202,8 @@ def mutate(rng, rule, P, kr):
         r[k]["trail"] = rng.choice(TRAIL_D)
     elif op < 0.53:
         r[k]["min_net"] = rng.choice(MIN_NET_D)
+    elif op < 0.58:
+        r[k]["lado"] = "corto" if r[k].get("lado") != "corto" else "largo"
     else:
         r[k] = _fix(V.mutate(rng, r[k], P, kr))
     return r
@@ -245,5 +271,9 @@ def describe(rule, bpd):
             parts.append(f"En {REG_LABEL[k]}: no opera, se queda en euros.")
             continue
         d = V.describe(sub, bpd)
-        parts.append(f"En {REG_LABEL[k]}: {d[0].lower() + d[1:]}")
+        if sub.get("lado") == "corto":
+            parts.append(f"En {REG_LABEL[k]}: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: "
+                         f"{d[0].lower() + d[1:]}")
+        else:
+            parts.append(f"En {REG_LABEL[k]}: {d[0].lower() + d[1:]}")
     return " ".join(parts)
