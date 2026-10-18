@@ -19,7 +19,7 @@ Gestión: stop (ATR: 0, 2, 3, 4), tp (0 o tanto por uno), trail (0 o tanto por u
   sizing ("completo" o "riesgo"), frac (0.2-1), be (tanto por uno), stall (días), pyr (tanto por uno), shrink (true/false),
   min_net (opcional, por defecto 0.01: la señal de salida solo cierra si el precio ya subió eso desde la compra),
   lado (opcional: "largo" o "corto"; en corto las reglas se aplican al gráfico dado la vuelta, para ganar cuando baja).
-Campo opcional de la idea: "activos": lista de mercados de config.json (["BTC-EUR", "ETH-EUR", "SOL-EUR", "PAXG-EUR"]);
+Campo opcional de la idea: "activos": lista de mercados de config.json (["BTC-EUR", "ETH-EUR", "SOL-EUR", "XRP-EUR"]);
   sin él, la idea se usa para todos.
 """
 import json, os, sys

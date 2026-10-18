@@ -34,7 +34,7 @@ La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo es 
 
 ## Varios mercados, cortos y órdenes limitadas
 
-- **Mercados:** BTC, ETH, SOL y oro (PAXG), en `config.json` → `activos`. Cada agente nace especializado en uno solo y estudia las ideas de internet de ese mercado (o las generales).
+- **Mercados:** BTC, ETH, SOL y XRP (Bitvavo no tiene oro tokenizado), en `config.json` → `activos`. Cada agente nace especializado en uno solo y estudia las ideas de internet de ese mercado (o las generales).
 - **Ventas en corto sin apalancamiento** (operadores diarios): ganan cuando el precio baja, aplicando sus reglas al gráfico "dado la vuelta" y pagando el interés por hora del préstamo. Bitvavo las permite desde la app pero **todavía no por API** (dice que lo añadirá): se guarda qué agentes las usan (`usa_cortos`) para revisarlo al pasar a dinero real. Se apagan con `permitir_cortos: false`.
 - **Órdenes limitadas:** cada orden se pone al precio del último cierre (comisión 0,15 % en vez de 0,25 % y sin deslizamiento). Si el precio no la cruza en la vela siguiente, se ejecuta a mercado.
 - **Herencia:** los agentes nuevos parten también de las reglas de los que ya van ganando en simulado (mismo mercado y temporalidad), y las mejoran.
@@ -86,7 +86,6 @@ python run_daily.py --sin-kronos
 - **Cortos:** comprobar si Bitvavo ya permite margin/cortos por API; si no, los agentes con `usa_cortos` no pueden operar solos.
 - **Órdenes limitadas:** la ejecución real debe ponerlas igual que el simulador (al último cierre y, si no se llenan, a mercado).
 - **Repositorio privado** antes de conectar la cuenta, y la clave de la API de Bitvavo solo en GitHub Secrets, nunca en el código.
-- **Oro (PAXG):** confirmar que Bitvavo lo tiene.
 - Empezar con poco dinero y solo con el equipo que cumpla el objetivo semanal durante 3 meses.
 
 ## Cosas a tener en cuenta

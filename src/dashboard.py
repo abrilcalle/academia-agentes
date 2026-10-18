@@ -307,7 +307,7 @@ def build(root, ac):
 <style>{CSS}</style></head><body><div class="wrap">
 <header style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">{e(cfg['mercado'])} · actualizado {e(st.get('actualizado', ''))}</span>
 <h1>Academia de Agentes</h1>
-<p class="muted">BTC cerró ayer en <span class="mono">{eur(st.get('precio_btc_eur', 0))}</span>. Cada día nacen agentes nuevos para BTC, ETH, SOL y oro; estudian estrategias conocidas e inventan la suya con 2018–21, eligen la mejor con 2022–23 y se examinan con 2024–25. Los que aprueban operan {cfg['simulado']['dias']} días con 100 € ficticios y precios reales.</p></header>
+<p class="muted">BTC cerró ayer en <span class="mono">{eur(st.get('precio_btc_eur', 0))}</span>. Cada día nacen agentes nuevos para BTC, ETH, SOL y XRP; estudian estrategias conocidas e inventan la suya con 2018–21, eligen la mejor con 2022–23 y se examinan con 2024–25. Los que aprueban operan {cfg['simulado']['dias']} días con 100 € ficticios y precios reales.</p></header>
 <div class="funnel">
 <div class="step"><span class="n mono">{len(agents)}</span><span class="lbl">Agentes creados</span></div>
 <div class="step"><span class="n mono">{len(suspendidos)}</span><span class="lbl">Suspendidos en el examen</span></div>
