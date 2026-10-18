@@ -25,7 +25,7 @@ def pools(bpd):
     n = [5, 10, 20, 50, 100, 200]
     if bpd > 1:
         n += [20 * bpd, 50 * bpd, 200 * bpd]
-    return dict(N=sorted(set(n)), RSI_N=[2, 7, 14], RSI_LO=[10, 20, 30, 40], RSI_HI=[55, 65, 75, 85],
+    return dict(BPD=bpd, N=sorted(set(n)), RSI_N=[2, 7, 14], RSI_LO=[10, 20, 30, 40], RSI_HI=[55, 65, 75, 85],
                 ROC_N=[5, 10, 20, 60] + ([7 * bpd, 30 * bpd] if bpd > 1 else []), ROC_X=[0.0, 0.02, 0.05, 0.1],
                 VOL_N=[20, 60] + ([30 * bpd] if bpd > 1 else []), VOL_X=[0.3, 0.5, 0.7, 0.9], Z_X=[1.0, 1.5, 2.0, 2.5],
                 KR=[0.0, 0.01, 0.02],
@@ -45,11 +45,15 @@ REGIME = ["en_tendencia", "mercado_lateral"]
 FLOW_ENTRY = ["delta_compra", "absorcion", "divergencia_delta"]
 FLOW_EXIT = ["delta_venta"]
 KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY + FLOW_ENTRY + REGIME
+# estacionalidad: a qué hora y qué día de la semana (solo en velas de 1 y 4 horas)
+SEASON = ["franja_horaria", "dia_semana"]
 KINDS_EXIT = ["bajo_media", "cruce_bajista", "rsi_alto", "pierde_minimo", "impulso_baja", "vol_alta", "z_alto",
               "macd_neg", "sobre_media"] + PATTERNS_EXIT + FLOW_EXIT
 
 
 def random_cond(rng, kinds, P, kronos=False):
+    if P.get("BPD", 1) > 1 and kinds is KINDS_ENTRY and rng.random() < 0.12:
+        kinds = SEASON
     ks = list(kinds) + (["kronos_alcista"] if kronos and "rsi_bajo" in kinds else []) + (["kronos_bajista"] if kronos and "rsi_alto" in kinds else [])
     k = rng.choice(ks)
     if k in ("sobre_media", "bajo_media", "rompe_maximo", "pierde_minimo"):
@@ -84,6 +88,11 @@ def random_cond(rng, kinds, P, kronos=False):
         return [k, rng.choice(P["VOL_MULT"])]
     if k == "divergencia_delta":
         return [k, rng.choice(P["N"][:4])]
+    if k == "franja_horaria":
+        h = rng.randrange(0, 24, 2)
+        return [k, h, rng.choice([4, 6, 8, 12])]
+    if k == "dia_semana":
+        return [k, rng.choice([[0, 1, 2, 3, 4], [5, 6], [0], [4], [6], [0, 1], [3, 4], [1, 2, 3]])]
     if k in ("en_tendencia", "mercado_lateral"):
         return [k, rng.choice(P["ER_N"]), rng.choice(P["ER_X"])]
     return [k]
@@ -91,6 +100,8 @@ def random_cond(rng, kinds, P, kronos=False):
 
 def cond_array(I, c, kronos=None):
     k = c[0]
+    if k == "_mask":  # condición precalculada (el detector de régimen de los operadores diarios)
+        return I._m[c[1]]
     with np.errstate(invalid="ignore"):
         if k == "sobre_media":
             return I.c > I.sma(c[1])
@@ -144,6 +155,12 @@ def cond_array(I, c, kronos=None):
             return PT.absorption(I, c[1])
         if k == "divergencia_delta":
             return PT.delta_divergence(I, c[1])
+        if k == "franja_horaria":
+            h = np.asarray(getattr(I, "hour", np.zeros(I.n, int)))
+            return ((h - c[1]) % 24) < c[2]
+        if k == "dia_semana":
+            d = np.asarray(getattr(I, "dow", np.zeros(I.n, int)))
+            return np.isin(d, c[1])
         if k == "en_tendencia":
             return I.er(c[1]) > c[2]
         if k == "mercado_lateral":
@@ -198,10 +215,24 @@ def cond_text(c, bpd):
         "delta_venta": lambda: f"dominan las ventas agresivas {W(c[1])} (delta de menos del -{c[2] * 100:.0f} %)",
         "absorcion": lambda: f"hay absorción compradora ({str(c[1]).replace('.', ',').rstrip('0').rstrip(',')} veces el volumen normal, con ventas agresivas, pero cierra en la mitad alta de la vela)",
         "divergencia_delta": lambda: f"marca un mínimo de {S(c[1])} pero el delta acumulado no (divergencia: se agotan los vendedores)",
+        "franja_horaria": lambda: f"es entre las {c[1]}:00 y las {(c[1] + c[2]) % 24}:00 (hora UTC; en España, 1 o 2 horas más)",
+        "dia_semana": lambda: "es " + _dias(c[1]),
         "en_tendencia": lambda: f"el mercado está en tendencia (últimas {S(c[1])})",
         "mercado_lateral": lambda: f"el mercado está lateral, sin tendencia (últimas {S(c[1])})",
     }[k]
     return t()
+
+
+DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+
+
+def _dias(ds):
+    if list(ds) == [0, 1, 2, 3, 4]:
+        return "entre semana"
+    if list(ds) == [5, 6]:
+        return "fin de semana"
+    n = [DIAS[d] for d in ds]
+    return n[0] if len(n) == 1 else ", ".join(n[:-1]) + " o " + n[-1]
 
 
 def describe(rule, bpd):

@@ -16,6 +16,9 @@ class Market:
         self.I = Ind(o, h, l, c, bpy=365 * self.bpd, v=v, flow=flow)
         self.v = v
         self.n = len(self.ts)
+        # hora (UTC) y día de la semana de cada vela, para las condiciones de estacionalidad
+        self.I.hour = [d.hour for d in self.ts]
+        self.I.dow = [d.weekday() for d in self.ts]
 
     def idx(self, when):
         """Primera vela que empieza en `when` o después (when: fecha, datetime o texto AAAA-MM-DD)."""

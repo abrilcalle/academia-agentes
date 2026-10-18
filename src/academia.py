@@ -22,6 +22,7 @@ import urllib.request
 
 import numpy as np
 
+import diario
 import inventor
 from backtest import run
 from market import TF_LABEL
@@ -127,7 +128,9 @@ class Academia:
         if ag["id"] not in self._w:
             mk = self.mk[ag["tf"]]
             kr = self.kr_for(ag["tf"])
-            if ag["eleccion"] == "propia":
+            if ag.get("estilo") == "diario":
+                w = diario.exposure(mk.I, ag["regla"], kr, mk.bpd)
+            elif ag["eleccion"] == "propia":
                 w = inventor.exposure(mk.I, ag["regla"], kr, mk.bpd)
             else:
                 w = signal(mk.I, ag["genome"], ag["params"], kr)
@@ -273,6 +276,89 @@ class Academia:
             self.exam2(ag)
         return ag
 
+    # ------------------------------------------------------------ operadores diarios
+    def week_fails(self, mk, r, crit, pre=""):
+        """Comprueba las exigencias semanales de un operador diario. Devuelve (estadísticas, motivos de suspenso)."""
+        s = diario.stats(mk, r)
+        f = []
+        if r.ret * 100 < crit["ganancia_minima_pct"]:
+            f.append(f"{pre}{'perdió' if r.ret < 0 else 'ganó'} un {abs(r.ret) * 100:.1f} % (mínimo {crit['ganancia_minima_pct']:+g} %)")
+        if s["dias_sem"] < crit["dias_operando_por_semana"]:
+            f.append(f"{pre}operó {s['dias_sem']:.1f} días por semana (mínimo {crit['dias_operando_por_semana']:g})")
+        if s["sem_pos"] * 100 < crit["semanas_en_positivo_pct"]:
+            f.append(f"{pre}solo acabó en positivo el {s['sem_pos'] * 100:.0f} % de las semanas (mínimo {crit['semanas_en_positivo_pct']} %)")
+        if s["peor_sem"] * 100 < -crit["peor_semana_pct"]:
+            f.append(f"{pre}su peor semana perdió un {-s['peor_sem'] * 100:.1f} % (máximo {crit['peor_semana_pct']:g} %)")
+        if r.maxdd * 100 > crit["caida_maxima_pct"]:
+            f.append(f"{pre}llegó a caer un {r.maxdd * 100:.0f} % (máximo {crit['caida_maxima_pct']} %)")
+        if r.closed and r.avg_trade * 100 < crit["ganancia_media_por_operacion_pct"]:
+            f.append(f"{pre}de media gana un {r.avg_trade * 100:.2f} % por operación tras comisiones (mínimo {crit['ganancia_media_por_operacion_pct']:g} %)")
+        if r.dead:
+            f.append(f"{pre}se quedó sin dinero")
+        return s, [x.replace(".", ",") for x in f]
+
+    def school_diario(self, ag):
+        cfg = self.run_cfg()
+        mk = self.mk[ag["tf"]]
+        kr = self.kr_for(ag["tf"])
+        temper = TEMPER[ag["personalidad"]]
+        P = inventor.pools(mk.bpd)
+        cd = self.cfg["operadores_diarios"]
+
+        # ideas de partida: estrategias de internet y de chartismo, cada una probada en un tipo de mercado
+        seeds = []
+        uso = {}
+        for x in self.state["agents"]:
+            for nm in x.get("ideas_internet", []):
+                uso[nm] = uso.get(nm, 0) + 1
+        ideas = sorted(self.internet_ideas(), key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:3]
+        for idea in ideas:
+            seeds.append(diario.from_sub(self.rng, P, kr is not None, idea["regla"]))
+        for _ in range(2):
+            seeds.append(diario.from_sub(self.rng, P, kr is not None, inventor.pattern_seed(self.rng, P, kr is not None)))
+        ag["ideas_internet"] = [i["nombre"] for i in ideas]
+
+        tr = self.window(mk, "entreno")
+        rule, r_tr, hist, _ = diario.evolve(mk, seeds, tr, cfg, self.rng, temper, kr,
+                                            pop=cd["poblacion_inventor"], gens=cd["generaciones_inventor"])
+        w = diario.exposure(mk.I, rule, kr, mk.bpd)
+        va = self.window(mk, "validacion")
+        sv, r_va = diario.robust(mk, w, va, cfg, temper)
+
+        # filtro anti-suerte: si con pequeños cambios deja de funcionar en validación, ganó por casualidad
+        vecinos = diario.neighbours(self.rng, rule, mk, kr is not None, n=cd["prueba_suerte"]["variantes"])
+        buenos = 0
+        for v in vecinos:
+            rv = run(mk.I, diario.exposure(mk.I, v, kr, mk.bpd), va[0], va[1], cfg)
+            sv2 = diario.stats(mk, rv)
+            buenos += rv.ret > 0 and sv2["sem_pos"] >= sv2["sem_neg"]
+        firma = hashlib.sha1(repr([(str(mk.ts[t["i"]]), t["side"]) for t in r_va.trades]).encode()).hexdigest()[:12]
+        twin = next((x for x in self.state["agents"] if x.get("firma") == firma and x is not ag), None)
+        ag.update(estilo="diario", eleccion="diario", regla=rule, firma=firma, label="Operador diario",
+                  desc=diario.describe(rule, mk.bpd),
+                  invento=dict(desc=diario.describe(rule, mk.bpd), entreno=r_tr.summary(), validacion=r_va.summary(),
+                               generaciones=hist, semanas_entreno=diario.stats(mk, r_tr), semanas_validacion=diario.stats(mk, r_va)),
+                  suerte=dict(variantes=len(vecinos), siguen_ganando=int(buenos)))
+        self._w[ag["id"]] = w
+
+        # examen 2024-25
+        ea, eb = self.window(mk, "examen")
+        re = run(mk.I, w, ea, eb, cfg)
+        s, fails = self.week_fails(mk, re, cd["aprobar_examen"])
+        _, vfails = self.week_fails(mk, r_va, cd["aprobar_validacion"], "en 2022–23 ")
+        fails = vfails + fails
+        if buenos < cd["prueba_suerte"]["minimo_que_siguen_ganando"]:
+            fails.insert(0, f"puede ser suerte: con pequeños cambios solo {buenos} de {len(vecinos)} versiones siguen ganando en 2022–23")
+        ag.update(exam=re.summary(), exam_semanas=s, examinado=self.today.isoformat())
+        if twin:
+            ag["status"], ag["motivo"] = "suspendido", f"Opera exactamente igual que {twin['name']}, no aporta nada nuevo."
+        elif fails:
+            ag["status"], ag["motivo"] = "suspendido", "No aprobó: " + "; ".join(fails) + "."
+        else:
+            ag["status"], ag["motivo"] = "cola", f"Aprobó el examen con {pc(re.ret)}."
+            self.exam2(ag)
+        return ag
+
     def exam2(self, ag):
         """Segundo examen: el mercado de este año (2026), que no se usó para nada antes."""
         c2 = self.cfg.get("examen_2")
@@ -290,7 +376,18 @@ class Academia:
         if r.maxdd * 100 > c2["caida_maxima_pct"]:
             fails.append(f"en 2026 llegó a caer un {r.maxdd * 100:.0f} % (máximo {c2['caida_maxima_pct']} %)")
         if r.closed and r.avg_trade * 100 < c2.get("ganancia_media_por_operacion_pct", 0):
-            fails.append(f"en 2026 ganó de media un {r.avg_trade * 100:.1f} % por operación".replace(".", ","))
+            fails.append(f"en 2026 ganó de media un {r.avg_trade * 100:.1f} % por operación (mínimo {c2['ganancia_media_por_operacion_pct']:g} %)".replace(".", ","))
+        if ag.get("estilo") == "diario":  # los operadores diarios: además, semana a semana
+            s, wf = self.week_fails(mk, r, self.cfg["operadores_diarios"]["examen_2"], "en 2026 ")
+            ag["exam2_semanas"] = s
+            fails = [x for x in fails if "operaciones (mínimo" not in x] + [x for x in wf if "ganó un" not in x and "perdió un" not in x]
+        # no tiene sentido tener dos agentes que en 2026 hicieron exactamente lo mismo
+        f2 = hashlib.sha1(repr([(str(mk.ts[t["i"]]), t["side"]) for t in r.trades]).encode()).hexdigest()[:12] if r.trades else None
+        ag["firma2026"] = f2
+        twin = next((x for x in self.state["agents"] if f2 and x is not ag and x.get("firma2026") == f2
+                     and x["status"] in ("cola", "simulado", "listo")), None)
+        if twin and not fails:
+            fails.append(f"en 2026 operó exactamente igual que {twin['name']}, que ya está en simulado")
         if fails:
             ag["status"] = "suspendido"
             ag["motivo"] = "Aprobó 2024–25 pero no el examen de 2026: " + "; ".join(fails) + "."
@@ -300,6 +397,15 @@ class Academia:
 
     def make_agent(self):
         fz = self.cfg["fabrica"]
+        cd = self.cfg.get("operadores_diarios")
+        if cd and self.rng.random() < cd["parte_de_los_nuevos"]:
+            tfs = [t for t in cd["temporalidades"] if t in self.mk] or ["1d"]
+            tf = self.rng.choices(tfs, weights=[cd["temporalidades"][t] for t in tfs])[0]
+            name = self.new_name()
+            ag = dict(id=hashlib.sha1(f"{name}{tf}{self.today}{self.rng.random()}".encode()).hexdigest()[:10],
+                      name=name, born=self.today.isoformat(), tf=tf, tf_label=TF_LABEL[tf],
+                      personalidad=self.rng.choice(list(TEMPER)), status="nuevo")
+            return self.school_diario(ag)
         tfs = list(fz["temporalidades"].keys())
         tf = self.rng.choices(tfs, weights=[fz["temporalidades"][t] for t in tfs])[0]
         if tf not in self.mk:
@@ -320,7 +426,8 @@ class Academia:
             ag = self.make_agent()
             self.state["agents"].append(ag)
             made += 1
-            elig = "su estrategia propia" if ag["eleccion"] == "propia" else f"una conocida ({ag['estudio']['label']})"
+            elig = ("ser operador diario" if ag.get("estilo") == "diario" else "su estrategia propia" if ag["eleccion"] == "propia"
+                    else f"una conocida ({ag['estudio']['label']})")
             self.log(f"{ag['name']} ({ag['tf']}, {ag['personalidad']}) eligió {elig}: examen {pc(ag['exam']['ret'])} -> {ag['status']}")
         self.log(f"Fábrica: {made} agente{'s' if made != 1 else ''} nuevo{'s' if made != 1 else ''} en {time.time() - t0:.0f} s.")
 
@@ -337,8 +444,8 @@ class Academia:
         sim = self.cfg["simulado"]
         cfg = self.run_cfg()
         # los que se aprobaron antes de existir el examen de 2026 también tienen que pasarlo
-        for ag in self.state["agents"]:
-            if ag["status"] in ("cola", "simulado") and "exam2" not in ag:
+        for ag in sorted(self.state["agents"], key=lambda a: (a.get("paper_start") or "9", a.get("born", ""))):
+            if ag["status"] in ("cola", "simulado") and ("exam2" not in ag or "firma2026" not in ag):
                 if not self.exam2(ag):
                     self.log(f"{ag['name']} sale del simulado: {ag['motivo']}")
         active = [a for a in self.state["agents"] if a["status"] == "simulado"]
@@ -353,8 +460,16 @@ class Academia:
             how = "con su propia estrategia" if ag["eleccion"] == "propia" else f"con {ag['label']}"
             self.notify(f"{ag['name']} aprueba el examen",
                         f"Ganó {pc(ag['exam']['ret'])} en 2024-25 {how} ({ag['tf_label']}). Empieza {sim['dias']} días en simulado con 100 € ficticios.")
+        team_days, team_ops = [], {}
+        paused = set(self.cfg.get("cartera", {}).get("pausados", []))
         for ag in [a for a in self.state["agents"] if a["status"] in ("simulado", "listo")]:
             r, mk, a = self.paper_run(ag)
+            if r is not None and ag["name"] not in paused:
+                team_days.append((dt.date.fromisoformat(ag["paper_start"]), mk.daily(r.eq, a)))
+                for t in r.trades:
+                    if t["side"] == "compra":
+                        d = mk.ts[t["i"]].date()
+                        team_ops[d] = team_ops.get(d, 0) + 1
             if r is None:
                 ag["paper"] = dict(days=0, final=cfg["cap"], ret=0.0, maxdd=0.0, trades=0, eq=[])
                 continue
@@ -385,6 +500,46 @@ class Academia:
                     ag["status"] = "retirado"
                     ag["motivo"] = f"Terminó el simulado con {pc(r.ret)}."
                     self.notify(f"{ag['name']} no supera el simulado", ag["motivo"])
+        self.team_week(team_days, team_ops)
+
+    def team_week(self, team_days, team_ops):
+        """Resultado del equipo (todos los agentes en simulado o listos, sin los pausados) semana a semana."""
+        if not team_days:
+            self.state["equipo"] = None
+            return
+        cap = self.cfg["saldo_inicial_eur"]
+        last = self.daily.ts[-1].date()
+        first = min(s for s, _ in team_days)
+        val = {}
+        d = first - dt.timedelta(days=1)
+        while d <= last:
+            tot = 0.0
+            for start, daily in team_days:
+                if d < start:
+                    tot += cap
+                else:
+                    v = daily.get(d)
+                    if v is None:  # sin vela ese día: usa el último saldo conocido
+                        prev = [x for k, x in daily.items() if k <= d]
+                        v = prev[-1] if prev else cap
+                    tot += v
+            val[d] = tot
+            d += dt.timedelta(days=1)
+        weeks = []
+        monday = first - dt.timedelta(days=first.weekday())
+        while monday <= last:
+            sunday = monday + dt.timedelta(days=6)
+            end = min(sunday, last)
+            before = max(monday - dt.timedelta(days=1), first - dt.timedelta(days=1))
+            v0, v1 = val[before], val[end]
+            days_ops = [k for k in team_ops if monday <= k <= end]
+            weeks.append(dict(inicio=monday.isoformat(), fin=end.isoformat(), completa=end == sunday,
+                              eur=round(v1 - v0, 2), pct=round(v1 / v0 - 1, 5),
+                              ops=sum(team_ops[k] for k in days_ops), dias_con_ops=len(days_ops)))
+            monday += dt.timedelta(days=7)
+        dl = val[last] - val[last - dt.timedelta(days=1)] if last - dt.timedelta(days=1) in val else 0.0
+        self.state["equipo"] = dict(miembros=len(team_days), capital=cap * len(team_days), semanas=weeks[-12:],
+                                    ayer=dict(fecha=last.isoformat(), eur=round(dl, 2), ops=team_ops.get(last, 0)))
 
     # ------------------------------------------------------------ día completo
     def day(self, fabrica=True):

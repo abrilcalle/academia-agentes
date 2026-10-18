@@ -51,6 +51,11 @@ th{color:var(--muted);font-weight:500;font-size:.72rem;text-transform:uppercase;
 details summary{cursor:pointer;font-weight:600;font-size:.9rem}
 .learn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 @media (max-width:520px){.learn{grid-template-columns:1fr}}
+.weeks{display:flex;flex-direction:column;gap:4px}
+.wk{display:grid;grid-template-columns:5.5rem 1fr 6.5rem;gap:8px;align-items:center;font-size:.8rem}
+.wk .track{height:10px;position:relative;background:transparent}
+.wk .track i{position:absolute;top:0;height:100%;border-radius:3px}
+.wk .track::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;border-left:1px solid var(--line)}
 .empty{font-size:.88rem;color:var(--muted);padding:12px 14px;border:1px dashed var(--line);border-radius:12px}
 """
 
@@ -148,11 +153,14 @@ def learning_html(agents):
         t[0] += 1
         t[1] += a["status"] != "suspendido"
     tf_txt = " · ".join(f"{k}: {v[1]} de {v[0]} aprueban" for k, v in sorted(by_tf.items()))
+    dia = [a for a in done if a.get("estilo") == "diario"]
+    dia_txt = f" Operadores diarios: {len(dia)} creados, {sum(a['status'] != 'suspendido' for a in dia)} aprobados." if dia else ""
+    tf_txt += "." + dia_txt
     return f"""<section><h2>Cómo están aprendiendo</h2><div class="learn">
 <div class="step"><span class="n mono">{len(own)}</span><span class="lbl">de {len(done)} eligieron su estrategia propia</span></div>
 <div class="step"><span class="n mono">{len(own_pass)}</span><span class="lbl">con estrategia propia aprobaron</span></div>
 <div class="step"><span class="n mono">{len(kn_pass)}</span><span class="lbl">con estrategia conocida aprobaron</span></div>
-</div><p class="muted" style="font-size:.82rem">Por temporalidad: {e(tf_txt)}.</p></section>"""
+</div><p class="muted" style="font-size:.82rem">Por temporalidad: {e(tf_txt)}</p></section>"""
 
 
 def btc_change_since(ac, day):
@@ -211,6 +219,31 @@ def sim_html(ac, sim, cola, cfg):
     return "".join(out)
 
 
+def team_html(eq):
+    if not eq or not eq.get("semanas"):
+        return ""
+    ws = eq["semanas"]
+    cur = ws[-1]
+    done = [w for w in ws if w["completa"]]
+    pos = sum(w["eur"] > 0 for w in done)
+    mx = max([abs(w["pct"]) for w in ws] + [0.002])
+    rows = []
+    for w in reversed(ws[-8:]):
+        width = min(50, abs(w["pct"]) / mx * 50)
+        left = 50 if w["pct"] >= 0 else 50 - width
+        col = "var(--up)" if w["eur"] >= 0 else "var(--down)"
+        lbl = f"{w['inicio'][8:10]}/{w['inicio'][5:7]}" + ("" if w["completa"] else " (en curso)")
+        rows.append(f'<div class="wk"><span class="mono muted">{e(lbl)}</span><span class="track"><i style="left:{left:.1f}%;width:{width:.1f}%;background:{col}"></i></span>'
+                    f'<span class="mono {"up" if w["eur"] >= 0 else "down"}" style="text-align:right">{"+" if w["eur"] >= 0 else "−"}{eur(abs(w["eur"]))}</span></div>')
+    ay = eq.get("ayer") or {}
+    return f"""<section><h2>Semana del equipo</h2>
+<div class="learn"><div class="step"><span class="n mono {'up' if cur['eur'] >= 0 else 'down'}">{'+' if cur['eur'] >= 0 else '−'}{eur(abs(cur['eur']))}</span><span class="lbl">esta semana ({pct(cur['pct'])}), con {cur['ops']} operaciones en {cur['dias_con_ops']} días</span></div>
+<div class="step"><span class="n mono {'up' if ay.get('eur', 0) >= 0 else 'down'}">{'+' if ay.get('eur', 0) >= 0 else '−'}{eur(abs(ay.get('eur', 0)))}</span><span class="lbl">ayer, con {ay.get('ops', 0)} operaciones</span></div>
+<div class="step"><span class="n mono">{pos} de {len(done)}</span><span class="lbl">semanas completas en positivo</span></div></div>
+<div class="weeks">{''.join(rows)}</div>
+<p class="muted" style="font-size:.8rem">Suma de los {eq['miembros']} agentes en simulado o listos (sin los pausados), {eur(eq['capital'])} ficticios en total, ya con comisiones. Semanas de lunes a domingo.</p></section>"""
+
+
 def build(root, ac):
     st, cfg = ac.state, ac.cfg
     agents = st["agents"]
@@ -229,6 +262,7 @@ def build(root, ac):
     if listos:
         sections.append('<section><h2>Listos para dinero real</h2><p class="muted" style="font-size:.85rem">Superaron el examen y el simulado. Solo pasan a dinero real si tú lo decides.</p>'
                         + "".join(card(a, cfg, gold=True, compact=k >= 5) for k, a in enumerate(listos)) + "</section>")
+    sections.insert(0, team_html(st.get("equipo")))
     sections.append(sim_html(ac, sim, cola, cfg))
     sections.append('<section><h2>Novedades de hoy</h2>' + (
         '<ul class="news">' + "".join(f"<li>{e(n)}</li>" for n in news) + "</ul>" if news else '<p class="empty">Sin novedades: los agentes siguen operando.</p>') + "</section>")

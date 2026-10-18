@@ -21,6 +21,17 @@ Agentes de trading que aprenden solos sobre BTC-EUR (Bitvavo) y se ejecutan grat
 
 El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempre haya alumnos buscando un nuevo ganador.
 
+## Operadores diarios
+
+La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo no es ganar mucho en un año, sino operar casi cada día y **acabar cada semana en positivo tras comisiones**.
+
+- Tienen **tres estrategias**, una para cada tipo de mercado (alcista, lateral y bajista), y un **detector de régimen** que decide cuál toca usar. En mercado bajista, como solo se compra al contado, pueden buscar rebotes cortos o quedarse en euros.
+- Operaciones **cortas**: como mucho de 1 a 5 días, con velas de 1 o 4 horas. Pueden usar también condiciones de **hora del día y día de la semana** (estacionalidad).
+- Se puntúan **semana a semana**: qué parte de las semanas acaba en positivo, la ganancia media semanal, la peor semana y cuántos días operan.
+- **Filtro anti-suerte**: tras inventar su estrategia se prueban 6 versiones con pequeños cambios en 2022–23; si la mayoría deja de ganar, se considera suerte y suspende.
+- Exámenes: 2024–25 y 2026 con exigencias semanales (ver `operadores_diarios` en `config.json`).
+- El panel muestra la **semana del equipo**: lo que ganan o pierden entre todos los agentes en simulado, semana a semana y ayer.
+
 ## Informe mensual
 El día 1 de cada mes te llega un aviso y el panel muestra el informe del mes anterior:
 - Cuánto ganó o perdió cada agente y cuántas operaciones perdió.

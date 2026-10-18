@@ -51,6 +51,44 @@
     "generaciones_inventor": 15,
     "usar_kronos": true
   },
+  "operadores_diarios": {
+    "_nota": "Agentes que operan casi cada día con una estrategia para cada tipo de mercado (alcista, lateral, bajista) y buscan acabar cada semana en positivo tras comisiones.",
+    "parte_de_los_nuevos": 0.7,
+    "temporalidades": {
+      "1h": 1,
+      "4h": 1
+    },
+    "poblacion_inventor": 30,
+    "generaciones_inventor": 15,
+    "prueba_suerte": {
+      "variantes": 6,
+      "minimo_que_siguen_ganando": 3
+    },
+    "aprobar_validacion": {
+      "ganancia_minima_pct": 0,
+      "dias_operando_por_semana": 1.5,
+      "semanas_en_positivo_pct": 40,
+      "peor_semana_pct": 12,
+      "caida_maxima_pct": 30,
+      "ganancia_media_por_operacion_pct": 0.0
+    },
+    "aprobar_examen": {
+      "ganancia_minima_pct": 10,
+      "dias_operando_por_semana": 2,
+      "semanas_en_positivo_pct": 50,
+      "peor_semana_pct": 8,
+      "caida_maxima_pct": 20,
+      "ganancia_media_por_operacion_pct": 0.2
+    },
+    "examen_2": {
+      "ganancia_minima_pct": 0,
+      "dias_operando_por_semana": 2,
+      "semanas_en_positivo_pct": 50,
+      "peor_semana_pct": 8,
+      "caida_maxima_pct": 20,
+      "ganancia_media_por_operacion_pct": 0.2
+    }
+  },
   "cartera": {
     "pausados": [],
     "_nota": "Escribe aquí los nombres de los agentes que quieras pausar, por ejemplo [\"Marcos\"]. Los agentes listos que no estén pausados forman tu cartera."
