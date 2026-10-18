@@ -1,0 +1,48 @@
+name: Comprobar mercados de Bitvavo
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: academia
+  cancel-in-progress: false
+
+jobs:
+  mercados:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Consultar Bitvavo
+        run: |
+          mkdir -p diag
+          python3 - <<'PY'
+          import json, urllib.request
+          def get(u):
+              return json.loads(urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "academia"}), timeout=30).read())
+          ms = get("https://api.bitvavo.com/v2/markets")
+          out = []
+          for m in ms:
+              if m["market"].endswith("-EUR") and m["base"] in ("BTC", "ETH", "SOL", "PAXG", "XAUT", "XRP", "ADA"):
+                  c = get(f"https://api.bitvavo.com/v2/{m['market']}/candles?interval=1d&limit=1440")
+                  first = min(int(x[0]) for x in c) if c else None
+                  import datetime as dt
+                  out.append(f"{m['market']}: estado={m['status']}, velas diarias desde {dt.datetime.utcfromtimestamp(first/1000).date() if first else '-'} (máx. 1440 por consulta)")
+          gold = [m["market"] for m in ms if any(k in m["base"] for k in ("PAXG", "XAU", "GOLD", "GLD"))]
+          out.append("Mercados de oro: " + (", ".join(gold) or "ninguno"))
+          out.append(f"Total mercados EUR: {sum(m['market'].endswith('-EUR') for m in ms)}")
+          open("diag/mercados_bitvavo.txt", "w").write("\n".join(out) + "\n")
+          print("\n".join(out))
+          PY
+      - name: Guardar
+        run: |
+          git config user.name "academia-bot"
+          git config user.email "academia-bot@users.noreply.github.com"
+          git add diag/mercados_bitvavo.txt
+          git diff --cached --quiet || git commit -m "Mercados de Bitvavo"
+          git pull --rebase -X theirs origin main
+          git push
