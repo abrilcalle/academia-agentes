@@ -21,6 +21,7 @@ HOLD_D = [1, 1, 2, 3, 5]                       # días máximos que dura una ope
 TP_D = [0, 0.01, 0.015, 0.02, 0.03, 0.05]       # objetivo de beneficio
 TRAIL_D = [0, 0.01, 0.015, 0.02, 0.03]          # stop que sube con el precio
 MIN_NET_D = [0.007, 0.01, 0.015]                # ganancia mínima para cerrar por señal (las comisiones ida y vuelta son 0,6 %)
+ALLOW_SHORT = False  # config: permitir_cortos. Bitvavo aún no permite cortos por API (oct. 2026), así que van apagados
 OBJETIVO_SEMANAL = 0.01                        # semana "buena": +1 % o más, ya con comisiones (config: objetivo_semanal_pct)
 REG_MA = [20, 50, 100]                          # media (en días) que separa alcista de bajista
 REG_ER = [3, 7, 14]                             # días con los que se mide si hay tendencia
@@ -81,6 +82,8 @@ def exposure(I, rule, kronos=None, bpd=24):
         key = ("regmask", rg["ma"], rg["er"], rg["x"], k)
         s = dict(sub, entry=sub["entry"] + [["_mask", key]])
         if sub.get("lado") == "corto":
+            if not ALLOW_SHORT:
+                continue  # sin cortos: en ese régimen se queda en euros
             J = inverted(I)
             J._m[key] = masks[k]
             ks = None if kronos is None else dict(med=-kronos["med"], up=1 - kronos["up"])
@@ -156,7 +159,7 @@ def robust(mk, w, window, cfg, temper):
 def random_sub(rng, P, kr, regime=None):
     r = V.random_rule(rng, P, kr)
     # en mercado bajista suele interesar vender en corto; en los demás, a veces también
-    r["lado"] = "corto" if rng.random() < {"bajista": 0.7, "lateral": 0.3}.get(regime, 0.1) else "largo"
+    r["lado"] = "corto" if ALLOW_SHORT and rng.random() < {"bajista": 0.7, "lateral": 0.3}.get(regime, 0.1) else "largo"
     r.update(hold=rng.choice(HOLD_D), tp=rng.choice(TP_D), trail=rng.choice(TRAIL_D), min_net=rng.choice(MIN_NET_D),
              pyr=0, frac=rng.choice([1.0, 1.0, 0.5]))
     return _fix(r)
@@ -202,7 +205,7 @@ def mutate(rng, rule, P, kr):
         r[k]["trail"] = rng.choice(TRAIL_D)
     elif op < 0.53:
         r[k]["min_net"] = rng.choice(MIN_NET_D)
-    elif op < 0.58:
+    elif op < 0.58 and ALLOW_SHORT:
         r[k]["lado"] = "corto" if r[k].get("lado") != "corto" else "largo"
     else:
         r[k] = _fix(V.mutate(rng, r[k], P, kr))
@@ -271,7 +274,9 @@ def describe(rule, bpd):
             parts.append(f"En {REG_LABEL[k]}: no opera, se queda en euros.")
             continue
         d = V.describe(sub, bpd)
-        if sub.get("lado") == "corto":
+        if sub.get("lado") == "corto" and not ALLOW_SHORT:
+            parts.append(f"En {REG_LABEL[k]}: no opera, se queda en euros.")
+        elif sub.get("lado") == "corto":
             parts.append(f"En {REG_LABEL[k]}: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: "
                          f"{d[0].lower() + d[1:]}")
         else:

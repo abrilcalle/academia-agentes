@@ -35,7 +35,7 @@ La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo es 
 ## Varios mercados, cortos y órdenes limitadas
 
 - **Mercados:** BTC, ETH, SOL y oro (PAXG), en `config.json` → `activos`. Cada agente nace especializado en uno solo y estudia las ideas de internet de ese mercado (o las generales).
-- **Ventas en corto sin apalancamiento** (los operadores diarios): Bitvavo permite vender en corto con euros como garantía, pagando un interés por hora. Las reglas se aplican al gráfico "dado la vuelta", así las mismas piezas sirven para ganar cuando el precio cae.
+- **Ventas en corto (apagadas):** Bitvavo permite vender en corto sin apalancamiento desde la app, pero todavía no por API, así que los agentes no podrían hacerlo solos con dinero real. El código está listo (`permitir_cortos` en `config.json`) para activarlo cuando Bitvavo lo añada.
 - **Órdenes limitadas:** cada orden se pone al precio del último cierre (comisión 0,15 % en vez de 0,25 % y sin deslizamiento). Si el precio no la cruza en la vela siguiente, se ejecuta a mercado.
 - **Herencia:** los agentes nuevos parten también de las reglas de los que ya van ganando en simulado (mismo mercado y temporalidad), y las mejoran.
 - **Objetivo del equipo** (`objetivo_equipo`): al menos el 65 % de las semanas en verde, ninguna peor de −3 % y en positivo durante 3 meses. El informe mensual recomienda la combinación de agentes que más se acerca.

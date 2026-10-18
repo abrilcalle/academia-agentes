@@ -45,7 +45,8 @@ def pc(x):
 class Academia:
     def __init__(self, root, markets, kronos=None, today=None, log=print, otros=None):
         self.root = root
-        self.otros = otros or {}  # otros mercados (ETH-EUR, SOL-EUR...): dict mercado -> dict tf -> Market
+        self.otros = otros or {}
+        diario.ALLOW_SHORT = bool(json.load(open(os.path.join(root, "config.json"))).get("permitir_cortos", False))  # otros mercados (ETH-EUR, SOL-EUR...): dict mercado -> dict tf -> Market
         self.cfg = json.load(open(os.path.join(root, "config.json")))
         self.state_path = os.path.join(root, "state", "agents.json")
         self.mk = markets  # dict tf -> Market
@@ -345,7 +346,8 @@ class Academia:
         for x in self.state["agents"]:
             for nm in x.get("ideas_internet", []):
                 uso[nm] = uso.get(nm, 0) + 1
-        ideas = sorted(self.ideas_for(ag.get("activo", self.cfg["mercado"])), key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:3]
+        ideas = sorted([i for i in self.ideas_for(ag.get("activo", self.cfg["mercado"]))
+                        if diario.ALLOW_SHORT or i["regla"].get("lado") != "corto"], key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:3]
         for idea in ideas:
             seeds.append(diario.from_sub(self.rng, P, kr is not None, idea["regla"]))
         for _ in range(2):
