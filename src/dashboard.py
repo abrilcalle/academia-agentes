@@ -324,10 +324,10 @@ def team_card(tm, cfg, agents_by_id, lead=False):
 <div class="members"><p class="eyebrow">Miembros y dinero que maneja cada uno</p>{''.join(rows)}</div>
 {'<div class="weeks">' + ''.join(weeks_rows) + '</div>' if weeks_rows else ''}
 <details><summary>Cómo se eligió este equipo</summary><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:.85rem">
-<p>Cada agente operó por separado en sus exámenes. De todas las combinaciones de agentes aprobados, esta es la que más ganó cumpliendo juntos las condiciones del equipo, en 2024–25 y también en 2026.</p>
+<p>Cada agente operó solo en su examen de 2024–25. Con los que aprobaron, se buscó qué combinación ganaba más cumpliendo juntos las condiciones usando solo 2024–25. Después el equipo hizo su prueba con 2026 (enero–hoy), que no se usó para elegirlo.</p>
 <p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · ganó el {p1['verde'] * 100:.0f} % de las semanas · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · ganó el {p2['verde'] * 100:.0f} % de las semanas · peor semana {pct(p2['peor'])}</p>
 <p>Reparto: {e('; '.join(how))}. Cada día al cierre se reparte de nuevo (moverlo cuesta comisiones, ya descontadas).</p>
-<p class="muted">Se vuelve a elegir el día 1 de cada mes; el dinero del equipo sigue. Ojo: en 2026 los agentes ya estaban filtrados por su examen, así que la prueba de verdad es este simulado.</p></div></details>
+<p class="muted">Se vuelve a elegir el día 1 de cada mes; el dinero del equipo sigue.</p></div></details>
 </article>"""
 
 
@@ -346,7 +346,9 @@ def build(root, ac):
 
     # 1. avisos para Abril
     avp = os.path.join(root, "avisos", "avisos.json")
-    avisos = [x for x in (json.load(open(avp))["avisos"] if os.path.exists(avp) else []) if x.get("estado") == "pendiente"]
+    hoy = ac.today.isoformat()
+    avisos = [x for x in (json.load(open(avp))["avisos"] if os.path.exists(avp) else [])
+              if x.get("estado") == "pendiente" and x.get("desde", "") <= hoy]  # "desde": recordatorios que aparecen más adelante
     if avisos:
         sections.append('<section><h2>Avisos para Abril</h2>' + "".join(
             f'<div class="alert"><span class="t">{"🟡 Decide" if x["tipo"] == "decidir" else "🔵 Tarea"} · {e(x["titulo"])}</span><p>{e(x["texto"])}</p>'
@@ -383,7 +385,7 @@ def build(root, ac):
         f"<tr><td><strong>{e(a['name'])}</strong><br><span class='muted'>{e(asset(a))} · {e(a.get('tf', ''))} · {e(a['label'])}</span></td>"
         f"<td class='num {'up' if a.get('paper', {}).get('ret', 0) > 0.001 else 'down' if a.get('paper', {}).get('ret', 0) < -0.001 else ''}'>{pct(a.get('paper', {}).get('ret', 0))}<br><span class='muted'>día {a.get('paper', {}).get('days', 0)}</span></td>"
         f"<td>{e(estado_txt(a))}</td></tr>" for a in listos + sim)
-    sections.append(f"""<section><h2>Cantera</h2><p class="muted" style="font-size:.85rem">Cada noche nacen agentes nuevos. Solo los que aprueban los exámenes de 2024–25 y 2026 pueden entrar en un equipo; los hijos, además, tienen que superar a su padre. {e(cant)}.</p>
+    sections.append(f"""<section><h2>Cantera</h2><p class="muted" style="font-size:.85rem">Cada noche nacen agentes nuevos. Los que aprueban el examen de 2024–25 pueden entrar en un equipo (la prueba de 2026 la hace el equipo); los hijos, además, tienen que superar a su padre. {e(cant)}.</p>
 <div class="funnel"><div class="step"><span class="n mono">{len(agents)}</span><span class="lbl">creados</span></div><div class="step"><span class="n mono">{len(sim) + len(listos)}</span><span class="lbl">aprobados (simulado)</span></div>
 <div class="step"><span class="n mono">{len(cola)}</span><span class="lbl">en cola</span></div><div class="step"><span class="n mono">{len(by('suspendido'))}</span><span class="lbl">suspendidos</span></div></div>
 <details class="report"><summary>Ver los {len(sim) + len(listos)} agentes aprobados</summary><div class="tbl"><table><thead><tr><th>Agente</th><th style="text-align:right">Simulado</th><th>Ahora</th></tr></thead><tbody>{rows}</tbody></table></div></details></section>""")

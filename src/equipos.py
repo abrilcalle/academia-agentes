@@ -217,9 +217,9 @@ def objective(s, goal):
 def build(ac, last_day, log=print):
     """Busca, para cada nivel de prudencia, el equipo que más gana cumpliendo las condiciones en 2024–25 y en 2026."""
     goal = ac.cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 50, "ganancia_minima_anual_pct": 10, "caida_maxima_pct": 25})
-    cands = [a for a in ac.state["agents"] if a["status"] in ("simulado", "listo")]
+    cands = [a for a in ac.state["agents"] if a["status"] in ("cola", "simulado", "listo")]
     if len(cands) < 2:
-        return {t: dict(motivo="Todavía no hay al menos 2 agentes que hayan aprobado los dos exámenes.") for t in TIPOS}
+        return {t: dict(motivo="Todavía no hay al menos 2 agentes que hayan aprobado el examen.") for t in TIPOS}
     days, R, E, P, G = matrix(ac, cands, P1[0], last_day)
     p1_end = dt.date.fromisoformat(P1[1])
     k1 = sum(1 for d in days if d <= p1_end)

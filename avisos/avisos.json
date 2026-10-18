@@ -8,6 +8,15 @@
       "titulo": "Cookies de YouTube",
       "texto": "Para que los agentes aprendan de vídeos de YouTube: con un ordenador, exporta las cookies de una cuenta de Google secundaria y guárdalas en GitHub como secreto YT_COOKIES. Pídeme los pasos cuando te pongas.",
       "estado": "pendiente"
+    },
+    {
+      "id": "activos-no-correlacionados",
+      "fecha": "2026-10-18",
+      "desde": "2026-11-01",
+      "tipo": "decidir",
+      "titulo": "¿Añadimos activos que no vayan a la par de BTC?",
+      "texto": "Acordamos esperar a ver cómo van los equipos estas dos semanas. Todas las criptos de Bitvavo suelen moverse juntas; lo que va por su lado (oro, índices) necesitaría otro broker con API. Mira cuántas semanas han ganado los equipos y dime si lo estudiamos: te prepararé las opciones con sus comisiones.",
+      "estado": "pendiente"
     }
   ]
 }

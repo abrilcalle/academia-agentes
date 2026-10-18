@@ -459,24 +459,32 @@ class Academia:
         ag["firma2026"] = f2
         twin = next((x for x in self.state["agents"] if f2 and x is not ag and x.get("firma2026") == f2
                      and x["status"] in ("cola", "simulado", "listo")), None)
-        if twin and not fails:
-            fails.append(f"en 2026 operó exactamente igual que {twin['name']}, que ya está en simulado")
-        if fails:
+        if twin:  # no tiene sentido tener dos agentes que hacen exactamente lo mismo
+            ag["status"] = "suspendido"
+            ag["motivo"] = f"En 2026 operó exactamente igual que {twin['name']}, que ya está aprobado: no aporta nada nuevo."
+            return False
+        obligatorio = c2.get("obligatorio", True)
+        if fails and obligatorio:
             ag["status"] = "suspendido"
             ag["motivo"] = "Aprobó 2024–25 pero no el examen de 2026: " + "; ".join(fails) + "."
             return False
-        # un hijo solo se queda si mejora a sus padres en las pruebas (2024–25 y 2026 seguidos)
-        mine = (1 + ag["exam"]["ret"]) * (1 + r.ret) - 1
+        ag["exam2_nota"] = "; ".join(fails)
+        # un hijo solo se queda si mejora a su padre en las pruebas (con 2026 solo si el examen de 2026 es individual)
+        mine = (1 + ag["exam"]["ret"]) * ((1 + r.ret) if obligatorio else 1) - 1
         for pn in ag.get("padres", []):
             p = next((x for x in self.state["agents"] if x["name"] == pn), None)
-            if p and p.get("exam") and p.get("exam2"):
-                theirs = (1 + p["exam"]["ret"]) * (1 + p["exam2"]["ret"]) - 1
+            if p and p.get("exam") and (p.get("exam2") or not obligatorio):
+                theirs = (1 + p["exam"]["ret"]) * ((1 + p["exam2"]["ret"]) if obligatorio else 1) - 1
                 if mine <= theirs:
                     ag["status"] = "suspendido"
-                    ag["motivo"] = (f"Es hijo de {pn} pero no lo mejora: en las pruebas (2024–26) ganó {pc(mine)} y su padre {pc(theirs)}. "
+                    ag["motivo"] = (f"Es hijo de {pn} pero no lo mejora: en las pruebas ganó {pc(mine)} y su padre {pc(theirs)}. "
                                     "Solo se quedan los hijos que superan a sus padres.")
                     return False
-        ag["motivo"] = f"Aprobó los dos exámenes: {pc(ag['exam']['ret'])} en 2024–25 y {pc(r.ret)} en 2026."
+        if obligatorio:
+            ag["motivo"] = f"Aprobó los dos exámenes: {pc(ag['exam']['ret'])} en 2024–25 y {pc(r.ret)} en 2026."
+        else:
+            ag["motivo"] = (f"Aprobó el examen de 2024–25 con {pc(ag['exam']['ret'])}. Puede entrar en equipos; "
+                            f"la prueba de 2026 se hace en equipo (solo, en 2026 hizo {pc(r.ret)}).")
         return True
 
     def make_agent(self):

@@ -55,7 +55,8 @@
     "operaciones_minimas": 2,
     "caida_maxima_pct": 25,
     "ganancia_media_por_operacion_pct": 0.5,
-    "_nota": "Segundo examen con el mercado de este año. Para pasar al simulado hay que aprobar los dos."
+    "_nota": "Con obligatorio=false el examen de 2026 de cada agente es solo informativo: la prueba de 2026 la hace el EQUIPO (que se elige solo con 2024–25). Los agentes que en 2026 operan exactamente igual que otro se descartan igualmente.",
+    "obligatorio": false
   },
   "simulado": {
     "dias": 90,
