@@ -21,11 +21,13 @@ class Result:
     n_buys: int = 0
     closed: int = 0
     wins: int = 0
+    avg_trade: float = 0.0  # ganancia neta media por operación cerrada (tras comisiones)
 
     def summary(self):
         return dict(final=round(float(self.final), 2), ret=round(float(self.ret), 4), fees=round(float(self.fees), 2),
                     maxdd=round(float(self.maxdd), 4), dead=bool(self.dead), trades=int(self.n_buys),
-                    closed=int(self.closed), wins=int(self.wins))
+                    closed=int(self.closed), wins=int(self.wins),
+                    avg_trade=round(float(self.avg_trade), 4))
 
 
 def run(I, w, a, b, cfg):
@@ -61,6 +63,7 @@ def run(I, w, a, b, cfg):
                         trades.append(dict(i=i, side="venta", px=px, amt=-diff))
                     if btc * px < 0.5 and open_val is not None:
                         trades[-1]["pnl"] = cash - open_val
+                        trades[-1]["pnl_pct"] = (cash - open_val) / open_val
                         open_val = None
                 cur = tgt
         v = cash + btc * C[i]
@@ -75,4 +78,5 @@ def run(I, w, a, b, cfg):
     final = eq[-1]
     return Result(a=a, b=b, eq=eq, trades=trades, final=final, ret=final / cap - 1, fees=fees, maxdd=maxdd,
                   dead=dead, n_buys=sum(t["side"] == "compra" for t in trades), closed=len(closed),
-                  wins=sum(t["pnl"] > 0 for t in closed))
+                  wins=sum(t["pnl"] > 0 for t in closed),
+                  avg_trade=(sum(t["pnl_pct"] for t in closed) / len(closed)) if closed else 0.0)

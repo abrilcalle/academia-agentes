@@ -185,6 +185,9 @@ def describe(rule, bpd):
     if rule["hold"]:
         outs.append(f"pasan {rule['hold']} días")
     s += ". Sale si " + " o ".join(outs) + "."
+    mn = rule.get("min_net", 0.01)
+    if mn:
+        s += f" Solo cierra por su señal de salida si el precio ya ha subido al menos un {mn * 100:.1f} % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre).".replace(".", ",", 1)
     g = []
     if rule.get("pyr"):
         g.append(f"empieza con media posición y la completa si gana un {rule['pyr'] * 100:.0f} %")
@@ -206,6 +209,7 @@ def describe(rule, bpd):
 FRAC = [1.0, 1.0, 0.5, 0.2]          # parte del fondo que arriesga en cada operación
 TRAIL = [0, 0, 0.03, 0.05, 0.1]      # stop que sube con el precio, a este % del máximo alcanzado
 TP = [0, 0, 0.05, 0.08, 0.1, 0.2]    # objetivo de beneficio fijo
+MIN_NET = [0.01, 0.01, 0.015, 0.03]  # ganancia mínima tras comisiones para cerrar por señal
 BE = [0, 0, 0.02, 0.03, 0.05]        # al ganar esto, el stop sube al precio de entrada
 STALL = [0, 0, 1, 3, 7]              # días sin avanzar tras los que se acerca el stop
 PYR = [0, 0, 0.02, 0.04]             # entra con media posición y la completa al ganar esto
@@ -217,7 +221,8 @@ def random_rule(rng, P, kronos=False):
                 stop=rng.choice([0, 0, 2, 3, 4]), tp=rng.choice(TP + (["kronos"] if kronos else [])),
                 trail=rng.choice(TRAIL), hold=rng.choice([0, 0, 3, 10, 30]),
                 sizing=rng.choice(["completo", "riesgo"]), frac=rng.choice(FRAC),
-                be=rng.choice(BE), stall=rng.choice(STALL), pyr=rng.choice(PYR), shrink=rng.random() < 0.5)
+                be=rng.choice(BE), stall=rng.choice(STALL), pyr=rng.choice(PYR), shrink=rng.random() < 0.5,
+                min_net=rng.choice(MIN_NET))
 
 
 # ------------------------------------------------------------------ de estrategia a exposición
@@ -237,6 +242,7 @@ def exposure(I, rule, kronos=None, bpd=1):
         tp = 0
     atr = I.atr(14) if stop else None
     be, stall, pyr, shrink = rule.get("be", 0), rule.get("stall", 0) * bpd, rule.get("pyr", 0), rule.get("shrink", False)
+    min_net = rule.get("min_net", 0.01)  # la señal de salida solo cierra si la operación ya cubre comisiones y gana algo
     C = I.c.tolist()
     ent_l, ex_l = ent.tolist(), ex.tolist()
     atr_l = atr.tolist() if stop else None
@@ -267,7 +273,7 @@ def exposure(I, rule, kronos=None, bpd=1):
                 floor = max(floor, entry_px * 1.006)  # stop a precio de entrada (cubre comisiones)
             if stall and since == stall and gain < 0.01:
                 floor = max(floor, px * 0.985)  # no avanza: acerca el stop para perder lo mínimo
-            out = ex_l[i]
+            out = ex_l[i] and px >= entry_px * (1 + min_net)
             forced = False
             if stop and atr_l[i] == atr_l[i] and px < best - stop * atr_l[i]:
                 forced = True
@@ -306,6 +312,8 @@ def score(r, cap, years, temper):
     s -= temper * max(0.0, r.maxdd - 0.2)
     if r.n_buys < 3 * years:
         s -= 0.5
+    if r.closed and r.avg_trade < 0.01:  # operaciones que apenas ganan tras comisiones no interesan
+        s -= 0.3 + 20 * max(0.0, 0.01 - r.avg_trade)
     return s
 
 
@@ -346,8 +354,10 @@ def mutate(rng, rule, P, kronos=False):
         r["stall"] = rng.choice(STALL)
     elif op < 0.98:
         r["pyr"] = rng.choice(PYR)
-    elif op < 0.99:
+    elif op < 0.985:
         r["shrink"] = not r.get("shrink", False)
+    elif op < 0.995:
+        r["min_net"] = rng.choice(MIN_NET)
     else:
         r["sizing"] = "riesgo" if r["sizing"] == "completo" else "completo"
     return r
@@ -375,7 +385,8 @@ def cross(rng, a, b):
                 hold=rng.choice([a["hold"], b["hold"]]), sizing=rng.choice([a["sizing"], b["sizing"]]),
                 trail=rng.choice([a.get("trail", 0), b.get("trail", 0)]), frac=rng.choice([a.get("frac", 1.0), b.get("frac", 1.0)]),
                 be=rng.choice([a.get("be", 0), b.get("be", 0)]), stall=rng.choice([a.get("stall", 0), b.get("stall", 0)]),
-                pyr=rng.choice([a.get("pyr", 0), b.get("pyr", 0)]), shrink=rng.choice([a.get("shrink", False), b.get("shrink", False)]))
+                pyr=rng.choice([a.get("pyr", 0), b.get("pyr", 0)]), shrink=rng.choice([a.get("shrink", False), b.get("shrink", False)]),
+                min_net=rng.choice([a.get("min_net", 0.01), b.get("min_net", 0.01)]))
 
 
 def evolve(mk, seeds, window, cfg, rng, temper, kronos=None, pop=30, gens=15, log=None):

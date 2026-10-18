@@ -263,6 +263,9 @@ class Academia:
             fails.append(f"llegó a caer un {re.maxdd * 100:.0f} % (máximo {crit['caida_maxima_pct']} %)")
         if re.dead:
             fails.append("se quedó sin dinero")
+        gmin = crit.get("ganancia_media_por_operacion_pct", 0)
+        if re.closed and re.avg_trade * 100 < gmin:
+            fails.append(f"de media gana un {re.avg_trade * 100:.1f} % por operación tras comisiones (mínimo {gmin:g} %)".replace(".", ","))
         ag.update(exam=re.summary(), examinado=self.today.isoformat())
         if twin:
             ag["status"], ag["motivo"] = "suspendido", f"Opera exactamente igual que {twin['name']}, no aporta nada nuevo."

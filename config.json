@@ -18,7 +18,8 @@
   "aprobar_examen": {
     "ganancia_minima_pct": 10,
     "operaciones_minimas": 8,
-    "caida_maxima_pct": 40
+    "caida_maxima_pct": 40,
+    "ganancia_media_por_operacion_pct": 1.0
   },
   "simulado": {
     "dias": 90,

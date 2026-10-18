@@ -12,7 +12,8 @@ Piezas permitidas en "entry" y "exit" (lista de condiciones; entrada = todas, sa
   ["bandera", N, subida_min] ["ruptura_volumen", N, veces_volumen] ["volumen_alto", veces_volumen]
   (N = número de velas; pct, tol y subida en tanto por uno: 0.05 = 5 %)
 Gestión: stop (ATR: 0, 2, 3, 4), tp (0 o tanto por uno), trail (0 o tanto por uno), hold (días, 0 = sin límite),
-  sizing ("completo" o "riesgo"), frac (0.2-1), be (tanto por uno), stall (días), pyr (tanto por uno), shrink (true/false).
+  sizing ("completo" o "riesgo"), frac (0.2-1), be (tanto por uno), stall (días), pyr (tanto por uno), shrink (true/false),
+  min_net (opcional, por defecto 0.01: la señal de salida solo cierra si el precio ya subió eso desde la compra).
 """
 import json, os, sys
 
@@ -39,7 +40,7 @@ def main():
             for f in ("nombre", "fuente", "idea", "regla"):
                 assert idea.get(f), f"falta '{f}'"
             r = idea["regla"]
-            assert set(r) == KEYS, f"campos de la regla: faltan {KEYS - set(r)}, sobran {set(r) - KEYS}"
+            assert KEYS <= set(r) <= KEYS | {"min_net"}, f"campos de la regla: faltan {KEYS - set(r)}, sobran {set(r) - KEYS - {'min_net'}}"
             assert r["entry"] and r["exit"], "entry y exit no pueden estar vacíos"
             w = inventor.exposure(I, r, None, 1)
             assert w.shape == (1500,), "salida incorrecta"
