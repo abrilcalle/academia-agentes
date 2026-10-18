@@ -1,0 +1,7 @@
+ADA-EUR: estado=trading, velas diarias desde 2022-11-09 (máx. 1440 por consulta)
+BTC-EUR: estado=trading, velas diarias desde 2022-11-09 (máx. 1440 por consulta)
+SOL-EUR: estado=trading, velas diarias desde 2022-11-09 (máx. 1440 por consulta)
+XRP-EUR: estado=trading, velas diarias desde 2022-11-09 (máx. 1440 por consulta)
+ETH-EUR: estado=trading, velas diarias desde 2022-11-09 (máx. 1440 por consulta)
+Mercados de oro: AGLD-EUR, EGLD-EUR
+Total mercados EUR: 427
