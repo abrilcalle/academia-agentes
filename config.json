@@ -1,7 +1,7 @@
 {
   "mercado": "BTC-EUR",
   "activos": {
-    "_nota": "Mercados en los que se entrenan agentes. peso = cuántos agentes nuevos de cada uno (en proporción). Cada agente se especializa en un solo mercado. Bitvavo no tiene oro tokenizado (PAXG/XAUT), comprobado el 18/10/2026.",
+    "_nota": "Mercados en los que se entrenan agentes. peso = cuántos agentes nuevos de cada uno (en proporción). Cada agente se especializa en un solo mercado. Bitvavo no tiene oro tokenizado (PAXG/XAUT), comprobado el 18/10/2026. Si un mercado no tiene los años de entreno (2018–21), entrena con los de 'entreno_con' (el más parecido) y hace la validación y los exámenes con los suyos.",
     "BTC-EUR": {
       "peso": 3
     },
@@ -11,7 +11,8 @@
     },
     "SOL-EUR": {
       "peso": 1,
-      "desde": "2020-08-01"
+      "desde": "2020-08-01",
+      "entreno_con": "ETH-EUR"
     },
     "XRP-EUR": {
       "peso": 1,

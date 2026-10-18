@@ -105,6 +105,23 @@ class Academia:
         """Kronos solo está calculado para BTC."""
         return self.kr_for(ag["tf"]) if ag.get("activo", self.cfg["mercado"]) == self.cfg["mercado"] else None
 
+    def train_market(self, ag, kr):
+        """Mercado con el que entrena. Todos entrenan con los mismos años (2018–21); si su mercado no tiene esos años
+        (por ejemplo SOL, que nació en 2020), entrena con la historia del mercado más parecido de los que sí la tienen
+        y hace la validación y los exámenes con el suyo."""
+        mk = self.m(ag)
+        a0 = dt.datetime.fromisoformat(self.cfg["entreno"][0])
+        if mk.ts[0] <= a0 + dt.timedelta(days=60):
+            return mk, kr
+        main = self.cfg["mercado"]
+        pref = self.cfg.get("activos", {}).get(ag.get("activo", main), {}).get("entreno_con", main)
+        for cand in [pref, "ETH-EUR", main]:
+            m2 = self.mk if cand == main else self.otros.get(cand)
+            if m2 and ag["tf"] in m2 and m2[ag["tf"]].ts[0] <= a0 + dt.timedelta(days=60):
+                ag["entreno_con"] = cand
+                return m2[ag["tf"]], (self.kr_for(ag["tf"]) if cand == main else None)
+        return mk, kr
+
     def pref(self, ag):
         a = ag.get("activo", self.cfg["mercado"])
         return "" if a == self.cfg["mercado"] else a
@@ -220,7 +237,8 @@ class Academia:
         u = "días" if mk.bpd == 1 else "velas"
 
         # 2. estudia
-        top, n_tested = self.study(mk, temper, kr)
+        mk_tr, kr_tr = self.train_market(ag, kr)
+        top, n_tested = self.study(mk_tr, temper, kr_tr)
         s_known, g, p, r_known = top[0]
 
         # 3. inventa a partir de su experiencia
@@ -371,8 +389,9 @@ class Academia:
         seeds[:0] = [json.loads(json.dumps(x["regla"])) for x in padres]  # aprende de los operadores que ya ganan en simulado
         ag["padres"] = [x["name"] for x in padres]
 
-        tr = self.window(mk, "entreno")
-        rule, r_tr, hist, _ = diario.evolve(mk, seeds, tr, cfg, self.rng, temper, kr,
+        mk_tr, kr_tr = self.train_market(ag, kr)
+        tr = self.window(mk_tr, "entreno")
+        rule, r_tr, hist, _ = diario.evolve(mk_tr, seeds, tr, cfg, self.rng, temper, kr_tr,
                                             pop=cd["poblacion_inventor"], gens=cd["generaciones_inventor"])
         w = diario.exposure(mk.I, rule, kr, mk.bpd)
         va = self.window(mk, "validacion")
