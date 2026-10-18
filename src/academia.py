@@ -373,7 +373,8 @@ class Academia:
             buenos += rv.ret > 0 and sv2["sem_pos"] >= sv2["sem_neg"]
         firma = hashlib.sha1((self.pref(ag) + repr([(str(mk.ts[t["i"]]), t["side"]) for t in r_va.trades])).encode()).hexdigest()[:12]
         twin = next((x for x in self.state["agents"] if x.get("firma") == firma and x is not ag), None)
-        ag.update(estilo="diario", eleccion="diario", regla=rule, firma=firma, label="Operador diario",
+        usa_cortos = diario.ALLOW_SHORT and any((rule.get(k) or {}).get("lado") == "corto" for k in diario.REGIMES)
+        ag.update(estilo="diario", eleccion="diario", regla=rule, firma=firma, label="Operador diario", usa_cortos=usa_cortos,
                   desc=diario.describe(rule, mk.bpd),
                   invento=dict(desc=diario.describe(rule, mk.bpd), entreno=r_tr.summary(), validacion=r_va.summary(),
                                generaciones=hist, semanas_entreno=diario.stats(mk, r_tr), semanas_validacion=diario.stats(mk, r_va)),
@@ -532,8 +533,9 @@ class Academia:
                 if r.ret * 100 >= sim["ganancia_minima_pct"]:
                     ag["status"] = "listo"
                     ag["motivo"] = f"Superó {sim['dias']} días de simulado con {pc(r.ret)}."
+                    extra = " Ojo: usa ventas en corto, que Bitvavo aún no permite por API." if ag.get("usa_cortos") else ""
                     self.notify(f"🏆 {ag['name']} listo para dinero real",
-                                f"{pc(r.ret)} en {sim['dias']} días de simulado. Revisa el panel; solo pasará a real si tú lo decides.")
+                                f"{pc(r.ret)} en {sim['dias']} días de simulado. Revisa el panel; solo pasará a real si tú lo decides.{extra}")
                 else:
                     ag["status"] = "retirado"
                     ag["motivo"] = f"Terminó el simulado con {pc(r.ret)}."
@@ -576,7 +578,8 @@ class Academia:
                               ops=sum(team_ops[k] for k in days_ops), dias_con_ops=len(days_ops)))
             monday += dt.timedelta(days=7)
         dl = val[last] - val[last - dt.timedelta(days=1)] if last - dt.timedelta(days=1) in val else 0.0
-        self.state["equipo"] = dict(miembros=len(team_days), capital=cap * len(team_days), semanas=weeks[-26:],
+        self.state["equipo"] = dict(con_cortos=sum(1 for a in self.state["agents"] if a["status"] in ("simulado", "listo") and a.get("usa_cortos")),
+                                    miembros=len(team_days), capital=cap * len(team_days), semanas=weeks[-26:],
                                     ayer=dict(fecha=last.isoformat(), eur=round(dl, 2), ops=team_ops.get(last, 0)))
 
     # ------------------------------------------------------------ día completo

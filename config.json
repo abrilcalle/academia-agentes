@@ -25,8 +25,8 @@
   "ordenes_limitadas": true,
   "comision_maker_pct": 0.15,
   "corto_interes_hora_pct": 0.0023,
-  "permitir_cortos": false,
-  "_nota_cortos": "Bitvavo permite vender en corto sin apalancamiento desde la app y la web, pero NO por API (comprobado el 18/10/2026: 'Margin trading is not yet available over the API'). Mientras no exista, los agentes no hacen cortos, para que sus resultados se puedan repetir con dinero real. Cuando Bitvavo lo añada, poner true.",
+  "permitir_cortos": true,
+  "_nota_cortos": "Bitvavo permite vender en corto sin apalancamiento desde la app y la web, pero todavía NO por API (comprobado el 18/10/2026; dicen que lo añadirán). Los agentes que usan cortos quedan marcados: no podrán pasar a dinero real hasta que Bitvavo lo permita por API. Poner false para apagarlos.",
   "_nota_comisiones": "Bitvavo cobra 0,25 % a las órdenes a mercado (taker) y 0,15 % a las limitadas que esperan en el libro (maker). Con ordenes_limitadas, cada orden se pone al precio del último cierre; si no se llena en la vela siguiente, se ejecuta a mercado. Los cortos (sin apalancamiento) pagan un interés por hora por el préstamo (ejemplo de Bitvavo: 0,0023 %/h).",
   "saldo_inicial_eur": 100,
   "entreno": [

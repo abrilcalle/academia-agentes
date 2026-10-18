@@ -106,7 +106,7 @@ def card(ag, cfg, gold=False, compact=False):
     pos_txt = "" if pos is None else ("comprado" if pos > 0.05 else "en corto" if pos < -0.05 else "fuera, en euros")
     exam = ag.get("exam", {})
     return f"""<article class="card{' gold' if gold else ''}">
-  <div class="top"><span class="name">{e(ag['name'])} {pill(ag['status'])}</span><span class="eq {'up' if ret >= 0 else 'down'}">{eur(final)}</span></div>
+  <div class="top"><span class="name">{e(ag['name'])} {pill(ag['status'])}{' <span class="pill wait">usa cortos · aún no por API</span>' if ag.get('usa_cortos') else ''}</span><span class="eq {'up' if ret >= 0 else 'down'}">{eur(final)}</span></div>
   <p class="desc"><strong>{e(ag['label'])}</strong> · {e(asset(ag))} · {e(ag.get('tf_label', ''))} · {e(ag.get('personalidad', ''))}{'' if compact else '<br>' + e(ag.get('desc', ''))}{'' if compact or not ag.get('ideas_internet') else '<br><span class=muted>Estudió de internet: ' + e(', '.join(ag['ideas_internet'])) + '</span>'}{'' if compact or not ag.get('padres') else '<br><span class=muted>Hijo de: ' + e(', '.join(ag['padres'])) + '</span>'}</p>
   {'' if compact else spark(p.get('eq', []), cap, ret >= 0)}
   <div class="bar" aria-label="Día {days} de {total}"><i style="width:{min(100, days / total * 100):.0f}%"></i></div>
@@ -262,7 +262,7 @@ def team_html(eq, goal=None):
 <div class="step"><span class="n mono">{pos} de {len(done)}</span><span class="lbl">semanas completas en positivo</span></div></div>
 <div class="weeks">{''.join(rows)}</div>
 {goal_txt}
-<p class="muted" style="font-size:.8rem">Suma de los {eq['miembros']} agentes en simulado o listos (sin los pausados), {eur(eq['capital'])} ficticios en total, ya con comisiones. Semanas de lunes a domingo.</p></section>"""
+<p class="muted" style="font-size:.8rem">{f"{eq['con_cortos']} de ellos usan ventas en corto, que Bitvavo aún no permite por API: no podrían pasar a dinero real todavía. " if eq.get('con_cortos') else ''}Suma de los {eq['miembros']} agentes en simulado o listos (sin los pausados), {eur(eq['capital'])} ficticios en total, ya con comisiones. Semanas de lunes a domingo.</p></section>"""
 
 
 def build(root, ac):
