@@ -330,44 +330,6 @@ def team_card(tm, cfg, agents_by_id, lead=False):
 </article>"""
 
 
-def team_html(eq, goal=None):
-    if not eq or not eq.get("semanas"):
-        return ""
-    goal = goal or {"semanas_en_verde_pct": 65, "peor_semana_pct": 3, "meses": 3}
-    ws = eq["semanas"]
-    cur = ws[-1]
-    done = [w for w in ws if w["completa"]]
-    need = round(goal["meses"] * 52 / 12)
-    last = done[-need:]
-    gp = (sum(w["eur"] > 0 for w in last) / len(last)) if last else 0.0
-    worst = min((w["pct"] for w in last), default=0.0)
-    tot = sum(w["eur"] for w in last)
-    ok = len(last) >= need and gp * 100 >= goal["semanas_en_verde_pct"] and worst > -goal["peor_semana_pct"] / 100 and tot > 0
-    goal_txt = (f'<p class="rec"><strong>Objetivo del equipo:</strong> al menos el {goal["semanas_en_verde_pct"]} % de las semanas en verde, ninguna peor de −{goal["peor_semana_pct"]} % '
-                f'y en positivo, durante {goal["meses"]} meses ({need} semanas). '
-                + (f'<strong class="up">¡Conseguido!</strong> Puedes plantearte dinero real.' if ok else
-                   f'Ahora: {len(last)} de {need} semanas, {gp * 100:.0f} % en verde, peor semana {pct(worst)}, total {"+" if tot >= 0 else "−"}{eur(abs(tot))}.')
-                + '</p>')
-    pos = sum(w["eur"] > 0 for w in done)
-    mx = max([abs(w["pct"]) for w in ws] + [0.002])
-    rows = []
-    for w in reversed(ws[-8:]):
-        width = min(50, abs(w["pct"]) / mx * 50)
-        left = 50 if w["pct"] >= 0 else 50 - width
-        col = "var(--up)" if w["eur"] >= 0 else "var(--down)"
-        lbl = f"{w['inicio'][8:10]}/{w['inicio'][5:7]}" + ("" if w["completa"] else " (en curso)")
-        rows.append(f'<div class="wk"><span class="mono muted">{e(lbl)}</span><span class="track"><i style="left:{left:.1f}%;width:{width:.1f}%;background:{col}"></i></span>'
-                    f'<span class="mono {"up" if w["eur"] >= 0 else "down"}" style="text-align:right">{"+" if w["eur"] >= 0 else "−"}{eur(abs(w["eur"]))}</span></div>')
-    ay = eq.get("ayer") or {}
-    return f"""<section><h2>Semana del equipo</h2>
-<div class="learn"><div class="step"><span class="n mono {'up' if cur['eur'] >= 0 else 'down'}">{'+' if cur['eur'] >= 0 else '−'}{eur(abs(cur['eur']))}</span><span class="lbl">esta semana ({pct(cur['pct'])}), con {cur['ops']} operaci{'ón' if cur['ops'] == 1 else 'ones'} en {cur['dias_con_ops']} día{'' if cur['dias_con_ops'] == 1 else 's'}</span></div>
-<div class="step"><span class="n mono {'up' if ay.get('eur', 0) >= 0 else 'down'}">{'+' if ay.get('eur', 0) >= 0 else '−'}{eur(abs(ay.get('eur', 0)))}</span><span class="lbl">ayer, con {ay.get('ops', 0)} operaciones</span></div>
-<div class="step"><span class="n mono">{pos} de {len(done)}</span><span class="lbl">semanas completas en positivo</span></div></div>
-<div class="weeks">{''.join(rows)}</div>
-{goal_txt}
-<p class="muted" style="font-size:.8rem">Suma de los {eq['miembros']} agentes en simulado o listos (sin los pausados), {eur(eq['capital'])} ficticios en total, ya con comisiones. Semanas de lunes a domingo.</p></section>"""
-
-
 def build(root, ac):
     st, cfg = ac.state, ac.cfg
     agents = st["agents"]
@@ -378,7 +340,7 @@ def build(root, ac):
     cola = by("cola")
     recent = sorted([a for a in agents if a.get("examinado")], key=lambda a: (a["examinado"], a["name"]), reverse=True)[:20]
     news = ac.news
-    goal = cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 65, "peor_semana_pct": 3, "meses": 3})
+    goal = cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 50, "ganancia_minima_anual_pct": 10, "caida_maxima_pct": 25, "meses": 3})
     sections = []
 
     # 1. avisos para Abril
@@ -396,7 +358,8 @@ def build(root, ac):
         lead = order[0]["id"] if order and order[0].get("periodos") and order[0].get("dias", 0) > 0 else None
         sections.append('<section><h2>Tus equipos</h2><p class="muted" style="font-size:.85rem">Cada equipo tiene una cartera de '
                         f'{eur(cfg["saldo_inicial_eur"])} ficticios y reparte el dinero entre sus agentes (de BTC, ETH, SOL o XRP) priorizando las operaciones con más probabilidad × ganancia. '
-                        f'Todos buscan ganar lo máximo; solo cambia lo prudentes que son al priorizar. Condiciones que cumplieron juntos en las pruebas: ganar al menos el {goal["semanas_en_verde_pct"]} % de las semanas, ninguna peor de −{goal["peor_semana_pct"]} % y ganar en el total. '
+                        f'Todos buscan ganar lo máximo; solo cambia lo prudentes que son al priorizar. Condiciones que cumplieron juntos en las pruebas: ganar más del {goal["semanas_en_verde_pct"]} % de las semanas, '
+                        f'al menos un {goal.get("ganancia_minima_anual_pct", 0)} % al año y no caer más de un {goal.get("caida_maxima_pct", 100)} %. '
                         f'Para dinero real tendrán que repetirlo aquí durante {goal["meses"]} meses.</p>'
                         + "".join(team_card(t, cfg, by_id, lead=t["id"] == lead) for t in order) + "</section>")
 

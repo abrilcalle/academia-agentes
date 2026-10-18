@@ -150,9 +150,10 @@
     "_nota": "Contexto de 120 velas: con 360 las previsiones diarias salían disparadas (diagnóstico del 15/10/2026). Añade \"1h\" a temporalidades si quieres Kronos también en velas de 1 hora."
   },
   "objetivo_equipo": {
-    "_nota": "Lo que tiene que conseguir el equipo de agentes para plantearse dinero real.",
-    "semanas_en_verde_pct": 65,
-    "peor_semana_pct": 3,
+    "_nota": "Condiciones que un equipo tiene que cumplir (en 2024–25 y en 2026 para formarse; y en simulado durante 'meses' para plantear dinero real): ganar más de la mitad de las semanas, acabar el año en positivo con al menos esta rentabilidad anual y no caer más de este %.",
+    "semanas_en_verde_pct": 50,
+    "ganancia_minima_anual_pct": 10,
+    "caida_maxima_pct": 25,
     "meses": 3
   }
 }

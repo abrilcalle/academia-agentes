@@ -102,7 +102,7 @@ def team_score(curve, days, goal):
     green = float(np.mean(wk > 0))
     worst = float(wk.min())
     r = curve[-1] - 1
-    s = green + 2 * r - 3 * max(0.0, -worst - goal["peor_semana_pct"] / 100) - (0.5 if r <= 0 else 0)
+    s = green + 2 * r - (0.5 if r <= 0 else 0)
     return s, green, worst
 
 
@@ -215,7 +215,7 @@ def build_report(ac, month_start):
         mat = {n: v / v[0] for n, v in mat.items()}
         lo = min(icfg["minimo_agentes_en_combinacion"], len(ok))
         hi = min(icfg["maximo_agentes_en_combinacion"], len(ok))
-        goal = cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 65, "peor_semana_pct": 3})
+        goal = cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 50})
         ranked = sorted(ok, key=lambda n: -team_score(mat[n], days, goal)[0])[:12]
         rets = {n: np.diff(np.log(v)) for n, v in mat.items()}
 

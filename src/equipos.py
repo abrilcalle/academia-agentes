@@ -1,7 +1,7 @@
 """Equipos: varios agentes (de cualquier mercado) que comparten UNA cartera de 100 € ficticios.
 
 Todos los equipos buscan lo mismo: GANAR LO MÁXIMO cumpliendo las condiciones de config.json → objetivo_equipo
-(semanas ganando, peor semana, ganar en las pruebas). Cada agente operó por separado en sus exámenes; aquí el
+(ganar más de la mitad de las semanas, una rentabilidad anual mínima y una caída máxima). Cada agente operó por separado en sus exámenes; aquí el
 algoritmo busca qué agentes JUNTOS cumplen esas condiciones y forma los equipos con ellos.
 
 Lo único que cambia entre equipos es la PRUDENCIA al priorizar operaciones. Cada día, al cierre:
@@ -185,22 +185,30 @@ def stats(days, val, cap0=100.0):
                 peor=float(wk.min()) if len(wk) else 0.0, dd=dd, semanas=int(len(wk)))
 
 
+def annual(s):
+    """Rentabilidad pasada a un año (con las semanas que dura el periodo)."""
+    yrs = max(s["semanas"], 1) / 52.0
+    return (1 + s["ret"]) ** (1 / yrs) - 1 if s["ret"] > -1 else -1.0
+
+
 def fails(s, goal):
     """Qué condiciones del equipo no se cumplen (lista vacía = cumple todas)."""
     f = []
-    if s["ret"] <= 0:
-        f.append("no gana")
-    if s["verde"] * 100 < goal["semanas_en_verde_pct"]:
-        f.append(f"gana solo el {s['verde'] * 100:.0f} % de las semanas (mínimo {goal['semanas_en_verde_pct']} %)")
-    if s["peor"] * 100 < -goal["peor_semana_pct"]:
-        f.append(f"su peor semana pierde un {-s['peor'] * 100:.1f} % (máximo {goal['peor_semana_pct']} %)".replace(".", ","))
+    a = annual(s)
+    if a * 100 < goal.get("ganancia_minima_anual_pct", 0) or s["ret"] <= 0:
+        f.append(f"gana un {a * 100:.1f} % al año (mínimo {goal.get('ganancia_minima_anual_pct', 0)} %)".replace(".", ","))
+    if s["verde"] * 100 <= goal["semanas_en_verde_pct"]:
+        f.append(f"gana solo el {s['verde'] * 100:.0f} % de las semanas (tiene que ser más del {goal['semanas_en_verde_pct']} %)")
+    if s["dd"] * 100 > goal.get("caida_maxima_pct", 100):
+        f.append(f"llega a caer un {s['dd'] * 100:.0f} % (máximo {goal.get('caida_maxima_pct')} %)")
     return f
 
 
 def objective(s, goal):
     """Ganar lo máximo; si no cumple las condiciones, cuanto más lejos esté, peor."""
-    miss = (max(0.0, goal["semanas_en_verde_pct"] / 100 - s["verde"]) * 2 + max(0.0, -s["peor"] - goal["peor_semana_pct"] / 100) * 5
-            + (0.5 if s["ret"] <= 0 else 0.0))
+    miss = (max(0.0, goal["semanas_en_verde_pct"] / 100 + 0.01 - s["verde"]) * 2
+            + max(0.0, goal.get("ganancia_minima_anual_pct", 0) / 100 - annual(s))
+            + max(0.0, s["dd"] - goal.get("caida_maxima_pct", 100) / 100) * 2)
     return s["ret"] - 3 * miss
 
 
@@ -208,7 +216,7 @@ def objective(s, goal):
 
 def build(ac, last_day, log=print):
     """Busca, para cada nivel de prudencia, el equipo que más gana cumpliendo las condiciones en 2024–25 y en 2026."""
-    goal = ac.cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 65, "peor_semana_pct": 3})
+    goal = ac.cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 50, "ganancia_minima_anual_pct": 10, "caida_maxima_pct": 25})
     cands = [a for a in ac.state["agents"] if a["status"] in ("simulado", "listo")]
     if len(cands) < 2:
         return {t: dict(motivo="Todavía no hay al menos 2 agentes que hayan aprobado los dos exámenes.") for t in TIPOS}
