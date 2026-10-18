@@ -533,7 +533,6 @@ class Academia:
                 if r.ret * 100 >= sim["ganancia_minima_pct"]:
                     ag["status"] = "listo"
                     ag["motivo"] = f"Superó {sim['dias']} días de simulado con {pc(r.ret)}."
-                    extra = " Ojo: usa ventas en corto, que Bitvavo aún no permite por API." if ag.get("usa_cortos") else ""
                     self.notify(f"🏆 {ag['name']} listo para dinero real",
                                 f"{pc(r.ret)} en {sim['dias']} días de simulado. Revisa el panel; solo pasará a real si tú lo decides.{extra}")
                 else:
