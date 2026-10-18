@@ -256,7 +256,7 @@ def team_card(tm, cfg, agents_by_id, lead=False):
     info = TIPOS.get(tm["id"], dict(nombre=tm["id"], lema=""))
     if not tm.get("periodos"):
         return (f'<article class="team"><div class="top"><span class="name">{e(info["nombre"])}</span><span class="pill wait">Sin equipo todavía</span></div>'
-                f'<p class="desc">{e(info["lema"])}. {e(tm.get("vacio", ""))} Se vuelve a intentar cada día con los agentes nuevos.</p></article>')
+                f'<p class="desc">{e(info["lema"])}. {e(tm.get("vacio", ""))} Se vuelve a buscar cada día con los agentes nuevos.</p></article>')
     cap0 = tm["capital_inicial"]
     v = tm.get("valor", cap0)
     st = tm.get("stats", {})
@@ -279,20 +279,17 @@ def team_card(tm, cfg, agents_by_id, lead=False):
     rows = []
     for m in ahora:
         a = agents_by_id.get(m["id"], {})
-        estado = ("comprado" if m["posicion"] > 0.05 else "esperando señal")
+        estado = (f"operación abierta · {m.get('prob', 0) * 100:.0f} % de probabilidad de ganar, suele ganar un {m.get('ganancia', 0) * 100:.1f} %".replace(".", ",")
+                  if m["posicion"] > 0.05 else "esperando señal")
         c = contrib.get(m["id"])
         rows.append(f'<div class="member"><span><strong>{e(m["name"])}</strong> <span class="muted">· {e(m["activo"].split("-")[0])} · {e(m["tf"])} · {e(a.get("label", ""))}</span><br>'
                     f'<span class="muted">{e(estado)}{"" if c is None else " · ha aportado " + ("+" if c >= 0 else "−") + eur(abs(c))}</span></span>'
                     f'<span class="mono" style="text-align:right">{eur(m["euros"])}</span></div>')
     p1, p2 = per["pruebas"]["p1"], per["pruebas"]["p2"]
     prm = per["params"]
-    how = []
-    if prm["boost"] > 0:
-        how.append(f"da hasta {prm['boost'] + prm['base']:g} veces más dinero a quien tiene una operación abierta")
-    if prm["base"] == 0:
-        how.append("el dinero solo va a los agentes con operación abierta; el resto espera en euros")
-    how.append(f"nadie maneja más del {prm['cap'] * 100:.0f} % de la cartera")
-    how.append("los agentes con mejor nota en las pruebas reciben más")
+    how = [f"prudencia {prm.get('prudencia', 1)}: prioriza las operaciones abiertas por probabilidad{'' if prm.get('prudencia', 1) == 1 else '^' + str(prm.get('prudencia'))} × ganancia",
+           f"los que esperan señal se guardan un {prm.get('reserva', 0) * 100:.0f} % para poder entrar",
+           f"nadie maneja más del {prm['cap'] * 100:.0f} % de la cartera"]
     weeks_rows = []
     mx = max([abs(w["pct"]) for w in wk[-8:]] + [0.002])
     for w in reversed(wk[-8:]):
@@ -302,8 +299,8 @@ def team_card(tm, cfg, agents_by_id, lead=False):
         lbl = f"{w['inicio'][8:10]}/{w['inicio'][5:7]}" if w["completa"] else "esta semana"
         weeks_rows.append(f'<div class="wk"><span class="mono muted">{e(lbl)}</span><span class="track"><i style="left:{left:.1f}%;width:{width:.1f}%;background:{col}"></i></span>'
                           f'<span class="mono {"up" if w["eur"] >= 0 else "down"}" style="text-align:right">{"+" if w["eur"] >= 0 else "−"}{eur(abs(w["eur"]))}</span></div>')
-    green = sum(w["eur"] > 0.005 for w in done)
-    red = sum(w["eur"] < -0.005 for w in done)
+    green = sum(w["pct"] > 0.0001 for w in done)
+    red = len(done) - green  # igual o pérdidas = semana mala
     # lo que ha aportado cada mercado sobre los 100 € del equipo
     per_asset = {}
     for i, c in contrib.items():
@@ -319,15 +316,15 @@ def team_card(tm, cfg, agents_by_id, lead=False):
 {spark(tm.get('curva', []), cap0, v >= cap0)}
 <p style="font-size:.88rem"><strong>Formado por:</strong> {e(miembros_txt)}</p>
 <div class="kpis"><div class="kpi"><b class="{'' if not cur or abs(cur['eur']) < 0.005 else 'up' if cur['eur'] > 0 else 'down'}">{(('+' if cur['eur'] >= 0 else '−') + eur(abs(cur['eur'])) + ' (' + pct(cur['pct']) + ')') if cur else '0,00 €'}</b><span>esta semana, acumulado</span></div>
-<div class="kpi"><b class="up">{green}</b><span>semanas en positivo</span></div>
-<div class="kpi"><b class="down">{red}</b><span>semanas en negativo</span></div></div>
+<div class="kpi"><b class="up">{green}</b><span>semanas ganando</span></div>
+<div class="kpi"><b class="down">{red}</b><span>semanas igual o perdiendo</span></div></div>
 {('<div><p class="eyebrow" style="margin-bottom:6px">Qué ha aportado cada mercado</p><div class="kpis">' + asset_rows + '</div></div>') if asset_rows else ''}
 <div><p class="eyebrow" style="margin-bottom:6px">Dónde está el dinero ahora</p><div class="stack">{bar}</div><div class="legend" style="margin-top:6px">{legend}</div></div>
 <div class="members"><p class="eyebrow">Miembros y dinero que maneja cada uno</p>{''.join(rows)}</div>
 {'<div class="weeks">' + ''.join(weeks_rows) + '</div>' if weeks_rows else ''}
 <details><summary>Cómo se eligió este equipo</summary><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:.85rem">
-<p>Entre todos los agentes que aprobaron los dos exámenes, esta combinación y este reparto fueron los mejores para su objetivo en 2024–25 y también ganaron en 2026.</p>
-<p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · {p1['verde'] * 100:.0f} % semanas en verde · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · {p2['verde'] * 100:.0f} % semanas en verde · peor semana {pct(p2['peor'])}</p>
+<p>Cada agente operó por separado en sus exámenes. De todas las combinaciones de agentes aprobados, esta es la que más ganó cumpliendo juntos las condiciones del equipo, en 2024–25 y también en 2026.</p>
+<p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · ganó el {p1['verde'] * 100:.0f} % de las semanas · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · ganó el {p2['verde'] * 100:.0f} % de las semanas · peor semana {pct(p2['peor'])}</p>
 <p>Reparto: {e('; '.join(how))}. Cada día al cierre se reparte de nuevo (moverlo cuesta comisiones, ya descontadas).</p>
 <p class="muted">Se vuelve a elegir el día 1 de cada mes; el dinero del equipo sigue. Ojo: en 2026 los agentes ya estaban filtrados por su examen, así que la prueba de verdad es este simulado.</p></div></details>
 </article>"""
@@ -398,8 +395,9 @@ def build(root, ac):
         order = sorted(teams.values(), key=lambda t: -(t.get("valor", 0) if t.get("periodos") else -1))
         lead = order[0]["id"] if order and order[0].get("periodos") and order[0].get("dias", 0) > 0 else None
         sections.append('<section><h2>Tus equipos</h2><p class="muted" style="font-size:.85rem">Cada equipo tiene una cartera de '
-                        f'{eur(cfg["saldo_inicial_eur"])} ficticios y reparte el dinero entre sus agentes (de BTC, ETH, SOL o XRP) según quién tiene la mejor operación. '
-                        f'Objetivo para dinero real: {goal["semanas_en_verde_pct"]} % de semanas en verde, ninguna peor de −{goal["peor_semana_pct"]} % y en positivo durante {goal["meses"]} meses.</p>'
+                        f'{eur(cfg["saldo_inicial_eur"])} ficticios y reparte el dinero entre sus agentes (de BTC, ETH, SOL o XRP) priorizando las operaciones con más probabilidad × ganancia. '
+                        f'Todos buscan ganar lo máximo; solo cambia lo prudentes que son al priorizar. Condiciones que cumplieron juntos en las pruebas: ganar al menos el {goal["semanas_en_verde_pct"]} % de las semanas, ninguna peor de −{goal["peor_semana_pct"]} % y ganar en el total. '
+                        f'Para dinero real tendrán que repetirlo aquí durante {goal["meses"]} meses.</p>'
                         + "".join(team_card(t, cfg, by_id, lead=t["id"] == lead) for t in order) + "</section>")
 
     # 3. mercados

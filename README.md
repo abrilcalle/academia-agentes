@@ -24,10 +24,10 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 ## Equipos (lo principal)
 
 - Un **equipo** es un grupo de agentes (pueden ser de BTC, ETH, SOL y XRP a la vez) que comparte **una sola cartera de 100 € ficticios**.
-- Cada día, al cierre, el equipo **reparte el dinero**: más a quien tiene una operación abierta y mejor nota en las pruebas; nadie puede manejar más de un tope; lo que sobra espera en euros. Mover dinero entre agentes paga comisiones.
-- Hay **tres equipos compitiendo**: Halcón (ganar lo máximo), Hormiga (el máximo de semanas en positivo) y Tortuga (equilibrio).
-- Se forman **automáticamente**: se prueban combinaciones y repartos con 2024–25 y tienen que ganar también en 2026. Si ninguna gana, ese equipo se queda vacío y se reintenta cada día. El **día 1 de cada mes** se vuelven a elegir los miembros; el dinero del equipo sigue.
-- Código: `src/equipos.py`.
+- Cada agente opera por separado en sus exámenes; luego el algoritmo busca qué agentes **juntos** cumplen las condiciones (`objetivo_equipo`: ganar al menos el 65 % de las semanas, ninguna peor de −3 % y ganar en el total) en 2024–25 y en 2026, y entre esos se queda con el que **más gana**. Si ningún grupo las cumple, no hay equipo (se reintenta cada día).
+- **Todos buscan ganar lo máximo.** Solo cambia la **prudencia al priorizar**: cada agente estima, para su operación abierta, la probabilidad de que acabe ganando y cuánto suele ganar (con su propio historial y el tipo de mercado). El dinero va primero a las operaciones con más probabilidad^prudencia × ganancia. Halcón (prudencia 1), Lobo (2) y Tortuga (3).
+- Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
+- El **día 1 de cada mes** se vuelven a buscar los equipos; el dinero de cada equipo sigue. Código: `src/equipos.py`.
 
 ## Hijos
 
@@ -56,7 +56,7 @@ La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo es 
 - **Ventas en corto sin apalancamiento** (operadores diarios): ganan cuando el precio baja, aplicando sus reglas al gráfico "dado la vuelta" y pagando el interés por hora del préstamo. Bitvavo las permite desde la app pero **todavía no por API** (dice que lo añadirá): se guarda qué agentes las usan (`usa_cortos`) para revisarlo al pasar a dinero real. Se apagan con `permitir_cortos: false`.
 - **Órdenes limitadas:** cada orden se pone al precio del último cierre (comisión 0,15 % en vez de 0,25 % y sin deslizamiento). Si el precio no la cruza en la vela siguiente, se ejecuta a mercado.
 - **Herencia:** los agentes nuevos parten también de las reglas de los que ya van ganando en simulado (mismo mercado y temporalidad), y las mejoran.
-- **Objetivo del equipo** (`objetivo_equipo`): al menos el 65 % de las semanas en verde, ninguna peor de −3 % y en positivo durante 3 meses. El informe mensual recomienda la combinación de agentes que más se acerca.
+- **Condiciones del equipo** (`objetivo_equipo`): ganar al menos el 65 % de las semanas, ninguna peor de −3 % y ganar en el total; para dinero real, repetirlo en simulado durante 3 meses.
 
 ## Informe mensual
 El día 1 de cada mes te llega un aviso y el panel muestra el informe del mes anterior:
