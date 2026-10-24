@@ -35,7 +35,7 @@ def pools(bpd):
 
 
 KINDS_ENTRY = ["sobre_media", "cruce_alcista", "rsi_bajo", "rompe_maximo", "impulso_sube", "vol_baja", "z_bajo",
-               "macd_pos", "impulso_baja", "bajo_media"]
+               "macd_pos", "impulso_baja", "bajo_media", "ema_sobre_vwap", "ema_cruza_vwap"]
 # figuras de chartismo (ver patterns.py)
 PATTERNS_ENTRY = ["doble_suelo", "triple_suelo", "hch_invertido", "triangulo", "bandera", "rebote_soporte",
                   "ruptura_volumen", "volumen_alto"]
@@ -48,7 +48,7 @@ KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY + FLOW_ENTRY + REGIME
 # estacionalidad: a qué hora y qué día de la semana (solo en velas de 1 y 4 horas)
 SEASON = ["franja_horaria", "dia_semana"]
 KINDS_EXIT = ["bajo_media", "cruce_bajista", "rsi_alto", "pierde_minimo", "impulso_baja", "vol_alta", "z_alto",
-              "macd_neg", "sobre_media"] + PATTERNS_EXIT + FLOW_EXIT
+              "macd_neg", "sobre_media", "bajo_ema", "ema_bajo_vwap"] + PATTERNS_EXIT + FLOW_EXIT
 
 
 def random_cond(rng, kinds, P, kronos=False):
@@ -56,6 +56,8 @@ def random_cond(rng, kinds, P, kronos=False):
         kinds = SEASON
     ks = list(kinds) + (["kronos_alcista"] if kronos and "rsi_bajo" in kinds else []) + (["kronos_bajista"] if kronos and "rsi_alto" in kinds else [])
     k = rng.choice(ks)
+    if k in ("ema_sobre_vwap", "ema_bajo_vwap", "bajo_ema", "sobre_ema", "ema_cruza_vwap"):
+        return [k, rng.choice([5, 9, 13, 21])]
     if k in ("sobre_media", "bajo_media", "rompe_maximo", "pierde_minimo"):
         return [k, rng.choice(P["N"])]
     if k in ("cruce_alcista", "cruce_bajista"):
@@ -103,6 +105,17 @@ def cond_array(I, c, kronos=None):
     if k == "_mask":  # condición precalculada (el detector de régimen de los operadores diarios)
         return I._m[c[1]]
     with np.errstate(invalid="ignore"):
+        if k == "ema_sobre_vwap":  # la EMA rápida está (o acaba de cruzar) por encima del VWAP del día
+            return I.ema(c[1]) > I.vwap_d()
+        if k == "ema_bajo_vwap":
+            return I.ema(c[1]) < I.vwap_d()
+        if k == "ema_cruza_vwap":  # justo en la vela en que la EMA cruza el VWAP hacia arriba
+            up = np.nan_to_num(I.ema(c[1]) - I.vwap_d()) > 0
+            return up & ~np.r_[False, up[:-1]]
+        if k == "bajo_ema":  # la vela cierra por debajo de la EMA
+            return I.c < I.ema(c[1])
+        if k == "sobre_ema":
+            return I.c > I.ema(c[1])
         if k == "sobre_media":
             return I.c > I.sma(c[1])
         if k == "bajo_media":
@@ -182,6 +195,11 @@ def cond_text(c, bpd):
     S = lambda n: span(n, bpd)  # noqa: E731
     W = lambda n: "en la vela" if n == 1 else ("en el último día" if n == bpd else f"durante {S(n)}")  # noqa: E731
     t = {
+        "ema_sobre_vwap": lambda: f"la EMA de {c[1]} velas está por encima del VWAP del día",
+        "ema_bajo_vwap": lambda: f"la EMA de {c[1]} velas está por debajo del VWAP del día",
+        "ema_cruza_vwap": lambda: f"la EMA de {c[1]} velas cruza hacia arriba el VWAP del día",
+        "bajo_ema": lambda: f"una vela cierra por debajo de la EMA de {c[1]} velas",
+        "sobre_ema": lambda: f"una vela cierra por encima de la EMA de {c[1]} velas",
         "sobre_media": lambda: f"el precio está sobre su media de {S(c[1])}",
         "bajo_media": lambda: f"el precio está bajo su media de {S(c[1])}",
         "cruce_alcista": lambda: f"la media de {S(c[1])} está por encima de la de {S(c[2])}",
@@ -337,7 +355,8 @@ def exposure(I, rule, kronos=None, bpd=1):
                 floor = max(floor, entry_px * 1.006)  # stop a precio de entrada (cubre comisiones)
             if stall and since == stall and gain < 0.01:
                 floor = max(floor, px * 0.985)  # no avanza: acerca el stop para perder lo mínimo
-            out = ex_l[i] and px >= entry_px * (1 + min_net)
+            # la señal de salida solo cierra si cubre comisiones, salvo en reglas cuya salida es su stop ("salida_siempre")
+            out = ex_l[i] and (rule.get("salida_siempre") or px >= entry_px * (1 + min_net))
             forced = False
             if stop and atr_l[i] == atr_l[i] and px < best - stop * atr_l[i]:
                 forced = True

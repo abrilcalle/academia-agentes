@@ -134,6 +134,28 @@ class Ind:
                 return (self.c - self.sma(n)) / self.stdev(n)
         return self._memo(("z", n), f)
 
+    def ema(self, n):
+        return self._memo(("ema", n), lambda: self.ema_of(self.c, n))
+
+    def vwap_d(self):
+        """VWAP anclado al día: precio medio ponderado por volumen desde las 00:00 UTC (se reinicia cada día).
+        En velas diarias es el precio típico de la vela."""
+        def f():
+            tp = (self.h + self.l + self.c) / 3
+            v = self.v if self.v is not None else np.ones(self.n)
+            v = np.where(np.isnan(v) | (v <= 0), 1e-9, v)
+            hour = getattr(self, "hour", None)
+            out = np.empty(self.n)
+            pv = vv = 0.0
+            for i in range(self.n):
+                if hour is None or hour[i] == 0 or self.bpy <= 365:
+                    pv = vv = 0.0
+                pv += tp[i] * v[i]
+                vv += v[i]
+                out[i] = pv / vv
+            return out
+        return self._memo(("vwap_d",), f)
+
     def er(self, n):
         """Eficiencia de Kaufman (0 = lateral, 1 = tendencia limpia) de las últimas n velas."""
         def f():

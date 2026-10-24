@@ -12,12 +12,14 @@ Piezas permitidas en "entry" y "exit" (lista de condiciones; entrada = todas, sa
   ["bandera", N, subida_min] ["ruptura_volumen", N, veces_volumen] ["volumen_alto", veces_volumen]
   Flujo de órdenes (delta = compras agresivas menos ventas agresivas, de Binance desde 2020):
   ["delta_compra", N, nivel] ["delta_venta", N, nivel] ["absorcion", veces_volumen] ["divergencia_delta", N]
+  VWAP y EMA: ["ema_cruza_vwap", N] (en la vela del cruce) ["ema_sobre_vwap", N] ["ema_bajo_vwap", N] (EMA de N velas frente al VWAP anclado al día), ["bajo_ema", N] ["sobre_ema", N]
   Estacionalidad (solo agentes de 1h y 4h): ["franja_horaria", hora_inicio_UTC, horas] ["dia_semana", [0..6]] (0 = lunes)
   Régimen: ["en_tendencia", N, eficiencia] ["mercado_lateral", N, eficiencia]
   (N = número de velas; pct, tol y subida en tanto por uno: 0.05 = 5 %)
 Gestión: stop (ATR: 0, 2, 3, 4), tp (0 o tanto por uno), trail (0 o tanto por uno), hold (días, 0 = sin límite),
   sizing ("completo" o "riesgo"), frac (0.2-1), be (tanto por uno), stall (días), pyr (tanto por uno), shrink (true/false),
   min_net (opcional, por defecto 0.01: la señal de salida solo cierra si el precio ya subió eso desde la compra),
+  salida_siempre (opcional, true: la señal de salida cierra siempre, aunque pierda; para estrategias cuya salida es su stop),
   lado (opcional: "largo" o "corto"; en corto las reglas se aplican al gráfico dado la vuelta, para ganar cuando baja).
 Campo opcional de la idea: "activos": lista de mercados de config.json (["BTC-EUR", "ETH-EUR", "SOL-EUR", "XRP-EUR"]);
   sin él, la idea se usa para todos.
@@ -53,7 +55,7 @@ def main():
             for f in ("nombre", "fuente", "idea", "regla"):
                 assert idea.get(f), f"falta '{f}'"
             r = idea["regla"]
-            extra = {"min_net", "lado"}
+            extra = {"min_net", "lado", "salida_siempre"}
             assert KEYS <= set(r) <= KEYS | extra, f"campos de la regla: faltan {KEYS - set(r)}, sobran {set(r) - KEYS - extra}"
             assert r.get("lado", "largo") in ("largo", "corto"), "lado debe ser largo o corto"
             for a in idea.get("activos", []):
