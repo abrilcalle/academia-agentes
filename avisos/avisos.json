@@ -50,6 +50,14 @@
       "titulo": "Copiar a políticos y grandes traders",
       "texto": "Un agente que copie las operaciones de políticos o de los mejores traders (por ejemplo con datos de Quiver Quantitative, que es de pago), o un ranking de traders con un % de la cartera común.",
       "estado": "pendiente"
+    },
+    {
+      "id": "idea-quanterlab",
+      "fecha": "2026-10-24",
+      "tipo": "idea",
+      "titulo": "QuanterLab como segunda opinión de las pruebas",
+      "texto": "Antes de pasar a dinero real, comprobar las estrategias del equipo ganador con una herramienta externa de backtest y walk-forward (QuanterLab, del directorio de Claude; necesita cuenta) para asegurarnos de que nuestro motor no se equivoca.",
+      "estado": "pendiente"
     }
   ]
 }
