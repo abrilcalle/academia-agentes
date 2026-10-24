@@ -5605,6 +5605,612 @@
           ]
         ]
       }
+    },
+    {
+      "nombre": "Cazar el suelo en tendencia bajista con RSI bajo 40 (Coinrule, ETH y XRP)",
+      "fuente": "Coinrule, script 'Catching the Bottom' en TradingView (https://www.tradingview.com/script/ckVsOuxq-Catching-the-Bottom-by-Coinrule/); probado por el autor en ETH y XRP",
+      "idea": "Con la media de 50 todavía por debajo de la de 100 (tendencia bajista), comprar cuando el RSI cae bajo 40 y vender cuando el RSI pasa de 65 o la media de 9 recupera la de 50.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "cruce_bajista",
+            50,
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ],
+          [
+            "cruce_alcista",
+            9,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: cruce 20/50 sobre la 200 con RSI y volumen (jsanchezcuevas)",
+      "fuente": "Jose J. Sánchez Cuevas, script 'ETH/USDT EMA Crossover Strategy - Optimized' en TradingView (https://vn.tradingview.com/script/5uh1u4MY-ETH-USDT-EMA-Crossover-Strategy-Optimized)",
+      "idea": "Comprar ETH cuando la media de 20 cruza sobre la de 50 con el precio por encima de la de 200, el RSI sobre 30 y volumen por encima de lo normal; salir al cruce contrario, con stop de 2 ATR y objetivo del 6 % (riesgo 1:2 aproximado).",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            20,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: corto por cruce 20/50 bajo la 200 con RSI y volumen (jsanchezcuevas)",
+      "fuente": "Jose J. Sánchez Cuevas, script 'ETH/USDT EMA Crossover Strategy - Optimized' en TradingView (https://vn.tradingview.com/script/5uh1u4MY-ETH-USDT-EMA-Crossover-Strategy-Optimized), versión de ventas",
+      "idea": "Vender ETH en corto cuando la media de 20 cruza bajo la de 50 con el precio por debajo de la de 200, el RSI bajo 70 y volumen alto; cerrar al cruce contrario, con stop de 2 ATR y objetivo del 6 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            20,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Comprar caídas del 2 % en una vela con objetivo del 2 % (Coinrule)",
+      "fuente": "Coinrule, script 'Buy the Dips' en TradingView (https://www.tradingview.com/script/GpQLZz6K-Buy-the-Dips-by-Coinrule)",
+      "idea": "Comprar con el 30 % del capital cuando el precio cae un 2 % en una sola vela y vender al recuperar un 2 %, con stop ajustado; el autor avisa de que falla en caídas fuertes.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            1,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Medias 100/150 con RSI sobre 50 (Coinrule, largo)",
+      "fuente": "Coinrule, script 'Simple RSI and SMA Long and Short' en TradingView (https://ar.tradingview.com/script/Clpg5ju2-Simple-RSI-and-SMA-Long-and-Short-by-Coinrule)",
+      "idea": "Comprar cuando la media de 100 está por encima de la de 150 y el RSI supera 50; salir cuando la media de 100 vuelve a quedar por debajo de la de 150.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            100,
+            150
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            100,
+            150
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Medias 100/150 con RSI bajo 50 (Coinrule, corto)",
+      "fuente": "Coinrule, script 'Simple RSI and SMA Long and Short' en TradingView (https://ar.tradingview.com/script/Clpg5ju2-Simple-RSI-and-SMA-Long-and-Short-by-Coinrule), probado en el mercado bajista de 2022",
+      "idea": "Vender en corto cuando la media de 100 está por debajo de la de 150 y el RSI cae bajo 50; cerrar cuando la media de 100 recupera la de 150.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            100,
+            150
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            100,
+            150
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Tendencia 21/89 con RSI entre 55 y 75 y objetivo en ATR (kelvinibarey)",
+      "fuente": "kelvinibarey, script 'EMA-RSI-ATR Strategy' en TradingView (https://www.tradingview.com/script/vpopCZIt/); el autor lo recomienda para ETH, SOL y altcoins líquidas en 4 h y diario",
+      "idea": "Comprar cuando la media de 21 está sobre la de 89, el precio cierra sobre la EMA de 21 y el RSI está entre 55 y 75 (impulso sin sobrecompra); stop amplio por ATR y objetivo de alrededor del 12 %.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            21,
+            89
+          ],
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            55
+          ],
+          [
+            "rsi_bajo",
+            14,
+            75
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            21,
+            89
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: Bollinger y RSI bajo 25 a contratendencia con objetivo del 3,5 % (ray36730)",
+      "fuente": "ray36730, script '逆勢布林+RSI策略 for SOL' (Bollinger + RSI a contratendencia) en TradingView (https://jp.tradingview.com/script/u7yQBp8o)",
+      "idea": "Comprar SOL cuando cae por debajo de la banda inferior de Bollinger con el RSI bajo 25 y vender con un 3,5 % de ganancia o al volver a la media de 20 (el autor lo usa en velas cortas).",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            25
+          ],
+          [
+            "z_bajo",
+            20,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.035,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "RSI 25/75 de Connors (RSI de 4 sobre la media de 200)",
+      "fuente": "Larry Connors y Cesar Alvarez, libro 'High Probability ETF Trading' (2009); estrategia repasada a menudo por QuantifiedStrategies",
+      "idea": "En tendencia alcista (precio sobre la media de 200), comprar cuando el RSI de 4 velas baja de 25 y vender cuando sube por encima de 55.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            4,
+            25
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            4,
+            55
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: cruce de la media de 13 sobre la 21 y la 50 con filtro de 180 (SoftKill21)",
+      "fuente": "SoftKill21, script '4X EMA and volume strategy' en TradingView (https://jp.tradingview.com/script/j6jo4PEh-4X-EMA-and-volume-strategy), etiquetado para ETH",
+      "idea": "Comprar cuando la media rápida de 13 cruza por encima de las de 21 y 50 con el precio sobre la de 180, y vender cuando la de 13 vuelve a caer bajo la de 21.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            13,
+            21
+          ],
+          [
+            "cruce_alcista",
+            13,
+            50
+          ],
+          [
+            "sobre_media",
+            180
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            13,
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Semáforo de EMAs 4-9-18 sobre la de 100 (Traffic Lights)",
+      "fuente": "Trading_Solutions_, script 'Traffic Lights Strategy' en TradingView (https://in.tradingview.com/script/ojICH8B7-Traffic-Lights-Strategy); el autor lo probó en BTC, ETH y otras criptos",
+      "idea": "Comprar cuando las medias de 4, 9 y 18 están ordenadas de más rápida a más lenta (verde arriba) y el precio está sobre la EMA de 100; salir cuando la de 4 cae bajo la de 9, con stop dinámico por ATR.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            4,
+            9
+          ],
+          [
+            "cruce_alcista",
+            9,
+            18
+          ],
+          [
+            "sobre_ema",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            4,
+            9
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: lunes a las 18 h UTC",
+      "fuente": "Securities.io, 'Crypto day-of-the-week effects and intraday patterns' (https://securities.io/crypto-day-of-the-week-effects-intraday-patterns/), que cita las 6 h y las 18 h UTC del lunes como horas significativas de BTC",
+      "idea": "Comprar BTC los lunes al abrir la vela de las 18:00 UTC, la segunda hora con efecto lunes que señala el estudio, y venderlo una hora después.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              0
+            ]
+          ],
+          [
+            "franja_horaria",
+            18,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            19,
+            23
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Corto en tendencia bajista bajo la media de 100 con objetivo del 2 % (Coinrule)",
+      "fuente": "Coinrule, script 'Short In Downtrend Below MA100' en TradingView (https://www.tradingview.com/script/SpGO98mX-Short-In-Downtrend-Below-MA100-Coinrule/), pensado para monedas de capitalización media",
+      "idea": "Vender en corto cuando el precio está por debajo de su media de 100 y el RSI todavía no está en sobreventa (sobre 30); recomprar con un 2 % de ganancia o al llegar a sobreventa.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "RSI bajo 40 con el precio sobre la media de 9 (Coinrule, reversión)",
+      "fuente": "Coinrule, script 'Optimised RSI strategy for Reversals' en TradingView (https://br.tradingview.com/script/yVT696NT-Optimised-RSI-strategy-for-Reversals-by-Coinrule/)",
+      "idea": "Comprar cuando el RSI está bajo 40 pero el precio ya ha recuperado su media de 9 (primer giro), con objetivo del 3 % y stop ajustado (riesgo 1:2).",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "sobre_media",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Precio sobre las EMAs 7, 14 y 21 con objetivo del 4 % (Coinrule)",
+      "fuente": "Coinrule, script 'Three EMAs Trend-following Strategy' en TradingView (https://br.tradingview.com/script/RmQ4N8M6-Three-EMAs-Trend-following-Strategy-by-Coinrule/); el autor obtuvo los mejores resultados en 4 h",
+      "idea": "Comprar cuando una vela alcista cierra por encima de las EMAs de 7, 14 y 21 y vender con un 4 % de ganancia o cuando salta el stop de volatilidad que la sigue.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            7
+          ],
+          [
+            "sobre_ema",
+            14
+          ],
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
