@@ -389,6 +389,16 @@ def build(root, ac):
                                   f'<span class="muted mono" style="font-size:.72rem">apuntada el {x["fecha"][8:10]}/{x["fecha"][5:7]}</span></div>' for x in ideas)
                         + '</section>')
 
+    lab = os.path.join(root, "experimentos", "resumen.json")
+    if os.path.exists(lab):
+        try:
+            lr = json.load(open(lab))
+            sections.append(f'<section><h2>Laboratorio</h2><div class="card"><span class="muted mono" style="font-size:.72rem">{e(lr.get("fecha", ""))}</span>'
+                            f'<p style="font-size:.9rem;white-space:pre-line">{e(lr.get("texto", ""))}</p>'
+                            f'<span class="muted" style="font-size:.78rem">Todas las pruebas, también las que no funcionaron, están en experimentos/registro.md.</span></div></section>')
+        except Exception:  # noqa: BLE001
+            pass
+
     # 2. equipos
     teams = st.get("equipos") or {}
     if teams:
