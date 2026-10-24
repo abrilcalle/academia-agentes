@@ -6,6 +6,8 @@
   si no, en la vela de después se ejecuta a mercado (comisión "taker" + deslizamiento)
 - los cortos pagan además un interés por hora por el BTC prestado
 - si el saldo baja de 5 € el agente fracasa
+- con usdc=True se opera en pares contra USDC (comisión más baja): precios en USDC, saldo contado en euros
+  con el cambio USDC/EUR de cada vela (así se nota si el dólar sube o baja)
 """
 from dataclasses import dataclass, field
 
@@ -45,13 +47,21 @@ def run(I, w, a, b, cfg):
     limit = bool(cfg.get("limit"))
     borrow = cfg.get("borrow_h", 0.0) / 100 * (8760 / I.bpy)  # interés del préstamo por vela
     cap = cfg["cap"]
-    cash, btc, cur = cap, 0.0, 0.0
+    # en USDC: se opera con precios en USDC y el saldo se cuenta en euros con el cambio de cada vela
+    fx = getattr(I, "fx", None) if cfg.get("usdc") else None
+    k = fx if fx is not None else None
+    if k is not None:
+        O, H, L, C = I.o_u, I.h_u, I.l_u, I.c_u
+        cash = cap / k[a] * (1 - cfg.get("conversion", 0.0) / 100)  # de euros a USDC una vez
+    else:
+        O, H, L, C = I.o, I.h, I.l, I.c
+        cash = cap
+    btc, cur = 0.0, 0.0
     dead, force_mkt = False, False
     fees = 0.0
     peak, maxdd = cap, 0.0
     eq, trades = [], []
     open_val = None
-    O, H, L, C = I.o, I.h, I.l, I.c
     for i in range(a, b + 1):
         if not dead and i > a:
             tgt = w[i - 1]
@@ -92,9 +102,10 @@ def run(I, w, a, b, cfg):
                             side = "cierra corto" if btc <= 0 else "compra"
                         if abs(before * px) < 0.5 and btc != 0:
                             open_val = val
-                        trades.append(dict(i=i, side=side, px=px, amt=abs(diff)))
+                        kx = k[i] if k is not None else 1.0
+                        trades.append(dict(i=i, side=side, px=px * kx, amt=abs(diff) * kx))  # en euros
                         if btc == 0 and open_val is not None:
-                            trades[-1]["pnl"] = cash - open_val
+                            trades[-1]["pnl"] = (cash - open_val) * kx
                             trades[-1]["pnl_pct"] = (cash - open_val) / open_val
                             open_val = None
                     cur = tgt
@@ -102,13 +113,13 @@ def run(I, w, a, b, cfg):
             f = -btc * C[i] * borrow
             cash -= f
             fees += f
-        v = cash + btc * C[i]
+        v = (cash + btc * C[i]) * (k[i] if k is not None else 1.0)  # saldo en euros
         eq.append(v)
         peak = max(peak, v)
         maxdd = max(maxdd, (peak - v) / peak)
         if not dead and v < 5:
             dead = True
-            cash, btc, cur = v * (1 - taker), 0.0, 0.0
+            cash, btc, cur = (cash + btc * C[i]) * (1 - taker), 0.0, 0.0
             trades.append(dict(i=i, side="fracasa", px=C[i], amt=v))
     closed = [t for t in trades if "pnl" in t]
     final = eq[-1]

@@ -27,6 +27,14 @@
   "permitir_cortos": true,
   "_nota_cortos": "Bitvavo permite vender en corto sin apalancamiento desde la app y la web, pero todavía NO por API (comprobado el 18/10/2026; dicen que lo añadirán). Los agentes que usan cortos quedan marcados: no podrán pasar a dinero real hasta que Bitvavo lo permita por API. Poner false para apagarlos.",
   "_nota_comisiones": "Bitvavo cobra 0,25 % a las órdenes a mercado (taker) y 0,15 % a las limitadas que esperan en el libro (maker). Con ordenes_limitadas, cada orden se pone al precio del último cierre; si no se llena en la vela siguiente, se ejecuta a mercado. Los cortos (sin apalancamiento) pagan un interés por hora por el préstamo (ejemplo de Bitvavo: 0,0023 %/h).",
+  "cotizar_en_usdc": true,
+  "usdc": {
+    "_nota": "Pares contra USDC en Bitvavo (decidido por Abril el 24/10/2026): 0,05 % por orden (maker y taker), diferencia compra-venta 0,03–0,05 %, y pasar de euros a USDC cuesta 0,10 % una vez. El saldo se cuenta en euros con el cambio USDC/EUR de cada día. Para volver a euros: cotizar_en_usdc = false.",
+    "comision_pct": 0.05,
+    "comision_maker_pct": 0.05,
+    "deslizamiento_pct": 0.03,
+    "conversion_pct": 0.1
+  },
   "saldo_inicial_eur": 100,
   "entreno": [
     "2018-01-01",
@@ -75,10 +83,12 @@
     },
     "poblacion_inventor": 30,
     "generaciones_inventor": 15,
-    "usar_kronos": true
+    "usar_kronos": true,
+    "parte_hijos": 0.3,
+    "_nota_hijos": "Solo esta parte de los agentes nuevos parten de las reglas de un ganador (hijos); los demás empiezan de cero con estrategias distintas, para que siempre se prueben cosas nuevas."
   },
   "operadores_diarios": {
-    "_nota": "Agentes con una estrategia para cada tipo de mercado (alcista, lateral, bajista) cuyo objetivo es acabar CADA SEMANA en positivo tras comisiones. No tienen que operar cada día.",
+    "_nota": "Agentes con una estrategia para cada tipo de mercado (alcista, lateral, bajista). Objetivo: acabar las semanas en positivo tras comisiones operando 2-3 días por semana (no hace falta cada día).",
     "parte_de_los_nuevos": 0.7,
     "temporalidades": {
       "1h": 1,
@@ -92,7 +102,7 @@
     },
     "aprobar_validacion": {
       "ganancia_minima_pct": 0,
-      "dias_operando_por_semana": 0.5,
+      "dias_operando_por_semana": 1.5,
       "semanas_en_positivo_pct": 40,
       "peor_semana_pct": 12,
       "caida_maxima_pct": 30,
@@ -100,7 +110,7 @@
     },
     "aprobar_examen": {
       "ganancia_minima_pct": 0,
-      "dias_operando_por_semana": 0.5,
+      "dias_operando_por_semana": 2,
       "semanas_en_positivo_pct": 55,
       "peor_semana_pct": 8,
       "caida_maxima_pct": 20,
@@ -108,7 +118,7 @@
     },
     "examen_2": {
       "ganancia_minima_pct": 0,
-      "dias_operando_por_semana": 0.5,
+      "dias_operando_por_semana": 2,
       "semanas_en_positivo_pct": 55,
       "peor_semana_pct": 8,
       "caida_maxima_pct": 20,

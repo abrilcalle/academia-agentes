@@ -131,7 +131,7 @@ def score(mk, r, temper):
     pts = 1.5 * s["sem_pos"] - 1.5 * s["sem_neg"] + 1.0 * s["sem_objetivo"] + 25 * s["media_sem"]
     pts -= temper * 3 * max(0.0, -s["peor_sem"] - 0.04)       # semanas muy malas restan
     pts -= temper * max(0.0, r.maxdd - 0.15)
-    pts -= 0.5 * max(0.0, 1 - s["dias_sem"])                    # para ganar cada semana tiene que operar casi todas las semanas
+    pts -= 0.5 * max(0.0, 2 - s["dias_sem"])                    # quiere operar 2-3 días por semana
     if r.closed and r.avg_trade < 0.002:                         # cada operación debe dejar algo tras comisiones
         pts -= 0.3 + 30 * (0.002 - r.avg_trade)
     return pts, s

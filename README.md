@@ -35,7 +35,7 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 
 ## Hijos
 
-- Los agentes nuevos parten también de las reglas de los 2 que más ganan en simulado (mismo mercado, temporalidad y tipo; si su mercado aún no tiene ganadores, de otro mercado).
+- Solo el 30 % de los agentes nuevos son hijos (`fabrica.parte_hijos`); el resto empieza de cero, para que siempre se prueben cosas distintas. Los hijos parten también de las reglas de los 2 que más ganan en simulado (mismo mercado, temporalidad y tipo; si su mercado aún no tiene ganadores, de otro mercado).
 - **Un hijo solo se queda si supera a su padre** en las pruebas (2024–25 y 2026 seguidos). Los que operan exactamente igual que otro agente se descartan.
 
 ## Avisos para Abril
@@ -56,6 +56,7 @@ La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo es 
 
 ## Varios mercados, cortos y órdenes limitadas
 
+- **USDC** (desde el 24/10/2026): se opera en los pares contra USDC de Bitvavo (0,05 % por orden en vez de 0,15–0,25 %). Pasar de euros a USDC cuesta 0,10 % una vez y todo se cuenta en euros con el cambio USDC/EUR de cada día, así que si el dólar baja frente al euro se nota. `cotizar_en_usdc` y `usdc` en `config.json`.
 - **Mercados:** BTC, ETH, SOL y XRP (Bitvavo no tiene oro tokenizado), en `config.json` → `activos`. Todos entrenan con los mismos años (2018–21); SOL, que no existía entonces, entrena con la historia de ETH y hace la validación y los exámenes con la suya. Cada agente nace especializado en uno solo y estudia las ideas de internet de ese mercado (o las generales).
 - **Ventas en corto sin apalancamiento** (operadores diarios): ganan cuando el precio baja, aplicando sus reglas al gráfico "dado la vuelta" y pagando el interés por hora del préstamo. Bitvavo las permite desde la app pero **todavía no por API** (dice que lo añadirá): se guarda qué agentes las usan (`usa_cortos`) para revisarlo al pasar a dinero real. Se apagan con `permitir_cortos: false`.
 - **Órdenes limitadas:** cada orden se pone al precio del último cierre (comisión 0,15 % en vez de 0,25 % y sin deslizamiento). Si el precio no la cruza en la vela siguiente, se ejecuta a mercado.

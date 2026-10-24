@@ -20,6 +20,24 @@ class Market:
         self.I.hour = [d.hour for d in self.ts]
         self.I.dow = [d.weekday() for d in self.ts]
 
+    def set_fx(self, fx_daily):
+        """fx_daily: {fecha: euros por 1 USDC}. Prepara los precios en USDC de cada vela."""
+        import numpy as np
+        keys = sorted(fx_daily)
+        if not keys:
+            return
+        vals, j, last = [], 0, fx_daily[keys[0]]
+        for d in self.ts:
+            day = d.date()
+            while j < len(keys) and keys[j] <= day:
+                last = fx_daily[keys[j]]
+                j += 1
+            vals.append(last)
+        fx = np.array(vals, dtype=float)
+        I = self.I
+        I.fx = fx
+        I.o_u, I.h_u, I.l_u, I.c_u = I.o / fx, I.h / fx, I.l / fx, I.c / fx
+
     def idx(self, when):
         """Primera vela que empieza en `when` o después (when: fecha, datetime o texto AAAA-MM-DD)."""
         if isinstance(when, str):

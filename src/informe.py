@@ -52,6 +52,8 @@ def pending_month(state, last_day):
 
 def series(ac, ag):
     """{fecha: saldo al cierre} del simulado de un agente, y sus operaciones cerradas con fechas."""
+    if not ac.has_market(ag):
+        return {}, []
     r, mk, a = ac.paper_run(ag)
     if r is None:
         return {}, []

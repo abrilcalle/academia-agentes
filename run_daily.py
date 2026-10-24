@@ -133,7 +133,24 @@ def main():
         return
 
     otros = load_other_assets(cfg, args.datos_locales, today, intraday)
+    if cfg.get("cotizar_en_usdc"):
+        if args.datos_locales:
+            p = os.path.join(args.datos_locales, "usdc_eur_1d.csv")
+            fx = {d.date(): v[3] for d, v in datamod.load_csv(p).items()} if os.path.exists(p) else {}
+        else:
+            fx = datamod.update_fx(os.path.join(ROOT, "data", "usdc_eur_1d.csv"))
+        first = min(m.ts[0] for m in mk.values()).date()
+        if fx and min(fx) <= first + dt.timedelta(days=400):
+            for group in [mk] + list(otros.values()):
+                for m in group.values():
+                    m.set_fx(fx)
+            print(f"USDC/EUR: {min(fx)} -> {max(fx)}, hoy 1 USDC = {fx[max(fx)]:.4f} €")
+        else:
+            cfg["cotizar_en_usdc"] = False
+            FALLOS.append("No hay datos del cambio USDC/EUR: hoy se simula en euros.")
+            print("Aviso: sin cambio USDC/EUR, hoy se simula en euros")
     ac = Academia(ROOT, mk, kronos=kronos, today=today, otros=otros)
+    ac.cfg["cotizar_en_usdc"] = cfg.get("cotizar_en_usdc", False)
     for k, txt in enumerate(FALLOS):
         ac.alerta(f"datos_{k}", "hacer", txt)
     counts = ac.day(fabrica=not args.sin_fabrica)

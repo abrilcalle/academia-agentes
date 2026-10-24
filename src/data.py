@@ -284,3 +284,30 @@ def to_arrays(candles, interval="1d"):
         prev = x
         d += step
     return ts, o, h, l, c, v
+
+
+# ------------------------------------------------------------------ cambio USDC/EUR
+
+
+def update_fx(path, since=dt.datetime(2017, 12, 1), log=print):
+    """Euros que vale 1 USDC cada día (cierre). Bitvavo USDC-EUR donde lo hay; antes, el EUR/USD de Bitstamp
+    (1 USDC ≈ 1 dólar). Devuelve {fecha: euros por USDC}."""
+    have = load_csv(path)
+    now = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+    try:
+        start = (max(have) - dt.timedelta(days=5)) if have else since
+        have.update(fetch_bitvavo("USDC-EUR", "1d", since=start))
+    except Exception as e:  # noqa: BLE001
+        log(f"Aviso: no se pudo descargar USDC-EUR de Bitvavo ({e})")
+    if not have or min(have) > since + dt.timedelta(days=7):
+        until = (min(have) - dt.timedelta(days=1)) if have else now
+        try:
+            for d, (o, h, l, c, v) in fetch_bitstamp("eurusd", 86400, since, until).items():
+                if d not in have and d <= until:
+                    have[d] = (1 / o, 1 / l, 1 / h, 1 / c, v)  # dólares por euro -> euros por dólar
+        except Exception as e:  # noqa: BLE001
+            log(f"Aviso: no se pudo descargar EUR/USD de Bitstamp ({e})")
+    have = {d: v for d, v in have.items() if d + dt.timedelta(days=1) <= now}
+    if have:
+        save_csv(path, have)
+    return {d.date(): v[3] for d, v in have.items()}

@@ -81,6 +81,11 @@ class Academia:
 
     def run_cfg(self):
         c = self.cfg
+        if c.get("cotizar_en_usdc"):  # pares contra USDC: comisiones más bajas
+            u = c["usdc"]
+            return dict(fee=u["comision_pct"], slip=u["deslizamiento_pct"], cap=c["saldo_inicial_eur"],
+                        maker=u["comision_maker_pct"], limit=c.get("ordenes_limitadas", False),
+                        borrow_h=c.get("corto_interes_hora_pct", 0.0), usdc=True, conversion=u["conversion_pct"])
         return dict(fee=c["comision_pct"], slip=c["deslizamiento_pct"], cap=c["saldo_inicial_eur"],
                     maker=c.get("comision_maker_pct", c["comision_pct"]), limit=c.get("ordenes_limitadas", False),
                     borrow_h=c.get("corto_interes_hora_pct", 0.0))
@@ -95,6 +100,10 @@ class Academia:
         mk = self.mk[tf]
         a, b = self.window(mk, "entreno")[0], self.window(mk, "examen")[1]
         return round(float(np.mean(~np.isnan(self.kronos[tf]["med"][a:b + 1]))), 3)
+
+    def has_market(self, ag):
+        a = ag.get("activo", self.cfg["mercado"])
+        return (ag["tf"] in self.mk) if a == self.cfg["mercado"] else (a in self.otros and ag["tf"] in self.otros[a])
 
     def m(self, ag):
         """Las velas del mercado y la temporalidad de un agente."""
@@ -128,6 +137,8 @@ class Academia:
 
     def parents(self, ag, estilo):
         """Los agentes que van ganando en simulado (mismo mercado, temporalidad y tipo): sus hijos parten de sus reglas."""
+        if self.rng.random() >= self.cfg["fabrica"].get("parte_hijos", 1.0):
+            return []  # este agente empieza de cero: así siempre se prueban estrategias distintas
         main = self.cfg["mercado"]
         c = [x for x in self.state["agents"] if x["status"] in ("simulado", "listo")
              and x.get("activo", main) == ag.get("activo", main) and x["tf"] == ag["tf"]
@@ -536,7 +547,7 @@ class Academia:
         cfg = self.run_cfg()
         # los que se aprobaron antes de existir el examen de 2026 también tienen que pasarlo
         for ag in sorted(self.state["agents"], key=lambda a: (a.get("paper_start") or "9", a.get("born", ""))):
-            if ag["status"] in ("cola", "simulado") and ("exam2" not in ag or "firma2026" not in ag):
+            if ag["status"] in ("cola", "simulado") and ("exam2" not in ag or "firma2026" not in ag) and self.has_market(ag):
                 if not self.exam2(ag):
                     self.log(f"{ag['name']} sale del simulado: {ag['motivo']}")
         active = [a for a in self.state["agents"] if a["status"] == "simulado"]
@@ -554,6 +565,8 @@ class Academia:
         team_days, team_ops = [], {}
         paused = set(self.cfg.get("cartera", {}).get("pausados", []))
         for ag in [a for a in self.state["agents"] if a["status"] in ("simulado", "listo")]:
+            if not self.has_market(ag):  # hoy no hay datos de su mercado: se queda como estaba
+                continue
             r, mk, a = self.paper_run(ag)
             if r is not None and ag["name"] not in paused:
                 team_days.append((dt.date.fromisoformat(ag["paper_start"]), mk.daily(r.eq, a)))

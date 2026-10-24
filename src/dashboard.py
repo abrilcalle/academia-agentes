@@ -432,7 +432,7 @@ def build(root, ac):
 <p class="muted">Equipos de agentes que operan BTC, ETH, SOL y XRP en Bitvavo con dinero ficticio, precios reales y comisiones reales.</p></header>
 {''.join(sections)}
 <section class="foot">
-<p>Comisiones de Bitvavo descontadas: órdenes limitadas al {str(cfg.get('comision_maker_pct', cfg['comision_pct'])).replace('.', ',')} % (si no se llenan, a mercado al {str(cfg['comision_pct']).replace('.', ',')} % más {str(cfg['deslizamiento_pct']).replace('.', ',')} % de deslizamiento). Datos hasta el {e(st.get('ultimo_dia_con_datos', ''))}.</p>
+<p>{('Se opera en pares contra USDC (comisión del ' + str(cfg['usdc']['comision_pct']).replace('.', ',') + ' % más ' + str(cfg['usdc']['deslizamiento_pct']).replace('.', ',') + ' % de diferencia de precio; pasar de euros a USDC cuesta ' + str(cfg['usdc']['conversion_pct']).replace('.', ',') + ' % una vez) y todo se cuenta en euros con el cambio USDC/EUR de cada día.') if cfg.get('cotizar_en_usdc') else ('Comisiones de Bitvavo descontadas: órdenes limitadas al ' + str(cfg.get('comision_maker_pct', cfg['comision_pct'])).replace('.', ',') + ' % (si no se llenan, a mercado al ' + str(cfg['comision_pct']).replace('.', ',') + ' % más ' + str(cfg['deslizamiento_pct']).replace('.', ',') + ' % de deslizamiento).')} Datos hasta el {e(st.get('ultimo_dia_con_datos', ''))}.</p>
 <p>Todo es dinero ficticio. Resultados pasados no garantizan resultados futuros.</p>
 </section></div></body></html>"""
     os.makedirs(os.path.join(root, "docs"), exist_ok=True)

@@ -7,7 +7,8 @@
       "tipo": "decidir",
       "titulo": "¿Operamos en pares USDC para pagar 3-5 veces menos comisión?",
       "texto": "Qué pasa: en Bitvavo, comprar BTC, ETH, SOL o XRP con euros cuesta 0,15 % (limitada) o 0,25 % (a mercado), pero con USDC (un dólar digital) cuesta solo 0,05 %. He repetido los exámenes de los 51 agentes en simulado con esa comisión: ganan de media +4,7 puntos más en 2024–25 y +1,4 puntos más en 2026, y los de velas de 1 y 4 horas aún más (+6 a +7 puntos). Ahora mismo ningún equipo llega al 10 % al año (Halcón hace 8,7 %), así que esto podría acercarlos. Lo malo: el dinero estaría en dólares, así que si el euro sube frente al dólar perdemos un poco (y al revés); pasar de euros a USDC cuesta 0,10 % una sola vez; y los pares USDC mueven menos dinero, así que el precio puede ser algo peor. Opciones: (1) seguir en euros; (2) simular con comisión 0,05 % más el efecto del dólar para ver si compensa; (3) pasar directamente a USDC. Recomiendo la 2: creo que sería mejor probarlo antes porque la ventaja parece grande pero el riesgo del dólar no está medido. Comprobado hoy por la API: BTC, ETH, SOL y XRP contra USDC se pueden operar (incluidas órdenes limitadas); mueven bastante menos que en euros (entre 57.000 y 440.000 $ al día, de sobra para nuestras cantidades) y la diferencia entre compra y venta es de 0,03–0,05 %, así que sigue saliendo mucho más barato.",
-      "estado": "pendiente"
+      "estado": "resuelto",
+      "resolucion": "24/10/2026: Abril decide operar en USDC."
     },
     {
       "id": "yt-cookies",

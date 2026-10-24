@@ -226,7 +226,8 @@ def build(ac, last_day, log=print):
     4) Se quedan los 3 mejores (podio): primero los que ganan más semanas, y entre parecidos, el que más gana.
     Devuelve dict puesto -> propuesta."""
     goal = ac.cfg.get("objetivo_equipo", {"semanas_en_verde_pct": 50, "ganancia_minima_anual_pct": 10, "caida_maxima_pct": 25})
-    cands = [a for a in ac.state["agents"] if a.get("exam") and a["exam"].get("ret", 0) > 0 and a["status"] != "retirado"]
+    # todos los agentes examinados; abajo se quedan los que ganan dinero en 2024–25 con las condiciones de hoy (comisiones, USDC...)
+    cands = [a for a in ac.state["agents"] if a.get("exam") and a["status"] != "retirado" and ac.has_market(a)]
     seen, uniq = set(), []
     for a in cands:  # fuera clones
         f = a.get("firma2026") or a["id"]
@@ -240,6 +241,11 @@ def build(ac, last_day, log=print):
     days, R, E, P, G = matrix(ac, cands, P1[0], last_day)
     p1_end = dt.date.fromisoformat(P1[1])
     k1 = sum(1 for d in days if d <= p1_end)
+    keep = [j for j in range(len(cands)) if np.prod(1 + R[j, :k1]) - 1 > 0]
+    cands = [cands[j] for j in keep]
+    R, E, P, G = R[keep], E[keep], P[keep], G[keep]
+    if len(cands) < 2:
+        return {t: dict(motivo="Todavía no hay al menos 2 agentes que ganen dinero en 2024–25.") for t in TIPOS}
     k2 = days.index(dt.date.fromisoformat(P2_FROM)) if dt.date.fromisoformat(P2_FROM) in days else k1
     with np.errstate(invalid="ignore", divide="ignore"):
         sharpe = np.nan_to_num(R[:, :k1].mean(axis=1) / R[:, :k1].std(axis=1))
@@ -252,7 +258,7 @@ def build(ac, last_day, log=print):
         if any(np.corrcoef(R[j, :k1], R[i, :k1])[0, 1] > 0.9 for i in chosen):
             continue
         chosen.append(int(j))
-    log(f"Equipos: {len(cands)} agentes ganaron dinero en su examen; se combinan los {len(chosen)} mejores y distintos.")
+    log(f"Equipos: {len(cands)} agentes ganan dinero en 2024–25 con las condiciones de hoy; se combinan los {len(chosen)} mejores y distintos.")
     teams = []
     for pr in PRUDENCIAS:
         for prm in PARAMS:
@@ -318,7 +324,10 @@ def update(ac, log=print):
     teams = st.setdefault("equipos", {})
     for k in [k for k in teams if k not in TIPOS]:
         teams.pop(k)
-    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1}
+    cond = "usdc" if ac.cfg.get("cotizar_en_usdc") else "eur"
+    # se rehacen si no existen, el día 1 de cada mes, o si han cambiado las condiciones (por ejemplo, pasar a USDC)
+    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1
+            or teams[t]["periodos"][-1].get("condiciones", "eur") != cond}
     if need:
         props = build(ac, last_day, log)
         for t in need:
@@ -330,10 +339,11 @@ def update(ac, log=print):
                 continue  # si ya tenía miembros, sigue con ellos
             tm.pop("vacio", None)
             if tm["periodos"] and tm["periodos"][-1]["miembros"] == p["miembros"] and tm["periodos"][-1]["params"] == p["params"]:
+                tm["periodos"][-1]["condiciones"] = cond
                 continue
             if tm["inicio"] is None:
                 tm["inicio"] = start.isoformat()
-            tm["periodos"].append(dict(desde=start.isoformat(), **p))
+            tm["periodos"].append(dict(desde=start.isoformat(), condiciones=cond, **p))
             names = ", ".join(f"{a['name']} ({a.get('activo', 'BTC-EUR').split('-')[0]})" for i in p["miembros"]
                               for a in st["agents"] if a["id"] == i)
             ac.notify(TIPOS[t]["nombre"], f"Equipo desde el {start.strftime('%d/%m')}: {names}.")
@@ -361,7 +371,7 @@ def track(ac, tm, last_day):
     for k, per in enumerate(tm["periodos"]):
         d0 = dt.date.fromisoformat(per["desde"])
         d1 = dt.date.fromisoformat(tm["periodos"][k + 1]["desde"]) - dt.timedelta(days=1) if k + 1 < len(tm["periodos"]) else last_day
-        mem = [by_id[i] for i in per["miembros"] if i in by_id]
+        mem = [by_id[i] for i in per["miembros"] if i in by_id and ac.has_market(by_id[i])]
         if not mem:
             continue
         prm = per["params"]
