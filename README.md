@@ -109,6 +109,7 @@ python run_daily.py --sin-kronos
 - **Cortos:** comprobar si Bitvavo ya permite margin/cortos por API; si no, los agentes con `usa_cortos` no pueden operar solos.
 - **Órdenes limitadas:** la ejecución real debe ponerlas igual que el simulador (al último cierre y, si no se llenan, a mercado).
 - **Repositorio privado** antes de conectar la cuenta, y la clave de la API de Bitvavo solo en GitHub Secrets, nunca en el código.
+- Revisión de seguridad completa (clave de Bitvavo, permisos, repositorio) antes de conectar la cuenta.
 - Empezar con poco dinero y solo con el equipo que cumpla el objetivo semanal durante 3 meses.
 
 ## Cosas a tener en cuenta

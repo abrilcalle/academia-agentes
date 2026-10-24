@@ -32,7 +32,7 @@
       "fecha": "2026-10-18",
       "tipo": "recordatorio",
       "titulo": "El día que pasemos a dinero real",
-      "texto": "Te diré 'ten en cuenta que…' y repasaremos: si Bitvavo permite ya los cortos por API, que las órdenes limitadas funcionen igual que en el simulador, hacer privado el repositorio, guardar la clave de Bitvavo solo en GitHub Secrets y empezar con poco dinero y solo con un equipo que haya cumplido las condiciones 3 meses.",
+      "texto": "Te diré 'ten en cuenta que…' y repasaremos: si Bitvavo permite ya los cortos por API, que las órdenes limitadas funcionen igual que en el simulador, hacer privado el repositorio, guardar la clave de Bitvavo solo en GitHub Secrets y empezar con poco dinero y solo con un equipo que haya cumplido las condiciones 3 meses, y una revisión de seguridad completa (clave de Bitvavo, permisos, repositorio) antes de conectar la cuenta.",
       "estado": "pendiente"
     },
     {
