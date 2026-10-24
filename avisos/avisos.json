@@ -24,7 +24,7 @@
       "desde": "2026-11-01",
       "tipo": "decidir",
       "titulo": "¿Añadimos activos que no vayan a la par de BTC?",
-      "texto": "Acordamos esperar a ver cómo van los equipos estas dos semanas. Todas las criptos de Bitvavo suelen moverse juntas; lo que va por su lado (oro, índices) necesitaría otro broker con API. Mira cuántas semanas han ganado los equipos y dime si lo estudiamos: te prepararé las opciones con sus comisiones.",
+      "texto": "Acordamos esperar a ver cómo van los equipos estas dos semanas. Todas las criptos de Bitvavo suelen moverse juntas; lo que va por su lado (oro, índices) necesitaría otro broker con API. Mira cuántas semanas han ganado los equipos y dime si lo estudiamos: te prepararé las opciones con sus comisiones. Si añadimos bróker de acciones, la primera estrategia a probar sería copiar las compras de directivos (ver Ideas pendientes).",
       "estado": "pendiente"
     },
     {
@@ -48,7 +48,7 @@
       "fecha": "2026-10-15",
       "tipo": "idea",
       "titulo": "Copiar a políticos y grandes traders",
-      "texto": "Un agente que copie las operaciones de políticos o de los mejores traders (por ejemplo con datos de Quiver Quantitative, que es de pago), o un ranking de traders con un % de la cartera común.",
+      "texto": "Un agente que copie las operaciones públicas de políticos, directivos o grandes inversores (Quiver Quantitative, de pago; visto también en un TikTok de Alex Carter con Claude, 24/10). Mejor directivos (declaran en 2 días) que congresistas (hasta 45 días de retraso). Casi todo son acciones: necesitaría un segundo bróker con API. Verlo junto con la decisión de activos que no vayan a la par (1/11).",
       "estado": "pendiente"
     },
     {
