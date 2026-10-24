@@ -20,6 +20,7 @@ Cada lunes se vuelven a buscar los equipos con todos los agentes que haya: si un
 """
 import datetime as dt
 import itertools
+import zlib
 
 import numpy as np
 
@@ -52,6 +53,40 @@ def regime_at(mk):
     with np.errstate(invalid="ignore"):
         trend = np.nan_to_num(er) > 0.25
         return np.where(trend & (I.c > ma), 1, np.where(trend & (I.c < ma), 2, 0))
+
+
+def time_machine(mk, j, side, tp, sl, horizon, n, rng):
+    """"Máquina del tiempo": repite miles de veces lo que podría pasar después de la vela j, juntando al azar
+    movimientos reales de los últimos 30 días. Devuelve (prob. de llegar al objetivo, prob. de tocar el stop,
+    prob. de que al final del plazo siga abierta y en ganancia)."""
+    c = mk.I.c
+    look = 30 * mk.bpd
+    if j < look + 1 or tp <= 0 or sl <= 0:
+        return None
+    lr = np.diff(np.log(c[j - look:j + 1])) * side
+    paths = np.cumsum(rng.choice(lr, size=(n, horizon)), axis=1)
+    up, dn = np.log(1 + tp), np.log(1 - min(sl, 0.95))
+    hit_up = np.where((paths >= up).any(1), (paths >= up).argmax(1), horizon + 1)
+    hit_dn = np.where((paths <= dn).any(1), (paths <= dn).argmax(1), horizon + 1)
+    win = hit_up < hit_dn
+    lose = hit_dn < hit_up
+    still = ~win & ~lose
+    return float(win.mean()), float(lose.mean()), float((still & (paths[:, -1] > 0)).mean())
+
+
+def trade_plan(ag, mk, j, gw, gl):
+    """Objetivo, stop y plazo de la operación abierta (de su regla; si no tiene, de su historial o de la volatilidad)."""
+    rule = ag.get("regla") if ag.get("eleccion") == "propia" else None
+    atr = mk.I.atr(14)[j] / mk.I.c[j] if not np.isnan(mk.I.atr(14)[j]) else 0.02
+    tp = rule["tp"] if rule and isinstance(rule.get("tp"), (int, float)) and rule["tp"] > 0 else (gw or 2 * atr)
+    if rule and rule.get("stop"):
+        sl = rule["stop"] * atr
+    elif rule and rule.get("trail"):
+        sl = rule["trail"]
+    else:
+        sl = gl or 1.5 * atr
+    days = rule.get("hold") if rule and rule.get("hold") else 5
+    return tp, sl, max(1, int(days * mk.bpd))
 
 
 def series(ac, ag, start, variante=None):
@@ -96,6 +131,7 @@ def series(ac, ag, start, variante=None):
     ret = np.r_[vals[0] / ac.run_cfg()["cap"] - 1, vals[1:] / vals[:-1] - 1]
     P = np.zeros(len(days))
     G = np.zeros(len(days))
+    rng = np.random.default_rng(zlib.crc32(ag["id"].encode()))
     for n_, j in enumerate(last_bar):
         if days[n_] < s0 - dt.timedelta(days=1) or expo[n_] <= 0.05:
             continue
@@ -110,8 +146,16 @@ def series(ac, ag, start, variante=None):
         gw = [tr[2] for tr in same if tr[2] > 0]
         if len(gw) < 2:
             gw = [tr[2] for tr in past if tr[2] > 0]
-        P[n_] = p
-        G[n_] = float(np.mean(gw)) if gw else 0.01
+        gl = [-tr[2] for tr in past if tr[2] < 0]
+        tp, sl, hz = trade_plan(ag, mk, j, float(np.mean(gw)) if gw else None, float(np.mean(gl)) if gl else None)
+        last = n_ == len(last_bar) - 1
+        tm = time_machine(mk, j, 1 if w[j] > 0 else -1, tp, sl, hz, 2000 if last else 300, rng)
+        p_mc = (tm[0] + tm[2]) if tm else p
+        P[n_] = 0.5 * p + 0.5 * p_mc  # la mitad, su historial; la otra mitad, la máquina del tiempo
+        G[n_] = tp
+        if last:
+            ac.__dict__.setdefault("_tm_info", {})[ag["id"]] = dict(historial=round(p, 3), maquina=round(p_mc, 3),
+                                                                     objetivo=round(tp, 4), stop=round(sl, 4))
     keep = [k for k, d in enumerate(days) if d >= s0]
     return [days[k] for k in keep], ret[keep], np.array(expo)[keep], P[keep], G[keep]
 
@@ -418,10 +462,12 @@ def update(ac, log=print):
 
 
 def _now(mem, v, P, G, E, prm):
+    """Reparto de mañana (y para cada miembro, su probabilidad con el detalle de historial y máquina del tiempo)."""
     fn = alloc(P, G, prm["prudencia"], prm)
     return [dict(id=a["id"], name=a["name"], activo=a.get("activo", "BTC-EUR"), tf=a["tf"],
                  euros=round(v * float(fn[j]), 2), invertido=round(v * float(fn[j]) * float(E[j]), 2),
-                 posicion=round(float(E[j]), 2), prob=round(float(P[j]), 3), ganancia=round(float(G[j]), 4))
+                 posicion=round(float(E[j]), 2), prob=round(float(P[j]), 3), ganancia=round(float(G[j]), 4),
+                 detalle=getattr(_now, "info", {}).get(a["id"]))
             for j, a in enumerate(mem)]
 
 
@@ -443,6 +489,7 @@ def track(ac, tm, last_day):
         if d1 < d0:  # el equipo empieza mañana: solo se calcula cómo repartirá el dinero
             if k == len(tm["periodos"]) - 1:
                 _, R0, E0, P0, G0 = matrix(ac, mem, last_day.isoformat(), last_day)
+                _now.info = getattr(ac, "_tm_info", {})
                 ahora = _now(mem, v, P0[:, -1], G0[:, -1], E0[:, -1], prm)
             continue
         days, R, E, P, G = matrix(ac, mem, (d0 - dt.timedelta(days=1)).isoformat(), d1)
@@ -455,6 +502,7 @@ def track(ac, tm, last_day):
                 contrib[a["id"]] = contrib.get(a["id"], 0.0) + float(np.sum(base * F[j] * R[j, 1:]))
             v = float(val[-1])
         if k == len(tm["periodos"]) - 1:
+            _now.info = getattr(ac, "_tm_info", {})
             ahora = _now(mem, v, P[:, -1], G[:, -1], E[:, -1], prm)
     s = stats(days_all, np.array(vals), cap0)
     wk = []
