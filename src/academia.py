@@ -265,9 +265,12 @@ class Academia:
             rule["entry"] = rule["entry"][:3]
             seeds.append(rule)
         P = inventor.pools(mk.bpd)
+        if diario.ALLOW_SHORT:  # también prueba sus mejores estrategias al revés: vender en corto cuando el mercado cae
+            seeds += [dict(r, lado="corto") for r in seeds[:2]]
         for _ in range(3):  # ideas de partida con figuras de chartismo (W, M, HCH, banderas, soportes...)
             seeds.append(inventor.pattern_seed(self.rng, P, kr is not None))
-        ideas = [i for i in self.ideas_for(ag.get("activo", self.cfg["mercado"])) if i["regla"].get("lado") != "corto"]  # los clásicos solo compran
+        ideas = [i for i in self.ideas_for(ag.get("activo", self.cfg["mercado"]))
+                 if diario.ALLOW_SHORT or i["regla"].get("lado") != "corto"]
         # prioriza las ideas que menos agentes han estudiado (así las nuevas se prueban pronto)
         uso = {}
         for x in self.state["agents"]:
@@ -320,6 +323,7 @@ class Academia:
             invento=dict(desc=inventor.describe(rule, mk.bpd), entreno=r_inv.summary(), validacion=v_inv.summary(),
                          generaciones=hist),
             eleccion="propia" if propia else "conocida", cambio_por_copia=cambio,
+            usa_cortos=bool(propia and rule.get("lado") == "corto"),
             genome=g, params=p, regla=rule, firma=firma,
         )
         ag["label"] = "Estrategia propia" if propia else FAMILIES[g["family"]]["label"]

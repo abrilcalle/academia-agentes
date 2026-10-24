@@ -328,7 +328,7 @@ def team_card(tm, cfg, agents_by_id, lead=False):
 <p>1) Pasaron todos los agentes que ganaron dinero en su examen de 2024–25. 2) Con ellos se formaron equipos usando solo 2024–25, con cada grado de prudencia y forma de repartir. 3) Cada equipo hizo la prueba de 2026 (enero–hoy). 4) Se quedaron los 3 mejores: primero los que más semanas ganaron y, entre parecidos, el que más ganó.</p>
 <p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · ganó el {p1['verde'] * 100:.0f} % de las semanas · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · ganó el {p2['verde'] * 100:.0f} % de las semanas · peor semana {pct(p2['peor'])}</p>
 <p>Reparto: {e('; '.join(how))}. Cada día al cierre se reparte de nuevo (moverlo cuesta comisiones, ya descontadas).</p>
-<p class="muted">Se vuelve a elegir el día 1 de cada mes; el dinero del equipo sigue.</p></div></details>
+<p class="muted">Cada lunes se vuelve a elegir con todos los agentes que haya (si uno nuevo lo hace mejor, entra); el dinero del equipo sigue.</p></div></details>
 </article>"""
 
 

@@ -272,6 +272,13 @@ def _dias(ds):
 
 
 def describe(rule, bpd):
+    if rule.get("lado") == "corto":
+        d = _describe({k: v for k, v in rule.items() if k != "lado"}, bpd)
+        return "VENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: " + d[0].lower() + d[1:]
+    return _describe(rule, bpd)
+
+
+def _describe(rule, bpd):
     s = "Entra si " + " y ".join(cond_text(c, bpd) for c in rule["entry"])
     outs = [cond_text(c, bpd) for c in rule["exit"]]
     if rule["stop"]:
@@ -316,6 +323,13 @@ PYR = [0, 0, 0.02, 0.04]             # entra con media posición y la completa a
 
 
 def random_rule(rng, P, kronos=False):
+    r = _random_rule(rng, P, kronos)
+    if allow_short() and rng.random() < 0.3:
+        r["lado"] = "corto"
+    return r
+
+
+def _random_rule(rng, P, kronos=False):
     return dict(entry=[random_cond(rng, KINDS_ENTRY, P, kronos) for _ in range(rng.randint(1, 3))],
                 exit=[random_cond(rng, KINDS_EXIT, P, kronos) for _ in range(rng.randint(1, 2))],
                 stop=rng.choice([0, 0, 2, 3, 4]), tp=rng.choice(TP + (["kronos"] if kronos else [])),
@@ -328,7 +342,23 @@ def random_rule(rng, P, kronos=False):
 # ------------------------------------------------------------------ de estrategia a exposición
 
 
+def allow_short():
+    import diario  # se importa aquí para no crear un ciclo
+    return diario.ALLOW_SHORT
+
+
 def exposure(I, rule, kronos=None, bpd=1):
+    if rule.get("lado") == "corto":  # vende en corto: las mismas reglas sobre el gráfico dado la vuelta
+        if not allow_short():
+            return np.zeros(I.n)
+        from diario import inverted
+        r = {k: v for k, v in rule.items() if k != "lado"}
+        ks = None if kronos is None else dict(med=-kronos["med"], up=1 - kronos["up"])
+        return -_exposure(inverted(I), r, ks, bpd)
+    return _exposure(I, rule, kronos, bpd)
+
+
+def _exposure(I, rule, kronos=None, bpd=1):
     ent = np.ones(I.n, bool)
     for c in rule["entry"]:
         ent &= np.nan_to_num(cond_array(I, c, kronos)).astype(bool)
@@ -443,6 +473,17 @@ def robust(mk, w, window, cfg, temper):
 
 
 def mutate(rng, rule, P, kronos=False):
+    if allow_short() and rng.random() < 0.04:  # a veces prueba la misma idea en el otro sentido
+        r = dict(rule)
+        r["lado"] = "largo" if rule.get("lado") == "corto" else "corto"
+        return r
+    r = _mutate(rng, rule, P, kronos)
+    if rule.get("lado"):
+        r["lado"] = rule["lado"]
+    return r
+
+
+def _mutate(rng, rule, P, kronos=False):
     r = {k: (v[:] if isinstance(v, list) else v) for k, v in rule.items()}
     r["entry"] = [c[:] for c in rule["entry"]]
     r["exit"] = [c[:] for c in rule["exit"]]
@@ -501,6 +542,13 @@ def _tweak(rng, c, P):
 
 
 def cross(rng, a, b):
+    r = _cross(rng, a, b)
+    if a.get("lado"):
+        r["lado"] = a["lado"]
+    return r
+
+
+def _cross(rng, a, b):
     return dict(entry=[c[:] for c in (a["entry"][:1] + b["entry"][1:])][:3] or [a["entry"][0][:]],
                 exit=[c[:] for c in rng.choice([a["exit"], b["exit"]])],
                 stop=rng.choice([a["stop"], b["stop"]]), tp=rng.choice([a["tp"], b["tp"]]),

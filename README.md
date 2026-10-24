@@ -31,7 +31,7 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
   4. Se queda el **podio**: Halcón (1º), Lobo (2º) y Tortuga (3º); primero los que cumplen las condiciones en 2026, luego los que más semanas ganan y, entre parecidos, el que más gana.
 - **Todos buscan ganar lo máximo.** La prudencia solo cambia cómo priorizan: cada agente estima, para su operación abierta, la probabilidad de que acabe ganando y cuánto suele ganar (con su historial y el tipo de mercado); el dinero va primero a las operaciones con más probabilidad^prudencia × ganancia (1 = nada conservador, 3 = muy conservador).
 - Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
-- El **día 1 de cada mes** se repite todo; el dinero de cada puesto del podio sigue.
+- **Cada lunes** se repite todo con los agentes que haya: si uno nuevo lo hace mejor, entra en el equipo; el dinero de cada puesto del podio sigue.
 
 ## Hijos
 
@@ -58,7 +58,7 @@ La mayoría de agentes nuevos (70 %) son **operadores diarios**: su objetivo es 
 
 - **USDC** (desde el 24/10/2026): se opera en los pares contra USDC de Bitvavo (0,05 % por orden en vez de 0,15–0,25 %). Pasar de euros a USDC cuesta 0,10 % una vez y todo se cuenta en euros con el cambio USDC/EUR de cada día, así que si el dólar baja frente al euro se nota. `cotizar_en_usdc` y `usdc` en `config.json`.
 - **Mercados:** BTC, ETH, SOL y XRP (Bitvavo no tiene oro tokenizado), en `config.json` → `activos`. Todos entrenan con los mismos años (2018–21); SOL, que no existía entonces, entrena con la historia de ETH y hace la validación y los exámenes con la suya. Cada agente nace especializado en uno solo y estudia las ideas de internet de ese mercado (o las generales).
-- **Ventas en corto sin apalancamiento** (operadores diarios): ganan cuando el precio baja, aplicando sus reglas al gráfico "dado la vuelta" y pagando el interés por hora del préstamo. Bitvavo las permite desde la app pero **todavía no por API** (dice que lo añadirá): se guarda qué agentes las usan (`usa_cortos`) para revisarlo al pasar a dinero real. Se apagan con `permitir_cortos: false`.
+- **Ventas en corto sin apalancamiento** (todos los agentes: los clásicos pueden ser de compra o de venta en corto, y los operadores diarios eligen según el tipo de mercado): ganan cuando el precio baja, aplicando sus reglas al gráfico "dado la vuelta" y pagando el interés por hora del préstamo. Bitvavo las permite desde la app pero **todavía no por API** (dice que lo añadirá): se guarda qué agentes las usan (`usa_cortos`) para revisarlo al pasar a dinero real. Se apagan con `permitir_cortos: false`.
 - **Órdenes limitadas:** cada orden se pone al precio del último cierre (comisión 0,15 % en vez de 0,25 % y sin deslizamiento). Si el precio no la cruza en la vela siguiente, se ejecuta a mercado.
 - **Herencia:** los agentes nuevos parten también de las reglas de los que ya van ganando en simulado (mismo mercado y temporalidad), y las mejoran.
 - **Condiciones del equipo** (`objetivo_equipo`): ganar más de la mitad de las semanas, al menos un 10 % al año y no caer más de un 25 %; para dinero real, repetirlo en simulado durante 3 meses.

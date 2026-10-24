@@ -87,7 +87,7 @@ def exposure(I, rule, kronos=None, bpd=24):
             J = inverted(I)
             J._m[key] = masks[k]
             ks = None if kronos is None else dict(med=-kronos["med"], up=1 - kronos["up"])
-            short_w = np.maximum(short_w, V.exposure(J, s, ks, bpd))
+            short_w = np.maximum(short_w, V.exposure(J, {k: v for k, v in s.items() if k != "lado"}, ks, bpd))
         else:
             long_w = np.maximum(long_w, V.exposure(I, s, kronos, bpd))
     return np.clip(long_w - short_w, -1, 1)

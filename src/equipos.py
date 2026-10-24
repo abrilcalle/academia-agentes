@@ -16,7 +16,7 @@ Lo único que cambia entre equipos es la PRUDENCIA al priorizar operaciones. Cad
     señal se quedan una pequeña reserva para poder entrar; lo demás espera en euros.
   - Mover dinero de un agente a otro cuesta comisiones (se descuentan).
 Una semana solo es buena si el equipo GANA; si se queda igual o pierde, es mala.
-El día 1 de cada mes se vuelven a buscar los equipos; el dinero de cada equipo sigue.
+Cada lunes se vuelven a buscar los equipos con todos los agentes que haya: si uno nuevo lo hace mejor, entra; el dinero de cada equipo sigue.
 """
 import datetime as dt
 import itertools
@@ -326,7 +326,7 @@ def update(ac, log=print):
         teams.pop(k)
     cond = "usdc" if ac.cfg.get("cotizar_en_usdc") else "eur"
     # se rehacen si no existen, el día 1 de cada mes, o si han cambiado las condiciones (por ejemplo, pasar a USDC)
-    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.day == 1
+    need = {t for t in TIPOS if t not in teams or not teams[t].get("periodos") or start.weekday() == 0
             or teams[t]["periodos"][-1].get("condiciones", "eur") != cond}
     if need:
         props = build(ac, last_day, log)
