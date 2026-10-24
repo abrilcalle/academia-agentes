@@ -30,6 +30,7 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
   3. Cada equipo hace la **prueba de 2026** (enero–hoy).
   4. Se queda el **podio**: Halcón (1º), Lobo (2º) y Tortuga (3º); primero los que cumplen las condiciones en 2026, luego los que más semanas ganan y, entre parecidos, el que más gana.
 - **Todos buscan ganar lo máximo.** La prudencia solo cambia cómo priorizan: cada agente estima, para su operación abierta, la probabilidad de que acabe ganando y cuánto suele ganar (con su historial y el tipo de mercado); el dinero va primero a las operaciones con más probabilidad^prudencia × ganancia (1 = nada conservador, 3 = muy conservador).
+- **¿Suerte o habilidad?** A los mejores candidatos se les calcula la **probabilidad de cumplir las condiciones en 3 meses** (miles de trimestres hechos con sus semanas reales mezcladas al azar) y se les hacen **ataques** en 2026: pagar el doble de comisiones, entrar una vela más tarde y quitarles su mejor mes. Se prefieren los que siguen ganando.
 - Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
 - **Cada lunes** se repite todo con los agentes que haya: si uno nuevo lo hace mejor, entra en el equipo; el dinero de cada puesto del podio sigue.
 

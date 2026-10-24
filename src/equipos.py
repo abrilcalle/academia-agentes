@@ -54,15 +54,21 @@ def regime_at(mk):
         return np.where(trend & (I.c > ma), 1, np.where(trend & (I.c < ma), 2, 0))
 
 
-def series(ac, ag, start):
+def series(ac, ag, start, variante=None):
     """Desde `start`, por día: rentabilidad, exposición al cierre, y para la operación abierta al cierre
-    la probabilidad estimada de acabar ganando (P) y la ganancia media cuando gana (G)."""
+    la probabilidad estimada de acabar ganando (P) y la ganancia media cuando gana (G).
+    variante: None, "comisiones_x2" (paga el doble de comisiones) o "vela_tarde" (entra y sale una vela más tarde)."""
     mk = ac.m(ag)
     h = mk.idx(HIST)
     if h >= mk.n - 1:
         return None
     w = ac.exposure(ag)
-    r = run(mk.I, w, h, mk.n - 1, ac.run_cfg())
+    cfg = ac.run_cfg()
+    if variante == "comisiones_x2":
+        cfg = dict(cfg, fee=cfg["fee"] * 2, slip=cfg["slip"] * 2, maker=cfg.get("maker", cfg["fee"]) * 2)
+    elif variante == "vela_tarde":
+        w = np.r_[0.0, np.asarray(w)[:-1]]
+    r = run(mk.I, w, h, mk.n - 1, cfg)
     reg = regime_at(mk)
     trades, open_i = [], None  # (vela de entrada, vela de salida, resultado)
     for t in r.trades:
@@ -110,7 +116,7 @@ def series(ac, ag, start):
     return [days[k] for k in keep], ret[keep], np.array(expo)[keep], P[keep], G[keep]
 
 
-def matrix(ac, agents, start, end):
+def matrix(ac, agents, start, end, variante=None):
     """Por día y miembro: rentabilidad R, exposición E, probabilidad P y ganancia G (alineados por fecha)."""
     days = []
     d = dt.date.fromisoformat(start)
@@ -121,9 +127,9 @@ def matrix(ac, agents, start, end):
     out = [np.zeros((len(agents), len(days))) for _ in range(4)]
     cache = ac.__dict__.setdefault("_series_cache", {})
     for j, ag in enumerate(agents):
-        key = (ag["id"], start)
+        key = (ag["id"], start, variante)
         if key not in cache:
-            cache[key] = series(ac, ag, start)
+            cache[key] = series(ac, ag, start, variante)
         s = cache[key]
         if s is None:
             continue
@@ -216,6 +222,49 @@ def objective(s, goal):
     return s["ret"] - 3 * miss
 
 
+# ------------------------------------------------------------------ ¿suerte o habilidad?
+
+def prob_cumplir(daily_ret, goal, n=2000, dias=91, bloque=7, seed=7):
+    """Probabilidad de cumplir las condiciones en los próximos 3 meses: se construyen miles de trimestres posibles
+    juntando semanas reales del equipo al azar (bloques de 7 días seguidos, para respetar las rachas)."""
+    r = np.asarray(daily_ret, float)
+    if len(r) < 60:
+        return None
+    rng = np.random.default_rng(seed)
+    nb = dias // bloque
+    starts = rng.integers(0, len(r) - bloque, size=(n, nb))
+    ok = 0
+    for row in starts:
+        path = np.concatenate([r[a:a + bloque] for a in row])
+        val = 100 * np.cumprod(1 + path)
+        wk = val[bloque - 1::bloque] / np.r_[100, val[bloque - 1::bloque][:-1]] - 1
+        peak = np.maximum.accumulate(np.r_[100, val])
+        st = dict(ret=float(val[-1] / 100 - 1), verde=float(np.mean(wk > GOOD)), peor=float(wk.min()),
+                  dd=float(np.max((peak - np.r_[100, val]) / peak)), semanas=len(wk))
+        ok += not fails(st, goal)
+    return ok / n
+
+
+def ataques(ac, mem, prm, k2, days):
+    """Pruebas duras en 2026: si con ellas el equipo deja de ganar, probablemente tuvo suerte."""
+    out = {}
+    for var in ("comisiones_x2", "vela_tarde"):
+        d, R, E, P, G = matrix(ac, mem, P1[0], days[-1], var)
+        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm)
+        out[var] = float(val[-1] / 100 - 1) if len(val) else 0.0
+    d, R, E, P, G = matrix(ac, mem, P1[0], days[-1])
+    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm)
+    rets = np.r_[val[0] / 100 - 1, val[1:] / val[:-1] - 1] if len(val) else np.array([])
+    months = {}
+    for dd_, r_ in zip(days[k2:], rets):
+        months.setdefault((dd_.year, dd_.month), []).append(r_)
+    gains = {m: np.prod(1 + np.array(v)) - 1 for m, v in months.items()}
+    if gains:
+        best = max(gains, key=gains.get)
+        out["sin_mejor_mes"] = float(np.prod([1 + g for m, g in gains.items() if m != best]) - 1)
+    return out
+
+
 # ------------------------------------------------------------------ formar equipos
 
 def build(ac, last_day, log=print):
@@ -284,6 +333,21 @@ def build(ac, last_day, log=print):
             teams.append(dict(team=team, prm=dict(prm, prudencia=pr), s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
                               rank=s2["verde"] + 2 * s2["ret"]))
     teams.sort(key=lambda t: (not t["f2"], t["rank"]), reverse=True)  # primero los que cumplen en 2026, luego semanas ganadas + ganancia
+    # a los mejores candidatos se les hacen los ataques y se calcula su probabilidad de cumplir en 3 meses
+    seen = []
+    for t in teams:
+        if len(seen) >= 10:
+            break
+        key = (tuple(sorted(t["team"])), t["prm"]["prudencia"])
+        if key in seen:
+            continue
+        seen.append(key)
+        mem = [cands[j] for j in t["team"]]
+        t["ataques"] = ataques(ac, mem, t["prm"], k2, days)
+        t["ataques_ok"] = all(v > 0 for v in t["ataques"].values())
+        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"])
+        t["prob"] = prob_cumplir(np.r_[vall[0] / 100 - 1, vall[1:] / vall[:-1] - 1], goal)
+    teams.sort(key=lambda t: (not t["f2"], t.get("ataques_ok", False), (t.get("prob") or 0) + t["rank"]), reverse=True)
     podium, used = [], []
     for t in teams:  # 3 equipos distintos (si hay)
         key = (sorted(t["team"]), t["prm"]["prudencia"])
@@ -305,7 +369,8 @@ def build(ac, last_day, log=print):
         if t is None:
             out[slot] = dict(motivo="No hay suficientes combinaciones distintas.")
             continue
-        out[slot] = dict(miembros=[cands[j]["id"] for j in t["team"]], params=t["prm"], pruebas=dict(p1=t["s1"], p2=t["s2"]),
+        out[slot] = dict(miembros=[cands[j]["id"] for j in t["team"]], params=t["prm"],
+                         pruebas=dict(p1=t["s1"], p2=t["s2"], prob=t.get("prob"), ataques=t.get("ataques")),
                          cumple="; ".join(t["f2"]) or None)
         log(f"{info['nombre']} ({info['puesto']}º): {', '.join(cands[j]['name'] + ' (' + cands[j].get('activo', 'BTC-EUR').split('-')[0] + ')' for j in t['team'])} | "
             f"prudencia {t['prm']['prudencia']} | 2024–25 {t['s1']['ret'] * 100:+.1f} % | 2026 {t['s2']['ret'] * 100:+.1f} %, "

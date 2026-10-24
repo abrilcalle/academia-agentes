@@ -251,6 +251,19 @@ def sim_html(ac, sim, cola, cfg):
 ASSET_COL = {"BTC": "#F2A900", "ETH": "#6F7CF2", "SOL": "#14B88A", "XRP": "#3B8FD9", "EUR": "var(--line)"}
 
 
+def robust_html(pr):
+    """Probabilidad de cumplir en 3 meses y ataques (¿suerte o habilidad?)."""
+    prob, at = pr.get("prob"), pr.get("ataques") or {}
+    if prob is None and not at:
+        return ""
+    names = {"comisiones_x2": "pagando el doble de comisiones", "vela_tarde": "entrando una vela más tarde", "sin_mejor_mes": "sin su mejor mes"}
+    items = "".join(f'<li>{"✅" if v > 0 else "❌"} {e(names.get(k, k))}: {pct(v)} en 2026</li>' for k, v in at.items())
+    col = "up" if (prob or 0) >= 0.5 else "down" if (prob or 0) < 0.25 else ""
+    return (f'<div class="kpis" style="grid-template-columns:1fr"><div class="kpi"><b class="{col}">{(prob or 0) * 100:.0f} %</b>'
+            f'<span>probabilidad de cumplir tus condiciones en los próximos 3 meses (mezclando al azar miles de veces sus semanas reales)</span></div></div>'
+            + (f'<div style="font-size:.82rem"><strong>Ataques</strong> (si deja de ganar, puede que tuviera suerte):<ul style="margin:4px 0 0;padding-left:18px">{items}</ul></div>' if items else ""))
+
+
 def team_card(tm, cfg, agents_by_id, lead=False):
     from equipos import PRUDENCIAS, TIPOS
     info = TIPOS.get(tm["id"], dict(nombre=tm["id"], puesto=0))
@@ -324,6 +337,7 @@ def team_card(tm, cfg, agents_by_id, lead=False):
 <div><p class="eyebrow" style="margin-bottom:6px">Dónde está el dinero ahora</p><div class="stack">{bar}</div><div class="legend" style="margin-top:6px">{legend}</div></div>
 <div class="members"><p class="eyebrow">Miembros y dinero que maneja cada uno</p>{''.join(rows)}</div>
 {'<div class="weeks">' + ''.join(weeks_rows) + '</div>' if weeks_rows else ''}
+{robust_html(per.get('pruebas', {}))}
 <details><summary>Cómo se eligió este equipo</summary><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:.85rem">
 <p>1) Pasaron todos los agentes que ganaron dinero en su examen de 2024–25. 2) Con ellos se formaron equipos usando solo 2024–25, con cada grado de prudencia y forma de repartir. 3) Cada equipo hizo la prueba de 2026 (enero–hoy). 4) Se quedaron los 3 mejores: primero los que más semanas ganaron y, entre parecidos, el que más ganó.</p>
 <p class="mono" style="font-size:.8rem">2024–25: {pct(p1['ret'])} · ganó el {p1['verde'] * 100:.0f} % de las semanas · peor semana {pct(p1['peor'])}<br>2026: {pct(p2['ret'])} · ganó el {p2['verde'] * 100:.0f} % de las semanas · peor semana {pct(p2['peor'])}</p>
