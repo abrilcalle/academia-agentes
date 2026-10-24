@@ -35,7 +35,8 @@ def pools(bpd):
 
 
 KINDS_ENTRY = ["sobre_media", "cruce_alcista", "rsi_bajo", "rompe_maximo", "impulso_sube", "vol_baja", "z_bajo",
-               "macd_pos", "impulso_baja", "bajo_media", "ema_sobre_vwap", "ema_cruza_vwap"]
+               "macd_pos", "impulso_baja", "bajo_media", "ema_sobre_vwap", "ema_cruza_vwap",
+               "rebota_poc", "rompe_vah"]
 # figuras de chartismo (ver patterns.py)
 PATTERNS_ENTRY = ["doble_suelo", "triple_suelo", "hch_invertido", "triangulo", "bandera", "rebote_soporte",
                   "ruptura_volumen", "volumen_alto"]
@@ -48,7 +49,7 @@ KINDS_ENTRY = KINDS_ENTRY + PATTERNS_ENTRY + FLOW_ENTRY + REGIME
 # estacionalidad: a qué hora y qué día de la semana (solo en velas de 1 y 4 horas)
 SEASON = ["franja_horaria", "dia_semana"]
 KINDS_EXIT = ["bajo_media", "cruce_bajista", "rsi_alto", "pierde_minimo", "impulso_baja", "vol_alta", "z_alto",
-              "macd_neg", "sobre_media", "bajo_ema", "ema_bajo_vwap"] + PATTERNS_EXIT + FLOW_EXIT
+              "macd_neg", "sobre_media", "bajo_ema", "ema_bajo_vwap", "pierde_poc", "llega_vah"] + PATTERNS_EXIT + FLOW_EXIT
 
 
 def random_cond(rng, kinds, P, kronos=False):
@@ -56,6 +57,8 @@ def random_cond(rng, kinds, P, kronos=False):
         kinds = SEASON
     ks = list(kinds) + (["kronos_alcista"] if kronos and "rsi_bajo" in kinds else []) + (["kronos_bajista"] if kronos and "rsi_alto" in kinds else [])
     k = rng.choice(ks)
+    if k in ("rebota_poc", "pierde_poc", "rompe_vah", "llega_vah"):
+        return [k, rng.choice([0.001, 0.002, 0.005])]
     if k in ("ema_sobre_vwap", "ema_bajo_vwap", "bajo_ema", "sobre_ema", "ema_cruza_vwap"):
         return [k, rng.choice([5, 9, 13, 21])]
     if k in ("sobre_media", "bajo_media", "rompe_maximo", "pierde_minimo"):
@@ -105,6 +108,17 @@ def cond_array(I, c, kronos=None):
     if k == "_mask":  # condición precalculada (el detector de régimen de los operadores diarios)
         return I._m[c[1]]
     with np.errstate(invalid="ignore"):
+        if k in ("rebota_poc", "pierde_poc", "rompe_vah", "llega_vah"):
+            poc, vah, val = I.vp_prev()
+            t = c[1]
+            prev_c = np.r_[np.nan, I.c[:-1]]
+            if k == "rebota_poc":  # baja hasta el POC de la sesión anterior y la vela cierra por encima: rebote
+                return (I.l <= poc * (1 + t)) & (I.c > poc * (1 + t)) & (prev_c > poc)
+            if k == "pierde_poc":
+                return I.c < poc * (1 - t)
+            if k == "rompe_vah":  # cruza hacia arriba el techo de la zona de valor: zona de poco volumen, suele ir rápido
+                return (I.c > vah * (1 + t)) & (prev_c <= vah * (1 + t))
+            return I.h >= vah * (1 - t)
         if k == "ema_sobre_vwap":  # la EMA rápida está (o acaba de cruzar) por encima del VWAP del día
             return I.ema(c[1]) > I.vwap_d()
         if k == "ema_bajo_vwap":
@@ -195,6 +209,10 @@ def cond_text(c, bpd):
     S = lambda n: span(n, bpd)  # noqa: E731
     W = lambda n: "en la vela" if n == 1 else ("en el último día" if n == bpd else f"durante {S(n)}")  # noqa: E731
     t = {
+        "rebota_poc": lambda: "el precio baja hasta el POC (precio con más volumen) de la sesión anterior y rebota",
+        "pierde_poc": lambda: "una vela cierra por debajo del POC de la sesión anterior",
+        "rompe_vah": lambda: "rompe hacia arriba el techo de la zona de valor (VAH) de la sesión anterior",
+        "llega_vah": lambda: "llega al techo de la zona de valor (VAH) de la sesión anterior",
         "ema_sobre_vwap": lambda: f"la EMA de {c[1]} velas está por encima del VWAP del día",
         "ema_bajo_vwap": lambda: f"la EMA de {c[1]} velas está por debajo del VWAP del día",
         "ema_cruza_vwap": lambda: f"la EMA de {c[1]} velas cruza hacia arriba el VWAP del día",

@@ -156,6 +156,50 @@ class Ind:
             return out
         return self._memo(("vwap_d",), f)
 
+    def vp_prev(self, bins=40, area=0.7):
+        """Perfil de volumen de la sesión anterior (el día anterior en velas de 1 h / 4 h; los 20 días anteriores en
+        velas diarias). Devuelve (POC, VAH, VAL) por vela: POC = precio con más volumen; VAH/VAL = techo y suelo de la
+        zona donde se negoció el 70 % del volumen. El volumen de cada vela se reparte entre su mínimo y su máximo."""
+        def f():
+            n = self.n
+            poc, vah, val = (np.full(n, np.nan) for _ in range(3))
+            v = self.v if self.v is not None else np.ones(n)
+            v = np.where(np.isnan(v) | (v <= 0), 0.0, v)
+            hour = getattr(self, "hour", None)
+            if self.bpy > 365 and hour is not None:
+                starts = [i for i in range(n) if hour[i] == 0 or i == 0]
+                sessions = list(zip(starts, starts[1:] + [n]))
+            else:  # velas diarias: bloques de 20 días
+                sessions = [(i, min(i + 20, n)) for i in range(0, n, 20)]
+            prev = None
+            for a, b in sessions:
+                if prev is not None:
+                    pa, pb = prev
+                    lo, hi = np.nanmin(self.l[pa:pb]), np.nanmax(self.h[pa:pb])
+                    if hi > lo:
+                        edges = np.linspace(lo, hi, bins + 1)
+                        vol = np.zeros(bins)
+                        for i in range(pa, pb):
+                            ia = max(0, min(bins - 1, int((self.l[i] - lo) / (hi - lo) * bins)))
+                            ib = max(0, min(bins - 1, int((self.h[i] - lo) / (hi - lo) * bins)))
+                            vol[ia:ib + 1] += v[i] / (ib - ia + 1)
+                        k = int(np.argmax(vol))
+                        lo_k, hi_k, tot = k, k, vol[k]
+                        while tot < area * vol.sum() and (lo_k > 0 or hi_k < bins - 1):
+                            dn = vol[lo_k - 1] if lo_k > 0 else -1
+                            up = vol[hi_k + 1] if hi_k < bins - 1 else -1
+                            if up >= dn:
+                                hi_k += 1
+                                tot += up
+                            else:
+                                lo_k -= 1
+                                tot += dn
+                        mid = (edges[:-1] + edges[1:]) / 2
+                        poc[a:b], vah[a:b], val[a:b] = mid[k], edges[hi_k + 1], edges[lo_k]
+                prev = (a, b)
+            return poc, vah, val
+        return self._memo(("vp_prev", bins, area), f)
+
     def er(self, n):
         """Eficiencia de Kaufman (0 = lateral, 1 = tendencia limpia) de las últimas n velas."""
         def f():

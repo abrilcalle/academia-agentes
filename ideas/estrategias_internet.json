@@ -5500,6 +5500,111 @@
         ],
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "Rebote en el POC del día anterior (Volume Profile)",
+      "fuente": "Vídeo 'The BEST Volume Profile Trading Guide' (TikTok) enviado por Abril el 24/10/2026",
+      "idea": "Comprar cuando el precio vuelve al precio con más volumen (POC) de la sesión anterior y rebota; salir si cierra por debajo del POC o al llegar al techo de la zona de valor.",
+      "regla": {
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "entry": [
+          [
+            "rebota_poc",
+            0.002
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.002
+          ],
+          [
+            "llega_vah",
+            0.001
+          ]
+        ]
+      }
+    },
+    {
+      "nombre": "Rebote en el POC a favor de tendencia (Volume Profile)",
+      "fuente": "Vídeo 'The BEST Volume Profile Trading Guide' (TikTok) enviado por Abril el 24/10/2026",
+      "idea": "El rebote en el POC de la sesión anterior, pero solo si el precio está por encima de su media larga.",
+      "regla": {
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "entry": [
+          [
+            "rebota_poc",
+            0.002
+          ],
+          [
+            "sobre_media",
+            300
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.002
+          ],
+          [
+            "llega_vah",
+            0.001
+          ]
+        ]
+      }
+    },
+    {
+      "nombre": "Ruptura de la zona de valor (Volume Profile)",
+      "fuente": "Vídeo 'The BEST Volume Profile Trading Guide' (TikTok) enviado por Abril el 24/10/2026",
+      "idea": "Comprar cuando el precio rompe hacia arriba el techo de la zona de valor de la sesión anterior (zona de poco volumen, suele moverse rápido); salir si vuelve bajo el POC o a los 2 días.",
+      "regla": {
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "entry": [
+          [
+            "rompe_vah",
+            0.001
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.002
+          ]
+        ]
+      }
     }
   ]
 }

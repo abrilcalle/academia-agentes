@@ -13,6 +13,7 @@ Piezas permitidas en "entry" y "exit" (lista de condiciones; entrada = todas, sa
   Flujo de órdenes (delta = compras agresivas menos ventas agresivas, de Binance desde 2020):
   ["delta_compra", N, nivel] ["delta_venta", N, nivel] ["absorcion", veces_volumen] ["divergencia_delta", N]
   VWAP y EMA: ["ema_cruza_vwap", N] (en la vela del cruce) ["ema_sobre_vwap", N] ["ema_bajo_vwap", N] (EMA de N velas frente al VWAP anclado al día), ["bajo_ema", N] ["sobre_ema", N]
+  Perfil de volumen de la sesión anterior: ["rebota_poc", tol] ["pierde_poc", tol] ["rompe_vah", tol] ["llega_vah", tol]
   Estacionalidad (solo agentes de 1h y 4h): ["franja_horaria", hora_inicio_UTC, horas] ["dia_semana", [0..6]] (0 = lunes)
   Régimen: ["en_tendencia", N, eficiencia] ["mercado_lateral", N, eficiencia]
   (N = número de velas; pct, tol y subida en tanto por uno: 0.05 = 5 %)
