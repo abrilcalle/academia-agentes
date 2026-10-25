@@ -231,7 +231,7 @@ def evolve(mk, seeds, window, cfg, rng, temper, kronos=None, pop=30, gens=15):
             cache[key] = robust(mk, exposure(mk.I, rule, kronos, mk.bpd), window, cfg, temper)
         return cache[key]
 
-    popn = list(seeds)[: pop // 3]
+    popn = list(seeds)[: pop // 2]
     popn += [mutate(rng, rng.choice(seeds), P, kr) for _ in range(pop // 3)] if seeds else []
     while len(popn) < pop:
         popn.append(random_rule(rng, P, kr))

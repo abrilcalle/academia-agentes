@@ -85,7 +85,8 @@
     "generaciones_inventor": 15,
     "usar_kronos": true,
     "parte_hijos": 0.3,
-    "_nota_hijos": "Solo esta parte de los agentes nuevos parten de las reglas de un ganador (hijos); los demás empiezan de cero con estrategias distintas, para que siempre se prueben cosas nuevas."
+    "_nota_hijos": "Solo esta parte de los agentes nuevos parten de las reglas de un ganador (hijos); los demás empiezan de cero con estrategias distintas, para que siempre se prueben cosas nuevas.",
+    "ideas_por_agente": 5
   },
   "operadores_diarios": {
     "_nota": "Agentes con una estrategia para cada tipo de mercado (alcista, lateral, bajista). Objetivo: acabar las semanas en positivo tras comisiones operando 2-3 días por semana (no hace falta cada día).",

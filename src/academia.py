@@ -286,14 +286,16 @@ class Academia:
             for nm in x.get("ideas_internet", []):
                 uso[nm] = uso.get(nm, 0) + 1
         orden = sorted(ideas, key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))
-        estudiadas = orden[:2]
+        estudiadas = orden[:self.cfg["fabrica"].get("ideas_por_agente", 5)]
+        ideas_seeds = []
         for idea in estudiadas:  # estrategias de cursos, vídeos y artículos de internet
             r = dict(idea["regla"])
             r["entry"] = [list(x) for x in r["entry"]]
             r["exit"] = [list(x) for x in r["exit"]]
-            seeds.append(r)
+            ideas_seeds.append(r)
         ag["ideas_internet"] = [i["nombre"] for i in estudiadas]
         padres = self.parents(ag, "clasico")
+        seeds[:0] = ideas_seeds  # las ideas de internet van delante para que el inventor las pruebe seguro
         seeds[:0] = [json.loads(json.dumps(x["regla"])) for x in padres]  # aprende de los que ya ganan con dinero ficticio
         ag["padres"] = [x["name"] for x in padres]
         if kr is not None:  # con previsiones de Kronos disponibles, "ceñirse a Kronos" siempre es una opción de partida
@@ -403,7 +405,7 @@ class Academia:
             for nm in x.get("ideas_internet", []):
                 uso[nm] = uso.get(nm, 0) + 1
         ideas = sorted([i for i in self.ideas_for(ag.get("activo", self.cfg["mercado"]))
-                        if diario.ALLOW_SHORT or i["regla"].get("lado") != "corto"], key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:3]
+                        if diario.ALLOW_SHORT or i["regla"].get("lado") != "corto"], key=lambda i: (uso.get(i["nombre"], 0), self.rng.random()))[:self.cfg["fabrica"].get("ideas_por_agente", 5)]
         for idea in ideas:
             seeds.append(diario.from_sub(self.rng, P, kr is not None, idea["regla"]))
         for _ in range(2):
