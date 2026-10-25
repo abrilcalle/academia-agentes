@@ -306,6 +306,10 @@ def _describe(rule, bpd):
         g.append("cuanto más gana, más ajusta el stop")
     if g:
         s += " Gestión: " + "; ".join(g) + "."
+    if rule.get("escalera"):
+        e_ = rule["escalera"] * 100
+        s += (f" Escalera: empieza con stop a −{e_:g} % y objetivo a +{2 * e_:g} %; cada vez que el precio sube un {e_:g} %, "
+              f"stop y objetivo suben otro {e_:g} % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado).").replace(".", ",", 2)
     if rule.get("frac", 1.0) < 1:
         s += f" Usa el {rule['frac'] * 100:.0f} % del fondo en cada operación."
     if rule["sizing"] == "riesgo":
@@ -329,8 +333,11 @@ def random_rule(rng, P, kronos=False):
     return r
 
 
+ESCALERA = [0, 0, 0, 0.01, 0.02, 0.03, 0.05]  # tamaño del escalón (0 = sin escalera)
+
+
 def _random_rule(rng, P, kronos=False):
-    return dict(entry=[random_cond(rng, KINDS_ENTRY, P, kronos) for _ in range(rng.randint(1, 3))],
+    return dict(escalera=rng.choice(ESCALERA), entry=[random_cond(rng, KINDS_ENTRY, P, kronos) for _ in range(rng.randint(1, 3))],
                 exit=[random_cond(rng, KINDS_EXIT, P, kronos) for _ in range(rng.randint(1, 2))],
                 stop=rng.choice([0, 0, 2, 3, 4]), tp=rng.choice(TP + (["kronos"] if kronos else [])),
                 trail=rng.choice(TRAIL), hold=rng.choice([0, 0, 3, 10, 30]),
@@ -379,6 +386,8 @@ def _exposure(I, rule, kronos=None, bpd=1):
     w = [0.0] * I.n
     pos, entry_px, best, since, target, blocked = False, 0.0, 0.0, 0, 0.0, False
     size, floor = 1.0, 0.0
+    esc = rule.get("escalera", 0)  # escalera: stop a 1 escalón por debajo y objetivo a 2 por encima; suben juntos
+    lvl, esc_stop, esc_tp = 0, 0.0, 0.0
     for i in range(I.n):
         px = C[i]
         if blocked and not ent_l[i]:
@@ -388,6 +397,8 @@ def _exposure(I, rule, kronos=None, bpd=1):
                 pos, entry_px, best, since = True, px, px, 0
                 size = 0.5 if pyr else 1.0
                 floor = 0.0
+                if esc:
+                    lvl, esc_stop, esc_tp = 0, px * (1 - esc), px * (1 + 2 * esc)
                 if tp == "kronos":  # objetivo = precio que prevé Kronos al entrar
                     m = kmed[i]
                     target = px * (1 + m) if (m == m and m > 0.005) else px * 1.05
@@ -416,6 +427,16 @@ def _exposure(I, rule, kronos=None, bpd=1):
                     forced = True
             if floor and px < floor:
                 forced = True
+            if esc:
+                if px >= esc_tp:  # el precio saltó de golpe más allá del objetivo: se cobra
+                    forced = True
+                elif px <= esc_stop:  # tocó el stop: sale, con la ganancia que ya se había asegurado
+                    forced = True
+                else:  # cada escalón que sube, stop y objetivo suben uno
+                    while px >= entry_px * (1 + (lvl + 1) * esc):
+                        lvl += 1
+                    esc_stop = max(esc_stop, entry_px * (1 + (lvl - 1) * esc))
+                    esc_tp = max(esc_tp, entry_px * (1 + (lvl + 2) * esc))
             if forced:
                 out, blocked = True, True
             if hold and since >= hold:
@@ -484,6 +505,10 @@ def mutate(rng, rule, P, kronos=False):
 
 
 def _mutate(rng, rule, P, kronos=False):
+    if rng.random() < 0.06:
+        r = dict(rule)
+        r["escalera"] = rng.choice(ESCALERA)
+        return r
     r = {k: (v[:] if isinstance(v, list) else v) for k, v in rule.items()}
     r["entry"] = [c[:] for c in rule["entry"]]
     r["exit"] = [c[:] for c in rule["exit"]]
@@ -543,6 +568,7 @@ def _tweak(rng, c, P):
 
 def cross(rng, a, b):
     r = _cross(rng, a, b)
+    r["escalera"] = rng.choice([a.get("escalera", 0), b.get("escalera", 0)])
     if a.get("lado"):
         r["lado"] = a["lado"]
     return r

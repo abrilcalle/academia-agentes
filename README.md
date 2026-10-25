@@ -35,6 +35,11 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 - Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
 - **Cada lunes** se repite todo con los agentes que haya: si uno nuevo lo hace mejor, entra en el equipo; el dinero de cada puesto del podio sigue.
 
+## Escalera (stop y objetivo que suben juntos)
+
+- Idea de Abril: al entrar, stop a 1 escalón por debajo y objetivo a 2 por encima (por ejemplo con escalones del 1 %: entra a 100, stop 99, objetivo 102). Cada vez que el precio sube un escalón, **stop y objetivo suben uno** (a 101: stop 100, objetivo 103; a 102: stop 101, objetivo 104…). Si sigue subiendo, el agente sigue dentro; si se da la vuelta, sale con la ganancia ya asegurada. Solo cobra el objetivo si el precio salta de golpe más de un escalón.
+- Es una pieza más del genoma (`escalera`: 1 %, 2 %, 3 % o 5 %): los agentes la prueban y se quedan con ella si les funciona en sus exámenes.
+
 ## Gemelos en corto
 
 - Cada agente aprobado (que solo compra) tiene un **gemelo** que hace lo mismo **vendiendo en corto, y solo cuando el mercado está en tendencia bajista** (precio bajo su media de 200 días). Así, cuando baja, también hay agentes que pueden ganar.

@@ -20,6 +20,7 @@ Piezas permitidas en "entry" y "exit" (lista de condiciones; entrada = todas, sa
 Gestión: stop (ATR: 0, 2, 3, 4), tp (0 o tanto por uno), trail (0 o tanto por uno), hold (días, 0 = sin límite),
   sizing ("completo" o "riesgo"), frac (0.2-1), be (tanto por uno), stall (días), pyr (tanto por uno), shrink (true/false),
   min_net (opcional, por defecto 0.01: la señal de salida solo cierra si el precio ya subió eso desde la compra),
+  escalera (opcional, tanto por uno: stop a 1 escalón bajo la entrada y objetivo a 2 por encima; cada escalón que sube el precio, ambos suben uno),
   salida_siempre (opcional, true: la señal de salida cierra siempre, aunque pierda; para estrategias cuya salida es su stop),
   lado (opcional: "largo" o "corto"; en corto las reglas se aplican al gráfico dado la vuelta, para ganar cuando baja).
 Campo opcional de la idea: "activos": lista de mercados de config.json (["BTC-EUR", "ETH-EUR", "SOL-EUR", "XRP-EUR"]);
@@ -56,7 +57,7 @@ def main():
             for f in ("nombre", "fuente", "idea", "regla"):
                 assert idea.get(f), f"falta '{f}'"
             r = idea["regla"]
-            extra = {"min_net", "lado", "salida_siempre"}
+            extra = {"min_net", "lado", "salida_siempre", "escalera"}
             assert KEYS <= set(r) <= KEYS | extra, f"campos de la regla: faltan {KEYS - set(r)}, sobran {set(r) - KEYS - extra}"
             assert r.get("lado", "largo") in ("largo", "corto"), "lado debe ser largo o corto"
             for a in idea.get("activos", []):
