@@ -35,6 +35,12 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 - Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
 - **Cada lunes** se repite todo con los agentes que haya: si uno nuevo lo hace mejor, entra en el equipo; el dinero de cada puesto del podio sigue.
 
+## Gemelos en corto
+
+- Cada agente aprobado (que solo compra) tiene un **gemelo** que hace lo mismo **vendiendo en corto, y solo cuando el mercado está en tendencia bajista** (precio bajo su media de 200 días). Así, cuando baja, también hay agentes que pueden ganar.
+- Se le examina donde importa: en 2022–23 (con el año bajista 2022) tiene que ganar al menos un 10 %, y no puede caer más de un 40 % (`gemelos_corto` en `config.json`). Los aprobados pueden entrar en los equipos aunque pierdan en los años alcistas.
+- Los equipos tienen entre **3 y 6 agentes**.
+
 ## Hijos
 
 - Solo el 30 % de los agentes nuevos son hijos (`fabrica.parte_hijos`); el resto empieza de cero, para que siempre se prueben cosas distintas. Los hijos parten también de las reglas de los 2 que más ganan en simulado (mismo mercado, temporalidad y tipo; si su mercado aún no tiene ganadores, de otro mercado).

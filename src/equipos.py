@@ -42,6 +42,7 @@ PARAMS = [dict(reserva=r, cap=c) for r, c in itertools.product([0.1, 0.25, 0.5],
 HIST = "2022-01-01"                 # desde aquí se recuerdan las operaciones de cada agente para estimar probabilidades
 P1 = ("2024-01-01", "2025-12-31")   # se buscan con estos años
 P2_FROM = "2026-01-01"              # y deben cumplir también en 2026 hasta hoy
+MIN_MIEMBROS = 3                    # al menos 3 agentes por equipo, para repartir el riesgo y poder comparar equipos
 MAX_MIEMBROS = 6
 COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes (comisión + algo de deslizamiento)
 GOOD = 0.0001                       # una semana es buena solo si gana (más de un 0,01 %)
@@ -364,7 +365,11 @@ def build(ac, last_day, log=print):
     days, R, E, P, G = matrix(ac, cands, P1[0], last_day)
     p1_end = dt.date.fromisoformat(P1[1])
     k1 = sum(1 for d in days if d <= p1_end)
-    keep = [j for j in range(len(cands)) if np.prod(1 + R[j, :k1]) - 1 > 0]
+    def is_short(a):
+        return a.get("lado") == "corto" and a["status"] != "suspendido"
+    # pasan los que ganan en 2024–25 y, además, los gemelos en corto aprobados (ganan cuando el mercado baja,
+    # así que en los años alcistas de 2024–25 es normal que pierdan)
+    keep = [j for j in range(len(cands)) if np.prod(1 + R[j, :k1]) - 1 > 0 or is_short(cands[j])]
     cands = [cands[j] for j in keep]
     R, E, P, G = R[keep], E[keep], P[keep], G[keep]
     if len(cands) < 2:
@@ -376,8 +381,17 @@ def build(ac, last_day, log=print):
     for j in np.argsort(-sharpe):  # los 24 mejores en 2024–25, sin dos que se muevan casi igual
         if len(chosen) >= 24:
             break
-        if R[j, :k1].std() == 0 or R[j, :k1].sum() <= 0:
+        if is_short(cands[j]) or R[j, :k1].std() == 0 or R[j, :k1].sum() <= 0:
             continue
+        if any(np.corrcoef(R[j, :k1], R[i, :k1])[0, 1] > 0.9 for i in chosen):
+            continue
+        chosen.append(int(j))
+    # y hasta 8 gemelos en corto (los que más ganaron en 2022–23), para que el equipo pueda ganar cuando baja
+    shorts = sorted([j for j in range(len(cands)) if is_short(cands[j]) and R[j, :k1].std() > 0],
+                    key=lambda j: -(cands[j].get("validacion_corto") or {}).get("ret", 0))
+    for j in shorts:
+        if sum(is_short(cands[i]) for i in chosen) >= 8:
+            break
         if any(np.corrcoef(R[j, :k1], R[i, :k1])[0, 1] > 0.9 for i in chosen):
             continue
         chosen.append(int(j))
@@ -396,10 +410,10 @@ def build(ac, last_day, log=print):
                     sc = objective(stats(days[:k1], val), goal)
                     if add is None or sc > add[0]:
                         add = (sc, j)
-                if add is None or (team and add[0] <= cur + 1e-4):
+                if add is None or (len(team) >= MIN_MIEMBROS and add[0] <= cur + 1e-4):
                     break
                 cur, team = add[0], team + [add[1]]
-            if len(team) < 2:
+            if len(team) < MIN_MIEMBROS:
                 continue
             v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm)
             v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm)

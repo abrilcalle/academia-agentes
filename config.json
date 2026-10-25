@@ -166,5 +166,10 @@
     "ganancia_minima_anual_pct": 10,
     "caida_maxima_pct": 25,
     "meses": 3
+  },
+  "gemelos_corto": {
+    "_nota": "Cada agente aprobado tiene un gemelo que hace lo mismo vendiendo en corto. Se le examina en 2022–23 (incluye el año bajista 2022): tiene que ganar al menos esto, y no caer más de este % ni en 2022–23 ni en 2024–25.",
+    "ganancia_minima_2022_23_pct": 10,
+    "caida_maxima_pct": 40
   }
 }

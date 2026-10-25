@@ -201,12 +201,21 @@ class Academia:
         if ag["id"] not in self._w:
             mk = self.m(ag)
             kr = self.kr_ag(ag)
+            I = mk.I
+            if ag.get("lado") == "corto":  # gemelo en corto: la misma estrategia sobre el gráfico dado la vuelta
+                I = diario.inverted(mk.I)
+                kr = None if kr is None else dict(med=-kr["med"], up=1 - kr["up"])
             if ag.get("estilo") == "diario":
-                w = diario.exposure(mk.I, ag["regla"], kr, mk.bpd)
+                w = diario.exposure(I, ag["regla"], kr, mk.bpd)
             elif ag["eleccion"] == "propia":
-                w = inventor.exposure(mk.I, ag["regla"], kr, mk.bpd)
+                w = inventor.exposure(I, ag["regla"], kr, mk.bpd)
             else:
-                w = signal(mk.I, ag["genome"], ag["params"], kr)
+                w = signal(I, ag["genome"], ag["params"], kr)
+            if ag.get("lado") == "corto":
+                # solo vende en corto cuando el mercado está en tendencia bajista (precio bajo su media de 200 días)
+                with np.errstate(invalid="ignore"):
+                    bajista = np.nan_to_num(mk.I.c < mk.I.sma(200 * mk.bpd)).astype(bool)
+                w = -np.asarray(w) * bajista
             self._w[ag["id"]] = w
         return self._w[ag["id"]]
 
@@ -502,6 +511,47 @@ class Academia:
                             f"la prueba de 2026 se hace en equipo (solo, en 2026 hizo {pc(r.ret)}).")
         return True
 
+    def short_twins(self):
+        """Gemelos en corto: cada agente aprobado (que solo compra) tiene un gemelo que hace lo mismo pero vendiendo
+        en corto, y SOLO cuando el mercado está en tendencia bajista (bajo su media de 200 días), para ganar cuando baja. Se le examina donde importa: en 2022–23, que incluye el año
+        bajista de 2022, tiene que ganar; y en 2024–25 (alcista) no puede hundirse."""
+        if not diario.ALLOW_SHORT:
+            return
+        cg = self.cfg.get("gemelos_corto", {"ganancia_minima_2022_23_pct": 10, "caida_maxima_pct": 40})
+        cfg = self.run_cfg()
+        have = {x.get("gemelo_de") for x in self.state["agents"]}
+        made = 0
+        for ag in [a for a in self.state["agents"] if a["status"] in ("simulado", "listo") and a.get("lado") != "corto"
+                   and not (a.get("regla") or {}).get("lado") == "corto" and a.get("estilo") != "diario"
+                   and a["id"] not in have and self.has_market(a)]:
+            tw = dict(ag)
+            for k in ("paper", "paper_start", "exam2", "exam2_semanas", "firma2026", "firma", "padres", "exam2_nota"):
+                tw.pop(k, None)
+            tw.update(id=hashlib.sha1(f"{ag['id']}corto".encode()).hexdigest()[:10], name=f"{ag['name']} ↓", lado="corto",
+                      gemelo_de=ag["id"], born=self.today.isoformat(), usa_cortos=True,
+                      label=f"{ag['label']} (en corto)", desc="VENDE EN CORTO la misma estrategia que " + ag["name"] + ": " + ag.get("desc", ""))
+            mk = self.m(tw)
+            w = self.exposure(tw)
+            va, ex = self.window(mk, "validacion"), self.window(mk, "examen")
+            rv, re = run(mk.I, w, va[0], va[1], cfg), run(mk.I, w, ex[0], ex[1], cfg)
+            tw.update(validacion_corto=rv.summary(), exam=re.summary(), examinado=self.today.isoformat())
+            fails = []
+            if rv.ret * 100 < cg["ganancia_minima_2022_23_pct"]:
+                fails.append(f"en 2022–23 (con el año bajista) ganó {pc(rv.ret)} (mínimo +{cg['ganancia_minima_2022_23_pct']} %)")
+            if re.maxdd * 100 > cg["caida_maxima_pct"] or rv.maxdd * 100 > cg["caida_maxima_pct"]:
+                fails.append(f"llegó a caer un {max(re.maxdd, rv.maxdd) * 100:.0f} % (máximo {cg['caida_maxima_pct']} %)")
+            if fails:
+                tw["status"], tw["motivo"] = "suspendido", "Gemelo en corto que no aprobó: " + "; ".join(fails) + "."
+            else:
+                tw["status"], tw["motivo"] = "cola", f"Gemelo en corto aprobado: ganó {pc(rv.ret)} en 2022–23 vendiendo en corto."
+            self.state["agents"].append(tw)
+            made += 1
+            if tw["status"] == "cola":
+                self.exam2(tw)
+        if made:
+            ok = sum(1 for x in self.state["agents"][-made:] if x["status"] != "suspendido")
+            self.log(f"Gemelos en corto: {made} creados, {ok} aprobados.")
+
     def make_agent(self):
         fz = self.cfg["fabrica"]
         cd = self.cfg.get("operadores_diarios")
@@ -654,6 +704,7 @@ class Academia:
     def day(self, fabrica=True):
         if fabrica:
             self.factory()
+        self.short_twins()
         self.paper()
         try:
             equipos.update(self, self.log)
