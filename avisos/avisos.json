@@ -58,6 +58,14 @@
       "titulo": "QuanterLab como segunda opinión de las pruebas",
       "texto": "Antes de pasar a dinero real, comprobar las estrategias del equipo ganador con una herramienta externa de backtest y walk-forward (QuanterLab, del directorio de Claude; necesita cuenta) para asegurarnos de que nuestro motor no se equivoca.",
       "estado": "pendiente"
+    },
+    {
+      "id": "idea-mapas-liquidaciones",
+      "fecha": "2026-10-25",
+      "tipo": "idea",
+      "titulo": "Mapas de liquidaciones",
+      "texto": "Usar los niveles donde se cerrarían a la fuerza muchas posiciones apalancadas (el precio suele ir a buscarlos) como información extra para los agentes. Visto en un vídeo de Alejo Rolls. Pegas: los datos suelen ser de pago (Coinglass) y sin historial de años, que es lo que hace falta para examinar a los agentes.",
+      "estado": "pendiente"
     }
   ]
 }
