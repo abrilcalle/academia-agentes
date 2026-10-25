@@ -38,7 +38,7 @@ TIPOS = {
 PRUDENCIAS = {1: "nada conservador: prioriza por probabilidad × ganancia",
               2: "algo conservador: da más peso a la probabilidad",
               3: "muy conservador: prioriza las operaciones más seguras"}
-PARAMS = [dict(reserva=r, cap=c) for r, c in itertools.product([0.1, 0.25, 0.5], [0.35, 0.6, 1.0])]
+PARAMS = [dict(reserva=r, cap=c, modo=m) for r, c, m in itertools.product([0.1, 0.25, 0.5], [0.35, 0.6, 1.0], ["prioridad", "kelly"])]
 HIST = "2022-01-01"                 # desde aquí se recuerdan las operaciones de cada agente para estimar probabilidades
 P1 = ("2024-01-01", "2025-12-31")   # se buscan con estos años
 P2_FROM = "2026-01-01"              # y deben cumplir también en 2026 hasta hoy
@@ -148,6 +148,7 @@ def series(ac, ag, start, variante=None):
     ret = np.r_[vals[0] / ac.run_cfg()["cap"] - 1, vals[1:] / vals[:-1] - 1]
     P = np.zeros(len(days))
     G = np.zeros(len(days))
+    L = np.zeros(len(days))  # lo que pierde si sale por el stop
     rng = np.random.default_rng(zlib.crc32(ag["id"].encode()))
     tend = trend_by_day(ac, ag)
     for n_, j in enumerate(last_bar):
@@ -171,13 +172,14 @@ def series(ac, ag, start, variante=None):
         p_mc = (tm[0] + tm[2]) if tm else p
         P[n_] = 0.5 * p + 0.5 * p_mc  # la mitad, su historial; la otra mitad, la máquina del tiempo
         G[n_] = tp
+        L[n_] = sl
         if tend.get(days[n_], 0) * (1 if w[j] > 0 else -1) < 0:
             P[n_] = BLOQUEADO  # va contra la tendencia diaria de su activo: el equipo no le da dinero
         if last:
             ac.__dict__.setdefault("_tm_info", {})[ag["id"]] = dict(historial=round(p, 3), maquina=round(p_mc, 3),
                                                                      objetivo=round(tp, 4), stop=round(sl, 4))
     keep = [k for k, d in enumerate(days) if d >= s0]
-    return [days[k] for k in keep], ret[keep], np.array(expo)[keep], P[keep], G[keep]
+    return [days[k] for k in keep], ret[keep], np.array(expo)[keep], P[keep], G[keep], L[keep]
 
 
 def matrix(ac, agents, start, end, variante=None):
@@ -188,7 +190,7 @@ def matrix(ac, agents, start, end, variante=None):
         days.append(d)
         d += dt.timedelta(days=1)
     pos = {d: k for k, d in enumerate(days)}
-    out = [np.zeros((len(agents), len(days))) for _ in range(4)]
+    out = [np.zeros((len(agents), len(days))) for _ in range(5)]
     cache = ac.__dict__.setdefault("_series_cache", {})
     for j, ag in enumerate(agents):
         key = (ag["id"], start, variante)
@@ -200,31 +202,44 @@ def matrix(ac, agents, start, end, variante=None):
         for k_src, d in enumerate(s[0]):
             k = pos.get(d)
             if k is not None:
-                for m in range(4):
+                for m in range(min(5, len(s) - 1)):
                     out[m][j, k] = s[m + 1][k_src]
     return (days, *out)
 
 
 # ------------------------------------------------------------------ simular una cartera compartida
 
-def alloc(P, G, prudencia, prm):
+def alloc(P, G, prudencia, prm, L=None):
     """Parte de la cartera para cada miembro según la prioridad de su operación abierta.
     Las operaciones bloqueadas por el filtro de tendencia (P < 0) no reciben dinero; el resto se reparte entre los demás."""
     blk = np.asarray(P) < 0
     if blk.any():
         f = np.zeros(len(P))
         if (~blk).any():
-            f[~blk] = _alloc(np.asarray(P)[~blk], np.asarray(G)[~blk], prudencia, prm)
+            f[~blk] = _alloc(np.asarray(P)[~blk], np.asarray(G)[~blk], prudencia, prm, None if L is None else np.asarray(L)[~blk])
         return f
-    return _alloc(P, G, prudencia, prm)
+    return _alloc(P, G, prudencia, prm, L)
 
 
-def _alloc(P, G, prudencia, prm):
+def _alloc(P, G, prudencia, prm, L=None):
     n = len(P)
     open_ = P > 0
     f = np.zeros(n)
     if not open_.any():
         return np.full(n, min(1.0 / n, prm["cap"]))  # nadie tiene operación: cada uno con su parte, por si entra
+    if prm.get("modo") == "kelly" and L is not None:
+        # medio Kelly: parte de la cartera según probabilidad, lo que gana si acierta y lo que pierde si falla
+        with np.errstate(divide="ignore", invalid="ignore"):
+            k = 0.5 * (P ** prudencia / np.maximum(L, 1e-4) - (1 - P ** prudencia) / np.maximum(G, 1e-4))
+        k = np.where(open_, np.clip(np.nan_to_num(k), 0, prm["cap"]), 0.0)
+        waiting = ~open_
+        pool = 1.0 - (prm["reserva"] if waiting.any() else 0.0)
+        if k.sum() > pool:
+            k *= pool / k.sum()
+        f = k
+        if waiting.any():
+            f[waiting] = prm["reserva"] / waiting.sum()
+        return np.minimum(f, prm["cap"])
     score = np.where(open_, P ** prudencia * np.maximum(G, 0.0), 0.0)
     waiting = ~open_
     pool = 1.0 - (prm["reserva"] if waiting.any() else 0.0)
@@ -235,7 +250,7 @@ def _alloc(P, G, prudencia, prm):
     return np.minimum(f, prm["cap"])
 
 
-def simulate(R, E, P, G, prudencia, prm, cap0=100.0):
+def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None):
     """Devuelve (curva de valor, reparto F[miembro, día]). El reparto de cada día se decide con el cierre anterior."""
     n, T = R.shape
     val = np.empty(T)
@@ -243,7 +258,8 @@ def simulate(R, E, P, G, prudencia, prm, cap0=100.0):
     v = cap0
     f_prev = np.zeros(n)
     for t in range(T):
-        f = alloc(P[:, t - 1], G[:, t - 1], prudencia, prm) if t else alloc(np.zeros(n), np.zeros(n), prudencia, prm)
+        f = (alloc(P[:, t - 1], G[:, t - 1], prudencia, prm, None if L is None else L[:, t - 1]) if t
+             else alloc(np.zeros(n), np.zeros(n), prudencia, prm))
         turnover = float(np.sum(np.abs(f - f_prev) * E[:, t - 1])) if t else 0.0
         v *= 1 + float(np.dot(f, R[:, t])) - turnover * COSTE_REPARTO
         val[t] = v
@@ -324,11 +340,11 @@ def ataques(ac, mem, prm, k2, days):
     """Pruebas duras en 2026: si con ellas el equipo deja de ganar, probablemente tuvo suerte."""
     out = {}
     for var in ("comisiones_x2", "vela_tarde"):
-        d, R, E, P, G = matrix(ac, mem, P1[0], days[-1], var)
-        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm)
+        d, R, E, P, G, L = matrix(ac, mem, P1[0], days[-1], var)
+        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:])
         out[var] = float(val[-1] / 100 - 1) if len(val) else 0.0
-    d, R, E, P, G = matrix(ac, mem, P1[0], days[-1])
-    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm)
+    d, R, E, P, G, L = matrix(ac, mem, P1[0], days[-1])
+    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:])
     rets = np.r_[val[0] / 100 - 1, val[1:] / val[:-1] - 1] if len(val) else np.array([])
     months = {}
     for dd_, r_ in zip(days[k2:], rets):
@@ -362,7 +378,7 @@ def build(ac, last_day, log=print):
     cands = uniq
     if len(cands) < 2:
         return {t: dict(motivo="Todavía no hay al menos 2 agentes que ganaran dinero en su examen.") for t in TIPOS}
-    days, R, E, P, G = matrix(ac, cands, P1[0], last_day)
+    days, R, E, P, G, L = matrix(ac, cands, P1[0], last_day)
     p1_end = dt.date.fromisoformat(P1[1])
     k1 = sum(1 for d in days if d <= p1_end)
     def is_short(a):
@@ -406,7 +422,7 @@ def build(ac, last_day, log=print):
                     if j in team:
                         continue
                     idx = team + [j]
-                    val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm)
+                    val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm, L=L[idx, :k1])
                     sc = objective(stats(days[:k1], val), goal)
                     if add is None or sc > add[0]:
                         add = (sc, j)
@@ -415,8 +431,8 @@ def build(ac, last_day, log=print):
                 cur, team = add[0], team + [add[1]]
             if len(team) < MIN_MIEMBROS:
                 continue
-            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm)
-            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm)
+            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm, L=L[team, :k1])
+            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm, L=L[team, k2:])
             s1, s2 = stats(days[:k1], v1), stats(days[k2:], v2)
             teams.append(dict(team=team, prm=dict(prm, prudencia=pr), s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
                               rank=s2["verde"] + 2 * s2["ret"]))
@@ -433,7 +449,7 @@ def build(ac, last_day, log=print):
         mem = [cands[j] for j in t["team"]]
         t["ataques"] = ataques(ac, mem, t["prm"], k2, days)
         t["ataques_ok"] = all(v > 0 for v in t["ataques"].values())
-        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"])
+        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"], L=L[t["team"]])
         t["prob"] = prob_cumplir(np.r_[vall[0] / 100 - 1, vall[1:] / vall[:-1] - 1], goal)
     teams.sort(key=lambda t: (not t["f2"], t.get("ataques_ok", False), (t.get("prob") or 0) + t["rank"]), reverse=True)
     podium, used = [], []
@@ -505,9 +521,9 @@ def update(ac, log=print):
             tm.update(track(ac, tm, last_day))
 
 
-def _now(mem, v, P, G, E, prm):
+def _now(mem, v, P, G, E, prm, L=None):
     """Reparto de mañana (y para cada miembro, su probabilidad con el detalle de historial y máquina del tiempo)."""
-    fn = alloc(P, G, prm["prudencia"], prm)
+    fn = alloc(P, G, prm["prudencia"], prm, L)
     return [dict(id=a["id"], name=a["name"], activo=a.get("activo", "BTC-EUR"), tf=a["tf"],
                  euros=round(v * float(fn[j]), 2), invertido=round(v * float(fn[j]) * float(E[j]), 2),
                  posicion=round(float(E[j]), 2), prob=round(max(float(P[j]), 0.0), 3), ganancia=round(float(G[j]), 4),
@@ -533,12 +549,12 @@ def track(ac, tm, last_day):
         prm = per["params"]
         if d1 < d0:  # el equipo empieza mañana: solo se calcula cómo repartirá el dinero
             if k == len(tm["periodos"]) - 1:
-                _, R0, E0, P0, G0 = matrix(ac, mem, last_day.isoformat(), last_day)
+                _, R0, E0, P0, G0, L0 = matrix(ac, mem, last_day.isoformat(), last_day)
                 _now.info = getattr(ac, "_tm_info", {})
-                ahora = _now(mem, v, P0[:, -1], G0[:, -1], E0[:, -1], prm)
+                ahora = _now(mem, v, P0[:, -1], G0[:, -1], E0[:, -1], prm, L0[:, -1])
             continue
-        days, R, E, P, G = matrix(ac, mem, (d0 - dt.timedelta(days=1)).isoformat(), d1)
-        val, F = simulate(R[:, 1:], E[:, 1:], P[:, 1:], G[:, 1:], prm["prudencia"], prm, cap0=v)
+        days, R, E, P, G, L = matrix(ac, mem, (d0 - dt.timedelta(days=1)).isoformat(), d1)
+        val, F = simulate(R[:, 1:], E[:, 1:], P[:, 1:], G[:, 1:], prm["prudencia"], prm, cap0=v, L=L[:, 1:])
         days_all += days[1:]
         vals += [float(x) for x in val]
         if len(val):
@@ -548,7 +564,7 @@ def track(ac, tm, last_day):
             v = float(val[-1])
         if k == len(tm["periodos"]) - 1:
             _now.info = getattr(ac, "_tm_info", {})
-            ahora = _now(mem, v, P[:, -1], G[:, -1], E[:, -1], prm)
+            ahora = _now(mem, v, P[:, -1], G[:, -1], E[:, -1], prm, L[:, -1])
     s = stats(days_all, np.array(vals), cap0)
     wk = []
     if vals:
