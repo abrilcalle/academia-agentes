@@ -39,3 +39,15 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
   - Bloquea un 7 % (EV>0), 21 % (+1 %) y 25 % (+2 %) de las operaciones abiertas.
 - **Conclusión: no se queda.** Con umbral 0 casi no cambia nada (unos años algo mejor, otros algo peor); con umbrales más altos hunde 2022→23 y 2019. No hay mejora clara ni estable. La estimación de pérdida (stop) de cada operación es poco fiable para filtrar.
 - **Para próximas vueltas:** 2022 sigue siendo el año sin ningún equipo que cumpla; lo que falta son agentes que ganen en bajada, no un mejor reparto entre los que ya hay.
+
+## 2026-10-25 21:35 (hora de Madrid) — Formar los equipos "con colchón"
+- **Arreglo técnico (antes de probar):** en `equipos.build`, al quitar a los agentes que no ganan en 2024–25 no se quitaba también su columna de pérdida (`L`), así que el reparto de medio Kelly usaba el stop de otro agente. Corregido (`L = L[keep]`); entra ya en la formación de equipos de esta noche (lunes).
+- **Hipótesis:** los equipos se eligen para cumplir justo las condiciones (más del 50 % de semanas, +10 % al año, caída ≤ 25 %) y fuera de esos años suelen quedarse cortos (2026: 49–51 % de semanas, ~10 % al año). Si al formarlos se les pide un colchón (p. ej. 55 % de semanas, +20 % al año, caída ≤ 20 %), deberían cumplir más veces en el año siguiente.
+- **Qué probé (en una copia, sin tocar el código):** misma fórmula de `objective` con metas más exigentes: suave (52,5 % / +15 % / 22,5 %), colchón (55 % / +20 % / 20 %), fuerte (60 % / +30 % / 18 %); y otra distinta, "maxmin" (maximizar el margen más justo de las tres condiciones). Mismo método que `build` (24 mejores y distintos, 3 prudencias × 18 formas de repartir = 54 equipos), comisiones USDC con cambio USDC/EUR, filtro de tendencia de 50 días.
+- **Datos:** 168 agentes examinados (sin clones), datos cortados el 01/01/2024. Equipos formados con un año y probados en otro: 2019→20, 2020→21, 2021→22, 2022→23, 2023→22, 2021→23.
+- **Resultado (equipos de 54 que cumplen las 3 condiciones en el año de prueba; base / suave / colchón / fuerte / maxmin):**
+  - 2019→20: 54 / 54 / 54 / 54 / 54 · 2020→21: 49 / 49 / 50 / 51 / 50 · 2021→22: 6 / 6 / 6 / 6 / 0
+  - **2022→23: 37 / 38 / 44 / 26 / 33** · 2023→22: 0 / 0 / 0 / 0 / 0 · 2021→23: 23 / 23 / 23 / 26 / 1
+  - Rentabilidad mediana parecida en todos salvo "fuerte" y "maxmin", que ganan mucho menos (2022→23: +27 % base, +11 % fuerte, +11 % maxmin).
+- **Conclusión: no se queda.** La mejora del "colchón" sale casi toda de un solo par de años (2022→23) y no va en una dirección: con un colchón algo mayor ("fuerte") ese mismo par empeora (37 → 26). "maxmin" es claramente peor. No es robusto.
+- **Para próximas vueltas:** 2022 sigue sin ningún equipo que cumpla con nada probado. Esta noche entran por primera vez en los equipos los gemelos en corto y el reparto de medio Kelly: medirlos en entreno/validación antes de tocar más la formación.

@@ -387,7 +387,7 @@ def build(ac, last_day, log=print):
     # así que en los años alcistas de 2024–25 es normal que pierdan)
     keep = [j for j in range(len(cands)) if np.prod(1 + R[j, :k1]) - 1 > 0 or is_short(cands[j])]
     cands = [cands[j] for j in keep]
-    R, E, P, G = R[keep], E[keep], P[keep], G[keep]
+    R, E, P, G, L = R[keep], E[keep], P[keep], G[keep], L[keep]
     if len(cands) < 2:
         return {t: dict(motivo="Todavía no hay al menos 2 agentes que ganen dinero en 2024–25.") for t in TIPOS}
     k2 = days.index(dt.date.fromisoformat(P2_FROM)) if dt.date.fromisoformat(P2_FROM) in days else k1
