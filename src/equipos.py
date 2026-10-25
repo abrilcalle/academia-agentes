@@ -15,6 +15,9 @@ Lo único que cambia entre equipos es la PRUDENCIA al priorizar operaciones. Cad
   - Las operaciones abiertas se reparten el dinero según su prioridad (con un tope por agente); los que esperan
     señal se quedan una pequeña reserva para poder entrar; lo demás espera en euros.
   - Mover dinero de un agente a otro cuesta comisiones (se descuentan).
+  - Filtro de tendencia: el equipo no pone dinero en una compra si su activo cierra por debajo de su media de 50 días
+    (ni en un corto si cierra por encima). El agente sigue con su operación; el equipo espera fuera hasta que la
+    tendencia vuelva a acompañar. (Laboratorio 25/10/2026: con 2019–2023 sube los equipos que cumplen y baja las caídas.)
 Una semana solo es buena si el equipo GANA; si se queda igual o pierde, es mala.
 Cada lunes se vuelven a buscar los equipos con todos los agentes que haya: si uno nuevo lo hace mejor, entra; el dinero de cada equipo sigue.
 """
@@ -42,6 +45,8 @@ P2_FROM = "2026-01-01"              # y deben cumplir también en 2026 hasta hoy
 MAX_MIEMBROS = 6
 COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes (comisión + algo de deslizamiento)
 GOOD = 0.0001                       # una semana es buena solo si gana (más de un 0,01 %)
+TENDENCIA_DIAS = 50                 # filtro de tendencia: media de 50 días del activo (0 = sin filtro)
+BLOQUEADO = -1.0                    # valor de P para una operación a la que el equipo no da dinero (va contra la tendencia)
 
 
 # ------------------------------------------------------------------ lo que sabe cada agente de sus operaciones
@@ -72,6 +77,17 @@ def time_machine(mk, j, side, tp, sl, horizon, n, rng):
     lose = hit_dn < hit_up
     still = ~win & ~lose
     return float(win.mean()), float(lose.mean()), float((still & (paths[:, -1] > 0)).mean())
+
+
+def trend_by_day(ac, ag, dias=TENDENCIA_DIAS):
+    """Por fecha: +1 si el activo del agente cierra el día por encima de su media de `dias` días, -1 si por debajo."""
+    if not dias:
+        return {}
+    a = ag.get("activo", ac.cfg["mercado"])
+    d1 = ac.daily if a == ac.cfg["mercado"] else ac.otros[a]["1d"]
+    c = np.asarray(d1.I.c, float)
+    ma = np.convolve(c, np.ones(dias) / dias, "full")[:len(c)]
+    return {d1.ts[i].date(): (1 if c[i] > ma[i] else -1) for i in range(dias - 1, len(c))}
 
 
 def trade_plan(ag, mk, j, gw, gl):
@@ -132,6 +148,7 @@ def series(ac, ag, start, variante=None):
     P = np.zeros(len(days))
     G = np.zeros(len(days))
     rng = np.random.default_rng(zlib.crc32(ag["id"].encode()))
+    tend = trend_by_day(ac, ag)
     for n_, j in enumerate(last_bar):
         if days[n_] < s0 - dt.timedelta(days=1) or expo[n_] <= 0.05:
             continue
@@ -153,6 +170,8 @@ def series(ac, ag, start, variante=None):
         p_mc = (tm[0] + tm[2]) if tm else p
         P[n_] = 0.5 * p + 0.5 * p_mc  # la mitad, su historial; la otra mitad, la máquina del tiempo
         G[n_] = tp
+        if tend.get(days[n_], 0) * (1 if w[j] > 0 else -1) < 0:
+            P[n_] = BLOQUEADO  # va contra la tendencia diaria de su activo: el equipo no le da dinero
         if last:
             ac.__dict__.setdefault("_tm_info", {})[ag["id"]] = dict(historial=round(p, 3), maquina=round(p_mc, 3),
                                                                      objetivo=round(tp, 4), stop=round(sl, 4))
@@ -188,7 +207,18 @@ def matrix(ac, agents, start, end, variante=None):
 # ------------------------------------------------------------------ simular una cartera compartida
 
 def alloc(P, G, prudencia, prm):
-    """Parte de la cartera para cada miembro según la prioridad de su operación abierta."""
+    """Parte de la cartera para cada miembro según la prioridad de su operación abierta.
+    Las operaciones bloqueadas por el filtro de tendencia (P < 0) no reciben dinero; el resto se reparte entre los demás."""
+    blk = np.asarray(P) < 0
+    if blk.any():
+        f = np.zeros(len(P))
+        if (~blk).any():
+            f[~blk] = _alloc(np.asarray(P)[~blk], np.asarray(G)[~blk], prudencia, prm)
+        return f
+    return _alloc(P, G, prudencia, prm)
+
+
+def _alloc(P, G, prudencia, prm):
     n = len(P)
     open_ = P > 0
     f = np.zeros(n)
@@ -466,7 +496,8 @@ def _now(mem, v, P, G, E, prm):
     fn = alloc(P, G, prm["prudencia"], prm)
     return [dict(id=a["id"], name=a["name"], activo=a.get("activo", "BTC-EUR"), tf=a["tf"],
                  euros=round(v * float(fn[j]), 2), invertido=round(v * float(fn[j]) * float(E[j]), 2),
-                 posicion=round(float(E[j]), 2), prob=round(float(P[j]), 3), ganancia=round(float(G[j]), 4),
+                 posicion=round(float(E[j]), 2), prob=round(max(float(P[j]), 0.0), 3), ganancia=round(float(G[j]), 4),
+                 contra_tendencia=bool(P[j] < 0),
                  detalle=getattr(_now, "info", {}).get(a["id"]))
             for j, a in enumerate(mem)]
 
