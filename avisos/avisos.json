@@ -10,6 +10,14 @@
       "estado": "pendiente"
     },
     {
+      "id": "operadores-diarios-parte-fabrica",
+      "fecha": "2026-10-26",
+      "tipo": "decidir",
+      "titulo": "Los operadores diarios no aprueban nunca: ¿les damos menos sitio en la fábrica?",
+      "texto": "Qué pasa: el 70 % de los agentes nuevos son operadores diarios (velas de 1 h y 4 h, 2-3 operaciones por semana), pero de 58 no ha aprobado ninguno. En el laboratorio he visto que las reglas que encuentran en 2018–21 no tienen ventaja después: en 2022–23 la mayoría pierde un 10–20 % tras comisiones, y cambiar cómo se eligen no lo arregla. Mientras tanto, ese 70 % de la fábrica no produce agentes que puedan entrar en equipos. Opciones: (1) dejarlo como está; (2) bajar la parte de operadores diarios al 30 % (más agentes normales, que sí aprueban y forman los equipos) mientras el laboratorio busca piezas nuevas para ellos; (3) pausarlos del todo hasta tener una idea que funcione en 2022–23. Recomiendo la 2: creo que sería mejor así porque no renunciamos a ellos, pero la fábrica dedica la mayor parte del tiempo a agentes que sí pueden ayudar a que un equipo cumpla la meta. Si me dices que sí, cambio operadores_diarios.parte_de_los_nuevos de 0,7 a 0,3.",
+      "estado": "pendiente"
+    },
+    {
       "id": "comisiones-usdc",
       "fecha": "2026-10-19",
       "tipo": "decidir",
