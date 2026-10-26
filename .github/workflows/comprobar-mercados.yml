@@ -53,6 +53,16 @@ jobs:
                                  f"volumen 24h={float(t.get('volumeQuote') or 0):,.0f} {q}, diferencial={spread:.3f} %")
                   except Exception as ex:  # noqa: BLE001
                       out.append(f"{mk}: error consultando ({ex})")
+          # lista completa de activos con su nombre, para buscar cosas que no sean cripto (oro, plata, acciones...)
+          assets = get("https://api.bitvavo.com/v2/assets")
+          eur = {m["base"] for m in ms if m["market"].endswith("-EUR") and m["status"] == "trading"}
+          usdc = {m["base"] for m in ms if m["market"].endswith("-USDC") and m["status"] == "trading"}
+          lines = [f"{a['symbol']}\t{a.get('name', '')}\t{'EUR' if a['symbol'] in eur else ''}\t{'USDC' if a['symbol'] in usdc else ''}" for a in assets]
+          open("diag/activos_bitvavo.txt", "w").write("simbolo\tnombre\tEUR\tUSDC\n" + "\n".join(sorted(lines)) + "\n")
+          keys = ("gold", "oro", "silver", "plata", "xau", "xag", "paxg", "commodity", "stock", "equity", "index", "tokenized", "xstock",
+                  "s&p", "nasdaq", "treasury", "bond", "oil", "euro", "dollar", "franc", "yen")
+          hits = [l for l in lines if any(k in l.lower() for k in keys)]
+          out.append("Activos con nombre de oro/plata/acciones/índices/bonos/divisas: " + (" | ".join(hits) or "ninguno"))
           open("diag/mercados_bitvavo.txt", "w").write("\n".join(out) + "\n")
           print("\n".join(out))
           PY
@@ -60,7 +70,7 @@ jobs:
         run: |
           git config user.name "academia-bot"
           git config user.email "academia-bot@users.noreply.github.com"
-          git add diag/mercados_bitvavo.txt
+          git add diag/mercados_bitvavo.txt diag/activos_bitvavo.txt
           git diff --cached --quiet || git commit -m "Mercados de Bitvavo"
           git pull --rebase -X theirs origin main
           git push
