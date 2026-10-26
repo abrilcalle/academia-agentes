@@ -1,0 +1,483 @@
+simbolo	nombre	EUR	USDC
+0G	Zero Gravity	EUR	
+1INCH	1inch	EUR	
+2Z	DoubleZero	EUR	
+A	Vaulta		
+AAVE	Aave	EUR	
+ACA	Acala Token		
+ACE	Fusionist	EUR	
+ACH	Alchemy Pay	EUR	
+ACT	Act I : The AI Prophecy	EUR	
+ACU	Acurast	EUR	
+ACX	Across Protocol	EUR	
+ADA	Cardano	EUR	USDC
+ADX	heyAura	EUR	
+AERGO	Aergo		
+AERO	Aerodrome Finance	EUR	
+AEVO	AEVO	EUR	
+AGI	Delysium	EUR	
+AGLD	Adventure Gold	EUR	
+AI	Gensyn	EUR	
+AIOZ	AIOZ Network	EUR	
+AIXBT	aixbt by Virtuals	EUR	
+AKT	Akash Network	EUR	
+ALGO	Algorand	EUR	
+ALICE	MyNeighborAlice	EUR	
+ALIGN	Aligned	EUR	
+ALLO	Allora	EUR	
+ALT	Altlayer	EUR	
+AMP	Amp	EUR	
+ANIME	Animecoin	EUR	
+ANKR	Ankr	EUR	
+APE	ApeCoin	EUR	
+API3	API3	EUR	
+APT	Aptos	EUR	
+AR	Arweave		
+ARB	Arbitrum	EUR	
+ARK	Ark	EUR	
+ARKM	Arkham	EUR	
+ARPA	ARPA	EUR	
+ARX	Arcium	EUR	
+ASTER	Aster	EUR	
+ASTR	Astar	EUR	
+ATA	Automata Network		
+ATH	Aethir	EUR	
+ATOM	Cosmos	EUR	
+AUCTION	Bounce Token	EUR	
+AUDIO	Audius	EUR	
+AVA	AVA (Travala)	EUR	
+AVAX	Avalanche	EUR	
+AVNT	Avantis	EUR	
+AXIS	Axis Robotics	EUR	
+AXL	Axelar	EUR	
+AXS	Axie Infinity	EUR	
+AZTEC	Aztec	EUR	
+BABY	Babylon	EUR	
+BANANA	Banana Gun	EUR	
+BAND	Band Protocol	EUR	
+BAT	Basic Attention Token	EUR	
+BCH	Bitcoin Cash	EUR	
+BEAM	Beam	EUR	
+BEL	Bella Protocol	EUR	
+BICO	Biconomy	EUR	
+BIGTIME	Big Time	EUR	
+BILL	Billions Network	EUR	
+BIO	Bio Protocol	EUR	
+BIRB	Moonbirds	EUR	
+BLAST	Blast		
+BLEND	Fluent	EUR	
+BLUR	Blur	EUR	
+BLZ	Bluzelle		
+BNB	Binance Coin	EUR	
+BNT	Bancor	EUR	
+BOB	BOB	EUR	
+BOME	BOOK OF MEME	EUR	
+BONK	Bonk	EUR	
+BRETT	Brett (Based)	EUR	
+BREV	Brevis	EUR	
+BTC	Bitcoin	EUR	USDC
+BTT	BitTorrent	EUR	
+C	Chainbase	EUR	
+C98	Coin98	EUR	
+CAKE	PancakeSwap	EUR	
+CAP	Cap	EUR	
+CARV	CARV	EUR	
+CAT	Simon's Cat	EUR	
+CATI	Catizen	EUR	
+CC	Canton	EUR	
+CELO	Celo	EUR	
+CELR	Celer Network	EUR	
+CETUS	Cetus Protocol	EUR	
+CFG	Centrifuge	EUR	
+CHILLGUY	Just a chill guy	EUR	
+CHIP	USD.AI	EUR	
+CHR	Chromia	EUR	
+CHZ	Chiliz	EUR	
+CKB	Nervos Network		
+CNPY	Canopy	EUR	
+COMP	Compound	EUR	
+CORE	Core		
+COS	Contentos		
+COTI	COTI	EUR	
+COW	CoW Protocol	EUR	
+CPOOL	Clearpool	EUR	
+CRO	Cronos	EUR	
+CROSS	ONEchain	EUR	
+CRV	Curve DAO Token	EUR	
+CSPR	Casper	EUR	
+CT	Concrete	EUR	
+CTC	Creditcoin	EUR	
+CTK	Shentu	EUR	
+CTR	Citrea	EUR	
+CTSI	Cartesi	EUR	
+CVC	Civic	EUR	
+CVX	Convex Finance	EUR	
+CYBER	CyberConnect	EUR	
+D	DAR Open Network		
+DATA	Streamr		
+DATAIP	DataIP	EUR	
+DBR	DeBridge	EUR	
+DCR	Decred		
+DEEP	DeepBook Protocol	EUR	
+DEGEN	Degen	EUR	
+DENT	Dent		
+DGB	DigiByte	EUR	
+DIA	DIA	EUR	
+DMC	DeLorean		
+DODO	DODO	EUR	
+DOGE	Dogecoin	EUR	USDC
+DOGS	DOGS	EUR	
+DOS	Dappos	EUR	
+DOT	Polkadot	EUR	
+DRIFT	Drift	EUR	
+DRV	Derive	EUR	
+DUSK	Dusk Network	EUR	
+DYDX	dYdX	EUR	
+DYM	Dymension	EUR	
+EDEN	OpenEden	EUR	
+EDGE	Definitive	EUR	
+EDU	Open Campus	EUR	
+EGLD	MultiversX	EUR	
+EIGEN	EigenLayer	EUR	
+ELSA	HeyElsa	EUR	
+ENA	Ethena	EUR	
+ENJ	Enjin	EUR	
+ENS	Ethereum Name Service	EUR	
+ENSO	Enso	EUR	
+EPIC	Epic Chain	EUR	
+ESP	Espresso	EUR	
+ETC	Ethereum Classic	EUR	
+ETH	Ethereum	EUR	USDC
+ETHFI	ether.fi	EUR	
+EUL	Euler	EUR	
+EUR	Euro		
+EURC	EURC	EUR	USDC
+EURCV	EUR CoinVertible	EUR	
+EUROP	EUROP	EUR	
+F	SynFutures	EUR	
+FARTCOIN	Fartcoin	EUR	
+FET	Fetch.ai	EUR	
+FIDA	Solana Name Service	EUR	
+FIL	Filecoin	EUR	
+FLOCK	FLock.io	EUR	
+FLOKI	FLOKI	EUR	
+FLOW	Flow		
+FLR	Flare	EUR	
+FLUID	Fluid	EUR	
+FLUX	Flux	EUR	
+FOLD	The Interfold	EUR	
+FORM	Four	EUR	
+FORTH	FORTH Governance Token		
+FRAX	Frax	EUR	
+FTT	FTX Token	EUR	
+FUEL	Fuel Network	EUR	
+FUN	Sport.Fun	EUR	
+G	Gravity	EUR	
+GALA	Gala	EUR	
+GAS	Gas	EUR	
+GHST	Aavegotchi		
+GIGA	Gigachad	EUR	
+GLM	Golem	EUR	
+GLMR	Glimmer	EUR	
+GMT	STEPN	EUR	
+GMX	GMX	EUR	
+GNO	Gnosis	EUR	
+GNS	Gains Network	EUR	
+GOAT	Goatseus Maximus	EUR	
+GRAM	Gram	EUR	
+GRASS	Grass	EUR	
+GROVE	Grove	EUR	
+GRT	The Graph	EUR	
+GTC	Gitcoin	EUR	
+GWEI	ETHGas	EUR	
+HAEDAL	Haedal Protocol	EUR	
+HBAR	Hedera	EUR	
+HEI	Heima	EUR	
+HFT	Hashflow	EUR	
+HIGH	Highstreet		
+HMSTR	Hamster Kombat	EUR	
+HNT	Helium	EUR	
+HOME	Defi App	EUR	
+HOOK	Hooked Protocol		
+HOT	Holo	EUR	
+HUMA	Huma Finance	EUR	
+HYPE	Hyperliquid	EUR	
+ICNT	Impossible Cloud Network	EUR	
+ICP	Internet Computer	EUR	
+ID	SPACE ID	EUR	
+IDEX	IDEX		
+IKA	Ika	EUR	
+ILV	Illuvium	EUR	
+IMU	Immunefi	EUR	
+IMX	Immutable X	EUR	
+INIT	Initia	EUR	
+INJ	Injective Protocol	EUR	
+INX	Infinex	EUR	
+IO	io.net	EUR	
+IOST	IOST	EUR	
+IOTX	IoTeX		
+IQ	IQ	EUR	
+IRYS	Irys	EUR	
+JASMY	JasmyCoin	EUR	
+JST	JUST		
+JTO	Jito	EUR	
+JUP	Jupiter	EUR	
+KAIA	Kaia	EUR	
+KAITO	Kaito	EUR	
+KAS	Kaspa	EUR	
+KAT	Katana	EUR	
+KAVA	Kava		
+KERNEL	KernelDAO	EUR	
+KITE	Kite	EUR	
+KMNO	Kamino Finance	EUR	
+KNC	Kyber Network	EUR	
+KSM	Kusama	EUR	
+LAPTOP	Hunter Biden's Laptop	EUR	
+LAYER	Solayer	EUR	
+LDO	Lido DAO	EUR	
+LIGHTER	Lighter	EUR	
+LINEA	Linea	EUR	
+LINK	Chainlink	EUR	
+LISTA	Lista DAO	EUR	
+LMWR	LimeWire	EUR	
+LPT	Livepeer	EUR	
+LQTY	Liquity	EUR	
+LRC	Loopring	EUR	
+LSK	Lisk	EUR	
+LTC	Litecoin	EUR	
+LUMIA	Lumia	EUR	
+LUNA	Terra Classic	EUR	
+LUNA2	Terra 2.0	EUR	
+LYX	LUKSO		
+MAGIC	MAGIC	EUR	
+MANA	Decentraland	EUR	
+MANTA	Manta Network	EUR	
+MANTRA	Mantra	EUR	
+MASK	Mask Network	EUR	
+MAV	Maverick Protocol	EUR	
+MAVIA	Heroes of Mavia	EUR	
+MBOX	MOBOX		
+MDT	Measurable Data Token		
+ME	Magic Eden	EUR	
+MEGA	MegaETH	EUR	
+MEME	Memecoin	EUR	
+MERL	Merlin Chain	EUR	
+MET	Meteora	EUR	
+METIS	Metis	EUR	
+MEW	cat in a dogs world	EUR	
+MINA	Mina		
+MIOTA	IOTA	EUR	
+MIRA	Mira	EUR	
+MLN	Enzyme	EUR	
+MMT	Momentum	EUR	
+MOCA	Moca Network	EUR	
+MOG	Mog Coin	EUR	
+MON	Monad	EUR	
+MOODENG	Moo Deng	EUR	
+MORPHO	Morpho	EUR	
+MOVE	Movement	EUR	
+MOVR	Moonriver	EUR	
+MTL	Metal	EUR	
+NEAR	Near Protocol	EUR	
+NEIRO	First Neiro On Ethereum	EUR	
+NEO	NEO	EUR	
+NES	Nesa	EUR	
+NEWT	Newton Protocol	EUR	
+NEX	Nexus	EUR	
+NFP	NFPrompt		
+NIL	Nillion	EUR	
+NKN	NKN		
+NMR	Numeraire	EUR	
+NOM	Nomina	EUR	
+NOS	Nosana	EUR	
+NOT	Notcoin	EUR	
+NPC	Non-Playable Coin	EUR	
+O	o1.exchange	EUR	
+OGN	Origin Protocol	EUR	
+OM	MANTRA		
+ONDO	Ondo	EUR	
+ONE	Harmony		
+ONG	Ontology Gas		
+ONT	Ontology		
+OP	Optimism	EUR	
+OPEN	OpenLedger	EUR	
+ORCA	Orca	EUR	
+ORDI	Ordinals		
+OSMO	Osmosis	EUR	
+OXT	Orchid		
+PARTI	Particle Network	EUR	
+PEAQ	peaq	EUR	
+PENDLE	Pendle	EUR	
+PENGU	Pengu	EUR	
+PEOPLE	ConstitutionDAO	EUR	
+PEPE	Pepe	EUR	USDC
+PHA	Phala Network	EUR	
+PHB	Phoenix		
+PIXEL	Pixels	EUR	
+PLUME	Plume	EUR	
+PNT	Pheasant Network	EUR	
+PNUT	Peanut the Squirrel	EUR	
+POL	POL	EUR	
+POLS	Polkastarter		
+POLYX	Polymesh		
+POND	Marlin	EUR	
+PONKE	Ponke	EUR	
+POPCAT	Popcat	EUR	
+PORTAL	Portal	EUR	
+POWR	Powerledger	EUR	
+PRIME	Echelon Prime		
+PROM	Prom	EUR	
+PROMPT	Wayfinder	EUR	
+PROVE	Succinct	EUR	
+PTB	Portal To Bitcoin	EUR	
+PUFFER	Puffer	EUR	
+PUMP	Pump.fun	EUR	
+PUNDIX	Pundi X	EUR	
+PYR	Vulcan Forged		
+PYTH	Pyth Network	EUR	
+QKC	QuarkChain	EUR	
+QNT	Quant	EUR	
+QTUM	Qtum		
+QUID	Squidrouter	EUR	
+RAD	Radworks	EUR	
+RARE	SuperRare	EUR	
+RAY	Raydium	EUR	
+RDNT	Radiant Capital		
+RE	Re Protocol	EUR	
+RECALL	Recall	EUR	
+RED	RedStone	EUR	
+RENDER	Render	EUR	
+REQ	Request Network	EUR	
+REZ	Renzo	EUR	
+RLC	iExec RLC	EUR	
+ROBO	Fabric Protocol	EUR	
+RON	Ronin	EUR	
+ROSE	Oasis Network	EUR	
+RPL	Rocket Pool	EUR	
+RSR	Reserve Rights	EUR	
+RUNE	THORChain	EUR	
+RVN	Ravencoin		
+S	Sonic (prev. FTM)	EUR	
+SAFE	Safe	EUR	
+SAGA	Saga	EUR	
+SAND	The Sandbox	EUR	
+SAPIEN	Sapien	EUR	
+SCR	Scroll	EUR	
+SEI	Sei	EUR	
+SENT	Sentient	EUR	
+SFP	SafePal	EUR	
+SHELL	MyShell	EUR	
+SHIB	Shiba Inu	EUR	
+SIGN	Sign	EUR	
+SKL	SKALE Network	EUR	
+SKY	Sky	EUR	
+SLP	Smooth Love Potion	EUR	
+SLX	Solstice	EUR	
+SNX	Synthetix	EUR	
+SOL	Solana	EUR	USDC
+SOLV	Solv Protocol	EUR	
+SOMI	Somnia	EUR	
+SOON	SOON	EUR	
+SOPH	Sophon		
+SOSO	SoSoValue	EUR	
+SPK	Spark	EUR	
+SPX	SPX6900	EUR	
+SQD	Subsquid	EUR	
+SSV	ssv.network	EUR	
+STO	StakeStone	EUR	
+STORJ	Storj		
+STRAX	Stratis	EUR	
+STRK	Starknet Token	EUR	
+STX	Stacks	EUR	
+SUI	Sui	EUR	USDC
+SUPER	SuperVerse	EUR	
+SUSHI	SushiSwap	EUR	
+SWEAT	SWEAT		
+SWELL	Swell Network	EUR	
+SXT	Space and Time	EUR	
+SYN	Synapse	EUR	
+SYRUP	Maple Finance	EUR	
+T	Threshold	EUR	
+TAI	TARS AI	EUR	
+TAIKO	Taiko	EUR	
+TAO	Bittensor	EUR	
+THE	THENA	EUR	
+THETA	Theta Network		
+THQ	Theoriq	EUR	
+TIA	Celestia	EUR	USDC
+TLM	Alien Worlds	EUR	
+TNSR	Tensor	EUR	
+TOMO	Viction		
+TOSHI	Toshi	EUR	
+TOWNS	Towns	EUR	
+TRAC	OriginTrail	EUR	
+TRB	Tellor	EUR	
+TREAD	Tread.fi	EUR	
+TREE	Treehouse	EUR	
+TRIA	Tria	EUR	
+TRU	TrueFi		
+TRUMP	OFFICIAL TRUMP	EUR	
+TRUST	Intuition	EUR	
+TRX	Tron	EUR	
+TURBO	Turbo	EUR	
+TWT	Trust Wallet Token	EUR	
+U	Union	EUR	
+UMA	UMA	EUR	
+UNI	Uniswap	EUR	
+UP	Superform	EUR	
+USDC	USD Coin	EUR	
+USDCV	USD CoinVertible	EUR	USDC
+USELESS	Useless	EUR	
+UXLINK	UXLINK		
+VANA	Vana	EUR	
+VANRY	Vanar Chain		
+VELO	Velo	EUR	
+VERONA	Verona	EUR	
+VET	VeChain Thor	EUR	
+VIRTUAL	Virtuals Protocol	EUR	
+VSN	Vision	EUR	
+VTHO	VeThor Token	EUR	
+VVV	Venice Token	EUR	
+W	Wormhole	EUR	
+WAL	Walrus	EUR	
+WAXP	WAX	EUR	
+WCT	WalletConnect Token	EUR	
+WELL	Moonwell	EUR	
+WHUF	Whuffie	EUR	
+WIF	dogwifhat	EUR	
+WIN	WINkLink	EUR	
+WLD	Worldcoin	EUR	
+WLFI	World Liberty Financial	EUR	
+WMTX	World Mobile Token	EUR	
+WOO	WOO	EUR	
+XAI	Xai	EUR	
+XAN	Anoma	EUR	
+XDC	XDC Network	EUR	
+XDP	Doppler Finance	EUR	
+XLM	Stellar	EUR	
+XMN	xMoney	EUR	
+XNO	Nano		
+XPL	Plasma	EUR	
+XRP	XRP	EUR	USDC
+XTZ	Tezos	EUR	
+XVG	Verge	EUR	
+XYO	XYO	EUR	
+YB	YieldBasis	EUR	
+YFI	Yearn Finance	EUR	
+YGG	Yield Guild Games	EUR	
+ZAMA	ZAMA	EUR	
+ZBCN	Zebec Network	EUR	
+ZBT	ZEROBASE	EUR	
+ZEN	Horizen	EUR	
+ZETA	ZetaChain	EUR	
+ZEUS	Zeus Network	EUR	
+ZIG	ZIG Finance	EUR	
+ZIL	Zilliqa	EUR	
+ZK	zkSync	EUR	
+ZKC	Boundless	EUR	
+ZKJ	Polyhedra Network	EUR	
+ZKP	zkPass	EUR	
+ZORA	ZORA	EUR	
+ZRC	Zircuit	EUR	
+ZRO	LayerZero	EUR	
+ZRX	0x	EUR	

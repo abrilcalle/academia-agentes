@@ -1,16 +1,17 @@
-ADA-EUR: estado=trading, velas diarias desde 2022-11-10 (máx. 1440 por consulta)
-BTC-EUR: estado=trading, velas diarias desde 2022-11-10 (máx. 1440 por consulta)
-SOL-EUR: estado=trading, velas diarias desde 2022-11-10 (máx. 1440 por consulta)
-XRP-EUR: estado=trading, velas diarias desde 2022-11-10 (máx. 1440 por consulta)
-ETH-EUR: estado=trading, velas diarias desde 2022-11-10 (máx. 1440 por consulta)
+ADA-EUR: estado=trading, velas diarias desde 2022-11-17 (máx. 1440 por consulta)
+BTC-EUR: estado=trading, velas diarias desde 2022-11-17 (máx. 1440 por consulta)
+SOL-EUR: estado=trading, velas diarias desde 2022-11-17 (máx. 1440 por consulta)
+XRP-EUR: estado=trading, velas diarias desde 2022-11-17 (máx. 1440 por consulta)
+ETH-EUR: estado=trading, velas diarias desde 2022-11-17 (máx. 1440 por consulta)
 Mercados de oro: AGLD-EUR, EGLD-EUR
-Total mercados EUR: 427
-BTC-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=27,791,308 EUR, diferencial=0.001 %
-BTC-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=374,036 USDC, diferencial=0.033 %
-ETH-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=13,488,217 EUR, diferencial=0.000 %
-ETH-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=207,272 USDC, diferencial=0.046 %
-SOL-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=9,118,649 EUR, diferencial=0.001 %
-SOL-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=440,818 USDC, diferencial=0.040 %
-XRP-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=16,119,200 EUR, diferencial=0.001 %
-XRP-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=56,923 USDC, diferencial=0.047 %
-USDC-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=2,011,451 EUR, diferencial=0.011 %
+Total mercados EUR: 428
+BTC-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=25,566,907 EUR, diferencial=0.001 %
+BTC-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=693,549 USDC, diferencial=0.029 %
+ETH-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=12,960,051 EUR, diferencial=0.000 %
+ETH-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=231,874 USDC, diferencial=0.045 %
+SOL-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=4,024,759 EUR, diferencial=0.001 %
+SOL-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=461,885 USDC, diferencial=0.043 %
+XRP-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=9,570,861 EUR, diferencial=0.001 %
+XRP-USDC: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=103,078 USDC, diferencial=0.062 %
+USDC-EUR: estado=trading, órdenes=market,limit,stopLoss,stopLossLimit,takeProfit,takeProfitLimit, volumen 24h=1,517,706 EUR, diferencial=0.011 %
+Activos con nombre de oro/plata/acciones/índices/bonos/divisas: AGLD	Adventure Gold	EUR	 | EUR	Euro		 | EUROP	EUROP	EUR	
