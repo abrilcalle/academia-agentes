@@ -85,3 +85,20 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
   - Formados con selección (cumplen de 54; base / vt30 / dd15): 2019→20 54 / 54 / 54 · 2020→21 41 / 44 / 44 · 2021→22 10 / 3 / 6 · 2022→23 3 / 9 / 4 · 2023→22 0 / 0 / 0 · 2021→23 29 / 30 / 10. Total 137 / 140 / 118. En 2023→22 vt30 pasa de −19 % a +2 % de mediana y dd15 a −9 %, pero sin llegar a cumplir.
 - **Conclusión: no se queda.** La volatilidad objetivo solo mejora un poco en unos pares (2019 al azar, 2022→23) y empeora en otros (2021→22: 10 → 3); el freno de caídas pierde menos en 2022 pero hunde la recuperación (2021→23: 29 → 10). Ninguno consigue equipos que cumplan en 2022 ni es una mejora clara y estable.
 - **Para próximas vueltas:** reducir la exposición del equipo no arregla los años bajistas: hacen falta agentes con ventaja en bajada o lateral. No repetir variantes de "invertir menos" (candado, colchón, valor esperado, volatilidad, freno ya probados).
+
+## 2026-10-27 11:25 (hora de Madrid) — Equipos más variados: como mucho 2 agentes del mismo mercado
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 27/10, datos hasta el 26/10, sin incidencias). Nada que arreglar.
+- **Hipótesis:** los equipos salen casi siempre con agentes del mismo mercado (hoy los tres son casi todo BTC de velas diarias), que suben y bajan a la vez. Si al formarlos se pide más variedad, deberían cumplir más veces el año siguiente.
+- **Qué probé (en una copia, sin tocar el código):** mismo método que `build` (24 mejores y distintos + hasta 8 gemelos en corto que ganaran ≥ 10 % el año de formación; 3 prudencias × 18 repartos = 54 equipos), con estas variantes: umbral de parecido para elegir los 24 de 0,7 y 0,5 (ahora 0,9); como mucho 1, 2 o 3 agentes del mismo mercado por equipo (cap1/cap2/cap3); como mucho 1 del mismo mercado y temporalidad (captf1); no juntar dos miembros con correlación > 0,5 o > 0,3 (dc05/dc03). Comisiones USDC con cambio USDC/EUR, filtro de tendencia de 50 días, historial de operaciones desde 2018.
+- **Datos:** 244 agentes examinados (sin clones), datos cortados el 01/01/2024 (solo 2019–2023). Equipos formados con un año y probados en otro: 2019→20, 2020→21, 2021→22, 2022→23, 2023→22, 2021→23, 2020→19.
+- **Resultado (equipos de 54 que cumplen las 3 condiciones en el año de prueba, por par en ese orden; total):**
+  - base: 54 / 40 / 6 / 0 / 0 / 26 / 31 → **157**
+  - **cap2: 54 / 52 / 6 / 0 / 0 / 31 / 31 → 174** (nunca peor que base en ningún par)
+  - cap3: 54 / 45 / 6 / 0 / 0 / 27 / 34 → 166 (tampoco peor en ninguno; efecto menor, en la misma dirección)
+  - captf1: 54 / 53 / 2 / 0 / 0 / 35 / 26 → 170 (peor en 2021→22 y 2020→19)
+  - umbral 0,7: 45 / 54 / 5 / 17 / 0 / 31 / 13 → 165 (sube 2022→23 pero hunde 2020→19 y 2019→20); umbral 0,5: 149
+  - dc05: 131; dc03: 77; cap1: casi no se pueden formar equipos (pocos mercados en esos años).
+  - Rentabilidad y caída medianas parecidas a base (2023→22: caída 34 % → 31 %).
+- **Conclusión: se queda cap2.** Es la única variante que mejora en total y no empeora ningún par de años, y cap3 confirma la dirección. La mejora es moderada (+11 %) y viene sobre todo de 2020→21 y 2021→23; 2022 sigue sin equipos que cumplan. Integrado en `src/equipos.py` (`MAX_POR_ACTIVO = 2`, en la búsqueda de miembros de `build`). Entra en la formación del próximo lunes. Ejecución local con `run_daily.py --datos-locales` correcta.
+- **Solo para informar (juez 2026, no se usó para decidir):** rehaciendo hoy los equipos con el límite salen Halcón (Tomás 2, Tere 2 ↓, Berta 3 XRP), Lobo (Tomás 2, Tere 2 ↓, Yago 3 XRP) y Tortuga (Úrsula, Iris 3, Yago 3 XRP). En 2026: 51 % / 51 % / 56 % de semanas ganadas, +29 % / +20 % / +14 % y caída máxima 21 % / 17 % / 11 %. Los tres siguen cumpliendo, pero con menos margen que los equipos actuales (58 %, +43 %). Vigilar en simulado.
+- **Para próximas vueltas:** probado ya: candado, colchón, valor esperado, volatilidad objetivo, freno de caídas, filtro de gemelos, selección del inventor diario y ahora la variedad de los equipos. Lo pendiente sigue siendo tener agentes con ventaja en años bajistas (2022).

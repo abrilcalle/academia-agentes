@@ -15,6 +15,7 @@ Lo único que cambia entre equipos es la PRUDENCIA al priorizar operaciones. Cad
   - Las operaciones abiertas se reparten el dinero según su prioridad (con un tope por agente); los que esperan
     señal se quedan una pequeña reserva para poder entrar; lo demás espera en euros.
   - Mover dinero de un agente a otro cuesta comisiones (se descuentan).
+  - Como mucho 2 agentes del mismo mercado por equipo (MAX_POR_ACTIVO), para repartir el riesgo.
   - Filtro de tendencia: el equipo no pone dinero en una compra si su activo cierra por debajo de su media de 50 días
     (ni en un corto si cierra por encima). El agente sigue con su operación; el equipo espera fuera hasta que la
     tendencia vuelva a acompañar. (Laboratorio 25/10/2026: con 2019–2023 sube los equipos que cumplen y baja las caídas.)
@@ -44,6 +45,8 @@ P1 = ("2024-01-01", "2025-12-31")   # se buscan con estos años
 P2_FROM = "2026-01-01"              # y deben cumplir también en 2026 hasta hoy
 MIN_MIEMBROS = 3                    # al menos 3 agentes por equipo, para repartir el riesgo y poder comparar equipos
 MAX_MIEMBROS = 6
+MAX_POR_ACTIVO = 2                  # como mucho 2 agentes del mismo mercado (BTC, ETH...) en un equipo (0 = sin límite).
+                                    # Laboratorio 27/10/2026: con 2019–2023 más equipos cumplen el año siguiente y nunca menos.
 COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes (comisión + algo de deslizamiento)
 GOOD = 0.0001                       # una semana es buena solo si gana (más de un 0,01 %)
 TENDENCIA_DIAS = 50                 # filtro de tendencia: media de 50 días del activo (0 = sin filtro)
@@ -421,6 +424,9 @@ def build(ac, last_day, log=print):
                 for j in chosen:
                     if j in team:
                         continue
+                    act = cands[j].get("activo", ac.cfg["mercado"])
+                    if MAX_POR_ACTIVO and sum(cands[i].get("activo", ac.cfg["mercado"]) == act for i in team) >= MAX_POR_ACTIVO:
+                        continue  # ya tiene bastantes de ese mercado: así el equipo reparte el riesgo
                     idx = team + [j]
                     val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm, L=L[idx, :k1])
                     sc = objective(stats(days[:k1], val), goal)
