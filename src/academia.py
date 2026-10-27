@@ -616,8 +616,13 @@ class Academia:
             ag["motivo"] = "Empieza el simulado con precios reales."
             active.append(ag)
             how = "con su propia estrategia" if ag["eleccion"] == "propia" else f"con {ag['label']}"
+            if ag.get("lado") == "corto" and ag.get("validacion_corto"):
+                res = (f"Ganó {pc(ag['validacion_corto']['ret'])} en 2022-23 vendiendo en corto (en 2024-25, años alcistas, "
+                       f"{pc(ag['exam']['ret'])}) {how}")
+            else:
+                res = f"Ganó {pc(ag['exam']['ret'])} en 2024-25 {how}"
             self.notify(f"{ag['name']} aprueba el examen",
-                        f"Ganó {pc(ag['exam']['ret'])} en 2024-25 {how} ({ag['tf_label']}). Empieza {sim['dias']} días en simulado con 100 € ficticios.")
+                        f"{res} ({ag['tf_label']}). Empieza {sim['dias']} días en simulado con 100 € ficticios.")
         team_days, team_ops = [], {}
         paused = set(self.cfg.get("cartera", {}).get("pausados", []))
         for ag in [a for a in self.state["agents"] if a["status"] in ("simulado", "listo")]:

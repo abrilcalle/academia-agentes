@@ -2,6 +2,14 @@
   "_nota": "Avisos para Abril. tipo: decidir / hacer (salen arriba en el panel), idea (ideas guardadas para más adelante) o recordatorio (cosas a tener en cuenta en un paso concreto). estado: pendiente o resuelto. desde: fecha a partir de la que se muestra.",
   "avisos": [
     {
+      "id": "equipos-casi-iguales",
+      "fecha": "2026-10-27",
+      "tipo": "decidir",
+      "titulo": "Los tres equipos son casi el mismo y dependen de un corto que aún no se puede usar por API",
+      "texto": "Qué pasa: desde el 26/10 Halcón, Lobo y Tortuga comparten el mismo núcleo: Tomás 2 (BTC), Tere 2 ↓ (BTC, en corto) y Úrsula (BTC). Por eso van igual: la semana pasada perdieron −1,0 %, −1,2 % y −1,1 %, y esta semana +0,3 % los tres. Tener tres equipos no nos está dando tres apuestas distintas. Además, Tere 2 ↓ vende en corto y lleva entre el 25 % y el 50 % del dinero de cada equipo; Bitvavo sigue sin permitir cortos por API (comprobado hoy en su ayuda), así que hoy ninguno de los tres podría pasar a dinero real tal cual. Opciones: (1) dejarlo así; (2) exigir que los tres equipos del podio se parezcan poco entre sí (por ejemplo, que no compartan más de la mitad de los agentes o que sus semanas no vayan casi igual); (3) lo mismo que la 2 y, además, que uno de los tres sea siempre sin cortos, para tener un candidato que sí se pueda llevar a dinero real. Recomiendo la 3: creo que sería mejor así porque comparamos de verdad formas distintas de ganar y, si una cumple los 3 meses, podemos usarla sin esperar a Bitvavo. Si me dices que sí, lo cambio en la forma de elegir el podio y te enseño cómo quedan.",
+      "estado": "pendiente"
+    },
+    {
       "id": "equipos-elegidos-con-2026",
       "fecha": "2026-10-26",
       "tipo": "decidir",
