@@ -8244,6 +8244,992 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "Tortugas Sistema 1 en largo (máximo de 20, salida en el mínimo de 10)",
+      "fuente": "Reglas originales de las Tortugas (Curtis Faith, 'Way of the Turtle'); resumen en MQL5, 'The Original Turtle Trading Rules' (https://www.mql5.com/en/articles/23448)",
+      "idea": "En velas diarias, comprar al romper el máximo de 20 días, añadir a favor cuando el precio avanza, stop a 2 ATR y salir al perder el mínimo de 10 días.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0.04,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Canal gaussiano con StochRSI en velas diarias (TRADLEWARE, BTC y ETH)",
+      "fuente": "TRADLEWARE, 'Gaussian Channel + StochRSI BTC' (y versión ETH) en TradingView (https://de.tradingview.com/script/d1JxXpid-TRADLEWARE-Gaussian-Channel-StochRSI-BTC/); aproximado con una banda de 1,4 desviaciones sobre la media de 144 días",
+      "idea": "En diario, comprar cuando el canal sube y el precio cierra por encima de su banda superior, y vender en cuanto vuelve a cerrar dentro del canal.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            144,
+            1.4
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "z_bajo",
+            144,
+            -1.4
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: Bollinger 20/2 en 4 h con stop del 1 % y objetivo 2R (CriptoMatiko)",
+      "fuente": "CriptoMatiko, 'CM Bollinger Bands Mean Reversion' en TradingView, probado en ETH/USDT de 4 h (https://br.tradingview.com/script/UfVSoNrD-CM-Bollinger-Bands-Mean-Reversion-CriptoMatiko/)",
+      "idea": "En ETH de 4 h, comprar cuando una vela cierra bajo la banda inferior de Bollinger, con stop ajustado del 1 % y objetivo del doble, o salir al tocar la banda superior.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            2.0
+          ]
+        ],
+        "stop": 0,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "escalera": 0.01
+      }
+    },
+    {
+      "nombre": "ETH: corto con Bollinger 10/2,5 en 4 h (CriptoMatiko)",
+      "fuente": "CriptoMatiko, 'CM Bollinger Bands Mean Reversion' en TradingView (para cortos recomienda BB 10/2,5, stop 1 % y objetivo 3R) (https://br.tradingview.com/script/UfVSoNrD-CM-Bollinger-Bands-Mean-Reversion-CriptoMatiko/)",
+      "idea": "En ETH de 4 h, vender en corto cuando una vela cierra por encima de la banda superior de Bollinger (10, 2,5), con stop del 1 % y objetivo del 3 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            10,
+            2.5
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            10,
+            2.5
+          ]
+        ],
+        "stop": 0,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto",
+        "escalera": 0.01
+      }
+    },
+    {
+      "nombre": "ETH y SOL: corto sobre la banda superior con RSI bajo 70 (Coinrule)",
+      "fuente": "Coinrule, 'Bollinger Bands and RSI Short Selling' en TradingView (ETH 1 h, SOL 3 h, 30 % del capital por operación) (https://www.tradingview.com/script/G2OpsGq0-Bollinger-Bands-and-RSI-Short-Selling-by-Coinrule)",
+      "idea": "En mercado bajista, vender en corto cuando el precio cierra sobre la banda superior de Bollinger sin que el RSI llegue a sobrecompra, y recomprar cuando vuelve dentro de las bandas con beneficio.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            -2.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Sistema Impulse de Elder en corto (EMA 13 y MACD bajando)",
+      "fuente": "Alexander Elder, 'Come Into My Trading Room'; reglas en StockSharp, 'Elder Impulse' (https://doc.stocksharp.com/en/api-examples/0023_Elder_Impulse)",
+      "idea": "Vender en corto cuando la barra es roja (la EMA de 13 baja y el histograma MACD empeora) y el precio cierra bajo la EMA, y cubrir en cuanto deja de ser roja.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            13
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ],
+          [
+            "bajo_ema",
+            13
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto",
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Ruptura por ensanchamiento del canal de Keltner (4 h)",
+      "fuente": "StockSharp, 'Keltner Channel Width Breakout' (https://doc.stocksharp.com/en/api-examples/0257_Keltner_Channel_Width_Breakout)",
+      "idea": "Cuando el canal de Keltner se ensancha de golpe (la volatilidad se dispara) y el precio está sobre su EMA de 20, comprar; salir cuando la volatilidad vuelve a su nivel normal.",
+      "regla": {
+        "entry": [
+          [
+            "vol_alta",
+            20,
+            0.9
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "vol_baja",
+            20,
+            0.6
+          ],
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Ruptura por ensanchamiento del canal de Keltner a la baja (corto)",
+      "fuente": "StockSharp, 'Keltner Channel Width Breakout' (lado corto) (https://doc.stocksharp.com/en/api-examples/0257_Keltner_Channel_Width_Breakout)",
+      "idea": "Cuando la volatilidad se dispara y el precio está bajo su EMA de 20, vender en corto; cubrir cuando la volatilidad se calma o recupera la EMA.",
+      "regla": {
+        "entry": [
+          [
+            "vol_alta",
+            20,
+            0.9
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "vol_baja",
+            20,
+            0.6
+          ],
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Tres cierres a la baja, salida con tres al alza (3 Down 3 Up)",
+      "fuente": "Script '3 Down, 3 Up Strategy' en TradingView (https://kr.tradingview.com/script/jsDwv2Mp-3-Down-3-Up-Strategy/); aproximado con la caída de 3 velas",
+      "idea": "Comprar tras una racha de tres velas bajistas sobre la EMA de 200 y vender tras otra racha de subidas; reversión corta.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            3,
+            0.04
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            3,
+            0.03
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Tres cierres al alza bajo la EMA de 200 (corto)",
+      "fuente": "Versión bajista del '3 Down, 3 Up Strategy' de TradingView (https://kr.tradingview.com/script/jsDwv2Mp-3-Down-3-Up-Strategy/)",
+      "idea": "En tendencia bajista, vender en corto tras una racha de tres velas alcistas y cubrir tras una racha de caídas.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            3,
+            0.04
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            3,
+            0.03
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: efecto lunes (Caporale y Plastun)",
+      "fuente": "Caporale y Plastun, 'The day of the week effect in the cryptocurrency market', Finance Research Letters 2018 (único día anómalo en BTC: el lunes) (https://bura.brunel.ac.uk/bitstream/2438/17208/3/FullText.pdf)",
+      "idea": "En velas de 1 h, comprar BTC al empezar el lunes (UTC) y vender al empezar el martes.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              0
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              1
+            ]
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: inercia tras un día de subida anormal (Caporale, Gil-Alana y Plastun)",
+      "fuente": "Caporale, Gil-Alana y Plastun, 'Price Overreactions in the Cryptocurrency Market' (estrategia 2: seguir el movimiento al día siguiente) (https://www.brunel.ac.uk/economics-finance-and-accounting/research/pdf/1801-Jan-GMC-Price-Overreactions-In-The-Cryptocurrency-Market.pdf)",
+      "idea": "Tras un día en que BTC sube mucho más de lo normal, comprar en la apertura siguiente y cerrar al final de ese día.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            1,
+            0.06
+          ],
+          [
+            "vol_alta",
+            20,
+            0.4
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: corto tras un día de caída anormal (Caporale, Gil-Alana y Plastun)",
+      "fuente": "Caporale, Gil-Alana y Plastun, 'Price Overreactions in the Cryptocurrency Market' (estrategia 2: tras una caída anormal, vender al día siguiente) (https://www.brunel.ac.uk/economics-finance-and-accounting/research/pdf/1801-Jan-GMC-Price-Overreactions-In-The-Cryptocurrency-Market.pdf)",
+      "idea": "Tras un día en que BTC cae mucho más de lo normal, vender en corto en la apertura siguiente y cubrir al final de ese día.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            1,
+            0.06
+          ],
+          [
+            "vol_alta",
+            20,
+            0.4
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto",
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP: triángulo o bandera confirmados con volumen",
+      "fuente": "Morningside University, 'Profitable XRP Swing Trading: Best Strategies and Tools' (patrones de triángulo, bandera y taza con asa) (https://wordpress.morningside.edu/learn/2025/04/25/profitable-xrp-swing-trading-best-strategies-and-tools-for-smarter-moves/)",
+      "idea": "En XRP, comprar cuando se confirma la ruptura de un triángulo ascendente con volumen fuerte, y salir si pierde la media de 20.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "triangulo",
+            30,
+            0.02
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0.05,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: RSI en sobreventa confirmado por el giro del MACD",
+      "fuente": "Morningside University, 'Profitable XRP Swing Trading' (combinar RSI bajo 30 y cruce del MACD para el momento de entrada) (https://wordpress.morningside.edu/learn/2025/04/25/profitable-xrp-swing-trading-best-strategies-and-tools-for-smarter-moves/)",
+      "idea": "En XRP, comprar cuando el RSI sigue bajo pero el histograma del MACD ya se ha vuelto positivo, y vender cuando el RSI llega a sobrecompra.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "impulso_baja",
+            10,
+            0.08
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.02
+      }
+    },
+    {
+      "nombre": "SOL: corto en zona de resistencia con confluencia de POC en tendencia bajista (SiDec)",
+      "fuente": "SiDec, 'SOL Trading Plan: Stacking Entries Like a Pro' en TradingView (corto en la confluencia de Fibonacci 0,618, VWAP anclado y POC; R:R 6:1) (https://www.tradingview.com/chart/SOLUSDT/u0CUAhzR-SOL-Trading-Plan-Stacking-Entries-Like-a-Pro/)",
+      "idea": "En SOL bajo su media de 200, vender en corto cuando el rebote llega al POC del perfil de volumen y es rechazado, con objetivo amplio.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebota_poc",
+            0.01
+          ],
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "impulso_baja",
+            24,
+            0.05
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            48
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: compra en soporte mayor tras una caída fuerte (SiDec)",
+      "fuente": "SiDec, 'SOL Trading Plan: Stacking Entries Like a Pro' en TradingView (largo en soporte mensual con EMA 200 semanal; R:R ~2,2) (https://www.tradingview.com/chart/SOLUSDT/u0CUAhzR-SOL-Trading-Plan-Stacking-Entries-Like-a-Pro/)",
+      "idea": "En SOL, tras una caída fuerte, comprar el rebote en un soporte de largo plazo con stop bajo el soporte y objetivo de unas dos veces el riesgo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebote_soporte",
+            90,
+            0.03
+          ],
+          [
+            "impulso_baja",
+            30,
+            0.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.17,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.08,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: ruptura de 1 h con volumen +30 % y RSI sobre 50 (salida rápida si falla)",
+      "fuente": "Crypto Breakout Scanner, 'Guide: crypto breakout scanner for Solana' (volumen al menos un 30 % sobre la media, RSI hacia 50, salir si vuelve bajo el nivel) (https://cryptobreakoutscanner.duckdns.org/blog/guide-crypto-breakout-scanner-for-solana)",
+      "idea": "En SOL de 1 h, comprar la ruptura de la resistencia de los últimos 2 días con volumen superior en un 30 % y RSI sobre 50; si en pocas horas vuelve bajo el nivel, salir.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            48
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            4
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.03,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Altcoins: Donchian de cierres 50/50 en diario (Donchian Quest)",
+      "fuente": "Script 'Donchian Quest Research' en TradingView (canal de cierres 50/50 en diario; el autor lo aplica también a TOTAL2 y TOTAL3, el mercado de altcoins) (https://in.tradingview.com/script/YPQwKNF8-Donchian-Quest-Research)",
+      "idea": "En velas diarias, comprar cuando el cierre marca el máximo de 50 días y vender solo cuando marca el mínimo de 50 días, dejando correr la tendencia entera.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            50
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL y XRP: rebote tras una semana muy perdedora (reversión a corto plazo)",
+      "fuente": "'Cryptocurrency return reversals' (200 criptomonedas, 2015-2019; la reversión es más fuerte en las menos líquidas) (https://fairfield.elsevierpure.com/en/publications/cryptocurrency-return-reversals/)",
+      "idea": "Comprar SOL o XRP después de una semana de fuertes pérdidas y mantener alrededor de una semana, esperando que parte de la caída se revierta.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            7,
+            0.15
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            3,
+            0.08
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: corto tras una semana muy ganadora (reversión a corto plazo)",
+      "fuente": "'Cryptocurrency return reversals' (los ganadores de la semana tienden a devolver parte de la subida) (https://fairfield.elsevierpure.com/en/publications/cryptocurrency-return-reversals/)",
+      "idea": "Con SOL o XRP bajo su media de 100, vender en corto después de una semana de subidas muy fuertes y cubrir en torno a una semana después.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            7,
+            0.2
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            3,
+            0.08
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: comprar el máximo de 20 días y mantener 20 días (Quantpedia MAX)",
+      "fuente": "Quantpedia, 'Revisiting Trend-following and Mean-reversion Strategies in Bitcoin' (MAX con 10-50 días; fuera de muestra, 20 días fue el mejor) (https://vvv.quantpedia.com/?p=35597)",
+      "idea": "En BTC diario, comprar cada vez que el precio toca el máximo de 20 días y mantener la posición durante 20 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            40
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "%b de Bollinger de Connors y Alvarez (sobre la media de 200)",
+      "fuente": "Larry Connors y Cesar Alvarez, 'High Probability ETF Trading' (estrategia %b: comprar con %b bajo 0,2 sobre la media de 200 y vender con %b sobre 0,8)",
+      "idea": "Con el precio sobre la media de 200, comprar cuando cae al 20 % inferior de las bandas de Bollinger y vender cuando sube al 20 % superior.",
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            1.2
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            1.2
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Power play de Minervini (subida explosiva y pausa estrecha)",
+      "fuente": "Mark Minervini, 'Think & Trade Like a Champion' (power play: subida de casi el 100 % en 8 semanas seguida de una consolidación estrecha)",
+      "idea": "Tras una subida explosiva en pocas semanas, esperar una pausa de baja volatilidad y comprar cuando rompe el máximo de la pausa, con stop ajustado.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            56,
+            0.8
+          ],
+          [
+            "vol_baja",
+            10,
+            0.6
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0.05,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Vuelta al VWAP desde una sobreventa intradía",
+      "fuente": "Investopedia, 'Volume-Weighted Average Price (VWAP)' (el precio estirado lejos del VWAP tiende a volver a él en el día)",
+      "idea": "En velas de 1 h, cuando el precio cae más de dos desviaciones bajo su media de un día y la EMA rápida está bajo el VWAP, comprar y vender al recuperar el VWAP.",
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            24,
+            2.0
+          ],
+          [
+            "ema_bajo_vwap",
+            9
+          ],
+          [
+            "mercado_lateral",
+            24,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "ema_sobre_vwap",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005
+      }
     }
   ]
 }
