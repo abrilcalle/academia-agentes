@@ -9230,6 +9230,1081 @@
         "shrink": false,
         "min_net": 0.005
       }
+    },
+    {
+      "nombre": "XRP: RSI de 4 h bajo 30 en mínimo de 5 velas con volumen (gstrategy)",
+      "fuente": "Script open-source 'gstrategy XRP 4h' en TradingView (https://it.tradingview.com/script/9rmusuMm-gstrategy-xrp-4h)",
+      "idea": "En XRP de 4 h, comprar cuando el RSI baja de 30, el precio marca mínimo de 5 velas y el volumen supera su media; vender cuando el RSI llega a 70.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "pierde_minimo",
+            5
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: RSI de 4 h sobre 70 en máximo de 5 velas con volumen (gstrategy, corto)",
+      "fuente": "Script open-source 'gstrategy XRP 4h' en TradingView (https://it.tradingview.com/script/9rmusuMm-gstrategy-xrp-4h)",
+      "idea": "En XRP de 4 h, vender en corto cuando el RSI pasa de 70, el precio marca máximo de 5 velas y el volumen supera su media; recomprar cuando el RSI baja a 40.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "pierde_minimo",
+            5
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: retroceso a la zona entre las EMAs 20 y 50 en 4 h (Tradingstrategyguides)",
+      "fuente": "Tradingstrategyguides, 'ETHUSD 4H EMA Trading Strategy' en TradingView (https://ar.tradingview.com/chart/ETHUSD/h6gnK8bX-ETHUSD-4H-EMA-TRADING-STRATEGY/)",
+      "idea": "En ETH de 4 h, con la media de 20 sobre la de 50, comprar cuando el precio vuelve a la zona entre las EMAs 20 y 50, y salir si cierra bajo la EMA 50.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "bajo_ema",
+            20
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: corto los miércoles (Sahu, Fonseca y Kim)",
+      "fuente": "Sahu, Fonseca Ramírez y Kim (2024), 'Exploring Calendar Anomalies and Volatility Dynamics in Cryptocurrencies', Journal of Risk and Financial Management 17(8):351 (https://mdpi.com/1911-8074/17/8/351)",
+      "idea": "El estudio encontró rentabilidad negativa de SOL los miércoles: vender en corto al empezar el miércoles (UTC) y recomprar al acabar el día.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              2
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              3,
+              4,
+              5,
+              6,
+              0,
+              1
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y XRP: martes y viernes alcistas (Sahu, Fonseca y Kim)",
+      "fuente": "Sahu, Fonseca Ramírez y Kim (2024), 'Exploring Calendar Anomalies and Volatility Dynamics in Cryptocurrencies', Journal of Risk and Financial Management 17(8):351 (https://mdpi.com/1911-8074/17/8/351)",
+      "idea": "El estudio encontró rentabilidad positiva de ETH y XRP los martes y viernes: comprar al empezar esos días (UTC) y vender al acabar.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              1,
+              4
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              0,
+              2,
+              3,
+              5,
+              6
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP: MACD lento con tendencia de EMAs 60/220 en 4 h (Quant_Trading_Pro)",
+      "fuente": "Quant_Trading_Pro, 'XRP MACD Liquidity Tracker Strategy' en TradingView (MACD 25/60/220 con filtro de EMAs 60/220 en 4 h; con la media de señal más lenta aguantó mejor la tendencia) (https://in.tradingview.com/chart/XRPUSDT/UTlcoUQ6-XRP-MACD-Liquidity-Tracker-Strategy-Clean-Trend-Catch-4H)",
+      "idea": "En XRP de 4 h, comprar cuando el MACD es positivo y el precio está sobre las EMAs 60 y 220 con la 60 por encima, y aguantar hasta perder la EMA 220.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            60,
+            220
+          ],
+          [
+            "sobre_ema",
+            60
+          ],
+          [
+            "sobre_ema",
+            220
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            220
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP: MACD lento bajo las EMAs 60/220 en 4 h (Quant_Trading_Pro, corto)",
+      "fuente": "Quant_Trading_Pro, 'XRP MACD Liquidity Tracker Strategy' en TradingView (MACD 25/60/220 con filtro de EMAs 60/220 en 4 h; con la media de señal más lenta aguantó mejor la tendencia) (https://in.tradingview.com/chart/XRPUSDT/UTlcoUQ6-XRP-MACD-Liquidity-Tracker-Strategy-Clean-Trend-Catch-4H)",
+      "idea": "En XRP de 4 h, vender en corto con el MACD negativo y el precio bajo las EMAs 60 y 220 con la 60 por debajo, y recomprar al recuperar la EMA 220.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            60,
+            220
+          ],
+          [
+            "sobre_ema",
+            60
+          ],
+          [
+            "sobre_ema",
+            220
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            220
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: cierre sobre la EMA 50 tras un retroceso en tendencia (Crypto Today)",
+      "fuente": "Crypto Today, 'Master Momentum Trading: Solana on Coinbase Daily Timeframe Strategy Guide' (https://cryptotoday.it.com/?p=19463)",
+      "idea": "En SOL diario, sobre la EMA 200 y con la 50 por encima, comprar cuando tras un retroceso (RSI 40-50) el precio cierra sobre la EMA 50; salir al perderla o con RSI sobre 72.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            72
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0.05,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Rango bajista del RSI de Cardwell (corto)",
+      "fuente": "Andrew Cardwell, rangos del RSI en tendencia bajista (rebotes que fallan en 55-60); resumen en NexusFi (https://nexusfi.com/a/concepts/cardwell-rsi-framework)",
+      "idea": "En tendencia bajista (bajo la media de 50 y la 50 bajo la 200), vender en corto cuando el RSI rebota hasta 58-65 y recomprar si pasa de 65, cae a 20 o el precio recupera la media de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "rsi_bajo",
+            14,
+            42
+          ],
+          [
+            "rsi_alto",
+            14,
+            35
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "rsi_alto",
+            14,
+            80
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Holy Grail de Linda Raschke en corto",
+      "fuente": "Linda Raschke y Larry Connors, 'Street Smarts' (Holy Grail: ADX sobre 30 y retroceso a la media de 20); resumen en Capital.com (https://capital.com/en-eu/learn/trading-strategies/holy-grail-trading-strategy)",
+      "idea": "En una caída fuerte y limpia (tendencia marcada), vender en corto cuando el precio rebota hasta la media de 20 y recomprar en un nuevo mínimo de 20 velas.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.1
+          ],
+          [
+            "bajo_ema",
+            20
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ichimoku en corto: cruce Tenkan/Kijun bajo la nube (aproximado)",
+      "fuente": "Goichi Hosoda, Ichimoku Kinko Hyo (señal bajista: Tenkan cruza bajo Kijun con el precio bajo la nube); resumen en Capital.com (https://capital.com/en-au/learn/technical-analysis/ichimoku-cloud-strategy)",
+      "idea": "Vender en corto cuando la media de 9 está bajo la de 26, el precio está bajo la media de 52 (la nube) y baja respecto a hace 26 velas; recomprar al recuperar la media de 26.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            52
+          ],
+          [
+            "cruce_alcista",
+            9,
+            26
+          ],
+          [
+            "impulso_sube",
+            26,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            26
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Triple pantalla de Elder en corto",
+      "fuente": "Alexander Elder, 'Trading for a Living' (1993): Triple Screen, tendencia bajista en la pantalla larga y venta en los rebotes",
+      "idea": "Con el precio bajo la media de 130 (26 semanas) y el MACD negativo, vender en corto cuando un rebote lleva el RSI sobre 60; recomprar con RSI bajo 30 o al recuperar la media.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            130
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "bajo_media",
+            130
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0.03,
+        "stall": 3,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Weekend Trend Trader de Nick Radge (máximo de 20 semanas con ROC)",
+      "fuente": "Nick Radge, 'Weekend Trend Trader' (ruptura del máximo de 20 semanas con ROC fuerte y stop dinámico amplio); versión en TradingView de Konscio (https://il.tradingview.com/script/QytXbleE)",
+      "idea": "En velas diarias, comprar cuando el precio cierra en máximo de 20 semanas y ha subido más del 30 % en ese plazo; salir con un stop dinámico amplio o al perder la media de 200.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            140
+          ],
+          [
+            "impulso_sube",
+            140,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0.3,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Cruce 50/200 solo con mercado en tendencia y objetivo 1,5R (Trading Rush)",
+      "fuente": "Trading Rush (YouTube), 'I Analyzed 10,000 Trades (50 Strategies)': el cruce de medias 50/200 con objetivo 1,5:1 fue la única que ganó en mercados malos y rinde mucho mejor en tendencia; resumen en https://sozai.app/transcript/analyzed-10000-trades-50-strategies/index.md",
+      "idea": "Comprar cuando la media de 50 está sobre la de 200 solo si el mercado va en tendencia limpia, con stop de 2 ATR y objetivo de 1,5 veces el riesgo.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "en_tendencia",
+            50,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            50,
+            200
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Triple confirmación de Coinrule (RSI bajo 40, media 9 sobre 50 y volumen)",
+      "fuente": "Coinrule, 'Crypto Day Trading Strategies' (https://coinrule.com/crypto-day-trading-strategies)",
+      "idea": "Comprar cuando el RSI baja de 40 con la media de 9 sobre la de 50 y el volumen un 20 % sobre su media; vender con RSI sobre 65.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "cruce_alcista",
+            9,
+            50
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Scalping de RSI bajo 30 con volumen del 150 % (Coinrule)",
+      "fuente": "Coinrule, 'Crypto Day Trading Strategies' (https://coinrule.com/crypto-day-trading-strategies)",
+      "idea": "En velas de 1 h, comprar cuando el RSI baja de 30 con el volumen un 50 % sobre su media, y vender con RSI sobre 65 o un 1,5 % de ganancia.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.015,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005
+      }
+    },
+    {
+      "nombre": "BTC: ruptura de Donchian 20 sobre la EMA 200 con stop ATR (raven_suurineru, 4 h)",
+      "fuente": "raven_suurineru, 'Donchian Breakout with ATR Trailing Stop (Trend Following)' en TradingView, probado en BTCUSD de 4 h (https://kr.tradingview.com/script/NeEiwmDq-Donchian-Breakout-with-ATR-Trailing-Stop-Trend-Following/)",
+      "idea": "En BTC de 4 h, comprar cuando el precio cierra sobre el máximo de 20 velas estando sobre la EMA 200, con stop de unos 3 ATR que acompaña la subida.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Delta acumulado vendedor a favor de la tendencia bajista (CVD, corto)",
+      "fuente": "Indicador Cumulative Volume Delta en TradingView/LuxAlgo (https://www.luxalgo.com/library/indicator/RNYYXeI8-cumulative-volume-delta) (versión bajista)",
+      "idea": "Con el precio bajo la media de 50, vender en corto cuando dominan las ventas agresivas (delta acumulado negativo) y recomprar si vuelven las compras o recupera la media.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "delta_compra",
+            20,
+            0.03
+          ]
+        ],
+        "exit": [
+          [
+            "delta_venta",
+            20,
+            0.03
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Medias múltiples de Guppy (GMMA) en corto",
+      "fuente": "Daryl Guppy, 'Trend Trading' (GMMA: las medias cortas cruzan bajo las largas y se separan en tendencia bajista)",
+      "idea": "Vender en corto cuando la media de 10 cruza bajo la de 30 y la de 30 bajo la de 60, con el precio bajo la de 10; recomprar cuando la de 10 vuelve sobre la de 30.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            30
+          ],
+          [
+            "cruce_alcista",
+            30,
+            60
+          ],
+          [
+            "sobre_media",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            30
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Barra de retroceso de inventario de Rob Hoffman (IRB)",
+      "fuente": "Rob Hoffman, Inventory Retracement Bar (vela de retroceso en tendencia con la EMA 20 inclinada); script de Noski en TradingView (https://es.tradingview.com/script/khxEdmoy-Noski-Rob-Hoffman-Inventory-Retracement-Bar)",
+      "idea": "En una tendencia alcista limpia sobre la EMA 20, comprar tras una vela que cierra a la baja (retroceso de inventario) y salir si el precio cierra bajo la EMA 20.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.4
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Supertrend (10, 3) en corto (Olivier Seban)",
+      "fuente": "Olivier Seban, creador del Supertrend; versión larga y corta de PinegenAI en TradingView (https://www.tradingview.com/script/nXIb4hOt-SuperTrend-Multi-Time-Frame-Long-and-Short-Trading-Strategy)",
+      "idea": "Vender en corto cuando el precio rompe el mínimo de 10 velas estando bajo la media de 20, y recomprar cuando supera el máximo de 20 velas.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Rechazo en el POC en tendencia bajista (Volume Profile, corto)",
+      "fuente": "Vídeo 'The BEST Volume Profile Trading Guide' (TikTok) enviado por Abril el 24/10/2026 (versión bajista del rebote en el POC)",
+      "idea": "Con el precio bajo la media de 300 velas, vender en corto cuando sube hasta el POC de la sesión anterior y lo rechaza; recomprar al llegar a la parte baja de la zona de valor o si cierra sobre el POC.",
+      "regla": {
+        "entry": [
+          [
+            "rebota_poc",
+            0.002
+          ],
+          [
+            "sobre_media",
+            300
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.002
+          ],
+          [
+            "llega_vah",
+            0.001
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: volatilidad de 30 días en mínimos que rompe al alza (Cointelegraph)",
+      "fuente": "Cointelegraph, 'Bitcoin price gained 50% the last time its volatility fell this low' (https://cointelegraph.com/news/bitcoin-price-gained-50percent-the-last-time-its-volatility-fell-this-low)",
+      "idea": "Cuando la volatilidad realizada de BTC en 30 días está en mínimos (bajo el 35 % anual) y el precio rompe el máximo de 10 velas sobre la media de 50, comprar la salida de la compresión.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            30,
+            0.35
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.15,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: domingo alcista (Sahu, Fonseca y Kim)",
+      "fuente": "Sahu, Fonseca Ramírez y Kim (2024), 'Exploring Calendar Anomalies and Volatility Dynamics in Cryptocurrencies', Journal of Risk and Financial Management 17(8):351 (https://mdpi.com/1911-8074/17/8/351)",
+      "idea": "El estudio encontró rentabilidad positiva los domingos en casi todas las monedas: comprar SOL o XRP al empezar el domingo (UTC) y vender al acabar.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              6
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC y ETH: ruptura del rango de la mañana a las 16 h UTC (Hansen, Kim y Kimbrough)",
+      "fuente": "Hansen, Kim y Kimbrough, 'Periodicity in Cryptocurrency Volatility and Liquidity' (volatilidad y volumen se disparan a las 16 h UTC) (https://arxiv.org/pdf/2109.12142v2.pdf)",
+      "idea": "En velas de 1 h, a las 16 h UTC (pico diario de volatilidad), comprar si el precio rompe el máximo de las últimas 10 horas con volumen, y cerrar antes de medianoche.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            16,
+            1
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
     }
   ]
 }
