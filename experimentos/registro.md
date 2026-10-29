@@ -189,3 +189,16 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
   - La base reproduce los números de la vuelta de las 10:31 (484 y 88): el banco sigue siendo fiable.
 - **Conclusión: no se queda.** Cambiar el tamaño de los equipos no mejora: en los tríos, que es lo más parecido al sistema real, la base (3 a 6) es la mejor, y min4 solo mueve equipos que cumplen de unos años a otros. Se mantiene 3–6.
 - **Para próximas vueltas:** probado ya también el tamaño de los equipos. No repetir. Lo que limita sigue siendo 2022: ningún cambio en cómo se forman, se reparten o se eligen los equipos lo arregla; hace falta que existan agentes que ganen en años bajistas.
+
+## 2026-10-29 21:16 (hora de Madrid) — Equipos más variados por dentro (agentes que se parezcan menos)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 29/10, datos hasta el 28/10, sin incidencias). Nada que arreglar.
+- **Hipótesis:** al formar los equipos solo se descartan candidatos que se mueven casi igual que otro (correlación diaria > 0,9) y dentro de un equipo no hay límite de parecido. Si se exige más variedad (umbral más bajo al elegir los 24 candidatos, o que dentro de un equipo ningún par de agentes se parezca demasiado), el riesgo se reparte de verdad y los equipos deberían cumplir más veces fuera del año con que se forman.
+- **Qué probé (en una copia, sin tocar el código):** banco de tres pasos (m1 → `m2c.py` → `m3c.py`, guardados en `experimentos/banco/`) con variantes *c08* y *c07* (umbral de parecido 0,8 / 0,7 al elegir los 24 candidatos y los gemelos en corto) y *tc06* / *tc04* (dentro de un equipo ningún par con correlación diaria > 0,6 / 0,4), frente a la base (0,9 y sin límite dentro). Todo lo demás como `build` (cap2, tamaño 3–6, filtro de tendencia de 50 días, 3 prudencias × 18 repartos, comisiones USDC con cambio USDC/EUR, historial desde 2018).
+- **Datos:** 264 agentes examinados (sin clones), datos cortados el 01/01/2024 (2019–2023). Los 20 pares formación→prueba y los 60 tríos formar→elegir podio→juzgar.
+- **Resultado:**
+  - Todos los pares (equipos que cumplen las 3 condiciones; total): base **484** · c08 548 · c07 519 · tc06 487 · tc04 326 (tc04 casi no puede formar equipos en 2023).
+  - Tríos (podio que cumple en C, de 180; en orden de tiempo, de 30): base 88 / 11 · c08 **100 / 12** · c07 83 / 6 · tc06 90 / 9 · tc04 57 / 13. Con C = 2022: 2 / 0 / 1 / 0 / 0.
+  - Pero la mejora de c08 viene casi entera de los equipos formados con 2022 (2022→2021 +34, 2022→2019 +15, 2022→2023 +11: +60 de +64); en los 16 pares restantes la suma es +1 (2023→2019 −12, 2023→2020 −9, 2021→2023 −5). Y no va en una dirección: con 0,7 los tríos empeoran (88 → 83; en orden de tiempo 11 → 6). Limitar el parecido dentro del equipo (tc06, tc04) no mejora o empeora.
+  - La base reproduce los números de las vueltas de hoy (484 y 88): el banco sigue siendo fiable.
+- **Conclusión: no se queda.** Igual que con "mitades", la mejora depende de un solo año de formación (2022) y el paso siguiente en la misma dirección (0,7) empeora: no es una mejora clara y robusta. Se mantiene el umbral 0,9 y sin límite dentro del equipo.
+- **Para próximas vueltas:** probado ya también exigir más variedad entre candidatos o dentro del equipo. No repetir. Lo que limita sigue siendo 2022 (ningún podio cumple con C = 2022 en ninguna variante).
