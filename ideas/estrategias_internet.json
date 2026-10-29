@@ -10305,6 +10305,1062 @@
         "min_net": 0,
         "salida_siempre": true
       }
+    },
+    {
+      "nombre": "RSI(10) bajo 30 sobre la media de 200 con salida en 40 (Rayner Teo)",
+      "fuente": "Rayner Teo, 'Trading strategy with a winning rate of 88.89%' (https://www.tradingwithrayner.com/trading-strategy-winning-rate-of-88-89)",
+      "idea": "Con el precio sobre la media de 200, comprar cuando el RSI de 10 cierra bajo 30 y vender cuando vuelve sobre 40 o a los 10 días.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            10,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            10,
+            40
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Tendencia débil: retroceso a la media de 100 (Rayner Teo)",
+      "fuente": "Rayner Teo, 'The secret to trading trends like a pro' (https://www.tradingwithrayner.com/the-secret-to-trading-trends-like-a-pro)",
+      "idea": "En una tendencia alcista débil (precio sobre la media de 200 pero con retrocesos profundos), comprar cuando el precio cae bajo la media de 100 y cobrar un solo tramo hasta el máximo anterior.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "bajo_media",
+            100
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Tendencia sana: retroceso a la media de 50 (Rayner Teo)",
+      "fuente": "Rayner Teo, 'The secret to trading trends like a pro' (https://www.tradingwithrayner.com/the-secret-to-trading-trends-like-a-pro)",
+      "idea": "En una tendencia sana (la media de 50 sobre la de 200), comprar el retroceso cuando el precio toca la media de 50 sin perder la de 100 y salir si pierde la de 200.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Tendencia fuerte: ruptura del máximo con salida bajo la media de 20 (Rayner Teo)",
+      "fuente": "Rayner Teo, 'The secret to trading trends like a pro' (https://www.tradingwithrayner.com/the-secret-to-trading-trends-like-a-pro)",
+      "idea": "En velas diarias, cuando la tendencia es fuerte y los retrocesos no pasan de la media de 20, comprar la ruptura del máximo anterior y aguantar mientras el precio siga sobre la media de 20.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.4
+          ],
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Vender el estirón con ATR bajo la EMA 200 (Botnet101, corto)",
+      "fuente": "TradingView, script de código abierto de Botnet101, '[SHORT ONLY] ATR Sell the Rip Mean Reversion Strategy' (https://my.tradingview.com/script/ylozoEOC-SHORT-ONLY-ATR-Sell-the-Rip-Mean-Reversion-Strategy)",
+      "idea": "Bajo la EMA de 200, vender en corto cuando el precio se estira muy por encima de su media corta y recomprar en cuanto una vela cierra bajo el mínimo de la anterior.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "z_bajo",
+            10,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Varias velas sobre la media de 5 bajo la EMA 200 (Botnet101, corto)",
+      "fuente": "TradingView, script de código abierto de Botnet101, '[SHORT ONLY] Consecutive Bars Above MA Strategy' (https://id.tradingview.com/script/rqoXJq6m-SHORT-ONLY-Consecutive-Bars-Above-MA-Strategy)",
+      "idea": "Bajo la EMA de 200, tras varias velas cerrando sobre la media de 5 y una vela que supera el máximo anterior, vender en corto; recomprar cuando una vela cierra bajo el mínimo previo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "bajo_media",
+            5
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.0
+          ],
+          [
+            "pierde_minimo",
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Swing de 4 h: retroceso a la EMA 50 con RSI bajo 45 (BTC, ETH y XRP)",
+      "fuente": "TradingView, script de código abierto de 'Crypto Swing Trading Strategy (1-5 Day)' para BTCUSD, ETHUSD y XRPUSD (https://my.tradingview.com/script/S0vIpXPt-Crypto-Swing-Trading-Strategy-1-5-Day)",
+      "idea": "En velas de 4 h, con la 50 sobre la 200, esperar un retroceso a la EMA 50 con el RSI bajo 45 y comprar cuando gira al alza; asegurar con break-even y stop que sigue al precio.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Swing de 4 h: rebote a la EMA 50 con RSI sobre 70 en tendencia bajista (BTC, ETH y XRP, corto)",
+      "fuente": "TradingView, script de código abierto de 'Crypto Swing Trading Strategy (1-5 Day)' para BTCUSD, ETHUSD y XRPUSD (https://my.tradingview.com/script/S0vIpXPt-Crypto-Swing-Trading-Strategy-1-5-Day)",
+      "idea": "En velas de 4 h, con la 50 bajo la 200, esperar un rebote hasta la EMA 50 con el RSI en sobrecompra y vender en corto cuando gira a la baja.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Dos cierres al alza con RSI bajo 50 sobre la EMA 200 (anjanakap)",
+      "fuente": "TradingView, script de código abierto de anjanakap, 'EMA RSI Strategy' (https://cn.tradingview.com/script/FOnPnXdh-EMA-RSI-Strategy)",
+      "idea": "Sobre la EMA de 200, comprar cuando hay dos cierres seguidos al alza y el RSI aún está bajo 50 pero subiendo; salir con un stop que sigue al precio.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Dos cierres a la baja con RSI sobre 50 bajo la EMA 200 (anjanakap, corto)",
+      "fuente": "TradingView, script de código abierto de anjanakap, 'EMA RSI Strategy' (https://cn.tradingview.com/script/FOnPnXdh-EMA-RSI-Strategy)",
+      "idea": "Bajo la EMA de 200, vender en corto cuando hay dos cierres seguidos a la baja y el RSI aún está sobre 50 pero cayendo; recomprar con un stop que sigue al precio.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: corto los jueves (Kahraman y Kök)",
+      "fuente": "Kahraman y Kök (2024), 'Day-of-the-Week and Month-of-the-Year Effects in the Cryptocurrency Market', Journal of Mehmet Akif Ersoy University Economics and Administrative Sciences Faculty 11(1) (https://dergipark.org.tr/en/download/article-file/3521393)",
+      "idea": "El jueves fue el único día con rentabilidad significativamente más baja en ETH: vender en corto al empezar el jueves (UTC) y recomprar al acabar.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              3
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: corto los miércoles y domingos (Kahraman y Kök)",
+      "fuente": "Kahraman y Kök (2024), 'Day-of-the-Week and Month-of-the-Year Effects in the Cryptocurrency Market' (https://dergipark.org.tr/en/download/article-file/3521393)",
+      "idea": "En BTC, el miércoles y el domingo dieron rentabilidades significativamente más bajas que el lunes: vender en corto al empezar esos días (UTC) y recomprar al acabar.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              2,
+              6
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              3,
+              4,
+              5
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Altcoins: momento de series temporales con medias rápida y lenta (Gbadebo, 2026)",
+      "fuente": "Gbadebo (2026), 'Momentum Trading in Cryptocurrencies: A Comparative Study of Time-Series and Cross-Sectional Strategies' (ETH, XRP, SOL y otras; 2020-2025) (https://www.journals.vu.lt/BATP/en/article/view/44540)",
+      "idea": "En velas diarias, estar comprado mientras la media rápida esté sobre la lenta y el precio haya subido en el último mes; el estudio vio que el momento propio de cada moneda supera al de comparar monedas.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            50
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: cruce de EMAs 9/21 con RSI sobre 40 (gnatius1975)",
+      "fuente": "TradingView, script de código abierto de gnatius1975, 'XRP Scalping with EMA Crossover Anticipation' (https://my.tradingview.com/script/MCeX8p1o-XRP-Scalping-with-EMA-Crossover-Anticipation)",
+      "idea": "En XRP, comprar cuando la media de 9 pasa sobre la de 21 con el RSI por encima de 40 y salir cuando se vuelven a cruzar a la baja.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "sobre_ema",
+            9
+          ],
+          [
+            "rsi_alto",
+            14,
+            40
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: cruce bajista de EMAs 9/21 con RSI bajo 70 (gnatius1975, corto)",
+      "fuente": "TradingView, script de código abierto de gnatius1975, 'XRP Scalping with EMA Crossover Anticipation' (señales de venta) (https://my.tradingview.com/script/MCeX8p1o-XRP-Scalping-with-EMA-Crossover-Anticipation)",
+      "idea": "En XRP, vender en corto cuando la media de 9 cae bajo la de 21 con el RSI por debajo de 70 y recomprar cuando se vuelven a cruzar al alza.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "sobre_ema",
+            9
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ],
+          [
+            "rsi_bajo",
+            14,
+            60
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: mecha de capitulación en mercado lateral (Todrock, SOL Swing Trader)",
+      "fuente": "Todrock, 'SOL v1.0 Swing Trader' en TradingView (WVF, ADX bajo 25 y eficiencia bajo 0,35; objetivo +13 % y stop −8 % en 4 h) (https://tw.tradingview.com/script/cpRqhk4B-SOL-v1-0-Swing-Trader/)",
+      "idea": "En SOL, cuando el mercado está lateral y una caída brusca con volumen limpia a los compradores débiles, comprar y esperar la recuperación con objetivo fijo, sin break-even ni trailing.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            20,
+            0.35
+          ],
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            2.5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.13,
+        "trail": 0,
+        "hold": 24,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: comprado en la sesión asiática (VeloData)",
+      "fuente": "FXStreet (Akash Girimath), 'Solana price likely to hit $133, data shows Asian traders prefer SOL' con datos de VeloData (https://www.fxstreet.com/cryptocurrencies/news/solana-price-likely-to-hit-133-data-shows-asian-traders-prefer-sol-202402010747)",
+      "idea": "La rentabilidad acumulada de SOL es mayor en la sesión de Asia-Pacífico: en velas de 1 h, comprar a las 0 h UTC y vender a las 8 h UTC.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            0,
+            1
+          ],
+          [
+            "sobre_media",
+            48
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            8,
+            16
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: sobre la media de 65 días (Le y Ruthbah)",
+      "fuente": "Le y Ruthbah (2024), 'Trend-following Strategies for Crypto Investors' (medias de 20, 65, 150 y 200 días en BTC y ETH), resumido por CXO Advisory (https://cxoadvisory.com/technical-trading/applying-simple-trend-following-rules-to-cryptocurrencies)",
+      "idea": "En velas diarias, estar comprado en ETH cuando cierra sobre su media de 65 días y en liquidez cuando cierra por debajo.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            65
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            65
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL y XRP: sobre la media de 20 días (Le y Ruthbah, altcoins)",
+      "fuente": "Le y Ruthbah (2024), 'Trend-following Strategies for Crypto Investors' (también probado en el índice S&P Cryptocurrency LargeCap ex-MegaCap), resumido por CXO Advisory (https://cxoadvisory.com/technical-trading/applying-simple-trend-following-rules-to-cryptocurrencies)",
+      "idea": "En velas diarias, estar comprado en SOL o XRP mientras cierren sobre su media de 20 días (señal rápida para monedas más volátiles) y salir cuando cierren por debajo.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Cruce de medias 23/30 de Kleinmann (diario)",
+      "fuente": "George Kleinmann (medias de 23 y 30 días en 'Trading Commodities and Financial Futures'); TradingView, script de código abierto de Goblin_King_, 'Kleinmann's Trend Following Strategy - Cryptocurrency' (https://in.tradingview.com/script/EfUR9dad-Kleinmann-s-Trend-Following-Strategy-Cryptocurrency)",
+      "idea": "En velas diarias, comprar cuando la media de 23 días está sobre la de 30 y el precio sobre ambas, y vender cuando la de 23 cae bajo la de 30.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            23,
+            30
+          ],
+          [
+            "sobre_media",
+            23
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            23,
+            30
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: cruce de medias de 6 y 33 días (Rozario, Holt, West y Ng)",
+      "fuente": "Rozario, Holt, West y Ng (2020), 'A Decade of Evidence of Trend Following Investing in Cryptocurrencies' (mejor SMA 141/781 horas en BTC) (https://arxiv.org/pdf/2009.12155v1.pdf)",
+      "idea": "El mejor cruce de medias simples del estudio en BTC fue de 141 y 781 horas (unos 6 y 33 días): comprado mientras la rápida esté sobre la lenta.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            6,
+            33
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            6,
+            33
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: sobre la media de 100 días (Cointelegraph Consulting)",
+      "fuente": "Cointelegraph Consulting, 'Bitcoin trading: momentum strategies with different moving averages' (https://cointelegraph.com/news/bitcoin-trading-momentum-strategies-with-different-moving-averages)",
+      "idea": "En el estudio, las medias simples de 50 y 100 días batieron a sus EMAs en BTC: estar comprado cuando cierra sobre la media de 100 días y en liquidez cuando cierra por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            100
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL y XRP: comprar un 10 % por debajo de la media (HNipps)",
+      "fuente": "TradingView, script de código abierto de HNipps, 'Moving Average Mean Reversion Strategy' (largo al 10 % bajo la media) (https://vn.tradingview.com/script/gPWz2g3u-Moving-Average-Mean-Reversion-Strategy)",
+      "idea": "En SOL o XRP, comprar cuando el precio cae con fuerza (un 10 % en pocas velas) y queda muy por debajo de su media de 20, y vender al volver a la media.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            20
+          ],
+          [
+            "impulso_baja",
+            10,
+            0.1
+          ],
+          [
+            "z_bajo",
+            20,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: corto un 10 % por encima de la media (HNipps)",
+      "fuente": "TradingView, script de código abierto de HNipps, 'Moving Average Mean Reversion Strategy' (corto al 10 % sobre la media) (https://vn.tradingview.com/script/gPWz2g3u-Moving-Average-Mean-Reversion-Strategy)",
+      "idea": "En SOL o XRP, vender en corto cuando el precio sube con fuerza (un 10 % en pocas velas) y queda muy por encima de su media de 20, y recomprar al volver a la media.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            20
+          ],
+          [
+            "impulso_baja",
+            10,
+            0.09
+          ],
+          [
+            "z_bajo",
+            20,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: Aroon bajista 17/55 (IkkeOmar, corto)",
+      "fuente": "TradingView, script de código abierto de IkkeOmar, 'Aroon and ASH strategy - ETHERIUM' (Aroon de 17 para entrar en corto y de 55 para salir) (https://in.tradingview.com/script/12aAlkJB-Aroon-and-ASH-strategy-ETHERIUM-IkkeOmar)",
+      "idea": "En ETH, vender en corto cuando marca un mínimo nuevo de 17 velas (Aroon bajista al máximo) bajo la media de 50 y recomprar solo cuando marque un máximo nuevo de 55 velas.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            17
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            55
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
     }
   ]
 }
