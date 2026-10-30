@@ -229,3 +229,16 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
   - La base reproduce los números de las vueltas anteriores (88 y 11): el banco sigue siendo fiable.
 - **Conclusión: no se queda.** Ningún criterio de orden del podio mejora de forma clara: el podio que se elija entre los equipos ya formados cumple en el año siguiente ~la mitad de las veces, se ordene como se ordene. Lo que limita no es el último paso de elección.
 - **Para próximas vueltas:** probado ya también el criterio de orden del podio (margen, caída, semanas, ganancia, probabilidad de cumplir). No repetir. Quedan por mirar ideas que cambien qué agentes existen (no cómo se combinan).
+
+## 2026-10-30 21:20 (hora de Madrid) — Cuántos años usar para formar los equipos (1, 2 o 3)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 30/10, datos hasta el 29/10, sin incidencias). Nada que arreglar.
+- **Hipótesis:** el sistema real forma los equipos con dos años (2024–25), pero el banco siempre los formó con uno. Si formar con más años (2 o 3 seguidos, que pueden incluir un año bajista) da equipos menos ajustados a un solo tipo de mercado, el podio debería cumplir más veces en el año siguiente; o al revés, si lo reciente pesa más, formar con un solo año sería mejor.
+- **Qué probé (en una copia, sin tocar el código):** banco de tres pasos (m1 → `m2w.py` → `m3w.py`, guardados en `experimentos/banco/`). Equipos formados con ventanas de 1 año (5), 2 años seguidos (4) y 3 años seguidos (3), mismo método que `build` (24 mejores y distintos + hasta 8 gemelos que ganen ≥ 10 % al año en la ventana, cap2, 3–6 agentes, filtro de tendencia de 50 días, 3 prudencias × 18 repartos, comisiones USDC con cambio USDC/EUR, historial desde 2018). Para cada ventana W y cada par (B, C) fuera de ella: podio elegido con B y juzgado en C, frente a formar solo con el último año de W y con cada año de W por separado.
+- **Datos:** 275 agentes examinados (sin clones), datos cortados el 01/01/2024 (2019–2023).
+- **Resultado (podio que cumple en C):**
+  - Ventanas de 2 años (24 tríos, 72 puestos): 2 años **33** · solo el último año **38** · media de cada año suelto 33. Por año C (2 años / último): 2019 8/12, 2020 6/5, 2021 9/11, 2022 0/2, 2023 10/8. En orden de tiempo (5 tríos): 7 / 9.
+  - Ventanas de 3 años (6 tríos, 18 puestos): 3 años **7** · último año **10** · media 8.
+  - Con más años los equipos ganan más cuando cumplen (mediana en C +49 % frente a +31 % y +16 %), pero cumplen menos veces: se eligen agentes que van bien de media y fallan más a menudo en semanas ganadas o caída.
+  - Formar con un solo año sale algo mejor que con dos, pero no en todos los años (peor en 2020 y 2023 como C) y la diferencia es pequeña (38 frente a 33 de 72): no es base para cambiar el sistema.
+- **Conclusión: no se queda.** Formar con más años no acerca la meta, y formar con menos tampoco es una mejora clara. Se mantiene 2024–25.
+- **Para próximas vueltas:** probado ya también la duración del periodo de formación (1, 2, 3 años). No repetir. En el simulado en vivo los tres equipos llevan dos semanas en rojo (−1 % y, esta semana por ahora, −3 %): vigilar si es mala racha normal (en 2026 ganan el 56–58 % de las semanas) o algo que se rompió.
