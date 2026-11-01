@@ -295,7 +295,7 @@ def team_card(tm, cfg, agents_by_id, lead=False):
         det = m.get("detalle") or {}
         extra = (f" (su historial {det['historial'] * 100:.0f} %, máquina del tiempo {det['maquina'] * 100:.0f} % con objetivo +{det['objetivo'] * 100:.1f} % y stop −{det['stop'] * 100:.1f} %)"
                  if det else "")
-        estado = ("operación abierta contra la tendencia de 50 días: el equipo espera fuera" if m.get("contra_tendencia")
+        estado = ("operación abierta sin la tendencia de 50 días a su favor (precio y media en la misma dirección): el equipo espera fuera" if m.get("contra_tendencia")
                   else f"operación abierta · {m.get('prob', 0) * 100:.0f} % de probabilidad de ganar{extra}".replace(".", ",")
                   if m["posicion"] > 0.05 else "esperando señal")
         c = contrib.get(m["id"])

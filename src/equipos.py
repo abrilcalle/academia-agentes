@@ -50,6 +50,7 @@ MAX_POR_ACTIVO = 2                  # como mucho 2 agentes del mismo mercado (BT
 COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes (comisión + algo de deslizamiento)
 GOOD = 0.0001                       # una semana es buena solo si gana (más de un 0,01 %)
 TENDENCIA_DIAS = 50                 # filtro de tendencia: media de 50 días del activo (0 = sin filtro)
+TENDENCIA_PENDIENTE = 10            # además la media tiene que ir a favor (subir/bajar en 10 días); si no, no hay tendencia clara y se espera fuera (0 = sin esta condición)
 BLOQUEADO = -1.0                    # valor de P para una operación a la que el equipo no da dinero (va contra la tendencia)
 
 
@@ -83,15 +84,22 @@ def time_machine(mk, j, side, tp, sl, horizon, n, rng):
     return float(win.mean()), float(lose.mean()), float((still & (paths[:, -1] > 0)).mean())
 
 
-def trend_by_day(ac, ag, dias=TENDENCIA_DIAS):
-    """Por fecha: +1 si el activo del agente cierra el día por encima de su media de `dias` días, -1 si por debajo."""
+def trend_by_day(ac, ag, dias=TENDENCIA_DIAS, pend=TENDENCIA_PENDIENTE):
+    """Por fecha: +1 si el activo del agente cierra el día por encima de su media de `dias` días y esa media sube
+    respecto a hace `pend` días; -1 si cierra por debajo y la media baja; 0 si no hay tendencia clara."""
     if not dias:
         return {}
     a = ag.get("activo", ac.cfg["mercado"])
     d1 = ac.daily if a == ac.cfg["mercado"] else ac.otros[a]["1d"]
     c = np.asarray(d1.I.c, float)
     ma = np.convolve(c, np.ones(dias) / dias, "full")[:len(c)]
-    return {d1.ts[i].date(): (1 if c[i] > ma[i] else -1) for i in range(dias - 1, len(c))}
+    out = {}
+    for i in range(dias - 1 + pend, len(c)):
+        t = 1 if c[i] > ma[i] else -1
+        if pend and (ma[i] - ma[i - pend]) * t <= 0:
+            t = 0
+        out[d1.ts[i].date()] = t
+    return out
 
 
 def trade_plan(ag, mk, j, gw, gl):
@@ -176,8 +184,9 @@ def series(ac, ag, start, variante=None):
         P[n_] = 0.5 * p + 0.5 * p_mc  # la mitad, su historial; la otra mitad, la máquina del tiempo
         G[n_] = tp
         L[n_] = sl
-        if tend.get(days[n_], 0) * (1 if w[j] > 0 else -1) < 0:
-            P[n_] = BLOQUEADO  # va contra la tendencia diaria de su activo: el equipo no le da dinero
+        tv = tend.get(days[n_])
+        if tv is not None and tv * (1 if w[j] > 0 else -1) <= 0:
+            P[n_] = BLOQUEADO  # va contra la tendencia diaria de su activo (o no hay tendencia clara): el equipo no le da dinero
         if last:
             ac.__dict__.setdefault("_tm_info", {})[ag["id"]] = dict(historial=round(p, 3), maquina=round(p_mc, 3),
                                                                      objetivo=round(tp, 4), stop=round(sl, 4))
