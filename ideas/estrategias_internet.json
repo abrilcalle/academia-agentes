@@ -13341,6 +13341,1019 @@
         "shrink": false,
         "salida_siempre": true
       }
+    },
+    {
+      "nombre": "SOL: ruptura del máximo del día en la franja de 18 a 24 h UTC (Andrea Unger)",
+      "fuente": "Andrea Unger (Unger Academy), 'Development of a simple but effective strategy on the crypto Solana (SOL)', The Cryptonomist, 18/03/2024 (SOL/USDT 2017-2024: ruptura del máximo o mínimo de la sesión diaria; la mejor franja fue de 18 a 24 h GMT, 480 operaciones y 0,88 % de media por operación; filtro para cortos: no vender si la vela de ayer fue alcista) (https://en.cryptonomist.ch/2024/03/18/development-of-a-simple-but-effective-strategy-on-the-crypto-solana-sol/)",
+      "idea": "En SOL de 1 h, comprar cuando el precio supera el máximo de la sesión del día solo entre las 18 y las 24 h UTC, y cerrar al acabar el día.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            18,
+            6
+          ],
+          [
+            "rompe_maximo",
+            18
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "stop": 4,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: ruptura del mínimo del día en la franja de 18 a 24 h UTC tras un día bajista (Andrea Unger, corto)",
+      "fuente": "Andrea Unger (Unger Academy), 'Development of a simple but effective strategy on the crypto Solana (SOL)', The Cryptonomist, 18/03/2024 (SOL/USDT 2017-2024: ruptura del máximo o mínimo de la sesión diaria; la mejor franja fue de 18 a 24 h GMT, 480 operaciones y 0,88 % de media por operación; filtro para cortos: no vender si la vela de ayer fue alcista) (https://en.cryptonomist.ch/2024/03/18/development-of-a-simple-but-effective-strategy-on-the-crypto-solana-sol/)",
+      "idea": "En SOL de 1 h, vender en corto cuando el precio pierde el mínimo de la sesión entre las 18 y las 24 h UTC, solo si las últimas 24 h fueron bajistas, y recomprar al acabar el día.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            18,
+            6
+          ],
+          [
+            "rompe_maximo",
+            18
+          ],
+          [
+            "impulso_sube",
+            24,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "stop": 4,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: media de 200 sobre la de 300 con RSI que gira desde abajo y salida a los 20 días (Kaabar)",
+      "fuente": "Sofien Kaabar, 'I Backtested a Powerful Strategy on Bitcoin - The Results' (All About Trading, 10/11/2025: BTC diario, media corta sobre la larga y RSI(14) que gira desde la sobreventa; salida por tiempo a las 20 velas; parámetros alcistas 200/300 y RSI 35, bajistas 10/20 y RSI 60; avisa del riesgo de sobreajuste) (https://abouttrading.substack.com/p/i-backtested-a-powerful-strategy)",
+      "idea": "En BTC diario, con la media de 200 por encima de la de 300, comprar cuando el RSI viene de la zona baja y empieza a subir, y vender pasados 20 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            200,
+            300
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            200,
+            300
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: media de 10 bajo la de 20 con RSI que gira desde arriba y salida a los 20 días (Kaabar, corto)",
+      "fuente": "Sofien Kaabar, 'I Backtested a Powerful Strategy on Bitcoin - The Results' (All About Trading, 10/11/2025: BTC diario, media corta sobre la larga y RSI(14) que gira desde la sobreventa; salida por tiempo a las 20 velas; parámetros alcistas 200/300 y RSI 35, bajistas 10/20 y RSI 60; avisa del riesgo de sobreajuste) (https://abouttrading.substack.com/p/i-backtested-a-powerful-strategy)",
+      "idea": "En BTC diario, con la media de 10 por debajo de la de 20, vender en corto cuando el RSI viene de la zona alta (sobre 60) y empieza a bajar, y recomprar pasados 20 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            20
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: corto en la parte alta de Bollinger con estructura bajista y objetivo del 5 % (The Humble Shorter, Gainium)",
+      "fuente": "remy1111, 'The Humble Shorter' (comunidad de Gainium, 08/02/2026: bot de cortos en BTC con RSI sobre 45, precio en la parte alta de las bandas de Bollinger, estructura bajista y SuperTrend a la baja; objetivo del 5 % y stop que se mueve con el beneficio; caída máxima del 11,55 % en 2021-2026) (https://community.gainium.io/t/the-humble-shorter/4636)",
+      "idea": "En BTC, vender en corto los rebotes a la parte alta de las bandas de Bollinger cuando la tendencia es bajista y el RSI no está en sobreventa, buscando un 5 % y protegiendo pronto la ganancia (sin promediar ni apalancar).",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            55
+          ],
+          [
+            "z_bajo",
+            20,
+            0.5
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "cruce_alcista",
+            10,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.01,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: ruptura de Donchian de 15 días solo con ADX bajo (QuantifiedStrategies)",
+      "fuente": "QuantifiedStrategies, 'How ChatGPT Helped Us Make A Bitcoin Strategy' (BTC diario desde 2015: comprar al superar el máximo de 15 días solo si el ADX(14) está bajo 25 y vender al perder el mínimo de 15 días; 35 operaciones, 63 % de aciertos y CAGR del 90 % frente al 66 % de comprar y mantener) (https://quantifiedstrategies.substack.com/p/how-chatgpt-helped-us-make-a-bitcoin)",
+      "idea": "En BTC diario, comprar la ruptura del máximo de 15 días cuando el mercado viene de una fase sin tendencia (la ruptura nace de una consolidación) y vender cuando pierde el mínimo de 15 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "mercado_lateral",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            15
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: cierre sobre la banda de Bollinger 17/1,5 con volatilidad abierta y RSI bajo 75 (Solar Flare, 6 h)",
+      "fuente": "TradingView, script 'Solar Flare: Solana's Volatility & Momentum Play 6H' (SOL de 6 h: bandas de 17 velas y 1,5 desviaciones, comprar al cerrar sobre la banda superior si el ancho de bandas supera un umbral y el RSI(14) está bajo 75; vender al perder la banda inferior) (https://il.tradingview.com/script/7KWwetZP-Solar-Flare-Solana-s-Volatility-Momentum-Play-6H)",
+      "idea": "En SOL de 4 h, comprar cuando el precio cierra por encima de la banda superior estrecha (1,5 desviaciones) con la volatilidad expandiéndose y sin sobrecompra extrema, y aguantar hasta que pierda la banda inferior.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            17,
+            1.5
+          ],
+          [
+            "vol_alta",
+            20,
+            0.7
+          ],
+          [
+            "rsi_bajo",
+            14,
+            75
+          ]
+        ],
+        "exit": [
+          [
+            "z_bajo",
+            17,
+            1.5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "R3 de Larry Connors (RSI(2) que cae tres días sobre la media de 200)",
+      "fuente": "Larry Connors, estrategia R3 (reglas publicadas por WH SelfInvest: sobre la media de 200, RSI(2) que baja tres días seguidos empezando bajo 60 y cierra bajo 10; salida con RSI(2) sobre 70; en corto, al revés) (https://www.whselfinvest.de/en-de/trading-platform/free-trading-strategies/tradingsystem/81-r3-larry-connors)",
+      "idea": "Sobre la media de 200, comprar cuando el RSI de 2 lleva tres días cayendo y cierra por debajo de 10, y vender cuando el RSI de 2 supera 70.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            2,
+            10
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            70
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "R3 de Larry Connors en corto (RSI(2) que sube tres días bajo la media de 200)",
+      "fuente": "Larry Connors, estrategia R3 (reglas publicadas por WH SelfInvest: sobre la media de 200, RSI(2) que baja tres días seguidos empezando bajo 60 y cierra bajo 10; salida con RSI(2) sobre 70; en corto, al revés) (https://www.whselfinvest.de/en-de/trading-platform/free-trading-strategies/tradingsystem/81-r3-larry-connors)",
+      "idea": "Bajo la media de 200, vender en corto cuando el RSI de 2 lleva tres días subiendo y cierra por encima de 90, y recomprar cuando baja de 30.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            2,
+            10
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Compresión de volatilidad y ruptura intradía cerrando al final del día (Andrea Unger)",
+      "fuente": "Andrea Unger, '2 Strategies To Make Money with Cryptos Even in a Bear Market' (Unger Academy, vídeo y transcripción: sistema intradía que espera una compresión de la volatilidad y entra en la ruptura del máximo o mínimo de n velas, cerrando todo al final del día; y sistema swing diario que rompe soportes o resistencias a favor de la tendencia y mantiene un par de días; en BTC, factor de beneficio 3,29 en el swing) (https://ungeracademy.com/?p=6728)",
+      "idea": "En 1 h, cuando la volatilidad está comprimida, comprar la ruptura del máximo de las últimas 12 velas y cerrar siempre antes de acabar el día UTC.",
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            24,
+            0.4
+          ],
+          [
+            "rompe_maximo",
+            12
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            23,
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Compresión de volatilidad y ruptura intradía a la baja cerrando al final del día (Andrea Unger, corto)",
+      "fuente": "Andrea Unger, '2 Strategies To Make Money with Cryptos Even in a Bear Market' (Unger Academy, vídeo y transcripción: sistema intradía que espera una compresión de la volatilidad y entra en la ruptura del máximo o mínimo de n velas, cerrando todo al final del día; y sistema swing diario que rompe soportes o resistencias a favor de la tendencia y mantiene un par de días; en BTC, factor de beneficio 3,29 en el swing) (https://ungeracademy.com/?p=6728)",
+      "idea": "En 1 h, cuando la volatilidad está comprimida, vender en corto la pérdida del mínimo de las últimas 12 velas y recomprar siempre antes de acabar el día UTC.",
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            24,
+            0.4
+          ],
+          [
+            "rompe_maximo",
+            12
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            23,
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Swing diario: ruptura de resistencia a favor de la tendencia y salida en pocos días (Andrea Unger)",
+      "fuente": "Andrea Unger, '2 Strategies To Make Money with Cryptos Even in a Bear Market' (Unger Academy, vídeo y transcripción: sistema intradía que espera una compresión de la volatilidad y entra en la ruptura del máximo o mínimo de n velas, cerrando todo al final del día; y sistema swing diario que rompe soportes o resistencias a favor de la tendencia y mantiene un par de días; en BTC, factor de beneficio 3,29 en el swing) (https://ungeracademy.com/?p=6728)",
+      "idea": "En velas diarias y sobre la media de 100, comprar cuando el precio rompe el máximo de 10 días y mantener unos pocos días, saliendo antes si pierde el mínimo de 5.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Parabolic SAR con medias de 20 y 40 en 1 h (Tradingstrategyguides, aproximado)",
+      "fuente": "Tradingstrategyguides, idea 'BTCUSDT 1H Parabolic SAR Moving Average Trading Strategy' en TradingView (02/05/2019: comprar con el punto del SAR bajo la vela y la media de 20 sobre la de 40; salir cuando las medias se cruzan al revés o el SAR cambia de lado) (https://ar.tradingview.com/chart/BTCUSDT/yfeqMmhj-BTCUSDT-1H-PARABOLIC-SAR-MOVING-AVERAGE-TRADING-STRATEGY). El SAR se aproxima con un stop móvil del 3 %.",
+      "idea": "En 1 h, con la media de 20 sobre la de 40 y el precio subiendo, comprar y seguir la subida con un stop móvil que hace de Parabolic SAR; salir si las medias se cruzan a la baja.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            40
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            20,
+            40
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.03,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: cruce de medias 10/50 en 1 h siempre a favor (Mroziewicz y Ślepaczuk, largo)",
+      "fuente": "Mroziewicz y Ślepaczuk (2026), arXiv 2602.10785 (cruce de EMAs siempre en el mercado, largo si la rápida está sobre la lenta y corto si no; optimizado en BTC con ventanas móviles y probado fuera de muestra en ETH y BNB; la vela de 1 h fue la única sin Sharpe negativo) (https://arxiv.org/html/2602.10785v1)",
+      "idea": "En ETH de 1 h, estar comprado mientras la media de 10 esté por encima de la de 50 y salir en cuanto se cruce a la baja.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: cruce de medias 10/50 en 1 h a la baja (Mroziewicz y Ślepaczuk, corto)",
+      "fuente": "Mroziewicz y Ślepaczuk (2026), arXiv 2602.10785 (cruce de EMAs siempre en el mercado, largo si la rápida está sobre la lenta y corto si no; optimizado en BTC con ventanas móviles y probado fuera de muestra en ETH y BNB; la vela de 1 h fue la única sin Sharpe negativo) (https://arxiv.org/html/2602.10785v1)",
+      "idea": "En ETH de 1 h, estar vendido en corto mientras la media de 10 esté por debajo de la de 50 y recomprar en cuanto se cruce al alza.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: corto al volver bajo la banda superior con RSI sobre 79 y objetivo del 3,5 % (StockSharp 1613)",
+      "fuente": "StockSharp, ejemplo de API 1613 'Bollinger RSI Countertrend SOL' (SOL intradía: bandas 20/2 y RSI(14); corto cuando el cierre anterior estaba sobre la banda superior, el actual vuelve debajo y el RSI está sobre 79; objetivo del 3,5 %) (https://doc.stocksharp.com/pt/api-examples/1613_Bollinger_RSI_Countertrend_SOL)",
+      "idea": "En SOL de 1 h, vender en corto un estirón extremo por encima de la banda superior con el RSI sobre 79, buscando un 3,5 % de bajada o la banda inferior.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            1.8
+          ],
+          [
+            "rsi_bajo",
+            14,
+            21
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            2.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.035,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: sobreventa con el precio sobre el VWAP y objetivo de 1,5R (Crypto Pulse)",
+      "fuente": "TradingView, script de código abierto 'Crypto Pulse Strategy Active' (1 h-4 h, probar en BTC/ETH: comprar sobre el VWAP con RSI bajo 25 o banda baja de Bollinger, vender bajo el VWAP con RSI sobre 75; stop del 1,5 % y objetivo de 1,5 veces el riesgo) (https://tw.tradingview.com/script/iLdAPwBf-Crypto-Pulse-Strategy-Active)",
+      "idea": "En 1 h, comprar una caída fuerte (RSI bajo 25) cuando el precio sigue por encima del VWAP del día, con stop corto y objetivo de 1,5 veces el riesgo.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            3
+          ],
+          [
+            "rsi_bajo",
+            14,
+            25
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.0225,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC y ETH: sobrecompra con el precio bajo el VWAP y objetivo de 1,5R (Crypto Pulse, corto)",
+      "fuente": "TradingView, script de código abierto 'Crypto Pulse Strategy Active' (1 h-4 h, probar en BTC/ETH: comprar sobre el VWAP con RSI bajo 25 o banda baja de Bollinger, vender bajo el VWAP con RSI sobre 75; stop del 1,5 % y objetivo de 1,5 veces el riesgo) (https://tw.tradingview.com/script/iLdAPwBf-Crypto-Pulse-Strategy-Active)",
+      "idea": "En 1 h, vender en corto un estirón (RSI sobre 75) cuando el precio sigue por debajo del VWAP del día, con stop corto y objetivo de 1,5 veces el riesgo.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            3
+          ],
+          [
+            "rsi_bajo",
+            14,
+            25
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.0225,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: ruptura del canal de Keltner sobre la EMA 200 en 4 h (scantek)",
+      "fuente": "TradingView, script de código abierto de scantek 'ETHUSDT 4H - Keltner Breakout' (28/11/2025: ruptura del canal de Keltner que funciona en ETH por encima de la EMA 200; adaptable a altcoins grandes) (https://jp.tradingview.com/script/LmNV3ZLN). El canal se aproxima con 2 desviaciones sobre la media de 20.",
+      "idea": "En ETH de 4 h, con el precio sobre la EMA 200, comprar cuando cierra por encima del canal superior y salir cuando vuelve bajo la EMA de 20.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "z_alto",
+            20,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: corto con histograma MACD bajista y presión vendedora, objetivo del 8 % (Coinrule Inverse MACD + DMI)",
+      "fuente": "TradingView, script de código abierto de Coinrule 'Inverse MACD + DMI Scalping with Volatility Stop' (19/07/2022: solo cortos; histograma MACD 12/26/9 bajista y -DI sobre +DI; objetivo del 8 % y salida si el precio supera el stop de volatilidad; mejor en SOLUSDT de 45 min, probado en el mercado bajista de 2022) (https://jp.tradingview.com/script/lfu0RVXw-Inverse-MACD-DMI-Scalping-with-Volatility-Stop-By-Coinrule). El DMI se aproxima con la media de 5 bajo la de 14.",
+      "idea": "En SOL de 1 h, vender en corto cuando el MACD pasa a negativo y la presión vendedora domina, buscando un 8 % con un stop móvil de volatilidad.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "cruce_alcista",
+            5,
+            14
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0.03,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: ruptura del canal de Keltner con vela fuerte y volumen en diario (Black_Whale_Trend_SOL, aproximado)",
+      "fuente": "TradingView, script 'Black_Whale_Trend_SOL' (solo SOL, solo largos: entrar con el precio alto dentro del canal de Keltner, una vela alcista fuerte y volumen alto; salir cuando el precio cae en el canal; stop de desastre por ATR) (https://jp.tradingview.com/script/qOZDS0nJ); Vestinda publica una 'Keltner Breakout Strategy on SOL' con factor de beneficio 1,47 en 2020-2023 (https://www.vestinda.com/academy/sol-solana-technical-analysis-insights-for-optimal-trading).",
+      "idea": "En SOL diario, comprar cuando una vela fuerte con mucho volumen saca el precio por la parte alta del canal y vender cuando vuelve por debajo de su centro.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            20,
+            1.5
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.04
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "z_bajo",
+            20,
+            0.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: ruptura de Donchian de 16 semanas con stop en el mínimo de 6 meses (mljones)",
+      "fuente": "mljones, idea '16 Week Donchian Strategy For Eth' en TradingView (21/12/2019: comprar ETH al tocar el máximo del canal de Donchian de 16 semanas, con stop en el mínimo del canal de 6 meses) (https://vn.tradingview.com/chart/ETHUSD/QzZqTKVZ-16-Week-Donchian-Strategy-For-Eth)",
+      "idea": "En ETH diario, comprar cuando el precio supera el máximo de las últimas 16 semanas y mantener mientras no pierda el mínimo de los últimos 6 meses.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            112
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            180
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Swing diario con cruce de EMAs 10/20 confirmado por RSI y MACD (foro de Babypips)",
+      "fuente": "Foro de Babypips, 'Simple, Effective Daily Swing Trade System' (diario: cruce de la EMA 10 sobre la 20 confirmado al cierre de la vela siguiente, con RSI, MACD y estocástico a favor; stop fijo amplio y 3 % de riesgo; 10 operaciones de prueba con relación beneficio/riesgo de 2,2) (https://forums.babypips.com/t/simple-effective-daily-swing-trade-system/30636)",
+      "idea": "En velas diarias, comprar cuando la media de 10 pasa sobre la de 20 con el RSI por encima de 50 y el MACD positivo, y vender cuando se cruzan al revés.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            20
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Parabolic SAR con la media de Bollinger (FYBIT, aproximado)",
+      "fuente": "FYBIT, 'Parabolic SAR strategy on the cryptocurrency market' (Medium: comprar cuando el precio cruza al alza la media central de Bollinger con los puntos del SAR bajo el precio, y salir cuando vuelve a cruzarla; no usar en menos de 1 h) (https://medium.com/fybit/parabolic-sar-strategy-on-the-cryptocurrency-market-cc27f4908a5e). El SAR se aproxima con un stop móvil del 4 %.",
+      "idea": "En 4 h, comprar cuando el precio recupera la media de 20 y viene subiendo varias velas, seguir con un stop móvil tipo SAR y salir si vuelve bajo la media.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: ruptura de consolidación en 4 h con RSI sobre 50 y volumen 1,5x (Crypto Breakout Scanner)",
+      "fuente": "Sarah Chen, 'Ethereum breakout case study' (Crypto Breakout Scanner, 16/09/2026: ETH de 4 h, ruptura de un rango de consolidación confirmada con RSI sobre 50 y volumen de al menos 1,5 veces la media) (https://cryptobreakoutscanner.duckdns.org/blog/ethereum-breakout-case-study-trading-example)",
+      "idea": "En ETH de 4 h, comprar cuando el precio cierra por encima de la resistencia de un rango estrecho con volumen 1,5 veces el normal y RSI sobre 50.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ruptura_volumen",
+            30,
+            1.5
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "vol_baja",
+            30,
+            0.7
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
