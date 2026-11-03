@@ -51,10 +51,15 @@ COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes (comis
 GOOD = 0.0001                       # una semana es buena solo si gana (más de un 0,01 %)
 TENDENCIA_DIAS = 50                 # filtro de tendencia: media de 50 días del activo (0 = sin filtro)
 TENDENCIA_PENDIENTE = 10            # además la media tiene que ir a favor (subir/bajar en 10 días); si no, no hay tendencia clara y se espera fuera (0 = sin esta condición)
+PESO_MAQUINA = 0.0                  # peso de la máquina del tiempo en la probabilidad (laboratorio 03/11/2026: solo historial cumple más veces; 0,5 = mitad y mitad)
+MAQUINA_VIVO = ("2026-10-19", "2026-11-04")  # en el simulado en vivo ya hecho se mantiene la mezcla antigua (0,5) para no reescribir sus resultados
 BLOQUEADO = -1.0                    # valor de P para una operación a la que el equipo no da dinero (va contra la tendencia)
 
 
 # ------------------------------------------------------------------ lo que sabe cada agente de sus operaciones
+
+_MV0, _MV1 = (dt.date.fromisoformat(x) for x in MAQUINA_VIVO)
+
 
 def regime_at(mk):
     """Tipo de mercado en cada vela: 0 lateral, 1 alcista, 2 bajista (media de 50 días y eficiencia de 14 días)."""
@@ -179,9 +184,11 @@ def series(ac, ag, start, variante=None):
         gl = [-tr[2] for tr in past if tr[2] < 0]
         tp, sl, hz = trade_plan(ag, mk, j, float(np.mean(gw)) if gw else None, float(np.mean(gl)) if gl else None)
         last = n_ == len(last_bar) - 1
-        tm = time_machine(mk, j, 1 if w[j] > 0 else -1, tp, sl, hz, 2000 if last else 300, rng)
+        antes = days[n_] < _MV1  # hasta el fin del tramo antiguo se calcula como antes (misma secuencia al azar)
+        tm = time_machine(mk, j, 1 if w[j] > 0 else -1, tp, sl, hz, 2000 if last else 300, rng) if (PESO_MAQUINA or last or antes) else None
         p_mc = (tm[0] + tm[2]) if tm else p
-        P[n_] = 0.5 * p + 0.5 * p_mc  # la mitad, su historial; la otra mitad, la máquina del tiempo
+        pw = 0.5 if _MV0 <= days[n_] < _MV1 else PESO_MAQUINA
+        P[n_] = (1 - pw) * p + pw * p_mc  # su historial (y, si el peso > 0, la máquina del tiempo)
         G[n_] = tp
         L[n_] = sl
         tv = tend.get(days[n_])
