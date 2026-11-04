@@ -405,3 +405,19 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** La forma de calcular la probabilidad apenas cambia qué equipos cumplen; la fórmula actual (K = 2, todas las operaciones) está entre las mejores. No se integró.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya el peso del tipo de mercado (K 0–∞) y la ventana de operaciones recientes (20/40). No repetir. El reparto parece agotado como palanca; lo que más falla es 2022 (ningún podio cumple): mejor buscar agentes o piezas que ganen en años bajistas.
+
+## 2026-11-04 10:35 (hora de Madrid) — Formación móvil de los equipos (re-formarlos durante el año con los últimos 12 meses)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 04/11, datos hasta el 03/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** los equipos se forman siempre con el mismo periodo fijo y no se adaptan cuando cambia el mercado (p. ej. al empezar un año bajista). Si cada 1, 3 o 6 meses se vuelven a formar con los últimos 365 (o 182) días, el equipo iría cambiando hacia los agentes que funcionan ahora y quizá cumpliría más veces, sobre todo en años de cambio. Nunca se había probado (sí la duración del periodo fijo, 1–3 años, el 30/10).
+- **Qué probé (en una copia, `experimentos/banco/m2mov.py`):** para cada año de juicio B (2020–2023) y cada una de las 54 combinaciones de prudencia y reparto: **fijo** = equipo formado con el año B−1 (como el banco de siempre); **móvil** = el mismo al empezar y re-formado (mismo método que `build`) cada F meses con la ventana anterior. Para comparar igual, los dos se simulan por tramos encadenados (mismo corte en cada tramo). Variantes: F = 1, 3, 6 meses con ventana de 365 días, y F = 3 con 182 días.
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 331 agentes examinados sin clones. Comisiones USDC con cambio USDC/EUR, filtro de tendencia 50 + pendiente 10, sin máquina del tiempo (como el código actual).
+- **Resultado (equipos que cumplen de 54 en 2020 / 2021 / 2022 / 2023 → total de 216):**
+  - Fijo: 51 / 53 / 0 / 0 → 104 (F = 1: 50 / 53 / 0 / 0 → 103)
+  - Móvil F = 1 (365 d): 36 / 45 / 0 / 25 → 106
+  - Móvil F = 3 (365 d): 41 / 41 / 0 / 36 → 118
+  - Móvil F = 6 (365 d): 39 / 46 / 0 / 20 → 105
+  - Móvil F = 3 (182 d): 29 / 28 / 0 / 20 → 77
+  - En 2022 empeora siempre la rentabilidad mediana (−19 % → −22 a −29 %) y la caída (26 % → 28–32 %). Toda la mejora del total viene de 2023 (los equipos formados con 2022 no cumplen en 2023 y el móvil los cambia a tiempo); en 2020 y 2021 pierde entre 5 y 25 equipos en todas las variantes, y con ventana corta empeora más.
+- **Conclusión: no se queda.** La mejora depende de un único año (2023) y empeora los otros tres en todas las variantes: no es clara ni robusta. Re-formar persigue lo último que funcionó y llega tarde a los giros. No se integró; se mantiene la formación con el periodo fijo.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "formación móvil" (cada 1/3/6 meses, ventana 182/365 días). No repetir. Lo único que se movió fue el año después de un bajista (2023): si se busca algo para ese caso, mejor una regla concreta de salida de régimen bajista que re-formar a ciegas.
