@@ -437,3 +437,19 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** Más rentabilidad no acerca la meta: lo que limita es el % de semanas en verde y, en años bajistas, la caída; el ancla añade caída en las correcciones (la media de 50 llega tarde) sin ganar más semanas. No se integró.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "ancla de tendencia" (BTC o mercados del equipo, dinero libre u ocioso, 50–100 %). No repetir. Dato útil: la condición que más falla fuera de 2022 es la de semanas (mediana 51–53 %, muy justa), no la rentabilidad (mediana +38 % al año): las ideas que suban la rentabilidad sin subir semanas no sirven.
+
+## 2026-11-04 21:19 (hora de Madrid) — Formar los equipos premiando la regularidad (objetivo por trimestres o mitades)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 04/11, datos hasta el 03/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** al formar un equipo, `build` mira el periodo entero de golpe (`objective`: lo que gana, con castigo si no cumple). Un equipo puede cumplir "en total" gracias a un buen tramo y fallar en los demás; como la meta en vivo se mide en 3 meses, formar los equipos con una nota que exija cumplir **en cada trimestre** (o mitad) debería elegir equipos más regulares que cumplan más veces el año siguiente. Nunca probado (el colchón del 25/10 subía el listón del periodo entero; lo de "ganar en cada mitad" del 29/10 era para elegir agentes, no equipos).
+- **Qué probé (en una copia, `experimentos/banco/m2q4.py` + `m3x.py`):** mismo método que `build` cambiando solo la nota con la que se añaden agentes: **qmean** (media de la nota de cada trimestre, con la rentabilidad del trimestre ×4), **qmix** (mitad nota del año, mitad qmean), **qcnt** (cuántos trimestres cumplen las 3 condiciones; la nota del año solo desempata), **hmean** (como qmean con dos mitades).
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 331 agentes examinados sin clones. Comisiones USDC con cambio USDC/EUR, filtro de tendencia 50 + pendiente 10, sin máquina del tiempo (como el código actual).
+- **Resultado (pares A→B que cumplen de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno que cumple de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída):**
+  - **base 492 · 99 [25/23/34/0/17] · 41 · 17 · +38 % / 53 % / 16 %** (reproduce la vuelta de las 15:21)
+  - qmean 522 · 98 [23/27/32/0/16] · 44 · 14 · +35 % / 53 % / 15 %
+  - qmix 509 · 97 [24/26/32/0/15] · 39 · 15 · +36 % / 53 % / 17 %
+  - qcnt 541 · 90 [19/20/33/0/18] · 37 · 16 · +30 % / 53 % / 15 %
+  - hmean 517 · 91 [24/21/29/1/16] · 40 · 17 · +35 % / 55 % / 17 %
+  - Los pares suben algo en todas (+17 a +49), pero los tríos (formar → elegir podio → juzgar, lo que de verdad hace el sistema) quedan igual o peor (90–98 frente a 99) y "en orden de tiempo" no mejora. Las semanas en verde de los podios no se mueven (53 %; 55 % en hmean, con menos podios que cumplen). 2022 sigue en 0–1.
+- **Conclusión: no se queda.** Pedir regularidad por trimestres al formar no da equipos que cumplan más veces cuando luego se elige el podio: diferencias dentro del ruido (±8) y en contra en los tríos. No se integró.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "objetivo de formación por trimestres/mitades" (media, mezcla, recuento). No repetir. Con esto, la formación (objetivo, colchón, cantera, tamaño, años, móvil, variedad) parece agotada como palanca: las semanas en verde (~53 %) dependen de los agentes, no de cómo se juntan.
