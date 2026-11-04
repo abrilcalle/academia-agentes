@@ -421,3 +421,19 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** La mejora depende de un único año (2023) y empeora los otros tres en todas las variantes: no es clara ni robusta. Re-formar persigue lo último que funcionó y llega tarde a los giros. No se integró; se mantiene la formación con el periodo fijo.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "formación móvil" (cada 1/3/6 meses, ventana 182/365 días). No repetir. Lo único que se movió fue el año después de un bajista (2023): si se busca algo para ese caso, mejor una regla concreta de salida de régimen bajista que re-formar a ciegas.
+
+## 2026-11-04 15:21 (hora de Madrid) — "Ancla de tendencia": poner a trabajar el dinero que no usa nadie
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 04/11, datos hasta el 03/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** buena parte de la cartera del equipo se queda parada en USDC (topes por agente, operaciones bloqueadas por el filtro de tendencia, agentes esperando). Si ese dinero libre se pone en el propio mercado **solo cuando está en tendencia alcista** (el mismo filtro del equipo: precio sobre la media de 50 días y la media subiendo en 10 días), el equipo debería ganar más y quizá más semanas en los años normales, y en años bajistas seguiría fuera. Se puede hacer por la API (compra al contado). No es comparar con comprar y mantener: es una pieza de tendencia dentro del equipo. Nunca se había probado así (el 27/10 se probaron agentes de tendencia diaria sueltos, con cortos).
+- **Qué probé (en una copia, `experimentos/banco/m2anc.py` y `m3anc.py`):** cada día, con el cierre anterior, la parte de la cartera sin asignar va a BTC (o se reparte entre los mercados del equipo en tendencia alcista); el cambio de esa parte paga el coste de reparto habitual (0,2 %). Variantes: *btc_libre_1* (todo lo no asignado, a BTC), *mix_libre_1* (a los mercados del equipo), *btc_ocioso_05* (la mitad de todo lo que no está en una operación abierta, a BTC), *mix_ocioso_1* (todo lo que no está en una operación abierta, a los mercados del equipo). Los equipos se forman ya con la variante (como haría `build`).
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 331 agentes examinados sin clones. Comisiones USDC con cambio USDC/EUR, filtro de tendencia 50 + pendiente 10, sin máquina del tiempo.
+- **Resultado (pares A→B: equipos que cumplen de 378 · tríos formar→podio→juzgar: podios que cumplen de 180 · mediana de los tríos):**
+  - Base: 153 · 99 (2022: 0) · +38 % al año, 53 % de semanas, caída 16 %
+  - btc_libre_1: 128 · 95 (2022: 3) · +60 %, 53 %, caída 19 %
+  - mix_libre_1: 126 · 89 (2022: 0) · +51 %, 53 %, caída 20 %
+  - btc_ocioso_05: 138 · 104 (2022: 0) · +68 %, 53 %, caída 19 %
+  - mix_ocioso_1: 3 · 16 · +88 %, 51 %, caída 37 %
+  - Gana bastante más en los años buenos, pero **no sube el % de semanas ganadas** (sigue en 51–53 %) y sube la caída máxima; en los pares A→B cumplen menos equipos en todas las variantes (sobre todo 2020→19 y 2021→23). La única que sube en los tríos (+5) está dentro del ruido (±8) y baja 15 en los pares.
+- **Conclusión: no se queda.** Más rentabilidad no acerca la meta: lo que limita es el % de semanas en verde y, en años bajistas, la caída; el ancla añade caída en las correcciones (la media de 50 llega tarde) sin ganar más semanas. No se integró.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "ancla de tendencia" (BTC o mercados del equipo, dinero libre u ocioso, 50–100 %). No repetir. Dato útil: la condición que más falla fuera de 2022 es la de semanas (mediana 51–53 %, muy justa), no la rentabilidad (mediana +38 % al año): las ideas que suban la rentabilidad sin subir semanas no sirven.
