@@ -17521,6 +17521,1097 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "Doble 7 de Connors en corto (cierre en máximo de 7 bajo la media de 200)",
+      "fuente": "Larry Connors y Cesar Alvarez, 'High Probability ETF Trading' (Double 7s, versión espejo); reglas en The Right Trader (https://therighttrader.com/learn/trading-strategies/double-sevens-strategy) y prueba de StrategyQuant (https://strategyquant.com/blog/larry-connors-double-7-strategy-tested-on-spy-and-8-other-markets/). Versión en corto propia, sin apalancamiento.",
+      "idea": "Bajo la media de 200, vender en corto cuando el precio cierra por encima del máximo de las 7 velas anteriores y recomprar cuando cae por debajo del mínimo de 7.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "pierde_minimo",
+            7
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            7
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "NR4 con volatilidad comprimida y ruptura al alza (Connors y Raschke)",
+      "fuente": "Connors y Raschke, 'Street Smarts' (NR4 + día interior y volatilidad de 6 frente a 100 días bajo 0,5); CryptoDataDownload, aplicado a BTC (https://www.cryptodatadownload.com/blog/posts/inside-contraction-historical-volatility-strategy/ y https://www.cryptodatadownload.com/blog/posts/nr4-range-contraction-trading-strategy-python/). Aproximado: volatilidad de 6 velas baja en lugar del cociente.",
+      "idea": "Cuando la volatilidad de los últimos 6 días está muy apagada, comprar la ruptura del máximo de 4 días y dejar correr con un stop que sigue al precio.",
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            6,
+            0.35
+          ],
+          [
+            "rompe_maximo",
+            4
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            4
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 4,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "NR4 con volatilidad comprimida y ruptura a la baja (Connors y Raschke, corto)",
+      "fuente": "Connors y Raschke, 'Street Smarts' (NR4: la ruptura vale en ambos sentidos); CryptoDataDownload (https://www.cryptodatadownload.com/blog/posts/nr4-range-contraction-trading-strategy-python/). Versión en corto con filtro bajo la media de 50 propio.",
+      "idea": "Bajo la media de 50 y con la volatilidad de 6 días muy apagada, vender en corto la pérdida del mínimo de 4 días con stop que sigue al precio.",
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            6,
+            0.35
+          ],
+          [
+            "rompe_maximo",
+            4
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            4
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.03,
+        "stall": 4,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: ruptura con EMAs 50/200 alcistas, volumen +20 % y RSI bajo 75 (SOL RWA Breakout)",
+      "fuente": "TradingView, 'SOL RWA Breakout Strategy' (script abierto, julio de 2026: largo con EMA 50 sobre la 200, volumen 20 % sobre la media de 20 y RSI bajo 75; stop del 5 %, objetivos del +15 % y +35 %) (https://www.tradingview.com/script/kKgAiQlM-SOL-RWA-Breakout-Strategy/). Aproximado: un solo objetivo y stop por ATR.",
+      "idea": "En SOL, comprar la ruptura del máximo de 20 velas sobre las EMAs de 50 y 200 con volumen alto y sin sobrecompra extrema, asegurar a la entrada con +15 % y cobrar en +35 %.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "rsi_bajo",
+            14,
+            75
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.35,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.15,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "SOL: giro bajista bajo las EMAs con volumen (SOL RWA Breakout, corto)",
+      "fuente": "TradingView, 'SOL RWA Breakout Strategy' (corto: giro bajista del SuperTrend bajo la zona de congestión, tendencia de EMAs bajista y volumen suficiente) (https://www.tradingview.com/script/kKgAiQlM-SOL-RWA-Breakout-Strategy/). Aproximado: el giro del SuperTrend como pérdida del mínimo de 10 velas.",
+      "idea": "En SOL, con el precio bajo las EMAs de 50 y 200, vender en corto cuando pierde el mínimo de 10 velas con volumen alto, y recomprar si vuelve sobre la EMA de 50 o cae un 15 %.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.06,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: cierre diario sobre las EMAs 20, 50 y 200 (AMBCrypto)",
+      "fuente": "Yash Majithia, AMBCrypto, 'XRP: Tracing buying opportunities after this moving average crossover' (gráfico diario: un cierre sostenido sobre las EMAs de 20, 50 y 200 abre subidas; un cierre bajo la 20 y la 200 lo invalida) (https://ambcrypto.com/xrp-tracing-buying-opportunities-after-this-moving-average-crossover/).",
+      "idea": "En XRP con velas diarias, comprar cuando el precio cierra por encima de las EMAs de 20, 50 y 200 y vender cuando cierra bajo la EMA de 50.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "XRP: retroceso a la EMA 50 diaria sobre la de 200 (AMBCrypto)",
+      "fuente": "Yash Majithia, AMBCrypto (en XRP diario, la EMA de 50 actúa de soporte mientras el precio siga sobre la de 200; perder la 200 reaviva las ventas) (https://ambcrypto.com/xrp-tracing-buying-opportunities-after-this-moving-average-crossover/). Entrada en el retroceso propia.",
+      "idea": "En XRP con velas diarias, sobre la EMA de 200, comprar cuando el precio retrocede bajo la EMA de 20 pero aguanta sobre la de 50, y vender si pierde la de 200 o con RSI sobre 70.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "bajo_ema",
+            20
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ],
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.08,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: Supertrend 7/2,5 diario solo con tendencia fuerte (howiprompt, aproximado)",
+      "fuente": "howiprompt, 'How our AI agents evolved SuperTrend on SOLUSDT' (DEV Community, 2026: SOLUSDT diario, SuperTrend 7/2,5 y operar solo con ADX(14) sobre 25; resultados sin verificar) (https://dev.to/howiprompt/how-our-ai-agents-evolved-supertrend-on-solusdt-to-569-backtested-6-evolutions-58j8). Aproximado: ADX como eficiencia de Kaufman y el SuperTrend como ruptura con stop de 2 ATR.",
+      "idea": "En SOL con velas diarias, comprar cuando el precio rompe el máximo de 7 días con el mercado en tendencia y salir con un stop de 2 ATR desde el máximo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            7
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ],
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            7
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "SOL: Supertrend 7/2,5 diario en corto con tendencia fuerte (howiprompt, aproximado)",
+      "fuente": "howiprompt, SuperTrend con filtro ADX en SOLUSDT diario (largos y cortos) (https://dev.to/howiprompt/how-our-ai-agents-evolved-supertrend-on-solusdt-to-569-backtested-6-evolutions-58j8). Versión en corto sin apalancamiento.",
+      "idea": "En SOL con velas diarias, vender en corto cuando el precio pierde el mínimo de 7 días con el mercado en tendencia, con stop de 2 ATR desde el mínimo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            7
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ],
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            7
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: MACD lento 25/60 con EMAs 9 y 50 en 1 h (Quant_Trading_Pro)",
+      "fuente": "Quant_Trading_Pro, 'SOL 1H – How This MACD Strategy Filters Noise & Times Swings' (TradingView, 30/07/2025: MACD 25/60/220, confirmación de medias de 9 y 50 y RSI estocástico; largos cuando el histograma gira alcista con la tendencia) (https://www.tradingview.com/chart/SOLUSDT/V6cdZ2rG-SOL-1H-How-This-MACD-Strategy-Filters-Noise-Times-Swings). Aproximado con el MACD estándar.",
+      "idea": "En SOL con velas de 1 h, comprar cuando el MACD es positivo, el precio está sobre las EMAs de 9, 50 y 220 y el RSI no está sobrecomprado; salir bajo la EMA de 50.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "sobre_ema",
+            9
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            220
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: MACD lento 25/60 bajo las EMAs 9 y 50 en 1 h (Quant_Trading_Pro, corto)",
+      "fuente": "Quant_Trading_Pro (TradingView, 30/07/2025: 'Shorts trigger on the inverse') (https://www.tradingview.com/chart/SOLUSDT/V6cdZ2rG-SOL-1H-How-This-MACD-Strategy-Filters-Noise-Times-Swings).",
+      "idea": "En SOL con velas de 1 h, vender en corto cuando el MACD es negativo con el precio bajo las EMAs de 9, 50 y 220 y el RSI no está sobrevendido; recomprar sobre la EMA de 50.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "sobre_ema",
+            9
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            220
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: Tortugas de 3Commas en 4 h con doble canal (20 confirmado por 40)",
+      "fuente": "3Commas, '[3Commas] Turtle Strategy' (TradingView, 03/03/2025, probado en BINANCE:ETHUSDT 4 h: ruptura del canal de 20 confirmada por un segundo canal desplazado 20 velas, salida en el canal de 10; 281 operaciones, factor de beneficio 1,7) (https://jp.tradingview.com/script/9qFCuXqF-3Commas-Turtle-Strategy). Aproximado: el canal desplazado como máximo de 40.",
+      "idea": "En ETH con velas de 4 h, comprar cuando el precio supera el máximo de 20 y también el de 40 velas, y salir al perder el mínimo de 10.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "rompe_maximo",
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "ETH: Tortugas de 3Commas en 4 h con doble canal en corto",
+      "fuente": "3Commas, '[3Commas] Turtle Strategy' (largos y cortos en ETHUSDT 4 h: corto al perder el mínimo del canal de 20 confirmado por el segundo canal) (https://jp.tradingview.com/script/9qFCuXqF-3Commas-Turtle-Strategy). Sin apalancamiento.",
+      "idea": "En ETH con velas de 4 h, vender en corto cuando el precio pierde el mínimo de 20 y de 40 velas, y recomprar al superar el máximo de 10.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "rompe_maximo",
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: RSI diario que cruza 40 al alza con objetivo y stop del 20 % (Łukasz Granica)",
+      "fuente": "Łukasz Granica, 'Backtesting RSI strategy' (15/03/2025: en ETH diario, la mejor combinación fue RSI(14) cruzando 40 al alza, objetivo +20 % y stop −20 %; búsqueda dentro de la muestra, sin comisiones) (https://graniluk.github.io/posts/backtesting-rsi-strategy).",
+      "idea": "En ETH con velas diarias, comprar cuando el RSI vuelve a subir de 40 desde abajo, cobrar en +20 % y salir si cae un 20 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_alto",
+            14,
+            40
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            20,
+            0.2
+          ]
+        ],
+        "stop": 0,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Chandelier Exit con ZLSMA 50 (TradeIQ, probado por Quant Factory)",
+      "fuente": "TradeIQ (YouTube), probado por Rick Hardy en Quant Factory, 'Backtesting Popular Strategies from YouTube #3' (BTC: Chandelier Exit ATR×2 y ZLSMA 50; comprar con señal del Chandelier sobre la ZLSMA y salir al cruzarla; en 5 min perdió un 7,2 %) (https://medium.com/quant-factory/backtesting-popular-strategies-from-youtube-3-2d7a0374ccd7). Llevado a 1 h y 4 h, ZLSMA aproximada con la EMA de 50.",
+      "idea": "Comprar cuando el precio rompe el máximo de 3 velas sobre la EMA de 50, con stop de 2 ATR desde el máximo (Chandelier), y salir al perder la EMA de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            3
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Chandelier Exit con ZLSMA 50 en corto (TradeIQ, probado por Quant Factory)",
+      "fuente": "TradeIQ (YouTube), probado por Rick Hardy en Quant Factory (corto: señal de venta del Chandelier bajo la ZLSMA, salida al cruzarla al alza) (https://medium.com/quant-factory/backtesting-popular-strategies-from-youtube-3-2d7a0374ccd7).",
+      "idea": "Vender en corto cuando el precio pierde el mínimo de 3 velas bajo la EMA de 50 y la de 200, con stop de 2 ATR, y recomprar al recuperar la EMA de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            3
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Filtro gaussiano con PMO sobre la media de 149 (Coinmonks, aproximado)",
+      "fuente": "Coinmonks, 'Backtesting the Hype: Can YouTube Indicators Deliver? (Part 1)' (19/07/2024: señal del filtro gaussiano, precio sobre la media de 149 y PMO sobre su línea central; rentable en BTC con acierto de ~40 % y relación 1,4, sin comisiones) (https://medium.com/coinmonks/backtesting-the-hype-can-youtube-indicators-deliver-part-1-7c97b5fe0ddb). Aproximado: filtro gaussiano como EMA de 50 y PMO como MACD.",
+      "idea": "Comprar cuando el precio está sobre la media de 149 y la EMA de 50, el MACD es positivo y hay impulso, con objetivo de 1,4 veces el riesgo aproximado.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            149
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.01
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Filtro gaussiano con PMO bajo la media de 149 (Coinmonks, corto, aproximado)",
+      "fuente": "Coinmonks, 'Backtesting the Hype: Can YouTube Indicators Deliver? (Part 1)' (corto en espejo: precio bajo la media de 149 y PMO bajo la línea central) (https://medium.com/coinmonks/backtesting-the-hype-can-youtube-indicators-deliver-part-1-7c97b5fe0ddb).",
+      "idea": "Vender en corto bajo la media de 149 y la EMA de 50 con el MACD negativo e impulso bajista, con objetivo cercano y recompra sobre la EMA de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            149
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.01
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Mínimo de 52 semanas en corto (efecto George y Hwang invertido)",
+      "fuente": "George y Hwang, 'The 52-Week High and Momentum Investing' (Journal of Finance, 2004: los activos lejos de su máximo de un año siguen rezagados); versión espejo de la ruptura del máximo de 52 semanas, en corto, propia.",
+      "idea": "Con velas diarias, vender en corto cuando el precio marca un mínimo de un año con volumen alto y recomprar si recupera la media de 50.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            365
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.06,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Chandelier de Le Beau 22/3,5 con entrada en retroceso (ajuste cripto diario)",
+      "fuente": "Charles Le Beau y David Lucas, 'Computer Analysis of the Futures Markets' (Chandelier Exit: máximo de 22 menos 3 ATR); The Right Trader propone 22 y 3-3,5 para cripto diario y entrar en retrocesos de tendencia (https://therighttrader.com/learn/indicators/chandelier-exit).",
+      "idea": "En velas diarias con el precio sobre la media de 200, comprar en un retroceso con RSI bajo 45 sobre la EMA de 50, y salir solo con el stop de 4 ATR desde el máximo o bajo la media de 200.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Puntuación multindicador con tendencia diaria y stop del 6 % (TrendRider)",
+      "fuente": "Gennady (TrendRider), 'Best Crypto Trading Strategies 2026' (DEV Community: puntuación de confianza con RSI, EMA, Bollinger, ADX, OBV y MACD; tendencia en diario, entrada en 4 h y stop del 6 %; cifras sin verificar) (https://dev.to/trendrider/best-crypto-trading-strategies-2026-679-win-rate-2ekc). Aproximado con las piezas permitidas.",
+      "idea": "En velas de 4 h, comprar solo cuando coinciden tendencia (sobre la EMA de 50 y la media de 600, unos 100 días), MACD positivo, RSI entre 50 y 70, mercado en tendencia y volumen alto, con stop móvil del 6 %.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_media",
+            600
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Método de 3 días de máximos y mínimos de Connors en corto",
+      "fuente": "Larry Connors y Cesar Alvarez, 'High Probability ETF Trading' (3-Day High/Low Method, versión en corto: bajo la media de 200, tres días de máximos y mínimos más altos sobre la media de 5, salida al perder la media de 5). Sin apalancamiento.",
+      "idea": "Bajo la media de 200, vender en corto tras tres velas de subida con el precio sobre la media de 5 y recomprar cuando vuelve bajo esa media.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "bajo_media",
+            5
+          ],
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Índice de fuerza de Elder negativo en tendencia alcista (retroceso con volumen)",
+      "fuente": "Alexander Elder, 'Come Into My Trading Room' (comprar cuando el índice de fuerza de 2 días pasa a negativo con la EMA de 22 subiendo). Aproximado: caída de 2 velas con volumen alto sobre la EMA de 22.",
+      "idea": "Sobre la EMA de 22 y la media de 100, comprar cuando el precio cae dos velas seguidas con volumen alto (fuerza negativa) y vender al superar el máximo de 3 velas.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            22
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_baja",
+            2,
+            0.01
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Rotación dentro de la zona de valor hacia el VAH (regla del 80 %, aproximado)",
+      "fuente": "Regla del 80 % del Market Profile (J. Peter Steidlmayer y James Dalton): si el precio vuelve a la zona de valor del día anterior, suele recorrerla hasta el otro extremo; explicada por MetroTrade (https://www.metrotrade.com/what-is-the-80-rule-in-futures-trading/). Aproximado: compra bajo el POC en mercado lateral con objetivo en el VAH.",
+      "idea": "En velas de 1 h y mercado lateral, comprar cuando el precio está por debajo del POC de la sesión anterior y el RSI gira desde abajo, y vender al llegar al techo de la zona de valor.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            24,
+            0.25
+          ],
+          [
+            "pierde_poc",
+            0.004
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "llega_vah",
+            0.001
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004
+      }
+    },
+    {
+      "nombre": "Rotación dentro de la zona de valor hacia el VAL (regla del 80 %, corto, aproximado)",
+      "fuente": "Regla del 80 % del Market Profile (Steidlmayer y Dalton; MetroTrade: corto tras volver a entrar por el VAH, objetivo en el VAL) (https://www.metrotrade.com/what-is-the-80-rule-in-futures-trading/). Aproximado en corto.",
+      "idea": "En velas de 1 h y mercado lateral, vender en corto cuando el precio está por encima del POC de la sesión anterior y el RSI gira desde arriba, y recomprar al llegar al suelo de la zona de valor.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            24,
+            0.25
+          ],
+          [
+            "pierde_poc",
+            0.004
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "llega_vah",
+            0.001
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004,
+        "lado": "corto"
+      }
     }
   ]
 }
