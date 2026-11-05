@@ -53,12 +53,16 @@ TENDENCIA_DIAS = 50                 # filtro de tendencia: media de 50 días del
 TENDENCIA_PENDIENTE = 10            # además la media tiene que ir a favor (subir/bajar en 10 días); si no, no hay tendencia clara y se espera fuera (0 = sin esta condición)
 PESO_MAQUINA = 0.0                  # peso de la máquina del tiempo en la probabilidad (laboratorio 03/11/2026: solo historial cumple más veces; 0,5 = mitad y mitad)
 MAQUINA_VIVO = ("2026-10-19", "2026-11-04")  # en el simulado en vivo ya hecho se mantiene la mezcla antigua (0,5) para no reescribir sus resultados
+ASEGURAR_GANANCIA = 0.10            # cuando una operación ya gana un 10 % para el agente, el equipo vende la mitad de su parte y deja correr el resto (laboratorio 05/11/2026; 0 = no)
+ASEGURAR_QUEDA = 0.5                # parte que el equipo deja en la operación después de asegurar
+ASEGURAR_VIVO = ("2026-10-19", "2026-11-05")  # en el simulado en vivo ya hecho (hasta el 04/11) no se aplica, para no reescribir sus resultados
 BLOQUEADO = -1.0                    # valor de P para una operación a la que el equipo no da dinero (va contra la tendencia)
 
 
 # ------------------------------------------------------------------ lo que sabe cada agente de sus operaciones
 
 _MV0, _MV1 = (dt.date.fromisoformat(x) for x in MAQUINA_VIVO)
+_AV0, _AV1 = (dt.date.fromisoformat(x) for x in ASEGURAR_VIVO)
 
 
 def regime_at(mk):
@@ -167,6 +171,7 @@ def series(ac, ag, start, variante=None):
     L = np.zeros(len(days))  # lo que pierde si sale por el stop
     rng = np.random.default_rng(zlib.crc32(ag["id"].encode()))
     tend = trend_by_day(ac, ag)
+    seguro, hit = {}, set()  # día -> operación en la que el equipo ya aseguró la mitad (al cierre de ese día)
     for n_, j in enumerate(last_bar):
         if days[n_] < s0 - dt.timedelta(days=1) or expo[n_] <= 0.05:
             continue
@@ -174,6 +179,9 @@ def series(ac, ag, start, variante=None):
         entry = cur[0] if cur else (still_open if still_open is not None and still_open <= j else None)
         if entry is None:
             continue
+        if ASEGURAR_GANANCIA and (entry in hit or r.eq[j - h] / r.eq[max(entry - h, 0)] - 1 >= ASEGURAR_GANANCIA):
+            hit.add(entry)
+            seguro[n_] = entry
         past = [tr for tr in trades if tr[1] <= j]
         same = [tr for tr in past if reg[tr[0]] == reg[entry]]
         p_all = (sum(tr[2] > 0 for tr in past) + 1) / (len(past) + 2)
@@ -196,7 +204,17 @@ def series(ac, ag, start, variante=None):
             P[n_] = BLOQUEADO  # va contra la tendencia diaria de su activo (o no hay tendencia clara): el equipo no le da dinero
         if last:
             ac.__dict__.setdefault("_tm_info", {})[ag["id"]] = dict(historial=round(p, 3), maquina=round(p_mc, 3),
-                                                                     objetivo=round(tp, 4), stop=round(sl, 4))
+                                                                     objetivo=round(tp, 4), stop=round(sl, 4),
+                                                                     asegurada=n_ in seguro)
+    # Asegurar la mitad: desde el día siguiente a que la operación gane un 10 %, el equipo solo tiene en ella
+    # ASEGURAR_QUEDA de su parte (el resto, vendido, espera en efectivo) y paga la venta una vez.
+    coste = (cfg["fee"] + cfg["slip"]) / 100
+    for n_ in range(1, len(days)):
+        e_ = seguro.get(n_ - 1)
+        if e_ is None or _AV0 <= days[n_] < _AV1:
+            continue
+        ret[n_] = ASEGURAR_QUEDA * ret[n_] - (0 if seguro.get(n_ - 2) == e_ else (1 - ASEGURAR_QUEDA) * coste)
+        expo[n_ - 1] *= ASEGURAR_QUEDA
     keep = [k for k, d in enumerate(days) if d >= s0]
     return [days[k] for k in keep], ret[keep], np.array(expo)[keep], P[keep], G[keep], L[keep]
 
