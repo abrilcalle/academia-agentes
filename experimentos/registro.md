@@ -486,3 +486,18 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** Ninguna variante mejora de forma clara y estable sobre "mitad al +10 %"; la parte útil de la toma de beneficios ya está recogida. No se integró nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya segunda toma (25 % al +20/30 %, todo al +20 %) y salida a la entrada / +5 % tras asegurar. No repetir. Queda sin probar llevar la idea a los propios agentes (pieza "vender la mitad al objetivo" en el genoma).
+
+## 2026-11-05 21:05 (hora de Madrid) — "Stop por tiempo" del equipo: salir de las operaciones que no arrancan
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 05/11, datos hasta el 04/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** las operaciones que llevan días abiertas sin ganar ocupan dinero y suelen acabar en semanas planas o rojas. Si el equipo, cuando una operación lleva N días abierta y en ese momento no va en positivo, sale de ella (o se queda la mitad) hasta que el agente la cierre, debería perder menos semanas y dejar el dinero a otras operaciones. Distinto del stop por pérdida (01/11: corta por cuánto pierde) y de asegurar (05/11: actúa sobre las que ganan); nunca probado un corte por tiempo. Se puede hacer por la API (venta al contado).
+- **Qué probé (en una copia, `experimentos/banco/m1tiempo.py` parchea `series()` con `TN`/`TG`/`TQ`; después `m1.py` → `m2x.py` → `m3x.py`):** en el primer cierre en que la operación cumple N días, si gana ≤ TG el equipo se queda TQ de su parte el resto de la operación (paga la venta; se combina con "asegurar la mitad al +10 %", manda la parte más pequeña). Variantes: **tNz** = sale del todo si no va en positivo a los N = 3, 5, 7, 10, 15, 20 días; **t5h / t10h** = se queda la mitad; **t10g2** = sale si no gana al menos un 2 % a los 10 días.
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 342 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro 50 + pendiente 10, asegurar mitad al +10 %, sin máquina del tiempo.
+- **Resultado (pares A→B que cumplen de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída):**
+  - **base 565 · 104 [23/20/35/5/21] · 42 · 22 · +45 % / 55 % / 13 %** (reproduce el código actual).
+  - t3z 450 · 100 · 45 · 18 · +20 % / 53 % / 10 % · t5z 469 · 94 · 44 · 16 · +20 % / 53 % / 11 % · t7z 517 · 100 · 46 · 21 · +26 % / 53 % / 12 %
+  - **t10z 544 · 115 [26/26/34/8/21] · 51 · 23 · +33 % / 55 % / 12 %** · t15z 520 · 104 · 45 · 21 · +38 % / 55 % / 12 % · t20z 518 · 103 · 44 · 22 · +38 % / 55 % / 12 %
+  - t5h 543 · 109 · 44 · 19 · +37 % · t10h 545 · 107 · 44 · 22 · +40 % · t10g2 485 · 102 · 47 · 24 · +31 %
+  - Todas las variantes empeoran los pares (565 → 450–545) y bajan la rentabilidad mediana (+45 → +20–40 %); las semanas en verde no suben (53–55 %) y la caída baja poco (13 → 10–12 %). La única que destaca en los tríos (t10z: 115 y 51 de 60 con alguno) no la confirman sus vecinas (7 días: 100; 15 días: 104), así que es ruido (±8). Cortar pronto (3–5 días) es claramente peor: muchas operaciones de tendencia arrancan tarde.
+- **Conclusión: no se queda.** No mejora de forma clara ni estable; no se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "stop por tiempo" del equipo (3–20 días, salir del todo / quedarse la mitad, umbral 0 o +2 %). No repetir. Con esto, las reglas de salida del equipo sobre operaciones abiertas (stop por pérdida, trail, asegurar, segunda toma, tiempo) parecen agotadas; lo pendiente es mejorar a los propios agentes (más semanas en verde) o llevar "vender la mitad al objetivo" a su genoma.
