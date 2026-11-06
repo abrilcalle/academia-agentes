@@ -18612,6 +18612,1117 @@
         "min_net": 0.004,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "BTC: Momentum Alligator de 4 h (Skyrexio, aproximado)",
+      "fuente": "TradingView, script de código abierto de Skyrexio 'Momentum Alligator 4h Bitcoin Strategy' (largo en 4 h con el precio sobre el Alligator diario, Awesome Oscillator subiendo y StochRSI que gira al alza; salida al tocar la mandíbula de 4 h; stop del 2 %; backtest 2021-2024: +62 %, 118 operaciones, caída máxima 11,5 %) (https://www.tradingview.com/script/u31hDmOU-Momentum-Alligator-4h-Bitcoin-Strategy/). Aproximado: Alligator diario ≈ medias de 78 y 48 velas de 4 h; StochRSI ≈ RSI bajo 55 que gira al alza.",
+      "idea": "En velas de 4 h, comprar BTC cuando el precio está sobre el Alligator diario (medias de 78 y 48 velas), el impulso de corto plazo es positivo y el RSI gira al alza desde la zona media, y vender al perder la mandíbula de 4 h (media de 13).",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            78
+          ],
+          [
+            "sobre_media",
+            48
+          ],
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "rsi_bajo",
+            14,
+            55
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            13
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: Momentum Alligator de 4 h (ajuste del script de Skyrexio)",
+      "fuente": "TradingView, script de código abierto de Skyrexio 'Momentum Alligator 4h Bitcoin Strategy' (largo en 4 h con el precio sobre el Alligator diario, Awesome Oscillator subiendo y StochRSI que gira al alza; salida al tocar la mandíbula de 4 h; stop del 2 %; backtest 2021-2024: +62 %, 118 operaciones, caída máxima 11,5 %) (https://www.tradingview.com/script/u31hDmOU-Momentum-Alligator-4h-Bitcoin-Strategy/). Ajustado a SOL (más volátil): stop de 3 ATR y stop móvil del 12 %.",
+      "idea": "En velas de 4 h, comprar SOL con el precio sobre el Alligator diario y el Awesome Oscillator positivo cuando el RSI rebota desde la zona media, y salir al cerrar bajo la mandíbula de 4 h o con un stop móvil del 12 %.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            78
+          ],
+          [
+            "sobre_media",
+            48
+          ],
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            13
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP: Momentum Alligator de 4 h en corto (Skyrexio invertido)",
+      "fuente": "TradingView, script de código abierto de Skyrexio 'Momentum Alligator 4h Bitcoin Strategy' (largo en 4 h con el precio sobre el Alligator diario, Awesome Oscillator subiendo y StochRSI que gira al alza; salida al tocar la mandíbula de 4 h; stop del 2 %; backtest 2021-2024: +62 %, 118 operaciones, caída máxima 11,5 %) (https://www.tradingview.com/script/u31hDmOU-Momentum-Alligator-4h-Bitcoin-Strategy/). Versión invertida para mercados bajistas, sin apalancamiento.",
+      "idea": "En velas de 4 h, vender XRP en corto cuando el precio está bajo el Alligator diario, el Awesome Oscillator es negativo y el RSI gira a la baja desde la zona media, y recomprar al recuperar la mandíbula de 4 h.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            78
+          ],
+          [
+            "sobre_media",
+            48
+          ],
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            13
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: Alligator abierto al alza sobre la media de 50 (TradeDots, aproximado)",
+      "fuente": "TradingView, script de código abierto de TradeDots 'Alligator + MA Trend Catcher' (largo con el precio sobre una media y el Alligator abriéndose al alza; salida bajo la media con el Alligator cerrándose; pensado para BTC y ETH con tendencia fuerte; pocas operaciones ganadoras pero grandes) (https://www.tradingview.com/script/roaahmoi-Alligator-MA-Trend-Catcher-TradeDots/). Aproximado: labios (5) sobre dientes (8) sobre mandíbula (13).",
+      "idea": "En velas diarias, comprar cuando el precio está sobre la media de 50 y las medias del Alligator se abren en orden alcista (5 > 8 > 13), y vender cuando la media de 5 cae bajo la de 13 y el precio pierde la media de 50.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "cruce_alcista",
+            5,
+            8
+          ],
+          [
+            "cruce_alcista",
+            8,
+            13
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "cruce_bajista",
+            5,
+            13
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.18,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Awesome Oscillator que cruza sobre cero (Bill Williams)",
+      "fuente": "Bill Williams, 'Trading Chaos'; Babypips Forexpedia, Awesome Oscillator (AO = media de 5 menos media de 34 del precio medio; compra al cruzar sobre cero, venta al cruzar bajo cero) (https://www.babypips.com/forexpedia/awesome-oscillator). Aproximado con medias del cierre.",
+      "idea": "Comprar cuando la media de 5 velas pasa por encima de la de 34 (el AO cruza sobre cero) con el precio sobre la media de 100, y vender cuando vuelve a cruzar por debajo.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            5,
+            34
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Awesome Oscillator que cruza bajo cero (Bill Williams, corto)",
+      "fuente": "Bill Williams, 'Trading Chaos'; Babypips Forexpedia, Awesome Oscillator (AO = media de 5 menos media de 34 del precio medio; compra al cruzar sobre cero, venta al cruzar bajo cero) (https://www.babypips.com/forexpedia/awesome-oscillator). Lado corto, sin apalancamiento.",
+      "idea": "Vender en corto cuando la media de 5 velas cae bajo la de 34 (el AO cruza bajo cero) con el precio bajo la media de 100, y recomprar cuando vuelve a cruzar por encima.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            5,
+            34
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: Awesome Oscillator positivo en 4 h sobre la media de 200",
+      "fuente": "Bill Williams, 'Trading Chaos'; Babypips Forexpedia, Awesome Oscillator (AO = media de 5 menos media de 34 del precio medio; compra al cruzar sobre cero, venta al cruzar bajo cero) (https://www.babypips.com/forexpedia/awesome-oscillator). Ajuste para SOL en 4 h con filtro de la media de 200 y volumen.",
+      "idea": "En velas de 4 h, comprar SOL cuando el AO cruza sobre cero con el precio sobre la media de 200 y volumen por encima de lo normal, y vender cuando el AO vuelve bajo cero o con un objetivo del 15 %.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            5,
+            34
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.01
+      }
+    },
+    {
+      "nombre": "ETH: Awesome Oscillator negativo en 4 h bajo la media de 200 (corto)",
+      "fuente": "Bill Williams, 'Trading Chaos'; Babypips Forexpedia, Awesome Oscillator (AO = media de 5 menos media de 34 del precio medio; compra al cruzar sobre cero, venta al cruzar bajo cero) (https://www.babypips.com/forexpedia/awesome-oscillator). Ajuste para ETH en 4 h, lado corto.",
+      "idea": "En velas de 4 h, vender ETH en corto cuando el AO cruza bajo cero con el precio bajo la media de 200, y recomprar cuando el AO vuelve sobre cero o con un objetivo del 10 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "en_tendencia",
+            30,
+            0.2
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            5,
+            34
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Cuña descendente rota al alza (Altrady, aproximado)",
+      "fuente": "Altrady, 'The Falling Wedge Pattern in Crypto Trading' (compra al romper la resistencia de la cuña, stop bajo el último mínimo, objetivo = altura de la cuña; mejor en 4 h y diario, con confirmación de RSI o MACD) (https://www.altrady.com/crypto-trading/technical-analysis/falling-wedge-pattern). Aproximado: caída previa, ruptura del máximo de 10 velas, RSI sobre 50 y volumen.",
+      "idea": "Tras una caída de más del 12 % en 30 velas, comprar cuando el precio rompe el máximo de las últimas 10 velas con RSI sobre 50 y volumen alto, con objetivo del 10 % y stop bajo el último mínimo.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            30,
+            0.12
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: cuña descendente con volumen en diario (Altrady)",
+      "fuente": "Altrady, 'The Falling Wedge Pattern in Crypto Trading' (compra al romper la resistencia de la cuña, stop bajo el último mínimo, objetivo = altura de la cuña; mejor en 4 h y diario, con confirmación de RSI o MACD) (https://www.altrady.com/crypto-trading/technical-analysis/falling-wedge-pattern). Ajuste para XRP (caídas largas y arranques bruscos): caída previa del 25 % y objetivo del 20 %.",
+      "idea": "En velas diarias de XRP, tras caer más del 25 % en 40 días, comprar cuando rompe el máximo de 15 días con volumen 1,5 veces el normal, con objetivo del 20 % y salida si pierde el mínimo de 10 días.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            40,
+            0.25
+          ],
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 30,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Taza con asa con volumen (altFINS y O'Neil, aproximado)",
+      "fuente": "altFINS, 'Cup and Handle Pattern: How to Identify and Trade It in Crypto (2026)' (cierre sobre la resistencia del asa en 4 h o diario con volumen claramente superior a la media, tendencia mayor alcista, stop bajo el asa y objetivo = profundidad de la taza) y William O'Neil (https://altfins.com/knowledge-base/cup-and-handle-pattern-how-to-identify-and-trade-it-in-crypto-2026/). Aproximado: ruptura del máximo de 60 velas sobre la media de 100 tras una pausa lateral, con volumen.",
+      "idea": "Con el precio sobre la media de 100 y tras unas velas laterales (el asa), comprar cuando cierra sobre el máximo de 60 velas con volumen 1,5 veces el normal, con objetivo del 15 % y stop bajo el asa.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "rompe_maximo",
+            60
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "mercado_lateral",
+            15,
+            0.35
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 30,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: taza con asa en diario con volumen (altFINS)",
+      "fuente": "altFINS, 'Cup and Handle Pattern: How to Identify and Trade It in Crypto (2026)' (cierre sobre la resistencia del asa en 4 h o diario con volumen claramente superior a la media, tendencia mayor alcista, stop bajo el asa y objetivo = profundidad de la taza) y William O'Neil (https://altfins.com/knowledge-base/cup-and-handle-pattern-how-to-identify-and-trade-it-in-crypto-2026/). Ajuste para ETH en velas diarias: base de 90 días y objetivo del 25 %.",
+      "idea": "En velas diarias de ETH, sobre la media de 150, comprar cuando el cierre supera el máximo de 90 días tras una pausa lateral con volumen alto, con objetivo del 25 % y stop móvil del 15 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            150
+          ],
+          [
+            "rompe_maximo",
+            90
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.4
+          ],
+          [
+            "mercado_lateral",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.25,
+        "trail": 0.15,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Taza con asa invertida (corto, aproximado)",
+      "fuente": "Thomas Bulkowski, 'Encyclopedia of Chart Patterns' (taza con asa invertida: patrón bajista); altFINS para las reglas de la versión alcista (https://altfins.com/knowledge-base/cup-and-handle-pattern-how-to-identify-and-trade-it-in-crypto-2026/). Lado corto, aproximado.",
+      "idea": "Con el precio bajo la media de 100 y tras unas velas laterales, vender en corto cuando cierra bajo el mínimo de 60 velas con volumen alto, con objetivo del 12 % y recompra si recupera el máximo de 10 velas.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "rompe_maximo",
+            60
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "mercado_lateral",
+            15,
+            0.35
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: corto en mercado bajista con el RSI en 60 y recompra bajo 30 (jollygreen)",
+      "fuente": "TradingView, idea de jollygreen 'How to trade Bitcoin with RSI in a bear market' (2018: en mercado bajista, vender en corto con el RSI cerca de 60 y cerrar al segundo rebote del RSI bajo 30) (https://www.tradingview.com/chart/BTCUSD/XRWwRzRp-How-to-trade-Bitcoin-with-RSI-in-a-bear-market/). Lado corto.",
+      "idea": "Con BTC bajo la media de 200 días, vender en corto cuando el RSI sube por encima de 60 y empieza a girar a la baja, y recomprar cuando el RSI cae por debajo de 30.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 30,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: momento con filtro de la EMA de 20 semanas (ZenAndTheArtOfTrading)",
+      "fuente": "TradingView, script de código abierto de ZenAndTheArtOfTrading 'Bitcoin Momentum Strategy' (largo solo con BTC sobre la EMA de 20 semanas; precaución si cierra bajo la EMA diaria de 20; stop móvil por ATR bajo el máximo de 7 velas) (https://www.tradingview.com/script/Tce7SnL7-Bitcoin-Momentum-Strategy/). Aproximado en diario: EMA de 20 semanas ≈ EMA de 140 días.",
+      "idea": "En velas diarias, mantener BTC comprado mientras cierra sobre la EMA de 140 días (20 semanas) y sobre la EMA de 20 días, y salir al cerrar bajo la EMA de 20 o con un stop móvil del 10 %.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            140
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "impulso_sube",
+            7,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: momento con filtro de la EMA de 20 semanas (ajuste de ZenAndTheArtOfTrading)",
+      "fuente": "TradingView, script de código abierto de ZenAndTheArtOfTrading 'Bitcoin Momentum Strategy' (largo solo con BTC sobre la EMA de 20 semanas; precaución si cierra bajo la EMA diaria de 20; stop móvil por ATR bajo el máximo de 7 velas) (https://www.tradingview.com/script/Tce7SnL7-Bitcoin-Momentum-Strategy/). Ajustado a ETH: stop móvil más amplio (15 %) y filtro de tendencia por eficiencia.",
+      "idea": "En velas diarias, comprar ETH cuando cierra sobre la EMA de 140 días y la de 20 con tendencia limpia, y salir al cerrar bajo la EMA de 20 o con un stop móvil del 15 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            140
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.15,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Momento bajo la EMA de 20 semanas en corto (ZenAndTheArtOfTrading invertido)",
+      "fuente": "TradingView, script de código abierto de ZenAndTheArtOfTrading 'Bitcoin Momentum Strategy' (largo solo con BTC sobre la EMA de 20 semanas; precaución si cierra bajo la EMA diaria de 20; stop móvil por ATR bajo el máximo de 7 velas) (https://www.tradingview.com/script/Tce7SnL7-Bitcoin-Momentum-Strategy/). Versión invertida para mercados bajistas, sin apalancamiento.",
+      "idea": "En velas diarias, vender en corto cuando el precio cierra bajo la EMA de 140 días y bajo la de 20 con impulso bajista de 7 días, y recomprar al cerrar sobre la EMA de 20 o con un stop móvil del 10 %.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            140
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "impulso_sube",
+            7,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: acumular en riesgo bajo y vender en riesgo alto (ETH Dynamic Risk, aproximado)",
+      "fuente": "TradingView, script de código abierto 'ETH Dynamic Risk Strategy' (puntuación de riesgo de 0 a 1 con la distancia al máximo histórico, ETH/BTC, volatilidad y tendencia; compra con riesgo bajo y venta escalonada con riesgo alto, en diario o 3 días) (https://www.tradingview.com/script/vG8ApsXD-ETH-Dynamic-Risk-Strategy/). Aproximado: caída grande en un año y precio muy por debajo de su media.",
+      "idea": "En velas diarias, comprar ETH cuando ha caído más del 50 % en un año y está muy por debajo de su media de 200 días (riesgo bajo), y vender cuando se dispara muy por encima de esa media (riesgo alto).",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            365,
+            0.5
+          ],
+          [
+            "z_bajo",
+            200,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            200,
+            2.0
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.2
+      }
+    },
+    {
+      "nombre": "XRP: vuelta a la media con Bollinger en 1 h (DAKELAX)",
+      "fuente": "TradingView, script de código abierto 'DAKELAX-XRPUSDT - Bollinger Band Strategy for Tradebotler' (reversión a la media con bandas de Bollinger en XRP/USDT de 1 h) (https://www.tradingview.com/script/PUm29d9D-DAKELAX-XRPUSDT-Bollinger-Band-Strategy-for-Tradebotler/). Parámetros estándar 20/2 porque el script no los publica en el texto.",
+      "idea": "En velas de 1 h de XRP y en mercado lateral, comprar cuando el precio cierra por debajo de la banda inferior de Bollinger (20, 2) y vender al volver a la media de 20, con un máximo de 2 días.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "mercado_lateral",
+            48,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004
+      }
+    },
+    {
+      "nombre": "TPS de Connors y Alvarez (RSI(2) bajo 25 dos velas seguidas, sin promediar)",
+      "fuente": "Larry Connors y Cesar Alvarez, 'High Probability ETF Trading' (estrategia TPS: sobre la media de 200, RSI(2) bajo 25 dos días seguidos; salida con RSI(2) sobre 70). Sin promediar a la baja, para evitar martingala.",
+      "idea": "Con el precio sobre la media de 200, comprar cuando el RSI(2) está bajo 25 tras dos cierres a la baja, y vender cuando el RSI(2) supera 70.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            2,
+            25
+          ],
+          [
+            "impulso_baja",
+            2,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "TPS de Connors y Alvarez en corto (RSI(2) sobre 75 bajo la media de 200)",
+      "fuente": "Larry Connors y Cesar Alvarez, 'High Probability ETF Trading' (estrategia TPS: sobre la media de 200, RSI(2) bajo 25 dos días seguidos; salida con RSI(2) sobre 70). Sin promediar a la baja, para evitar martingala. Versión en corto para mercados bajistas.",
+      "idea": "Con el precio bajo la media de 200, vender en corto cuando el RSI(2) supera 75 tras dos cierres al alza, y recomprar cuando el RSI(2) cae bajo 30.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            2,
+            25
+          ],
+          [
+            "impulso_baja",
+            2,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "completo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura de fractal sobre el Alligator (Bill Williams)",
+      "fuente": "Bill Williams, 'Trading Chaos' y 'New Trading Dimensions' (entrada en la ruptura de un fractal, máximo de 5 velas, por encima de los dientes del Alligator, medias de 13, 8 y 5).",
+      "idea": "En velas diarias, comprar cuando el precio rompe el máximo de 5 velas (fractal) estando por encima de los dientes y la mandíbula del Alligator (medias de 8 y 13) con las medias en orden alcista, y vender al cerrar bajo la mandíbula.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            5
+          ],
+          [
+            "sobre_media",
+            8
+          ],
+          [
+            "sobre_media",
+            13
+          ],
+          [
+            "cruce_alcista",
+            8,
+            13
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            13
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Ruptura de fractal bajo el Alligator (Bill Williams, corto)",
+      "fuente": "Bill Williams, 'Trading Chaos' y 'New Trading Dimensions' (entrada en la ruptura de un fractal, máximo de 5 velas, por encima de los dientes del Alligator, medias de 13, 8 y 5). Lado corto: ruptura del mínimo de 5 velas bajo los dientes.",
+      "idea": "En velas diarias, vender en corto cuando el precio pierde el mínimo de 5 velas (fractal) estando bajo los dientes y la mandíbula del Alligator con las medias en orden bajista, y recomprar al cerrar sobre la mandíbula.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            5
+          ],
+          [
+            "sobre_media",
+            8
+          ],
+          [
+            "sobre_media",
+            13
+          ],
+          [
+            "cruce_alcista",
+            8,
+            13
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            13
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: picos gemelos del Awesome Oscillator bajo cero (doble suelo, aproximado)",
+      "fuente": "Bill Williams, 'Trading Chaos'; Babypips Forexpedia, Awesome Oscillator (AO = media de 5 menos media de 34 del precio medio; compra al cruzar sobre cero, venta al cruzar bajo cero) (https://www.babypips.com/forexpedia/awesome-oscillator) (picos gemelos: dos valles bajo cero, el segundo más alto, compra). Aproximado con un doble suelo bajo la media de 34.",
+      "idea": "En velas de 4 h de XRP, con el precio todavía bajo la media de 34, comprar cuando se forma un doble suelo y el precio empieza a subir, y vender cuando supera el máximo de 20 velas o con un objetivo del 8 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "doble_suelo",
+            40,
+            0.03
+          ],
+          [
+            "bajo_media",
+            34
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.01
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: platillo del Awesome Oscillator sobre cero (saucer, aproximado)",
+      "fuente": "Bill Williams, 'Trading Chaos'; Babypips Forexpedia, Awesome Oscillator (AO = media de 5 menos media de 34 del precio medio; compra al cruzar sobre cero, venta al cruzar bajo cero) (https://www.babypips.com/forexpedia/awesome-oscillator) (platillo alcista: con el AO sobre cero, dos barras rojas y luego una verde). Aproximado: retroceso de 3 velas con la media de 5 sobre la de 34 y vela de giro.",
+      "idea": "En velas de 4 h de SOL, con la media de 5 sobre la de 34 y el precio sobre la media de 100, comprar cuando tras un pequeño retroceso de 3 velas aparece una vela alcista, y salir con un objetivo del 6 % o si la media de 5 cae bajo la de 34.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            5,
+            34
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.005
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            5,
+            34
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
