@@ -535,3 +535,20 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Aviso para próximas vueltas (sin integrar):** el control c3 sugiere que en este banco "invertir solo un tercio de cada operación" sube mucho los podios que cumplen (104 → 151; 2022 5 → 12; 2023 22 → 35), lo contrario de lo visto el 26/10 (volatilidad objetivo, freno) y del control del 05/11 (mitad siempre = base). Ojo: en 2019–21 los agentes ganan muchísimo porque se entrenaron con esos años (mediana +25–33 % al año), así que invertir menos casi siempre llega al +10 %; con agentes que ganan menos (como en vivo) podría no llegar. Merece una prueba propia y cuidadosa (fracción fija 0,33–0,75 con el resto en USDC, mirando sobre todo C = 2022–23) antes de tocar nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "entrada con confirmación / piramidar" (Q0 0–0,5, Y 1–8 %, dinero quieto o repartido). No repetir.
+
+## 2026-11-06 21:25 (hora de Madrid) — Invertir solo una parte fija de la cartera del equipo (el resto en USDC)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 06/11, datos hasta el 05/11), sin incidencias. Nada que arreglar.
+- **Hipótesis (sigue al aviso de las 15:49):** el control c3 de esta tarde ("un tercio de cada operación") subía los podios que cumplen de 104 a 151. Si el equipo invierte siempre solo una fracción fija de lo que le toca (75 / 50 / 33 %) y deja el resto en USDC, caería menos y quizá cumpliría más veces, también en 2022–23. Prueba propia y limpia, a nivel de equipo (no tocando las series de los agentes). Se puede hacer por la API (simplemente comprar menos).
+- **Qué probé (en una copia, `experimentos/banco/m2frac.py` sobre `m1.py` → `m2x.py` → `m3x.py` / `m3c22.py`):** el reparto diario de `alloc` se multiplica por FRAC = 1 (base), 0,75, 0,5 y 0,33; y **fel** = la formación elige la fracción (1 / 0,5 / 0,33) como un parámetro más. Los equipos se forman ya con la fracción (como haría `build`).
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 352 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia y "asegurar la mitad al +10 %" actuales, sin máquina del tiempo.
+- **Resultado (pares A→B que cumplen de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída):**
+  - **base 564 · 104 [22/20/35/5/22] · 42 · 23 · +43 % / 53 % / 13 %** (reproduce el código actual)
+  - f75 560 · 108 [23/22/36/4/23] · 44 · 22 · +31 % / 55 % / 10 %
+  - f50 528 · 103 [24/20/36/1/22] · 41 · 18 · +20 % / 53 % / 7 %
+  - f33 468 · 85 [19/19/32/0/15] · 35 · 13 · +13 % / 53 % / 5 %
+  - fel 1.560 de 3.240 · 101 [21/19/35/5/21] · 40 · 22 · +39 % / 53 % / 13 %
+  - Solo 2022 y 2023 (fuera del entreno): base 5 y 22 de 36 · f75 4 y 23 · f50 1 y 22 · f33 0 y 15. En 2022 invertir menos baja la caída (26 → 8–19 %) pero también la ganancia (−19 → −5 a −12 %), así que sigue sin llegar al +10 %; y en 2023 con un tercio ya no se llega al +10 % en muchos casos.
+  - Las semanas en verde no cambian (53–55 %): invertir menos encoge ganancias y pérdidas por igual. f75 queda dentro del ruido (±8) y con menos rentabilidad.
+- **Conclusión: no se queda.** Invertir una fracción fija no acerca la meta; lo que pasa con 0,33 es lo que se temía (deja de llegar al +10 %). La subida del control c3 de esta tarde no era por invertir menos: venía de cómo `m1escal.py` reescalaba las series de los agentes (probablemente una interacción con el reparto y el coste de asegurar), no de algo que el equipo pueda aprovechar. No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "fracción fija invertida" (75/50/33 %, fija o elegida al formar). No repetir. El reparto y las reglas del equipo siguen agotados; lo pendiente es mejorar a los propios agentes (más semanas en verde, ventaja en 2022) o la pieza "vender la mitad al objetivo" dentro del genoma.
