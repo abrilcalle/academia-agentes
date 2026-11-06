@@ -536,7 +536,7 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "entrada con confirmación / piramidar" (Q0 0–0,5, Y 1–8 %, dinero quieto o repartido). No repetir.
 
-## 2026-11-06 21:25 (hora de Madrid) — Invertir solo una parte fija de la cartera del equipo (el resto en USDC)
+## 2026-11-06 21:16 (hora de Madrid) — Invertir solo una parte fija de la cartera del equipo (el resto en USDC)
 - **Comprobación técnica:** la ejecución de anoche se actualizó (state del 06/11, datos hasta el 05/11), sin incidencias. Nada que arreglar.
 - **Hipótesis (sigue al aviso de las 15:49):** el control c3 de esta tarde ("un tercio de cada operación") subía los podios que cumplen de 104 a 151. Si el equipo invierte siempre solo una fracción fija de lo que le toca (75 / 50 / 33 %) y deja el resto en USDC, caería menos y quizá cumpliría más veces, también en 2022–23. Prueba propia y limpia, a nivel de equipo (no tocando las series de los agentes). Se puede hacer por la API (simplemente comprar menos).
 - **Qué probé (en una copia, `experimentos/banco/m2frac.py` sobre `m1.py` → `m2x.py` → `m3x.py` / `m3c22.py`):** el reparto diario de `alloc` se multiplica por FRAC = 1 (base), 0,75, 0,5 y 0,33; y **fel** = la formación elige la fracción (1 / 0,5 / 0,33) como un parámetro más. Los equipos se forman ya con la fracción (como haría `build`).
