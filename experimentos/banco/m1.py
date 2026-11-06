@@ -31,5 +31,5 @@ for a in cands:
 print(len(uniq), "agentes", flush=True)
 days, R, E, P, G, L = eq.matrix(ac, uniq, "2019-01-01", dt.date(2023, 12, 31))
 info = [dict(id=a["id"], name=a["name"], activo=a.get("activo", "BTC-EUR"), short=(a.get("lado") == "corto" and a["status"] != "suspendido")) for a in uniq]
-pickle.dump(dict(days=days, R=R, E=E, P=P, G=G, L=L, info=info), open(os.path.join(S, "mat.pkl"), "wb"))
+pickle.dump(dict(days=days, R=R, E=E, P=P, G=G, L=L, info=info), open(os.path.join(S, os.environ.get("OUTM", "mat.pkl")), "wb"))
 print("ok", R.shape)

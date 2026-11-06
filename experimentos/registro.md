@@ -501,3 +501,19 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** No mejora de forma clara ni estable; no se integró nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "stop por tiempo" del equipo (3–20 días, salir del todo / quedarse la mitad, umbral 0 o +2 %). No repetir. Con esto, las reglas de salida del equipo sobre operaciones abiertas (stop por pérdida, trail, asegurar, segunda toma, tiempo) parecen agotadas; lo pendiente es mejorar a los propios agentes (más semanas en verde) o llevar "vender la mitad al objetivo" a su genoma.
+
+## 2026-11-06 10:40 (hora de Madrid) — "Entrada en retroceso" del equipo: esperar a comprar un poco más barato
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 06/11, datos hasta el 05/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** cuando un agente abre una operación, el equipo compra al mismo precio. Si en vez de eso deja una **orden limitada un X % por debajo** (por encima en cortos) y solo entra si el precio la toca antes de que el agente cierre, cada operación empieza con X % de ventaja y se filtran las entradas falsas: más operaciones acabarían en positivo y quizá más semanas en verde. Nunca probado (las reglas del equipo probadas hasta hoy eran de reparto y de salida). Se puede hacer por la API (orden limitada; mientras espera, el dinero queda reservado en efectivo).
+- **Qué probé (en una copia, `experimentos/banco/m1entrada.py` parchea `series()` con `PX`/`NW`; `m1.py` acepta ahora `OUTM`; después `m2x.py` → `m3x.py`):** precio límite a X = 0,5 / 1 / 2 % del precio de entrada del agente, esperando hasta que el agente cierre; y X = 1 % esperando como mucho 2 días (p1w2). El día que se llena gana desde el precio límite y paga la comisión maker; si no se llena, no entra. Con asegurar la mitad al +10 % y el filtro de tendencia actuales.
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 352 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, sin máquina del tiempo.
+- **Resultado (pares A→B que cumplen de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída):**
+  - **base 564 · 104 [22/20/35/5/22] · 42 · 23 · +43 % / 53 % / 13 %** (código actual)
+  - p05 482 · 100 [24/18/35/1/22] · 42 · 16 · +30 % / 51 % / 15 %
+  - p1 561 · 102 [26/17/34/5/20] · 42 · 20 · +29 % / 53 % / 15 %
+  - p1w2 542 · 90 [21/15/33/4/17] · 40 · 15 · +28 % / 53 % / 15 %
+  - p2 505 · 92 [25/17/32/2/16] · 41 · 20 · +16 % / 53 % / 14 %
+  - Por agente, con X = 1 % la ganancia mediana 2019–23 baja de +119 % a +31 %: las mejores operaciones de tendencia arrancan sin retroceder y se pierden; las que sí retroceden son más a menudo las que salen mal. Las semanas en verde no suben (51–53 %), la caída sube (13 → 14–15 %) y la rentabilidad baja en todas las variantes.
+- **Conclusión: no se queda.** Esperar un retroceso empeora todo; se mantiene la entrada al precio del agente. No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "entrada en retroceso" del equipo (0,5–2 %, sin límite o 2 días). No repetir. Confirma que el equipo debe seguir las entradas de los agentes tal cual; lo pendiente sigue siendo mejorar a los propios agentes (más semanas en verde, ventaja en 2022).
