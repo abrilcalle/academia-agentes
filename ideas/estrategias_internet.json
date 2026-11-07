@@ -19723,6 +19723,1128 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "Stochastic Pop de Jake Bernstein (con filtros de Steckler)",
+      "fuente": "LuxAlgo, 'Stochastic Pop' (Jake Bernstein; filtros de Steckler en TASC, agosto de 2000: ADX(14) bajo 20, volumen sobre la media en la vela de señal; salida cuando el %K vuelve a cruzar el nivel) (https://www.luxalgo.com/library/concept/stochastic-pop/). Aproximado: el %K de 14 sobre 80 se aproxima con el RSI de 14 sobre 70 y el ADX bajo con mercado lateral previo.",
+      "idea": "Cuando el oscilador sale disparado por encima de 80 tras una fase sin tendencia y con volumen alto, comprar el arranque y salir en cuanto el oscilador vuelve a caer bajo el nivel.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "mercado_lateral",
+            20,
+            0.3
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_bajo",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Stochastic Drop de Bernstein (corto)",
+      "fuente": "LuxAlgo, 'Stochastic Pop' (Jake Bernstein; filtros de Steckler en TASC, agosto de 2000: ADX(14) bajo 20, volumen sobre la media en la vela de señal; salida cuando el %K vuelve a cruzar el nivel) (https://www.luxalgo.com/library/concept/stochastic-pop/). Lado corto ('drop': %K que cae bajo 20), aproximado con el RSI de 14 bajo 30.",
+      "idea": "Cuando el oscilador se desploma por debajo de 20 tras una fase lateral y con volumen alto, vender en corto la caída y recomprar cuando el oscilador vuelve a subir sobre el nivel.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "mercado_lateral",
+            20,
+            0.3
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_bajo",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Momentum Pinball de Linda Raschke (aproximado)",
+      "fuente": "WH SelfInvest, 'Momentum Pinball' de Linda Raschke y Larry Connors (RSI de 3 del ROC de 1 vela; señal bajo 30 para comprar o sobre 70 para vender, se opera la ruptura del rango de la primera hora del día siguiente y no se mantiene más de una noche) (https://www.whselfinvest.de/en-de/trading-platform/free-trading-strategies/tradingsystem/48-momentum-pinball-trading-indicator-raschke-linda-connors-larry). Aproximado con el RSI de 3 del precio y la ruptura del máximo de la vela anterior.",
+      "idea": "En velas diarias, cuando el RSI de 3 cae bajo 30 comprar al día siguiente si el precio rompe el máximo anterior y vender en uno o dos días.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            3,
+            35
+          ],
+          [
+            "rompe_maximo",
+            1
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            3,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Momentum Pinball de Linda Raschke en corto (aproximado)",
+      "fuente": "WH SelfInvest, 'Momentum Pinball' de Linda Raschke y Larry Connors (RSI de 3 del ROC de 1 vela; señal bajo 30 para comprar o sobre 70 para vender, se opera la ruptura del rango de la primera hora del día siguiente y no se mantiene más de una noche) (https://www.whselfinvest.de/en-de/trading-platform/free-trading-strategies/tradingsystem/48-momentum-pinball-trading-indicator-raschke-linda-connors-larry). Lado corto: señal con el RSI sobre 70 y venta al perder el mínimo anterior.",
+      "idea": "En velas diarias y bajo la media de 100, cuando el RSI de 3 sube sobre 70 vender en corto al día siguiente si el precio pierde el mínimo anterior y recomprar en uno o dos días.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            3,
+            35
+          ],
+          [
+            "rompe_maximo",
+            1
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            3,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ICT Silver Bullet de Nueva York (15-16 h UTC, aproximado)",
+      "fuente": "FluxCharts, 'ICT Silver Bullet Strategy Explained' (ventanas de 3-4, 10-11 y 14-15 h de Nueva York; barrido de liquidez y entrada en el hueco de valor, stop bajo el hueco y objetivo 1:2) (https://www.fluxcharts.com/articles/trading-strategies/ict-strategies/ict-silver-bullet). Aproximado: barrido del mínimo reciente seguido de giro alcista dentro de la ventana, a favor de la tendencia de la EMA 50.",
+      "idea": "En velas de 1 h, entre las 15 y las 16 h UTC (10-11 h de Nueva York), si el precio barre el mínimo reciente y vuelve a subir con la EMA 50 a favor, comprar con objetivo del doble del riesgo y cerrar ese mismo día.",
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            15,
+            2
+          ],
+          [
+            "impulso_baja",
+            4,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.002
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            21,
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "ICT Silver Bullet de Londres (8-9 h UTC, aproximado)",
+      "fuente": "FluxCharts, 'ICT Silver Bullet Strategy Explained' (ventanas de 3-4, 10-11 y 14-15 h de Nueva York; barrido de liquidez y entrada en el hueco de valor, stop bajo el hueco y objetivo 1:2) (https://www.fluxcharts.com/articles/trading-strategies/ict-strategies/ict-silver-bullet). Ventana de las 3-4 h de Nueva York (8-9 h UTC). Aproximado como el de Nueva York.",
+      "idea": "En velas de 1 h, entre las 8 y las 9 h UTC, si el precio barre el mínimo de las últimas horas y gira al alza con la EMA 50 a favor, comprar con objetivo de 2R y cerrar antes de la sesión de Nueva York.",
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            8,
+            2
+          ],
+          [
+            "impulso_baja",
+            4,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.002
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            14,
+            2
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Estrella de la mañana en sobreventa (StockSharp y altFINS, aproximado)",
+      "fuente": "StockSharp, 'Morning Star Pattern Strategy' (vela bajista, vela pequeña y vela alcista que cierra sobre la mitad de la primera; stop bajo la vela central) (https://doc.stocksharp.com/en/api-examples/0070_Morning_Star) y altFINS, 'The Morning Star Candlestick Pattern in Crypto Trading' (4 h o diario; confirmar con RSI saliendo de sobreventa y volumen sobre la media de 20; objetivo 1:2 o 1:3) (https://altfins.com/knowledge-base/the-morning-star-candlestick-pattern-in-crypto-trading)",
+      "idea": "Tras una caída de varias velas, con el RSI bajo y una vela alcista fuerte con volumen, comprar el giro con stop bajo el mínimo y objetivo de 2-3 veces el riesgo.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            6,
+            0.04
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.015
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Cruce del Vortex en diario (aproximado)",
+      "fuente": "The Right Trader, 'Best Vortex Settings' (Vortex de 14 en diario, o 21 para menos cambios; largo cuando VI+ cruza sobre VI-, corto al revés; salida cuando vuelven a cruzarse) (https://therighttrader.com/learn/indicator-strategies/best-vortex-settings) y LuxAlgo, 'Vortex' (https://www.luxalgo.com/library/concept/vortex/). Aproximado: VI+ sobre VI- equivale a mercado en tendencia y precio más alto que hace 14 velas.",
+      "idea": "En velas diarias, comprar cuando el Vortex de 14 se gira al alza (mercado en tendencia y precio por encima de hace 14 días, sobre la EMA 21) y salir cuando vuelve a girarse a la baja.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            21
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Cruce del Vortex en diario a la baja (corto, aproximado)",
+      "fuente": "The Right Trader, 'Best Vortex Settings' (Vortex de 14 en diario, o 21 para menos cambios; largo cuando VI+ cruza sobre VI-, corto al revés; salida cuando vuelven a cruzarse) (https://therighttrader.com/learn/indicator-strategies/best-vortex-settings) y LuxAlgo, 'Vortex' (https://www.luxalgo.com/library/concept/vortex/). Lado corto: VI- cruza sobre VI+.",
+      "idea": "En velas diarias, vender en corto cuando el Vortex de 14 se gira a la baja (mercado en tendencia y precio por debajo de hace 14 días, bajo la EMA 21) y recomprar cuando vuelve a girarse al alza.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            21
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: tendencia solo con el Choppiness Index bajo (E-x-t-r-a-v-a-g-a-n-z-a)",
+      "fuente": "TradingView, idea de E-x-t-r-a-v-a-g-a-n-z-a 'Bitcoin: how to always trade cryptos with the trend by your side' (Choppiness Index: no operar con CHOP sobre 50; bajo 38,2 empieza tendencia; largo sobre la media y corto bajo ella) (https://www.tradingview.com/chart/BTCUSD/4DYwWs2d-Bitcoin-how-to-always-trade-cryptos-with-the-trend-by-your-side). Aproximado: CHOP bajo 38,2 equivale a una eficiencia de Kaufman alta.",
+      "idea": "En BTC diario o de 4 h, operar solo cuando el mercado sale del lateral y entra en tendencia: comprar sobre la media de 50 y vender al perderla.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            14,
+            0.35
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: tendencia bajista solo con el Choppiness Index bajo (E-x-t-r-a-v-a-g-a-n-z-a, corto)",
+      "fuente": "TradingView, idea de E-x-t-r-a-v-a-g-a-n-z-a 'Bitcoin: how to always trade cryptos with the trend by your side' (Choppiness Index: no operar con CHOP sobre 50; bajo 38,2 empieza tendencia; largo sobre la media y corto bajo ella) (https://www.tradingview.com/chart/BTCUSD/4DYwWs2d-Bitcoin-how-to-always-trade-cryptos-with-the-trend-by-your-side). Lado corto.",
+      "idea": "En BTC diario o de 4 h, cuando el mercado entra en tendencia y el precio está bajo la media de 50, vender en corto y recomprar al recuperar la media.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            14,
+            0.35
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Divergencia alcista del RSI en un doble suelo (AliferCrypto, aproximado)",
+      "fuente": "TradingView, script de AliferCrypto 'RSI Divergence Strategy' (largo con divergencia alcista: mínimo más bajo en precio y más alto en el RSI; stop en el mínimo del swing o por ATR y objetivo por relación riesgo/beneficio) (https://vn.tradingview.com/script/Spg5RGk1-RSI-Divergence-Strategy-AliferCrypto). Aproximado: doble suelo con el RSI ya no tan bajo.",
+      "idea": "Cuando el precio marca un doble suelo pero el RSI ya no está en sobreventa extrema (señal de que se agota la caída), comprar el giro con stop por ATR y objetivo de 2R.",
+      "regla": {
+        "entry": [
+          [
+            "doble_suelo",
+            30,
+            0.03
+          ],
+          [
+            "rsi_bajo",
+            14,
+            48
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: divergencia del RSI con stop móvil (TradingAlgorithms, aproximado)",
+      "fuente": "TradingView, idea de TradingAlgorithms 'Battle tested through the ups and downs of Etherium history' (ETHUSD; divergencia del RSI en marcos altos confirmada por ATR, stop del 8 % y toma de beneficios móvil por ATR; sin apalancamiento) (https://th.tradingview.com/chart/ETHUSD/zuIINexr-Battle-tested-through-the-ups-and-downs-of-Etherium-history). Aproximado: doble suelo con volatilidad alta y stop móvil del 8 %.",
+      "idea": "En ETH diario o de 4 h, comprar un doble suelo con el RSI recuperándose y volatilidad alta, y dejar correr la subida con un stop móvil del 8 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "doble_suelo",
+            40,
+            0.04
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "vol_alta",
+            20,
+            0.5
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            78
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "MFI bajo 20 con volumen (Coinrule, aproximado)",
+      "fuente": "Coinrule, 'How to use MFI' (Money Flow Index: sobrecompra en 80 y sobreventa bajo 20; MFI bajo 20 como señal de giro; se suele combinar con el RSI) (https://help.coinrule.com/en/articles/6744806-how-to-use-mfi). Aproximado: el MFI es un RSI ponderado por volumen, aquí RSI bajo 25 con volumen alto.",
+      "idea": "Cuando el dinero sale con fuerza (RSI muy bajo con volumen alto, como un MFI bajo 20) sobre la media de 200, comprar la sobreventa y vender cuando el oscilador llega a 80.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            25
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: jueves alcista (Sahu, 2024)",
+      "fuente": "Sahu (2024), 'Market Efficiency and Calendar Anomalies Post-COVID: Insights from Bitcoin and Ethereum', The Anáhuac Journal 24(1) (datos diarios de julio de 2020 a diciembre de 2023; en el GARCH(1,1) el jueves es el único día significativo de ETH, con coeficiente positivo) (https://scielo.org.mx/pdf/taj/v24n1/2683-2690-taj-24-01-12.pdf)",
+      "idea": "Tras la COVID, el jueves fue el único día con rentabilidad significativa (positiva) en ETH: comprar al empezar el jueves (UTC) y vender al acabar el día.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              3
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: sábado alcista (Yamak y Erkan)",
+      "fuente": "Yamak y Erkan (2021), 'Kripto Para Getirilerinde Haftanın Gün Etkisi', ATASOBED 25(3):1336-1372 (https://dergipark.org.tr/tr/download/article-file/1591132) (en ETH, el sábado sale positivo y significativo en los modelos ARCH(1) y GARCH(1,1)).",
+      "idea": "El sábado fue el día con rentabilidad positiva más clara en ETH: comprar al empezar el sábado (UTC) y vender al acabar el día.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              5
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              6,
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP: corto los sábados (Yamak y Erkan)",
+      "fuente": "Yamak y Erkan (2021), 'Kripto Para Getirilerinde Haftanın Gün Etkisi', ATASOBED 25(3):1336-1372 (https://dergipark.org.tr/tr/download/article-file/1591132) (en Ripple, el sábado tiene el coeficiente más negativo y significativo al 1 % en el modelo ARCH(1)). Lado corto.",
+      "idea": "El sábado fue el día más negativo de XRP en el estudio: vender en corto al empezar el sábado (UTC) y recomprar al acabar el día.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              5
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              6,
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: corto los jueves (Yamak y Erkan)",
+      "fuente": "Yamak y Erkan (2021), 'Kripto Para Getirilerinde Haftanın Gün Etkisi', ATASOBED 25(3):1336-1372 (https://dergipark.org.tr/tr/download/article-file/1591132) (en Ripple, el jueves sale negativo y significativo al 1 % tanto en ARCH(1) como en GARCH(1,1)). Lado corto.",
+      "idea": "El jueves fue negativo para XRP en los dos modelos del estudio: vender en corto al empezar el jueves (UTC) y recomprar al acabar el día.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              3
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              4,
+              5,
+              6,
+              0,
+              1,
+              2
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: corto los lunes (Sahu, Fonseca y Kim)",
+      "fuente": "Sahu, Fonseca Ramírez y Kim (2024), 'Exploring Calendar Anomalies and Volatility Dynamics in Cryptocurrencies', Journal of Risk and Financial Management 17(8):351 (https://mdpi.com/1911-8074/17/8/351) (el resumen indica que SOL y BTC empezaron a mostrar efecto día de la semana durante la COVID, con lunes negativos). Lado corto.",
+      "idea": "Durante la COVID aparecieron lunes negativos en SOL: vender en corto al empezar el lunes (UTC) y recomprar al acabar el día.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              0
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: comprado en la sesión de EE. UU. (Bobe Kryant)",
+      "fuente": "Bobe Kryant, 'Intraday Seasonality in Crypto' (2021; sesiones UTC: Europa 4-12 h, América 12-18 h, Asia 18-4 h; ETH baja en horas de Asia y sube con fuerza en horas de EE. UU.; SOL con 'compra constante' en la sesión de EE. UU.; análisis de gráficos, sin test estadístico) (https://bobekryant.github.io/time-of-day.html)",
+      "idea": "SOL tiende a subir en horario americano: en velas de 1 h, comprar a las 12 h UTC si está sobre la media de 48 horas y vender a las 18 h UTC.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            12,
+            1
+          ],
+          [
+            "sobre_media",
+            48
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            18,
+            18
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: comprado en la sesión de EE. UU. (Bobe Kryant)",
+      "fuente": "Bobe Kryant, 'Intraday Seasonality in Crypto' (2021; sesiones UTC: Europa 4-12 h, América 12-18 h, Asia 18-4 h; ETH baja en horas de Asia y sube con fuerza en horas de EE. UU.; SOL con 'compra constante' en la sesión de EE. UU.; análisis de gráficos, sin test estadístico) (https://bobekryant.github.io/time-of-day.html)",
+      "idea": "ETH sube sobre todo en horario americano: en velas de 1 h, comprar a las 12 h UTC con la tendencia de 48 horas a favor y vender a las 18 h UTC.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            12,
+            1
+          ],
+          [
+            "impulso_sube",
+            48,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            18,
+            18
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: corto en la sesión asiática (Bobe Kryant)",
+      "fuente": "Bobe Kryant, 'Intraday Seasonality in Crypto' (2021; sesiones UTC: Europa 4-12 h, América 12-18 h, Asia 18-4 h; ETH baja en horas de Asia y sube con fuerza en horas de EE. UU.; SOL con 'compra constante' en la sesión de EE. UU.; análisis de gráficos, sin test estadístico) (https://bobekryant.github.io/time-of-day.html). Lado corto.",
+      "idea": "ETH ha tendido a bajar en horas de Asia: en velas de 1 h y bajo la media de 48 horas, vender en corto a las 18 h UTC y recomprar a las 4 h UTC.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            18,
+            1
+          ],
+          [
+            "sobre_media",
+            48
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            4,
+            14
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Lunes tras una semana negativa (van Herk, corto)",
+      "fuente": "Kevin van Herk (2021), 'Seasonal Anomalies in the Cryptocurrency Market', tesis de la Universidad Erasmus de Róterdam (BTC, ETH, XRP y otras; el lunes que sigue a una semana negativa tiene rentabilidad media más baja en todas las monedas estudiadas) (https://thesis.eur.nl/pub/59563/Thesis-Kevin-van-Herk-475254.pdf). Lado corto.",
+      "idea": "En velas de 1 h, si la última semana ha sido bajista, vender en corto al empezar el lunes (UTC) y recomprar al acabar el día.",
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              0
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ],
+          [
+            "impulso_sube",
+            168,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Altcoins: retroceso en tendencia fuerte con MACD a favor (altFINS)",
+      "fuente": "altFINS, 'How To Find And Trade Crypto Pullbacks In Uptrend' (tendencia fuerte al alza a corto, medio y largo plazo, retroceso en los últimos 7 días, MACD alcista, compra cerca del soporte; medias de 50 y 200; objetivo de ejemplo +30 %) (https://altfins.com/knowledge-base/pullback-in-uptrend-downtrend/)",
+      "idea": "En ETH, SOL y XRP diarios, con la media de 50 sobre la de 200 y el MACD positivo, comprar cuando el precio ha retrocedido en la última semana y vender con un objetivo del 20 % o al perder la media de 50.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_baja",
+            7,
+            0.03
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Altcoins: compra en la línea baja de un canal alcista (altFINS)",
+      "fuente": "altFINS, 'How To Trade Channel Up Pattern' (canal de máximos y mínimos crecientes; comprar cerca de la línea inferior con objetivo en la superior, ejemplo +20 %; RSI bajo 30 para comprar) (https://altfins.com/knowledge-base/how-to-trade-channel-up-pattern)",
+      "idea": "En ETH, SOL y XRP de 4 h o diario, en un canal alcista (mercado en tendencia y sobre la media de 100), comprar el rebote en el soporte con el RSI bajo y vender cerca de la parte alta del canal.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            50,
+            0.25
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "rebote_soporte",
+            30,
+            0.02
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            30
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 20,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
