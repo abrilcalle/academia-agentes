@@ -13,7 +13,7 @@ Lo único que cambia entre equipos es la PRUDENCIA al priorizar operaciones. Cad
                             60 % de ganar un 2 % (1,2) > 90 % de ganar un 0,65 % (0,6)
       prudencia 2 (Lobo) y 3 (Tortuga): la probabilidad pesa cada vez más.
   - Las operaciones abiertas se reparten el dinero según su prioridad (con un tope por agente); los que esperan
-    señal se quedan una pequeña reserva para poder entrar; lo demás espera en euros.
+    señal se quedan una pequeña reserva para poder entrar; lo demás espera en USDC (sigue el cambio USDC/EUR).
   - Mover dinero de un agente a otro cuesta comisiones (se descuentan).
   - Como mucho 2 agentes del mismo mercado por equipo (MAX_POR_ACTIVO), para repartir el riesgo.
   - Filtro de tendencia: el equipo no pone dinero en una compra si su activo cierra por debajo de su media de 50 días
@@ -56,6 +56,8 @@ MAQUINA_VIVO = ("2026-10-19", "2026-11-04")  # en el simulado en vivo ya hecho s
 ASEGURAR_GANANCIA = 0.10            # cuando una operación ya gana un 10 % para el agente, el equipo vende la mitad de su parte y deja correr el resto (laboratorio 05/11/2026; 0 = no)
 ASEGURAR_QUEDA = 0.5                # parte que el equipo deja en la operación después de asegurar
 ASEGURAR_VIVO = ("2026-10-19", "2026-11-05")  # en el simulado en vivo ya hecho (hasta el 04/11) no se aplica, para no reescribir sus resultados
+DINERO_USDC = True                  # el dinero que el equipo no reparte espera en USDC (como en Bitvavo) y sigue el cambio USDC/EUR (laboratorio 07/11/2026)
+DINERO_USDC_VIVO = "2026-11-07"     # en el simulado en vivo ya hecho (hasta el 06/11) no se aplica, para no reescribir sus resultados
 BLOQUEADO = -1.0                    # valor de P para una operación a la que el equipo no da dinero (va contra la tendencia)
 
 
@@ -63,6 +65,31 @@ BLOQUEADO = -1.0                    # valor de P para una operación a la que el
 
 _MV0, _MV1 = (dt.date.fromisoformat(x) for x in MAQUINA_VIVO)
 _AV0, _AV1 = (dt.date.fromisoformat(x) for x in ASEGURAR_VIVO)
+
+
+def fx_returns(ac, days, desde=None):
+    """Por día: cuánto cambia (en euros) 1 USDC respecto al día anterior. Ceros si no se cotiza en USDC
+    (o antes de `desde`)."""
+    out = np.zeros(len(days))
+    fx = getattr(ac.daily.I, "fx", None)
+    if not DINERO_USDC or not ac.cfg.get("cotizar_en_usdc") or fx is None or not len(days):
+        return out
+    by_day = {}
+    for t, v in zip(ac.daily.ts, fx):
+        by_day[t.date()] = float(v)
+    keys = sorted(by_day)
+    lv, j, last = [], 0, by_day[keys[0]]
+    for d in days:
+        while j < len(keys) and keys[j] <= d:
+            last = by_day[keys[j]]
+            j += 1
+        lv.append(last)
+    lv = np.array(lv)
+    out[1:] = lv[1:] / lv[:-1] - 1
+    if desde is not None:
+        d0 = dt.date.fromisoformat(desde)
+        out[[k for k, d in enumerate(days) if d < d0]] = 0.0
+    return out
 
 
 def regime_at(mk):
@@ -287,8 +314,9 @@ def _alloc(P, G, prudencia, prm, L=None):
     return np.minimum(f, prm["cap"])
 
 
-def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None):
-    """Devuelve (curva de valor, reparto F[miembro, día]). El reparto de cada día se decide con el cierre anterior."""
+def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None, fx=None):
+    """Devuelve (curva de valor, reparto F[miembro, día]). El reparto de cada día se decide con el cierre anterior.
+    fx: por día, cambio de 1 USDC en euros; el dinero que no se reparte espera en USDC y lo sigue (None = en euros)."""
     n, T = R.shape
     val = np.empty(T)
     F = np.zeros((n, T))
@@ -298,7 +326,8 @@ def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None):
         f = (alloc(P[:, t - 1], G[:, t - 1], prudencia, prm, None if L is None else L[:, t - 1]) if t
              else alloc(np.zeros(n), np.zeros(n), prudencia, prm))
         turnover = float(np.sum(np.abs(f - f_prev) * E[:, t - 1])) if t else 0.0
-        v *= 1 + float(np.dot(f, R[:, t])) - turnover * COSTE_REPARTO
+        idle = max(0.0, 1.0 - float(f.sum())) * (float(fx[t]) if fx is not None else 0.0)
+        v *= 1 + float(np.dot(f, R[:, t])) + idle - turnover * COSTE_REPARTO
         val[t] = v
         F[:, t] = f
         f_prev = f
@@ -378,10 +407,10 @@ def ataques(ac, mem, prm, k2, days):
     out = {}
     for var in ("comisiones_x2", "vela_tarde"):
         d, R, E, P, G, L = matrix(ac, mem, P1[0], days[-1], var)
-        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:])
+        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:], fx=fx_returns(ac, d)[k2:])
         out[var] = float(val[-1] / 100 - 1) if len(val) else 0.0
     d, R, E, P, G, L = matrix(ac, mem, P1[0], days[-1])
-    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:])
+    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:], fx=fx_returns(ac, d)[k2:])
     rets = np.r_[val[0] / 100 - 1, val[1:] / val[:-1] - 1] if len(val) else np.array([])
     months = {}
     for dd_, r_ in zip(days[k2:], rets):
@@ -416,6 +445,7 @@ def build(ac, last_day, log=print):
     if len(cands) < 2:
         return {t: dict(motivo="Todavía no hay al menos 2 agentes que ganaran dinero en su examen.") for t in TIPOS}
     days, R, E, P, G, L = matrix(ac, cands, P1[0], last_day)
+    FX = fx_returns(ac, days)
     p1_end = dt.date.fromisoformat(P1[1])
     k1 = sum(1 for d in days if d <= p1_end)
     def is_short(a):
@@ -462,7 +492,7 @@ def build(ac, last_day, log=print):
                     if MAX_POR_ACTIVO and sum(cands[i].get("activo", ac.cfg["mercado"]) == act for i in team) >= MAX_POR_ACTIVO:
                         continue  # ya tiene bastantes de ese mercado: así el equipo reparte el riesgo
                     idx = team + [j]
-                    val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm, L=L[idx, :k1])
+                    val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm, L=L[idx, :k1], fx=FX[:k1])
                     sc = objective(stats(days[:k1], val), goal)
                     if add is None or sc > add[0]:
                         add = (sc, j)
@@ -471,8 +501,8 @@ def build(ac, last_day, log=print):
                 cur, team = add[0], team + [add[1]]
             if len(team) < MIN_MIEMBROS:
                 continue
-            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm, L=L[team, :k1])
-            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm, L=L[team, k2:])
+            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm, L=L[team, :k1], fx=FX[:k1])
+            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm, L=L[team, k2:], fx=FX[k2:])
             s1, s2 = stats(days[:k1], v1), stats(days[k2:], v2)
             teams.append(dict(team=team, prm=dict(prm, prudencia=pr), s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
                               rank=s2["verde"] + 2 * s2["ret"]))
@@ -489,7 +519,7 @@ def build(ac, last_day, log=print):
         mem = [cands[j] for j in t["team"]]
         t["ataques"] = ataques(ac, mem, t["prm"], k2, days)
         t["ataques_ok"] = all(v > 0 for v in t["ataques"].values())
-        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"], L=L[t["team"]])
+        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"], L=L[t["team"]], fx=FX)
         t["prob"] = prob_cumplir(np.r_[vall[0] / 100 - 1, vall[1:] / vall[:-1] - 1], goal)
     teams.sort(key=lambda t: (not t["f2"], t.get("ataques_ok", False), (t.get("prob") or 0) + t["rank"]), reverse=True)
     podium, used = [], []
@@ -594,7 +624,8 @@ def track(ac, tm, last_day):
                 ahora = _now(mem, v, P0[:, -1], G0[:, -1], E0[:, -1], prm, L0[:, -1])
             continue
         days, R, E, P, G, L = matrix(ac, mem, (d0 - dt.timedelta(days=1)).isoformat(), d1)
-        val, F = simulate(R[:, 1:], E[:, 1:], P[:, 1:], G[:, 1:], prm["prudencia"], prm, cap0=v, L=L[:, 1:])
+        val, F = simulate(R[:, 1:], E[:, 1:], P[:, 1:], G[:, 1:], prm["prudencia"], prm, cap0=v, L=L[:, 1:],
+                          fx=fx_returns(ac, days, DINERO_USDC_VIVO)[1:])
         days_all += days[1:]
         vals += [float(x) for x in val]
         if len(val):
