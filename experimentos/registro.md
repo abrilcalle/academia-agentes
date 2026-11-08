@@ -609,3 +609,17 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** Los stops dentro de la vela cortan algo las caídas por agente, pero saltan más por el ruido de dentro del día (salen y se pierde el resto del recorrido), así que ganan menos, ganan menos semanas y los equipos cumplen bastante menos (606 → 454 pares; 110 → 93 podios; 2022 4 → 0). Para las reglas actuales, comprobar el stop al cierre es mejor. No se integró nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "stops (y objetivo) como órdenes en el exchange, dentro de la vela". No repetir. Ojo: si algún día se pasa a dinero real, la ejecución debe seguir comprobando los stops al cierre (como el simulador), no dejar órdenes stop puestas. La base del banco con 373 agentes da 606 · 110.
+
+## 2026-11-08 15:45 (hora de Madrid) — Filtro de volatilidad del equipo (no dar dinero cuando el mercado se mueve demasiado)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 08/11, datos hasta el 07/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** las semanas malas y las caídas grandes (crisis de 2022, giros bruscos) llegan cuando la volatilidad se dispara. Si, además del filtro de tendencia, el equipo no da dinero a una operación los días en que la volatilidad de 20 días de su mercado pasa de K veces su mediana del último año (ese dinero espera en USDC), se evitarían los tramos más peligrosos y quizá se ganarían más semanas. Nunca probado (el 26/10 se probó la volatilidad objetivo sobre la cartera del equipo, que escala todo; esto es un filtro por mercado y por día, como el de tendencia).
+- **Qué probé (en una copia, `experimentos/banco/m1vol.py` → `m2fx.py` → `m3x.py` / `m3c22.py`):** K = 1,5 y K = 2 (con el cierre del día, igual que el filtro de tendencia), frente a la base (sin filtro). Solo cambia a qué operaciones da dinero el equipo; las reglas de los agentes no cambian.
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 373 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad y dinero sin repartir en USDC actuales. Con K = 1,5 se bloquea un 1,6 % más de días-agente (el 6 % de los días con operación abierta).
+- **Resultado (pares de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída):**
+  - **base 606 · 110 [25/27/35/4/19] · 47 · 20 · +42 % / 55 % / 14 %** (reproduce la vuelta de esta mañana)
+  - K 1,5: 615 · 108 [28/25/36/4/15] · 46 · 18 · +39 % / 54 % / 13 %
+  - K 2: 607 · 109 [27/27/34/4/17] · 46 · 19 · +42 % / 55 % / 13 %
+  - Solo 2022 / 2023 (de 36): base 4 y 19 · K 1,5: 4 y 15 (2022 cae más: 25 → 28 %) · K 2: 4 y 17.
+- **Conclusión: no se queda.** Todo queda dentro del ruido (±5) y 2023, el año fuera del entreno que mejor mide, empeora con los dos K; en 2022 no cambia nada (la tendencia de 50 días ya deja fuera casi todas las compras de los tramos de pánico). No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "filtro de volatilidad del equipo" (vol. 20 días > 1,5 / 2 × mediana del año). No repetir. Los filtros del equipo sobre qué operaciones reciben dinero (tendencia, pendiente, BTC manda, consenso, fuerza relativa, racha, valor esperado, volatilidad) parecen agotados.
