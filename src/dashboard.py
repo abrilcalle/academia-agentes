@@ -304,7 +304,8 @@ def team_card(tm, cfg, agents_by_id, lead=False):
                     f'<span class="mono" style="text-align:right">{eur(m["euros"])}</span></div>')
     p1, p2 = per["pruebas"]["p1"], per["pruebas"]["p2"]
     prm = per["params"]
-    how = [(f"medio Kelly: a cada operación abierta le da la parte de la cartera que corresponde a su probabilidad (prudencia {prm.get('prudencia', 1)}), lo que gana si acierta y lo que pierde si falla; si no compensa, 0 €"
+    how = ([f"prudencia {prm.get('prudencia', 1)}: reparte cada día la media de las 18 formas de repartir (por prioridad probabilidad{'' if prm.get('prudencia', 1) == 1 else '^' + str(prm.get('prudencia'))} × ganancia y por medio Kelly, con distintas reservas y topes), sin apostar por una sola",
+            "los que esperan señal se guardan una pequeña reserva para poder entrar"] if prm.get("medio") else None) or [(f"medio Kelly: a cada operación abierta le da la parte de la cartera que corresponde a su probabilidad (prudencia {prm.get('prudencia', 1)}), lo que gana si acierta y lo que pierde si falla; si no compensa, 0 €"
             if prm.get("modo") == "kelly" else
             f"prudencia {prm.get('prudencia', 1)}: prioriza las operaciones abiertas por probabilidad{'' if prm.get('prudencia', 1) == 1 else '^' + str(prm.get('prudencia'))} × ganancia"),
            f"los que esperan señal se guardan un {prm.get('reserva', 0) * 100:.0f} % para poder entrar",

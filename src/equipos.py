@@ -58,6 +58,9 @@ ASEGURAR_QUEDA = 0.5                # parte que el equipo deja en la operación 
 ASEGURAR_VIVO = ("2026-10-19", "2026-11-05")  # en el simulado en vivo ya hecho (hasta el 04/11) no se aplica, para no reescribir sus resultados
 DINERO_USDC = True                  # el dinero que el equipo no reparte espera en USDC (como en Bitvavo) y sigue el cambio USDC/EUR (laboratorio 07/11/2026)
 DINERO_USDC_VIVO = "2026-11-07"     # en el simulado en vivo ya hecho (hasta el 06/11) no se aplica, para no reescribir sus resultados
+REPARTO_MEDIO = True                # el equipo reparte cada día la MEDIA de las partes de las 18 formas de repartir (PARAMS), en vez de
+                                    # quedarse con la que mejor fue en 2024–25 (laboratorio 08/11/2026: con 2019–2023 más equipos cumplen fuera del
+                                    # año de formación y caen menos). Las formas siguen sirviendo para buscar miembros distintos. False = como antes.
 BLOQUEADO = -1.0                    # valor de P para una operación a la que el equipo no da dinero (va contra la tendencia)
 
 
@@ -275,7 +278,10 @@ def matrix(ac, agents, start, end, variante=None):
 
 def alloc(P, G, prudencia, prm, L=None):
     """Parte de la cartera para cada miembro según la prioridad de su operación abierta.
-    Las operaciones bloqueadas por el filtro de tendencia (P < 0) no reciben dinero; el resto se reparte entre los demás."""
+    Las operaciones bloqueadas por el filtro de tendencia (P < 0) no reciben dinero; el resto se reparte entre los demás.
+    Con prm["medio"]: la media de lo que darían todas las formas de repartir (PARAMS)."""
+    if prm.get("medio"):
+        return np.mean([alloc(P, G, prudencia, p, L) for p in PARAMS], axis=0)
     blk = np.asarray(P) < 0
     if blk.any():
         f = np.zeros(len(P))
@@ -501,10 +507,13 @@ def build(ac, last_day, log=print):
                 cur, team = add[0], team + [add[1]]
             if len(team) < MIN_MIEMBROS:
                 continue
-            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm, L=L[team, :k1], fx=FX[:k1])
-            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm, L=L[team, k2:], fx=FX[k2:])
+            prm_t = dict(prudencia=pr, medio=True) if REPARTO_MEDIO else dict(prm, prudencia=pr)
+            if REPARTO_MEDIO and any(sorted(t["team"]) == sorted(team) and t["prm"]["prudencia"] == pr for t in teams):
+                continue  # con el reparto medio, los mismos miembros y prudencia dan el mismo equipo
+            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm_t, L=L[team, :k1], fx=FX[:k1])
+            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm_t, L=L[team, k2:], fx=FX[k2:])
             s1, s2 = stats(days[:k1], v1), stats(days[k2:], v2)
-            teams.append(dict(team=team, prm=dict(prm, prudencia=pr), s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
+            teams.append(dict(team=team, prm=prm_t, s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
                               rank=s2["verde"] + 2 * s2["ret"]))
     teams.sort(key=lambda t: (not t["f2"], t["rank"]), reverse=True)  # primero los que cumplen en 2026, luego semanas ganadas + ganancia
     # a los mejores candidatos se les hacen los ataques y se calcula su probabilidad de cumplir en 3 meses
