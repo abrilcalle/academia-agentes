@@ -610,7 +610,7 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "stops (y objetivo) como órdenes en el exchange, dentro de la vela". No repetir. Ojo: si algún día se pasa a dinero real, la ejecución debe seguir comprobando los stops al cierre (como el simulador), no dejar órdenes stop puestas. La base del banco con 373 agentes da 606 · 110.
 
-## 2026-11-08 15:45 (hora de Madrid) — Filtro de volatilidad del equipo (no dar dinero cuando el mercado se mueve demasiado)
+## 2026-11-08 15:27 (hora de Madrid) — Filtro de volatilidad del equipo (no dar dinero cuando el mercado se mueve demasiado)
 - **Comprobación técnica:** la ejecución de anoche se actualizó (state del 08/11, datos hasta el 07/11), sin incidencias. Nada que arreglar.
 - **Hipótesis:** las semanas malas y las caídas grandes (crisis de 2022, giros bruscos) llegan cuando la volatilidad se dispara. Si, además del filtro de tendencia, el equipo no da dinero a una operación los días en que la volatilidad de 20 días de su mercado pasa de K veces su mediana del último año (ese dinero espera en USDC), se evitarían los tramos más peligrosos y quizá se ganarían más semanas. Nunca probado (el 26/10 se probó la volatilidad objetivo sobre la cartera del equipo, que escala todo; esto es un filtro por mercado y por día, como el de tendencia).
 - **Qué probé (en una copia, `experimentos/banco/m1vol.py` → `m2fx.py` → `m3x.py` / `m3c22.py`):** K = 1,5 y K = 2 (con el cierre del día, igual que el filtro de tendencia), frente a la base (sin filtro). Solo cambia a qué operaciones da dinero el equipo; las reglas de los agentes no cambian.
