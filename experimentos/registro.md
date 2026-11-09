@@ -652,3 +652,19 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** El "equipo de equipos" cae algo menos y cumple un poco más a menudo como equipo suelto (68 % frente a 63 %, con solo 60 casos: dentro del ruido), pero el podio cumple menos (130 → 123; 2022 4 → 0; 2019 32 → 27) y los tres equipos se parecen tanto que fallan juntos (tríos con alguno que cumple 51 → 42). El consenso es peor en todo. Elegir el podio con un segundo año entre equipos distintos vale más que promediar miembros. No se integró nada (además union rompería el límite de 3–6 agentes).
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "promediar miembros" (equipo de equipos y consenso de las 18 búsquedas). No repetir. Base del banco hoy (382 agentes, post): 678 · 130.
+
+## 2026-11-09 15:27 (hora de Madrid) — Tope de exposición por mercado en el reparto del equipo
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 09/11, datos hasta el 08/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** un equipo puede tener 2 agentes del mismo mercado (por ejemplo dos de BTC) y, si los dos están dentro, el reparto puede poner casi toda la cartera en ese mercado, que se mueve a la vez. Si entre todos los miembros de un mismo mercado el equipo no pone más de un K % de la cartera, las caídas deberían repartirse mejor y quizá se cumplirían más veces las condiciones. Nunca probado (el 27/10 se limitó cuántos agentes por mercado, no cuánto dinero; el 06/11, invertir una parte fija de toda la cartera). Se puede hacer por la API (solo cambia el importe de las órdenes).
+- **Qué probé (en una copia, `experimentos/banco/m2mkt.py` sobre `m1.py` → `m2ens.py ENS=post` → `m3x.py` / `m3c22.py` / `pares_ab.py`):** mismos equipos que la base (miembros buscados igual), juzgados con el reparto medio actual y el tope: K = 35 %, 50 % y 67 % con el exceso esperando en USDC, y K = 50 % "redis" (el exceso va a operaciones abiertas de otros mercados sin pasar su tope).
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 382 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad, dinero sin repartir en USDC y reparto medio actuales.
+- **Resultado (pares de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída · casos con caída > 25 %):**
+  - **base 678 · 130 [32/34/36/4/24] · 51 · 22 · +41 % / 55 % / 12 % · 75** (reproduce la vuelta de esta mañana)
+  - K 67 %: 675 · 130 · 51 · 22 · +39 % / 55 % / 12 % · 70
+  - K 50 %: 670 · 130 [32/35/36/4/23] · 50 · 22 · +36 % / 55 % / 11 % · 57
+  - K 35 %: 683 · 130 [31/35/36/4/24] · 50 · 22 · +28 % / 57 % / 9 % · 46
+  - K 50 % redis: 677 · 129 · 50 · 21 · +38 % / 56 % / 11 % · 61
+  - Solo 2022 (de 36): todos 4; la rentabilidad mediana mejora con K 35 % (−14 → −5 %, caída 24 → 17 %) pero sigue sin llegar al +10 %. 2023: 24 → 23 / 24 / 22.
+- **Conclusión: no se queda.** El tope cambia solo el equilibrio entre ganar y caer (cuanto más bajo, menos caída y menos ganancia), pero los equipos que cumplen las condiciones no se mueven (130 podios en todas las variantes; pares ±8, dentro del ruido). Hoy la caída ya no es lo que hace suspender (mediana 12 % frente al límite del 25 %); lo que falla es la ganancia en los años malos. No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "tope de dinero por mercado" (35/50/67 %, esperando en USDC o repartido). No repetir. Si algún día las caídas vuelven a ser el problema (por ejemplo con más agentes atrevidos), K = 35 % baja los casos con caída > 25 % de 75 a 46 sin perder equipos que cumplen.
