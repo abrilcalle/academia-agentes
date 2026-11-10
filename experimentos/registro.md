@@ -713,3 +713,17 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** Promediar reglas dentro de un agente baja la caída pero empeora de forma clara y ordenada la condición que más falla (semanas en verde), en todos los mercados y años. No se integró nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "agente conjunto" (media de las 3/5 mejores reglas distintas, de la población final o de todas las probadas). No repetir. Dato útil: dentro de un agente, más trozos y más operaciones = menos semanas en verde; el promedio solo ayuda en el equipo (donde el dinero ya está repartido).
+
+## 2026-11-10 21:19 (hora de Madrid) — Cantera de los equipos según la temporalidad (sin agentes de 1 h, o solo de velas diarias)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 10/11, datos hasta el 09/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** los agentes de velas de 1 hora hacen más operaciones (más comisiones y más ruido), así que su buen año de formación podría ser más suerte que el de los de 4 h o 1 d. Si los equipos se forman solo con agentes de 1 d y 4 h (o solo de 1 d), quizá cumplirían más veces las condiciones fuera del año de formación. Nunca probado (el 02/11 se probó el filtro de tendencia según la temporalidad y el 27/10 "como mucho 1 del mismo mercado y temporalidad", no quitar temporalidades de la cantera). No cambia ninguna decisión de Abril: los agentes de 1 h se siguen creando; solo cambia quién puede entrar en un equipo.
+- **Qué probé (en una copia, `experimentos/banco/mtf.py` sobre `m1.py` → `m2ens.py ENS=post` → `m3x.py` / `m3c22.py` / `pares_ab.py`):** **no1h** = cantera sin agentes de 1 h (266 de 391); **solo1d** = solo velas diarias (136). Mismo método de formación, reparto medio actual.
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 391 agentes examinados sin clones (132 de 1 d, 129 de 4 h, 124 de 1 h + 6 gemelos en corto), comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad, dinero sin repartir en USDC y reparto medio actuales.
+- **Resultado (pares de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída · casos con caída > 25 %):**
+  - **base 700 · 131 [34/34/36/5/22] · 50 · 23 · +45 % / 55 % / 12 % · 80** (9 agentes más que ayer)
+  - no1h 750 · 131 [34/36/36/3/22] · 48 · 19 · +38 % / 55 % / 11 % · 40
+  - solo1d 600 · 110 [25/30/30/0/25] · 42 · 20 · +26 % / 55 % / 12 % · 60
+  - Pares A→B con no1h: mejora 9 de 20, empeora 3 (el que más, 2019→2023: 54 → 38), igual 8. Solo 2022 / 2023 (de 36): base 5 y 22 (ret. mediana 2023 +44 %) · no1h 3 y 22 (+29 %) · solo1d 0 y 25 (+28 %).
+- **Conclusión: no se queda.** Sin los de 1 h, los equipos sueltos cumplen algo más a menudo (700 → 750) y caen menos (casos con caída > 25 %: 80 → 40), pero el podio, que es lo que de verdad opera, no mejora (131 = 131), los tríos con alguno que cumple y los de orden de tiempo bajan (50 → 48, 23 → 19), 2022 baja (5 → 3) y la ganancia en 2023 cae bastante. Solo velas diarias es peor en todo salvo 2023. No es una mejora clara ni robusta; no se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "quitar temporalidades de la cantera de los equipos" (sin 1 h, solo 1 d). No repetir. Si algún día las caídas grandes vuelven a ser el problema, quitar los de 1 h las reduce a la mitad sin perder podios. Base del banco hoy (391 agentes, post): 700 · 131.
