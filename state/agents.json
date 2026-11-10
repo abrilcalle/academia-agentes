@@ -427,9 +427,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +12,2 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +8,4 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 97.77,
-    "ret": -0.0223,
+    "days": 24,
+    "final": 97.12,
+    "ret": -0.0288,
     "fees": 0.11,
     "maxdd": 0.0299,
     "dead": false,
@@ -461,7 +461,8 @@
      97.82,
      97.84,
      97.77,
-     97.77
+     97.12,
+     97.12
     ],
     "last_trades": [
      {
@@ -631,9 +632,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +45,7 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -5,5 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 95.11,
-    "ret": -0.0489,
+    "days": 26,
+    "final": 94.47,
+    "ret": -0.0553,
     "fees": 0.11,
     "maxdd": 0.0742,
     "dead": false,
@@ -667,7 +668,8 @@
      94.47,
      95.15,
      95.17,
-     95.11
+     95.11,
+     94.47
     ],
     "last_trades": [
      {
@@ -834,9 +836,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +39,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -1,7 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -867,7 +869,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -1153,9 +1156,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +14,7 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +18,8 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 93.61,
-    "ret": -0.0639,
+    "days": 24,
+    "final": 92.98,
+    "ret": -0.0702,
     "fees": 0.14,
     "maxdd": 0.1048,
     "dead": false,
@@ -1187,7 +1190,8 @@
      93.65,
      93.67,
      93.61,
-     93.61
+     92.98,
+     92.98
     ],
     "last_trades": [
      {
@@ -1351,9 +1355,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +50,9 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +26,9 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 26,
-    "final": 100.69,
-    "ret": 0.0069,
+    "days": 27,
+    "final": 100.02,
+    "ret": 0.0002,
     "fees": 0.11,
     "maxdd": 0.009,
     "dead": false,
@@ -1388,7 +1392,8 @@
      100.74,
      100.76,
      100.69,
-     100.69
+     100.02,
+     100.02
     ],
     "last_trades": [
      {
@@ -1557,11 +1562,11 @@
    "motivo": "Aprobó el examen de 2024–25 con +58,9 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -1,5 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 26,
-    "final": 92.39,
-    "ret": -0.0761,
+    "days": 27,
+    "final": 91.61,
+    "ret": -0.0839,
     "fees": 0.06,
-    "maxdd": 0.1183,
+    "maxdd": 0.1249,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -1594,7 +1599,8 @@
      93.17,
      93.23,
      91.92,
-     92.39
+     91.93,
+     91.61
     ],
     "last_trades": [
      {
@@ -1758,11 +1764,11 @@
    "motivo": "Aprobó el examen de 2024–25 con +65,6 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -1,2 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 26,
-    "final": 93.49,
-    "ret": -0.0651,
+    "days": 27,
+    "final": 92.7,
+    "ret": -0.073,
     "fees": 0.06,
-    "maxdd": 0.1091,
+    "maxdd": 0.1226,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -1795,7 +1801,8 @@
      94.29,
      94.35,
      93.02,
-     93.49
+     93.03,
+     92.7
     ],
     "last_trades": [
      {
@@ -2098,9 +2105,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +68,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +4,9 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 97.78,
-    "ret": -0.0222,
+    "days": 26,
+    "final": 97.13,
+    "ret": -0.0287,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -2134,7 +2141,8 @@
      97.13,
      97.83,
      97.85,
-     97.78
+     97.78,
+     97.13
     ],
     "last_trades": [
      {
@@ -2717,9 +2725,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +52,5 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -2,5 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 91.41,
-    "ret": -0.0859,
+    "days": 26,
+    "final": 91.42,
+    "ret": -0.0858,
     "fees": 0.06,
     "maxdd": 0.1032,
     "dead": false,
@@ -2753,7 +2761,8 @@
      92.26,
      92.65,
      92.71,
-     91.41
+     91.41,
+     91.42
     ],
     "last_trades": [
      {
@@ -2910,9 +2919,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +23,5 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +6,0 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 98.15,
-    "ret": -0.0185,
+    "days": 23,
+    "final": 97.5,
+    "ret": -0.025,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -2943,7 +2952,8 @@
      97.5,
      98.2,
      98.22,
-     98.15
+     98.15,
+     97.5
     ],
     "last_trades": [
      {
@@ -3111,9 +3121,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +18,0 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +5,7 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 24,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -3145,7 +3155,8 @@
      100.64,
      100.66,
      100.6,
-     100.6
+     99.92,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -3299,9 +3310,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +36,5 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -4,9 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 98.15,
-    "ret": -0.0185,
+    "days": 23,
+    "final": 97.5,
+    "ret": -0.025,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -3332,7 +3343,8 @@
      97.5,
      98.2,
      98.22,
-     98.15
+     98.15,
+     97.5
     ],
     "last_trades": [
      {
@@ -3502,9 +3514,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +45,8 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +3,6 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 94.67,
-    "ret": -0.0533,
+    "days": 26,
+    "final": 94.04,
+    "ret": -0.0596,
     "fees": 0.11,
     "maxdd": 0.0784,
     "dead": false,
@@ -3538,7 +3550,8 @@
      94.04,
      94.71,
      94.73,
-     94.67
+     94.67,
+     94.04
     ],
     "last_trades": [
      {
@@ -4128,9 +4141,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +34,1 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -13,3 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -4161,7 +4174,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -4313,9 +4327,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +35,9 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +4,8 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -4346,7 +4360,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -5265,9 +5280,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +22,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +15,1 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 97.77,
-    "ret": -0.0223,
+    "days": 24,
+    "final": 97.12,
+    "ret": -0.0288,
     "fees": 0.11,
     "maxdd": 0.0299,
     "dead": false,
@@ -5299,7 +5314,8 @@
      97.82,
      97.84,
      97.77,
-     97.77
+     97.12,
+     97.12
     ],
     "last_trades": [
      {
@@ -6113,9 +6129,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +22,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -7,6 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -6146,7 +6162,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -6297,9 +6314,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +46,0 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -6,2 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 97.78,
-    "ret": -0.0222,
+    "days": 26,
+    "final": 97.13,
+    "ret": -0.0287,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -6333,7 +6350,8 @@
      97.13,
      97.83,
      97.85,
-     97.78
+     97.78,
+     97.13
     ],
     "last_trades": [
      {
@@ -7507,9 +7525,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +12,2 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +18,1 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 95.92,
-    "ret": -0.0408,
+    "days": 24,
+    "final": 95.28,
+    "ret": -0.0472,
     "fees": 0.14,
     "maxdd": 0.0827,
     "dead": false,
@@ -7541,7 +7559,8 @@
      95.97,
      95.99,
      95.92,
-     95.92
+     95.28,
+     95.28
     ],
     "last_trades": [
      {
@@ -7835,9 +7854,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +49,9 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +8,1 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 94.67,
-    "ret": -0.0533,
+    "days": 26,
+    "final": 94.04,
+    "ret": -0.0596,
     "fees": 0.11,
     "maxdd": 0.0784,
     "dead": false,
@@ -7871,7 +7890,8 @@
      94.04,
      94.71,
      94.73,
-     94.67
+     94.67,
+     94.04
     ],
     "last_trades": [
      {
@@ -8498,9 +8518,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +45,7 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -3,9 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 91.41,
-    "ret": -0.0859,
+    "days": 26,
+    "final": 91.42,
+    "ret": -0.0858,
     "fees": 0.06,
     "maxdd": 0.1032,
     "dead": false,
@@ -8534,7 +8554,8 @@
      92.26,
      92.65,
      92.71,
-     91.41
+     91.41,
+     91.42
     ],
     "last_trades": [
      {
@@ -8697,9 +8718,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +33,8 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +19,6 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 24,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -8731,7 +8752,8 @@
      100.64,
      100.66,
      100.6,
-     100.6
+     99.92,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -8880,9 +8902,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +73,4 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +22,2 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 97.79,
-    "ret": -0.0221,
+    "days": 26,
+    "final": 97.13,
+    "ret": -0.0287,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -8916,7 +8938,8 @@
      97.13,
      97.83,
      97.85,
-     97.79
+     97.79,
+     97.13
     ],
     "last_trades": [
      {
@@ -9559,9 +9582,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +27,2 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +16,0 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 97.47,
-    "ret": -0.0253,
+    "days": 24,
+    "final": 96.82,
+    "ret": -0.0318,
     "fees": 0.11,
     "maxdd": 0.0329,
     "dead": false,
@@ -9593,7 +9616,8 @@
      97.51,
      97.54,
      97.47,
-     97.47
+     96.82,
+     96.82
     ],
     "last_trades": [
      {
@@ -10501,9 +10525,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +51,2 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -21,3 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 97.78,
-    "ret": -0.0222,
+    "days": 26,
+    "final": 97.13,
+    "ret": -0.0287,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -10537,7 +10561,8 @@
      97.13,
      97.83,
      97.85,
-     97.78
+     97.78,
+     97.13
     ],
     "last_trades": [
      {
@@ -10874,9 +10899,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +45,1 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -3,5 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 100.52,
-    "ret": 0.0052,
+    "days": 26,
+    "final": 99.84,
+    "ret": -0.0016,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -10910,7 +10935,8 @@
      99.84,
      100.56,
      100.58,
-     100.52
+     100.52,
+     99.84
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -11348,11 +11374,11 @@
    "motivo": "Aprobó el examen de 2024–25 con +42,9 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -3,1 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 26,
-    "final": 92.39,
-    "ret": -0.0761,
+    "days": 27,
+    "final": 91.61,
+    "ret": -0.0839,
     "fees": 0.06,
-    "maxdd": 0.1183,
+    "maxdd": 0.1249,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -11385,7 +11411,8 @@
      93.17,
      93.23,
      91.92,
-     92.39
+     91.93,
+     91.61
     ],
     "last_trades": [
      {
@@ -11709,9 +11736,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +92,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +4,7 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 97.78,
-    "ret": -0.0222,
+    "days": 26,
+    "final": 97.13,
+    "ret": -0.0287,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -11745,7 +11772,8 @@
      97.13,
      97.83,
      97.85,
-     97.78
+     97.78,
+     97.13
     ],
     "last_trades": [
      {
@@ -12163,11 +12191,11 @@
    "motivo": "Aprobó el examen de 2024–25 con +28,1 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +1,2 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 91.19,
-    "ret": -0.0881,
+    "days": 24,
+    "final": 90.42,
+    "ret": -0.0958,
     "fees": 0.09,
-    "maxdd": 0.1184,
+    "maxdd": 0.1249,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -12197,7 +12225,8 @@
      91.97,
      92.03,
      90.73,
-     91.19
+     90.74,
+     90.42
     ],
     "last_trades": [
      {
@@ -12658,9 +12687,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +13,6 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +9,4 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 93.61,
-    "ret": -0.0639,
+    "days": 24,
+    "final": 92.98,
+    "ret": -0.0702,
     "fees": 0.14,
     "maxdd": 0.1048,
     "dead": false,
@@ -12692,7 +12721,8 @@
      93.65,
      93.67,
      93.61,
-     93.61
+     92.98,
+     92.98
     ],
     "last_trades": [
      {
@@ -12995,9 +13025,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +83,1 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +0,4 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 97.78,
-    "ret": -0.0222,
+    "days": 26,
+    "final": 97.13,
+    "ret": -0.0287,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -13031,7 +13061,8 @@
      97.13,
      97.83,
      97.85,
-     97.78
+     97.78,
+     97.13
     ],
     "last_trades": [
      {
@@ -13350,9 +13381,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +39,4 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +17,1 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 93.61,
-    "ret": -0.0639,
+    "days": 24,
+    "final": 92.98,
+    "ret": -0.0702,
     "fees": 0.14,
     "maxdd": 0.1048,
     "dead": false,
@@ -13384,7 +13415,8 @@
      93.65,
      93.67,
      93.61,
-     93.61
+     92.98,
+     92.98
     ],
     "last_trades": [
      {
@@ -13683,9 +13715,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +45,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -14,6 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 100.52,
-    "ret": 0.0052,
+    "days": 26,
+    "final": 99.84,
+    "ret": -0.0016,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -13719,7 +13751,8 @@
      99.84,
      100.56,
      100.58,
-     100.52
+     100.52,
+     99.84
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -14125,9 +14158,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +46,0 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +10,4 %).",
    "paper_start": "2026-10-15",
    "paper": {
-    "days": 25,
-    "final": 93.84,
-    "ret": -0.0616,
+    "days": 26,
+    "final": 93.21,
+    "ret": -0.0679,
     "fees": 0.11,
     "maxdd": 0.0865,
     "dead": false,
@@ -14161,7 +14194,8 @@
      93.21,
      93.88,
      93.9,
-     93.84
+     93.84,
+     93.21
     ],
     "last_trades": [
      {
@@ -14759,9 +14793,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +21,4 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -4,4 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -14792,7 +14826,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -14942,9 +14977,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +40,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -2,6 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -14975,7 +15010,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -15552,9 +15588,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +10,0 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +3,1 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 93.61,
-    "ret": -0.0639,
+    "days": 24,
+    "final": 92.98,
+    "ret": -0.0702,
     "fees": 0.14,
     "maxdd": 0.1048,
     "dead": false,
@@ -15586,7 +15622,8 @@
      93.65,
      93.67,
      93.61,
-     93.61
+     92.98,
+     92.98
     ],
     "last_trades": [
      {
@@ -16448,9 +16485,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +50,4 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -10,9 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -16481,7 +16518,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -16632,9 +16670,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +45,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -8,0 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -16665,7 +16703,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -17922,9 +17961,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +41,0 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -0,7 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 98.15,
-    "ret": -0.0185,
+    "days": 23,
+    "final": 97.5,
+    "ret": -0.025,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -17955,7 +17994,8 @@
      97.5,
      98.2,
      98.22,
-     98.15
+     98.15,
+     97.5
     ],
     "last_trades": [
      {
@@ -18126,9 +18166,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +57,9 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +1,0 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 98.15,
-    "ret": -0.0185,
+    "days": 23,
+    "final": 97.5,
+    "ret": -0.025,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -18159,7 +18199,8 @@
      97.5,
      98.2,
      98.22,
-     98.15
+     98.15,
+     97.5
     ],
     "last_trades": [
      {
@@ -19321,9 +19362,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +80,1 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +8,6 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 98.15,
-    "ret": -0.0185,
+    "days": 23,
+    "final": 97.5,
+    "ret": -0.025,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -19354,7 +19395,8 @@
      97.5,
      98.2,
      98.22,
-     98.15
+     98.15,
+     97.5
     ],
     "last_trades": [
      {
@@ -19672,11 +19714,11 @@
    "motivo": "Aprobó el examen de 2024–25 con +10,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +0,8 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 96.63,
-    "ret": -0.0337,
+    "days": 24,
+    "final": 95.9,
+    "ret": -0.041,
     "fees": 0.04,
-    "maxdd": 0.0564,
+    "maxdd": 0.063,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -19706,7 +19748,8 @@
      97.04,
      97.09,
      96.39,
-     96.63
+     96.06,
+     95.9
     ],
     "last_trades": [
      {
@@ -19877,9 +19920,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +80,0 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -24,6 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -19910,7 +19953,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -20071,9 +20115,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +49,2 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -9,0 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -20104,7 +20148,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -20267,9 +20312,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +17,1 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +0,8 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 24,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -20301,7 +20346,8 @@
      100.64,
      100.66,
      100.6,
-     100.6
+     99.92,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -20465,9 +20511,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +31,3 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo -0,8 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 23,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -20498,7 +20544,8 @@
      99.92,
      100.64,
      100.66,
-     100.6
+     100.6,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -20649,9 +20696,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +94,2 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +8,6 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 22,
-    "final": 98.15,
-    "ret": -0.0185,
+    "days": 23,
+    "final": 97.5,
+    "ret": -0.025,
     "fees": 0.11,
     "maxdd": 0.0481,
     "dead": false,
@@ -20682,7 +20729,8 @@
      97.5,
      98.2,
      98.22,
-     98.15
+     98.15,
+     97.5
     ],
     "last_trades": [
      {
@@ -20862,9 +20910,9 @@
    "motivo": "Aprobó el examen de 2024–25 con +23,6 %. Puede entrar en equipos; la prueba de 2026 se hace en equipo (solo, en 2026 hizo +8,7 %).",
    "paper_start": "2026-10-18",
    "paper": {
-    "days": 23,
-    "final": 100.6,
-    "ret": 0.006,
+    "days": 24,
+    "final": 99.92,
+    "ret": -0.0008,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -20896,7 +20944,8 @@
      100.64,
      100.66,
      100.6,
-     100.6
+     99.92,
+     99.92
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -21376,9 +21425,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-19",
    "paper": {
-    "days": 21,
-    "final": 100.5,
-    "ret": 0.005,
+    "days": 22,
+    "final": 99.83,
+    "ret": -0.0017,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -21408,7 +21457,8 @@
      99.83,
      100.55,
      100.57,
-     100.5
+     100.5,
+     99.83
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -22602,9 +22652,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-19",
    "paper": {
-    "days": 21,
-    "final": 100.5,
-    "ret": 0.005,
+    "days": 22,
+    "final": 99.83,
+    "ret": -0.0017,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -22634,7 +22684,8 @@
      99.83,
      100.55,
      100.57,
-     100.5
+     100.5,
+     99.83
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -24221,11 +24272,11 @@
    "exam2_nota": "",
    "paper_start": "2026-10-20",
    "paper": {
-    "days": 20,
-    "final": 87.92,
-    "ret": -0.1208,
+    "days": 21,
+    "final": 87.54,
+    "ret": -0.1246,
     "fees": 0.07,
-    "maxdd": 0.1276,
+    "maxdd": 0.1313,
     "dead": false,
     "trades": 2,
     "closed": 0,
@@ -24252,7 +24303,8 @@
      91.24,
      91.89,
      92.0,
-     87.92
+     87.92,
+     87.54
     ],
     "last_trades": [
      {
@@ -24274,6 +24326,13 @@
       "tipo": "compra",
       "precio": 2007.65,
       "importe": 5.28,
+      "resultado": null
+     },
+     {
+      "fecha": "2026-11-09T00:00",
+      "tipo": "venta",
+      "precio": 1906.66,
+      "importe": 3.94,
       "resultado": null
      }
     ],
@@ -26391,9 +26450,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-21",
    "paper": {
-    "days": 19,
-    "final": 100.71,
-    "ret": 0.0071,
+    "days": 20,
+    "final": 100.03,
+    "ret": 0.0003,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -26421,7 +26480,8 @@
      100.03,
      100.75,
      100.78,
-     100.71
+     100.71,
+     100.03
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -28188,9 +28248,9 @@
    "exam2_nota": "en 2026 ganó de media un -5,8 % por operación (mínimo 0,5 %)",
    "paper_start": "2026-10-22",
    "paper": {
-    "days": 18,
-    "final": 95.37,
-    "ret": -0.0463,
+    "days": 19,
+    "final": 95.38,
+    "ret": -0.0462,
     "fees": 0.17,
     "maxdd": 0.0632,
     "dead": false,
@@ -28217,7 +28277,8 @@
      96.26,
      96.67,
      96.73,
-     95.37
+     95.37,
+     95.38
     ],
     "last_trades": [
      {
@@ -29469,9 +29530,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-22",
    "paper": {
-    "days": 18,
-    "final": 100.56,
-    "ret": 0.0056,
+    "days": 19,
+    "final": 99.89,
+    "ret": -0.0011,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -29498,7 +29559,8 @@
      99.89,
      100.61,
      100.63,
-     100.56
+     100.56,
+     99.89
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -34296,9 +34358,9 @@
    "exam2_nota": "en 2026 ganó de media un -2,7 % por operación (mínimo 0,5 %)",
    "paper_start": "2026-10-25",
    "paper": {
-    "days": 16,
-    "final": 100.5,
-    "ret": 0.005,
+    "days": 17,
+    "final": 99.83,
+    "ret": -0.0017,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -34323,7 +34385,8 @@
      100.55,
      100.57,
      100.5,
-     100.5
+     99.83,
+     99.83
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -39519,9 +39582,9 @@
    "exam2_nota": "en 2026 ganó de media un 0,3 % por operación (mínimo 0,5 %)",
    "paper_start": "2026-10-26",
    "paper": {
-    "days": 15,
-    "final": 100.17,
-    "ret": 0.0017,
+    "days": 16,
+    "final": 99.5,
+    "ret": -0.005,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -39545,7 +39608,8 @@
      100.21,
      100.23,
      100.17,
-     100.17
+     99.5,
+     99.5
     ],
     "last_trades": [],
     "posicion": -0.0
@@ -41487,9 +41551,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-26",
    "paper": {
-    "days": 15,
-    "final": 100.17,
-    "ret": 0.0017,
+    "days": 16,
+    "final": 99.5,
+    "ret": -0.005,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -41513,7 +41577,8 @@
      100.21,
      100.23,
      100.17,
-     100.17
+     99.5,
+     99.5
     ],
     "last_trades": [],
     "posicion": -0.0
@@ -43148,9 +43213,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-26",
    "paper": {
-    "days": 14,
-    "final": 100.17,
-    "ret": 0.0017,
+    "days": 15,
+    "final": 99.5,
+    "ret": -0.005,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -43173,7 +43238,8 @@
      99.5,
      100.21,
      100.23,
-     100.17
+     100.17,
+     99.5
     ],
     "last_trades": [],
     "posicion": -0.0
@@ -43937,9 +44003,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-26",
    "paper": {
-    "days": 14,
-    "final": 100.17,
-    "ret": 0.0017,
+    "days": 15,
+    "final": 99.5,
+    "ret": -0.005,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -43962,7 +44028,8 @@
      99.5,
      100.21,
      100.23,
-     100.17
+     100.17,
+     99.5
     ],
     "last_trades": [],
     "posicion": -0.0
@@ -44134,9 +44201,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-26",
    "paper": {
-    "days": 14,
-    "final": 100.17,
-    "ret": 0.0017,
+    "days": 15,
+    "final": 99.5,
+    "ret": -0.005,
     "fees": 0.0,
     "maxdd": 0.009,
     "dead": false,
@@ -44159,7 +44226,8 @@
      99.5,
      100.21,
      100.23,
-     100.17
+     100.17,
+     99.5
     ],
     "last_trades": [],
     "posicion": -0.0
@@ -50988,11 +51056,11 @@
    "exam2_nota": "en 2026 solo hizo 1 operaciones (mínimo 2); en 2026 ganó de media un -1,3 % por operación (mínimo 0,5 %)",
    "paper_start": "2026-10-29",
    "paper": {
-    "days": 11,
-    "final": 100.24,
-    "ret": 0.0024,
+    "days": 12,
+    "final": 99.56,
+    "ret": -0.0044,
     "fees": 0.0,
-    "maxdd": 0.0068,
+    "maxdd": 0.0074,
     "dead": false,
     "trades": 0,
     "closed": 0,
@@ -51010,7 +51078,8 @@
      99.56,
      100.28,
      100.3,
-     100.24
+     100.24,
+     99.56
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -53276,16 +53345,16 @@
    "exam2_nota": "en 2026 solo hizo 1 operaciones (mínimo 2)",
    "paper_start": "2026-10-30",
    "paper": {
-    "days": 10,
-    "final": 90.35,
-    "ret": -0.0965,
-    "fees": 0.06,
-    "maxdd": 0.0965,
+    "days": 11,
+    "final": 90.24,
+    "ret": -0.0976,
+    "fees": 0.11,
+    "maxdd": 0.0976,
     "dead": false,
     "trades": 2,
-    "closed": 0,
+    "closed": 1,
     "wins": 0,
-    "avg_trade": 0.0,
+    "avg_trade": -0.0916,
     "cortos": 0,
     "eq": [
      99.9,
@@ -53297,7 +53366,8 @@
      92.44,
      93.77,
      93.51,
-     90.35
+     90.35,
+     90.24
     ],
     "last_trades": [
      {
@@ -53320,6 +53390,13 @@
       "precio": 80.49,
       "importe": 6.63,
       "resultado": null
+     },
+     {
+      "fecha": "2026-11-09T00:00",
+      "tipo": "venta",
+      "precio": 77.55,
+      "importe": 82.13,
+      "resultado": -9.1
      }
     ],
     "posicion": 0.0
@@ -53710,9 +53787,9 @@
    "exam2_nota": "",
    "paper_start": "2026-10-30",
    "paper": {
-    "days": 10,
-    "final": 100.0,
-    "ret": 0.0,
+    "days": 11,
+    "final": 99.33,
+    "ret": -0.0067,
     "fees": 0.0,
     "maxdd": 0.0078,
     "dead": false,
@@ -53731,7 +53808,8 @@
      99.33,
      100.04,
      100.07,
-     100.0
+     100.0,
+     99.33
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -55652,11 +55730,11 @@
    "exam2_nota": "en 2026 perdió un 13,0 % (mínimo +0 %); en 2026 llegó a caer un 29 % (máximo 25 %)",
    "paper_start": "2026-10-31",
    "paper": {
-    "days": 9,
-    "final": 94.46,
-    "ret": -0.0554,
+    "days": 10,
+    "final": 93.27,
+    "ret": -0.0673,
     "fees": 0.03,
-    "maxdd": 0.0679,
+    "maxdd": 0.0796,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -55672,7 +55750,8 @@
      97.56,
      97.12,
      96.56,
-     94.46
+     94.46,
+     93.27
     ],
     "last_trades": [
      {
@@ -56666,16 +56745,16 @@
    "exam2_nota": "",
    "paper_start": "2026-10-31",
    "paper": {
-    "days": 9,
-    "final": 90.65,
-    "ret": -0.0935,
-    "fees": 0.06,
-    "maxdd": 0.0935,
+    "days": 10,
+    "final": 90.59,
+    "ret": -0.0941,
+    "fees": 0.11,
+    "maxdd": 0.0941,
     "dead": false,
     "trades": 1,
-    "closed": 0,
+    "closed": 1,
     "wins": 0,
-    "avg_trade": 0.0,
+    "avg_trade": -0.088,
     "cortos": 0,
     "eq": [
      99.9,
@@ -56686,7 +56765,8 @@
      92.98,
      94.45,
      94.14,
-     90.65
+     90.65,
+     90.59
     ],
     "last_trades": [
      {
@@ -56695,6 +56775,13 @@
       "precio": 85.42,
       "importe": 99.89,
       "resultado": null
+     },
+     {
+      "fecha": "2026-11-09T00:00",
+      "tipo": "venta",
+      "precio": 77.55,
+      "importe": 90.69,
+      "resultado": -8.74
      }
     ],
     "posicion": 0.0
@@ -59304,9 +59391,9 @@
    "exam2_nota": "",
    "paper_start": "2026-11-01",
    "paper": {
-    "days": 8,
-    "final": 100.01,
-    "ret": 0.0001,
+    "days": 9,
+    "final": 99.34,
+    "ret": -0.0066,
     "fees": 0.0,
     "maxdd": 0.0077,
     "dead": false,
@@ -59323,7 +59410,8 @@
      99.34,
      100.06,
      100.08,
-     100.01
+     100.01,
+     99.34
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -59660,10 +59748,10 @@
    "exam2_nota": "en 2026 perdió un 2,2 % (mínimo +0 %); en 2026 ganó de media un -5,7 % por operación (mínimo 0,5 %)",
    "paper_start": "2026-11-01",
    "paper": {
-    "days": 8,
-    "final": 103.73,
-    "ret": 0.0373,
-    "fees": 0.11,
+    "days": 9,
+    "final": 103.58,
+    "ret": 0.0358,
+    "fees": 0.14,
     "maxdd": 0.0077,
     "dead": false,
     "trades": 1,
@@ -59679,7 +59767,8 @@
      99.34,
      101.16,
      101.76,
-     103.73
+     103.73,
+     103.58
     ],
     "last_trades": [
      {
@@ -62818,11 +62907,11 @@
    "exam2_nota": "en 2026 perdió un 10,0 % (mínimo +0 %); en 2026 ganó de media un -1,4 % por operación (mínimo 0,5 %)",
    "paper_start": "2026-11-03",
    "paper": {
-    "days": 6,
-    "final": 100.41,
-    "ret": 0.0041,
+    "days": 7,
+    "final": 99.74,
+    "ret": -0.0026,
     "fees": 0.0,
-    "maxdd": 0.0037,
+    "maxdd": 0.0074,
     "dead": false,
     "trades": 0,
     "closed": 0,
@@ -62835,7 +62924,8 @@
      99.74,
      100.46,
      100.48,
-     100.41
+     100.41,
+     99.74
     ],
     "last_trades": [],
     "posicion": 0.0
@@ -65194,23 +65284,24 @@
    "exam2_nota": "",
    "paper_start": "2026-11-04",
    "paper": {
-    "days": 5,
-    "final": 88.39,
-    "ret": -0.1161,
-    "fees": 0.06,
-    "maxdd": 0.1161,
+    "days": 6,
+    "final": 88.34,
+    "ret": -0.1166,
+    "fees": 0.11,
+    "maxdd": 0.1166,
     "dead": false,
     "trades": 1,
-    "closed": 0,
+    "closed": 1,
     "wins": 0,
-    "avg_trade": 0.0,
+    "avg_trade": -0.1167,
     "cortos": 0,
     "eq": [
      99.9,
      92.32,
      93.0,
      93.13,
-     88.39
+     88.39,
+     88.34
     ],
     "last_trades": [
      {
@@ -65219,6 +65310,13 @@
       "precio": 2156.38,
       "importe": 100.01,
       "resultado": null
+     },
+     {
+      "fecha": "2026-11-09T00:00",
+      "tipo": "venta",
+      "precio": 1906.66,
+      "importe": 88.43,
+      "resultado": -11.68
      }
     ],
     "posicion": 0.0
@@ -72316,11 +72414,11 @@
    "exam2_nota": "en 2026 perdió un 1,7 % (mínimo +0 %)",
    "paper_start": "2026-11-07",
    "paper": {
-    "days": 2,
-    "final": 97.63,
-    "ret": -0.0237,
+    "days": 3,
+    "final": 96.38,
+    "ret": -0.0362,
     "fees": 0.03,
-    "maxdd": 0.0237,
+    "maxdd": 0.0362,
     "dead": false,
     "trades": 1,
     "closed": 0,
@@ -72329,7 +72427,8 @@
     "cortos": 0,
     "eq": [
      99.9,
-     97.63
+     97.63,
+     96.38
     ],
     "last_trades": [
      {
@@ -77255,6 +77354,1848 @@
    },
    "examinado": "2026-11-09",
    "motivo": "Opera exactamente igual que Hugo 4, no aporta nada nuevo."
+  },
+  {
+   "id": "dff650b43c",
+   "name": "Nico 6",
+   "born": "2026-11-10",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "activo": "BTC-EUR",
+   "personalidad": "prudente",
+   "status": "suspendido",
+   "ideas_internet": [
+    "Secado de volumen en el retroceso y vela de giro con volumen (The Right Trader, aproximado)",
+    "BTC: rebote diario a la EMA 21 en tendencia bajista con volumen y ADX (JonnyBtc, corto)",
+    "BTC y ETH: tres EMAs 12/26/100 alineadas con confirmación de MACD y volumen (Triple EMA Multi-Signal, 1 h)",
+    "TRIX positivo con mercado en tendencia y objetivo fijo (BVLabs, Alpha TRIX, aproximado)",
+    "Tortugas con tres EMAs alineadas y ADX muy alto (cyatophilum)"
+   ],
+   "padres": [
+    "Sara",
+    "Eva"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "macd",
+    "label": "MACD",
+    "desc": "MACD 8/21/5 con filtro de media 200; ajusta la posición a la volatilidad (objetivo 50 % anual)",
+    "entreno": {
+     "final": 275.01,
+     "ret": 1.7501,
+     "fees": 8.93,
+     "maxdd": 0.3095,
+     "dead": false,
+     "trades": 69,
+     "closed": 52,
+     "wins": 17,
+     "avg_trade": 0.0245,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 164.32,
+     "ret": 0.6432,
+     "fees": 2.33,
+     "maxdd": 0.1245,
+     "dead": false,
+     "trades": 19,
+     "closed": 17,
+     "wins": 6,
+     "avg_trade": 0.0301,
+     "cortos": 0
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe el máximo de 10 días y una vela cierra por encima de la EMA de 30 velas y hay 1,5 veces el volumen normal. Sale si está más bajo que hace 15 días o salta un stop dinámico a 2 ATR o gana un 20 %. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 846.27,
+     "ret": 7.4627,
+     "fees": 7.27,
+     "maxdd": 0.1808,
+     "dead": false,
+     "trades": 38,
+     "closed": 24,
+     "wins": 17,
+     "avg_trade": 0.0969,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 81.17,
+     "ret": -0.1883,
+     "fees": 1.45,
+     "maxdd": 0.3782,
+     "dead": false,
+     "trades": 22,
+     "closed": 16,
+     "wins": 5,
+     "avg_trade": -0.009,
+     "cortos": 0
+    },
+    "generaciones": [
+     0.5254,
+     5.6162,
+     5.6162,
+     5.6162,
+     5.6162,
+     5.6162,
+     5.6162,
+     5.6162,
+     6.1895,
+     5.7633,
+     5.8313,
+     5.8313,
+     5.8313,
+     5.8313,
+     7.4627
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": true,
+   "usa_cortos": false,
+   "genome": {
+    "family": "macd",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "riesgo"
+   },
+   "params": {
+    "f": 8,
+    "s": 21,
+    "sig": 5,
+    "filtro": true
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_maximo",
+      10
+     ],
+     [
+      "sobre_ema",
+      30
+     ],
+     [
+      "volumen_alto",
+      1.5
+     ]
+    ],
+    "exit": [
+     [
+      "impulso_baja",
+      15,
+      0.0
+     ]
+    ],
+    "stop": 2,
+    "tp": 0.2,
+    "hold": 0,
+    "sizing": "riesgo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false,
+    "min_net": 0.01,
+    "escalera": 0
+   },
+   "firma": "22578019625c",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe el máximo de 10 días y una vela cierra por encima de la EMA de 30 velas y hay 1,5 veces el volumen normal. Sale si está más bajo que hace 15 días o salta un stop dinámico a 2 ATR o gana un 20 %. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Ajusta la posición a la volatilidad.",
+   "exam": {
+    "final": 102.14,
+    "ret": 0.0214,
+    "fees": 1.63,
+    "maxdd": 0.2739,
+    "dead": false,
+    "trades": 16,
+    "closed": 13,
+    "wins": 5,
+    "avg_trade": 0.0108,
+    "cortos": 0
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: ganó +2,1 % (mínimo +10 %)."
+  },
+  {
+   "id": "06c8804546",
+   "name": "Olga 6",
+   "born": "2026-11-10",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "activo": "XRP-EUR",
+   "personalidad": "atrevido",
+   "status": "suspendido",
+   "ideas_internet": [
+    "SOL y XRP: máximo de 5 días bajo la media de 200 en corto (Quantified Strategies invertido, aproximado)",
+    "Retroceso a la EMA en tendencia de Dow con ADX y dos objetivos (Salaryman_G, Pullback Pro v7, aproximado)",
+    "ETH, SOL y XRP: RSI acumulado de Connors y Alvarez en corto (aproximado)",
+    "ETH, SOL y XRP: rebote con volumen menguante y vela bajista con volumen (The Right Trader, corto, aproximado)",
+    "Mínimo de 5 días del rango con salida a los 5 días (Quantified Strategies, aproximado)"
+   ],
+   "padres": [],
+   "estudio": {
+    "probadas": 111,
+    "familia": "rsi",
+    "label": "RSI de reversión",
+    "desc": "compra con RSI < 30, vende con RSI > 65; ajusta la posición a la volatilidad (objetivo 50 % anual)",
+    "entreno": {
+     "final": 290.56,
+     "ret": 1.9056,
+     "fees": 1.66,
+     "maxdd": 0.2998,
+     "dead": false,
+     "trades": 42,
+     "closed": 9,
+     "wins": 8,
+     "avg_trade": 0.119,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 97.07,
+     "ret": -0.0293,
+     "fees": 0.48,
+     "maxdd": 0.3728,
+     "dead": false,
+     "trades": 24,
+     "closed": 4,
+     "wins": 3,
+     "avg_trade": -0.0097,
+     "cortos": 0
+    }
+   },
+   "invento": {
+    "desc": "Entra si el RSI-14 baja de 30. Sale si el RSI-14 supera 65. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: empieza con media posición y la completa si gana un 2 %. Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 256.41,
+     "ret": 1.5641,
+     "fees": 1.4,
+     "maxdd": 0.2947,
+     "dead": false,
+     "trades": 47,
+     "closed": 9,
+     "wins": 8,
+     "avg_trade": 0.1054,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 181.01,
+     "ret": 0.8101,
+     "fees": 0.67,
+     "maxdd": 0.3775,
+     "dead": false,
+     "trades": 37,
+     "closed": 3,
+     "wins": 3,
+     "avg_trade": 0.2331,
+     "cortos": 0
+    },
+    "generaciones": [
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     2.0514,
+     3.5164,
+     3.5164,
+     3.5164,
+     1.5641
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "usa_cortos": false,
+   "genome": {
+    "family": "rsi",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "riesgo"
+   },
+   "params": {
+    "buy": 30,
+    "sell": 65
+   },
+   "regla": {
+    "stop": 0,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "riesgo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0.02,
+    "shrink": false,
+    "entry": [
+     [
+      "rsi_bajo",
+      14,
+      30
+     ]
+    ],
+    "exit": [
+     [
+      "rsi_alto",
+      14,
+      65
+     ]
+    ]
+   },
+   "firma": "df00e27d11cc",
+   "label": "Estrategia propia",
+   "desc": "Entra si el RSI-14 baja de 30. Sale si el RSI-14 supera 65. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: empieza con media posición y la completa si gana un 2 %. Ajusta la posición a la volatilidad.",
+   "exam": {
+    "final": 92.57,
+    "ret": -0.0743,
+    "fees": 0.32,
+    "maxdd": 0.2933,
+    "dead": false,
+    "trades": 11,
+    "closed": 2,
+    "wins": 1,
+    "avg_trade": 0.103,
+    "cortos": 0
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: ganó -7,4 % (mínimo +10 %)."
+  },
+  {
+   "id": "4d67589bc0",
+   "name": "Pau 6",
+   "born": "2026-11-10",
+   "tf": "1d",
+   "tf_label": "velas diarias",
+   "activo": "BTC-EUR",
+   "personalidad": "atrevido",
+   "status": "suspendido",
+   "ideas_internet": [
+    "BTC y ETH: EMA 50 al alza con estructura de Dow y ADX, objetivos escalonados (mm_mitsuya, 4 h)",
+    "BTC: MACD de 1 h a favor de la tendencia diaria con salida en la primera vela roja (Quantpedia, aproximado)",
+    "RSI acumulado de Connors y Alvarez (RSI(2) de dos días bajo 35, aproximado)",
+    "BTC: corto bajo la EMA 20 con salida al superar el máximo anterior (TradingView, 'Short Below 20 EMA')",
+    "BTC: retroceso diario a la EMA 21 con volumen y ADX (JonnyBtc)"
+   ],
+   "padres": [],
+   "estudio": {
+    "probadas": 117,
+    "familia": "macd",
+    "label": "MACD",
+    "desc": "MACD 12/26/9; ajusta la posición a la volatilidad (objetivo 50 % anual)",
+    "entreno": {
+     "final": 542.1,
+     "ret": 4.421,
+     "fees": 11.0,
+     "maxdd": 0.3755,
+     "dead": false,
+     "trades": 84,
+     "closed": 47,
+     "wins": 19,
+     "avg_trade": 0.0458,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 84.16,
+     "ret": -0.1584,
+     "fees": 2.31,
+     "maxdd": 0.5255,
+     "dead": false,
+     "trades": 47,
+     "closed": 31,
+     "wins": 9,
+     "avg_trade": -0.0008,
+     "cortos": 0
+    }
+   },
+   "invento": {
+    "desc": "Entra si una vela cierra por encima de la EMA de 20 velas y el MACD gira al alza y rompe el máximo de 4 días. Sale si pierde el mínimo de 8 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −3 % y objetivo a +6 %; cada vez que el precio sube un 3 %, stop y objetivo suben otro 3 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado),",
+    "entreno": {
+     "final": 449.44,
+     "ret": 3.4944,
+     "fees": 20.8,
+     "maxdd": 0.3164,
+     "dead": false,
+     "trades": 64,
+     "closed": 64,
+     "wins": 31,
+     "avg_trade": 0.0273,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 50.57,
+     "ret": -0.4943,
+     "fees": 2.3,
+     "maxdd": 0.597,
+     "dead": false,
+     "trades": 31,
+     "closed": 31,
+     "wins": 9,
+     "avg_trade": -0.0196,
+     "cortos": 0
+    },
+    "generaciones": [
+     1.1472,
+     1.1472,
+     1.4259,
+     1.4259,
+     1.4259,
+     1.5607,
+     1.5607,
+     1.5607,
+     1.5607,
+     1.5607,
+     1.5607,
+     3.3615,
+     3.3615,
+     3.3615,
+     3.4944
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": true,
+   "usa_cortos": false,
+   "genome": {
+    "family": "macd",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "riesgo"
+   },
+   "params": {
+    "f": 12,
+    "s": 26,
+    "sig": 9,
+    "filtro": false
+   },
+   "regla": {
+    "entry": [
+     [
+      "sobre_ema",
+      20
+     ],
+     [
+      "macd_pos"
+     ],
+     [
+      "rompe_maximo",
+      4
+     ]
+    ],
+    "exit": [
+     [
+      "pierde_minimo",
+      8
+     ]
+    ],
+    "stop": 0,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false,
+    "min_net": 0.01,
+    "escalera": 0.03
+   },
+   "firma": "bbea61cbfaaf",
+   "label": "Estrategia propia",
+   "desc": "Entra si una vela cierra por encima de la EMA de 20 velas y el MACD gira al alza y rompe el máximo de 4 días. Sale si pierde el mínimo de 8 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −3 % y objetivo a +6 %; cada vez que el precio sube un 3 %, stop y objetivo suben otro 3 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado),",
+   "exam": {
+    "final": 86.96,
+    "ret": -0.1304,
+    "fees": 3.56,
+    "maxdd": 0.3295,
+    "dead": false,
+    "trades": 30,
+    "closed": 30,
+    "wins": 13,
+    "avg_trade": 0.0,
+    "cortos": 0
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: ganó -13,0 % (mínimo +10 %); de media gana un 0,0 % por operación tras comisiones (mínimo 1 %)."
+  },
+  {
+   "id": "290256f9c7",
+   "name": "Raquel 6",
+   "born": "2026-11-10",
+   "tf": "4h",
+   "tf_label": "velas de 4 horas",
+   "activo": "ETH-EUR",
+   "personalidad": "prudente",
+   "status": "suspendido",
+   "ideas_internet": [
+    "ETH: Tortugas con tres EMAs bajistas y ADX muy alto (cyatophilum, corto)",
+    "ETH: sobre la media de 34 días (Market Unfiltered, sin apalancamiento)",
+    "ETH: pérdida del mínimo del día anterior bajo la EMA 50 con objetivo 1,5R (Sean Kelly, corto)",
+    "ETH: EMA 50 a la baja con estructura de Dow y ADX, objetivos escalonados (mm_mitsuya, 4 h, corto)",
+    "ETH: ruptura del máximo del día anterior a favor de la EMA 50 con objetivo 1,5R (Sean Kelly)"
+   ],
+   "padres": [],
+   "estilo": "diario",
+   "eleccion": "diario",
+   "regla": {
+    "regimen": {
+     "ma": 100,
+     "er": 7,
+     "x": 0.3
+    },
+    "alcista": {
+     "escalera": 0.01,
+     "entry": [
+      [
+       "triple_suelo",
+       120,
+       0.02
+      ],
+      [
+       "z_bajo",
+       20,
+       2.5
+      ]
+     ],
+     "exit": [
+      [
+       "sobre_media",
+       300
+      ],
+      [
+       "vol_alta",
+       180,
+       0.3
+      ]
+     ],
+     "stop": 3,
+     "tp": 0.03,
+     "trail": 0.03,
+     "hold": 5,
+     "sizing": "completo",
+     "frac": 1.0,
+     "be": 0.02,
+     "stall": 7,
+     "pyr": 0,
+     "shrink": true,
+     "min_net": 0.015,
+     "lado": "largo"
+    },
+    "lateral": {
+     "entry": [
+      [
+       "sobre_media",
+       34
+      ]
+     ],
+     "exit": [
+      [
+       "bajo_media",
+       34
+      ],
+      [
+       "doble_techo",
+       60,
+       0.05
+      ]
+     ],
+     "stop": 4,
+     "tp": 0,
+     "trail": 0.03,
+     "hold": 5,
+     "sizing": "riesgo",
+     "frac": 1.0,
+     "be": 0,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": false,
+     "min_net": 0.01,
+     "salida_siempre": true
+    },
+    "bajista": {
+     "entry": [
+      [
+       "sobre_ema",
+       50
+      ]
+     ],
+     "exit": [
+      [
+       "bajo_ema",
+       50
+      ],
+      [
+       "delta_venta",
+       6,
+       0.05
+      ]
+     ],
+     "stop": 2,
+     "tp": 0.03,
+     "trail": 0.03,
+     "hold": 1,
+     "sizing": "riesgo",
+     "frac": 0.5,
+     "be": 0,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": false,
+     "lado": "corto",
+     "min_net": 0.007,
+     "escalera": 0.02
+    }
+   },
+   "firma": "fe13d32e5aa1",
+   "label": "Operador diario",
+   "usa_cortos": true,
+   "desc": "Detecta el mercado con la media de 100 días y la tendencia de los últimos 7 días. En mercado alcista: entra si completa un triple suelo en las últimas 20 días y el precio cae 2,5 desviaciones bajo su media de 20 velas. Sale si el precio está sobre su media de 50 días o la volatilidad de 30 días supera el 30 % o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 3 % o pasan 5 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada; si en 7 días no avanza, acerca el stop a un 1,5 %; cuanto más gana, más ajusta el stop. Escalera: empieza con stop a −1 % y objetivo a +2 %; cada vez que el precio sube un 1 %, stop y objetivo suben otro 1 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), En mercado lateral: entra si el precio está sobre su media de 34 velas. Sale si el precio está bajo su media de 34 velas o completa un doble techo (M) en las últimas 10 días o salta un stop dinámico a 4 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o pasan 5 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Ajusta la posición a la volatilidad. En mercado bajista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si una vela cierra por encima de la EMA de 50 velas. Sale si una vela cierra por debajo de la EMA de 50 velas o dominan las ventas agresivas en el último día (delta de menos del -5 %) o salta un stop dinámico a 2 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 3 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 0,7 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −2 % y objetivo a +4 %; cada vez que el precio sube un 2 %, stop y objetivo suben otro 2 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad.",
+   "invento": {
+    "desc": "Detecta el mercado con la media de 100 días y la tendencia de los últimos 7 días. En mercado alcista: entra si completa un triple suelo en las últimas 20 días y el precio cae 2,5 desviaciones bajo su media de 20 velas. Sale si el precio está sobre su media de 50 días o la volatilidad de 30 días supera el 30 % o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 3 % o pasan 5 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada; si en 7 días no avanza, acerca el stop a un 1,5 %; cuanto más gana, más ajusta el stop. Escalera: empieza con stop a −1 % y objetivo a +2 %; cada vez que el precio sube un 1 %, stop y objetivo suben otro 1 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), En mercado lateral: entra si el precio está sobre su media de 34 velas. Sale si el precio está bajo su media de 34 velas o completa un doble techo (M) en las últimas 10 días o salta un stop dinámico a 4 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o pasan 5 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Ajusta la posición a la volatilidad. En mercado bajista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si una vela cierra por encima de la EMA de 50 velas. Sale si una vela cierra por debajo de la EMA de 50 velas o dominan las ventas agresivas en el último día (delta de menos del -5 %) o salta un stop dinámico a 2 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 3 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 0,7 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −2 % y objetivo a +4 %; cada vez que el precio sube un 2 %, stop y objetivo suben otro 2 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 656.76,
+     "ret": 5.5676,
+     "fees": 98.5,
+     "maxdd": 0.2154,
+     "dead": false,
+     "trades": 478,
+     "closed": 450,
+     "wins": 154,
+     "avg_trade": 0.0046,
+     "cortos": 59
+    },
+    "validacion": {
+     "final": 57.44,
+     "ret": -0.4256,
+     "fees": 15.59,
+     "maxdd": 0.5699,
+     "dead": false,
+     "trades": 259,
+     "closed": 241,
+     "wins": 67,
+     "avg_trade": -0.0021,
+     "cortos": 37
+    },
+    "generaciones": [
+     2.0326,
+     4.9454,
+     4.9454,
+     5.0834,
+     5.0834,
+     5.7446,
+     5.5201,
+     5.4351,
+     5.5652,
+     5.5652,
+     5.2256,
+     5.638,
+     5.638,
+     5.6214,
+     5.6214
+    ],
+    "semanas_entreno": {
+     "semanas": 209,
+     "sem_pos": 0.5358851674641149,
+     "sem_objetivo": 0.39712918660287083,
+     "sem_neg": 0.45933014354066987,
+     "media_sem": 0.009998776870366979,
+     "peor_sem": -0.06336898373707522,
+     "ops_sem": 2.287081339712919,
+     "dias_sem": 2.0430622009569377
+    },
+    "semanas_validacion": {
+     "semanas": 105,
+     "sem_pos": 0.4095238095238095,
+     "sem_objetivo": 0.3142857142857143,
+     "sem_neg": 0.5714285714285714,
+     "media_sem": -0.004220561777143771,
+     "peor_sem": -0.12808274033379996,
+     "ops_sem": 2.466666666666667,
+     "dias_sem": 2.1619047619047618
+    }
+   },
+   "suerte": {
+    "variantes": 6,
+    "siguen_ganando": 0
+   },
+   "exam": {
+    "final": 65.82,
+    "ret": -0.3418,
+    "fees": 22.7,
+    "maxdd": 0.5597,
+    "dead": false,
+    "trades": 259,
+    "closed": 245,
+    "wins": 54,
+    "avg_trade": -0.0009,
+    "cortos": 27
+   },
+   "exam_semanas": {
+    "semanas": 105,
+    "sem_pos": 0.38095238095238093,
+    "sem_objetivo": 0.2571428571428571,
+    "sem_neg": 0.6190476190476191,
+    "media_sem": -0.002539959590246733,
+    "peor_sem": -0.12107672501423827,
+    "ops_sem": 2.466666666666667,
+    "dias_sem": 2.2095238095238097
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: puede ser suerte: con pequeños cambios solo 0 de 6 versiones siguen ganando en 2022–23; en 2022–23 perdió un 42,6 % (mínimo +0 %); en 2022–23 su peor semana perdió un 12,8 % (máximo 12 %); en 2022–23 llegó a caer un 57 % (máximo 30 %); en 2022–23 de media gana un -0,21 % por operación tras comisiones (mínimo 0 %); perdió un 34,2 % (mínimo +0 %); solo acabó en positivo el 38 % de las semanas (mínimo 55 %); su peor semana perdió un 12,1 % (máximo 8 %); llegó a caer un 56 % (máximo 20 %); de media gana un -0,09 % por operación tras comisiones (mínimo 0,2 %)."
+  },
+  {
+   "id": "fd1187671e",
+   "name": "Saúl 6",
+   "born": "2026-11-10",
+   "tf": "4h",
+   "tf_label": "velas de 4 horas",
+   "activo": "ETH-EUR",
+   "personalidad": "prudente",
+   "status": "suspendido",
+   "ideas_internet": [
+    "ETH: corto bajo la media de 34 días (Market Unfiltered, sin apalancamiento)",
+    "ETH, SOL y XRP: RSI acumulado de Connors y Alvarez en corto (aproximado)",
+    "ETH: miércoles a las 20 h UTC",
+    "ETH: jueves alcista (Sahu, 2024)",
+    "ETH: corto en la sesión asiática (Bobe Kryant)"
+   ],
+   "padres": [],
+   "estudio": {
+    "probadas": 111,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 50 velas; solo opera por encima de la media de 200 velas",
+    "entreno": {
+     "final": 3665.86,
+     "ret": 35.6586,
+     "fees": 127.44,
+     "maxdd": 0.3103,
+     "dead": false,
+     "trades": 94,
+     "closed": 94,
+     "wins": 39,
+     "avg_trade": 0.0483,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 93.18,
+     "ret": -0.0682,
+     "fees": 5.92,
+     "maxdd": 0.3229,
+     "dead": false,
+     "trades": 56,
+     "closed": 56,
+     "wins": 14,
+     "avg_trade": 0.0001,
+     "cortos": 0
+    }
+   },
+   "invento": {
+    "desc": "Entra si la media de 10 velas está por encima de la de 50 velas y el precio está sobre su media de 200 velas y el mercado está lateral, sin tendencia (últimas 20 velas). Sale si la media de 10 velas está por debajo de la de 50 velas o cae más de un 5 % en 5 velas o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o pasan 3 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre).",
+    "entreno": {
+     "final": 1745.63,
+     "ret": 16.4563,
+     "fees": 133.94,
+     "maxdd": 0.2629,
+     "dead": false,
+     "trades": 174,
+     "closed": 174,
+     "wins": 88,
+     "avg_trade": 0.0183,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 127.61,
+     "ret": 0.2761,
+     "fees": 10.19,
+     "maxdd": 0.3146,
+     "dead": false,
+     "trades": 73,
+     "closed": 73,
+     "wins": 38,
+     "avg_trade": 0.0038,
+     "cortos": 0
+    },
+    "generaciones": [
+     25.5789,
+     25.5789,
+     9.2999,
+     9.2999,
+     12.1436,
+     12.1436,
+     12.1436,
+     16.6819,
+     16.6819,
+     16.6819,
+     17.1913,
+     16.4563,
+     16.4563,
+     16.4563,
+     16.4563
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "usa_cortos": false,
+   "genome": {
+    "family": "sma",
+    "filter": "tendencia",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 50
+   },
+   "regla": {
+    "entry": [
+     [
+      "cruce_alcista",
+      10,
+      50
+     ],
+     [
+      "sobre_media",
+      200
+     ],
+     [
+      "mercado_lateral",
+      20,
+      0.25
+     ]
+    ],
+    "exit": [
+     [
+      "cruce_bajista",
+      10,
+      50
+     ],
+     [
+      "impulso_baja",
+      5,
+      0.05
+     ]
+    ],
+    "stop": 3,
+    "tp": 0,
+    "hold": 3,
+    "sizing": "completo",
+    "trail": 0.03,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false,
+    "min_net": 0.01,
+    "escalera": 0
+   },
+   "firma": "d68f763e4ba9",
+   "label": "Estrategia propia",
+   "desc": "Entra si la media de 10 velas está por encima de la de 50 velas y el precio está sobre su media de 200 velas y el mercado está lateral, sin tendencia (últimas 20 velas). Sale si la media de 10 velas está por debajo de la de 50 velas o cae más de un 5 % en 5 velas o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o pasan 3 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre).",
+   "exam": {
+    "final": 116.33,
+    "ret": 0.1633,
+    "fees": 11.79,
+    "maxdd": 0.4657,
+    "dead": false,
+    "trades": 72,
+    "closed": 72,
+    "wins": 31,
+    "avg_trade": 0.0045,
+    "cortos": 0
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: llegó a caer un 47 % (máximo 40 %); de media gana un 0,4 % por operación tras comisiones (mínimo 1 %)."
+  },
+  {
+   "id": "9cab8f10e9",
+   "name": "Tomás 6",
+   "born": "2026-11-10",
+   "tf": "1h",
+   "tf_label": "velas de 1 hora",
+   "activo": "BTC-EUR",
+   "personalidad": "atrevido",
+   "status": "suspendido",
+   "ideas_internet": [
+    "BTC: corto al perder el mínimo previo con giro de tendencia a medio plazo (AIpricepatterns)",
+    "Cruce de medias 5/20 de Richard Donchian en corto (diario)",
+    "Mínimo de 5 días del rango con salida a los 5 días (Quantified Strategies, aproximado)",
+    "Regla de las 4 semanas de Donchian (máximo de 20, salida en el mínimo de 20)",
+    "BTC: MACD de 1 h a favor de la tendencia diaria con salida en la primera vela roja (Quantpedia, aproximado)"
+   ],
+   "padres": [],
+   "estilo": "diario",
+   "eleccion": "diario",
+   "regla": {
+    "regimen": {
+     "ma": 50,
+     "er": 3,
+     "x": 0.15
+    },
+    "alcista": {
+     "entry": [
+      [
+       "rompe_maximo",
+       20
+      ]
+     ],
+     "exit": [
+      [
+       "pierde_minimo",
+       20
+      ]
+     ],
+     "stop": 3,
+     "tp": 0,
+     "trail": 0.1,
+     "hold": 3,
+     "sizing": "riesgo",
+     "frac": 0.5,
+     "be": 0,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": false,
+     "salida_siempre": true,
+     "min_net": 0.01
+    },
+    "lateral": {
+     "escalera": 0.05,
+     "entry": [
+      [
+       "cruce_alcista",
+       20,
+       1200
+      ],
+      [
+       "franja_horaria",
+       16,
+       6
+      ],
+      [
+       "macd_pos"
+      ]
+     ],
+     "exit": [
+      [
+       "z_alto",
+       20,
+       1.5
+      ]
+     ],
+     "stop": 4,
+     "tp": 0.015,
+     "trail": 0.03,
+     "hold": 5,
+     "sizing": "riesgo",
+     "frac": 1.0,
+     "be": 0,
+     "stall": 7,
+     "pyr": 0,
+     "shrink": false,
+     "min_net": 0.01,
+     "lado": "corto"
+    },
+    "bajista": {
+     "escalera": 0,
+     "entry": [
+      [
+       "impulso_baja",
+       720,
+       0.0
+      ],
+      [
+       "vol_baja",
+       20,
+       0.7
+      ],
+      [
+       "ruptura_volumen",
+       50,
+       2.0
+      ]
+     ],
+     "exit": [
+      [
+       "pierde_soporte",
+       60,
+       0.01
+      ]
+     ],
+     "stop": 2,
+     "tp": 0.015,
+     "trail": 0.015,
+     "hold": 1,
+     "sizing": "completo",
+     "frac": 1.0,
+     "be": 0.02,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": false,
+     "min_net": 0.01,
+     "lado": "largo"
+    }
+   },
+   "firma": "8fdfdd8fe1ca",
+   "label": "Operador diario",
+   "usa_cortos": true,
+   "desc": "Detecta el mercado con la media de 50 días y la tendencia de los últimos 3 días. En mercado alcista: entra si rompe el máximo de 20 velas. Sale si pierde el mínimo de 20 velas o salta un stop dinámico a 3 ATR o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio) o pasan 3 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad. En mercado lateral: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si la media de 20 velas está por encima de la de 50 días y es entre las 16:00 y las 22:00 (hora UTC; en España, 1 o 2 horas más) y el MACD gira al alza. Sale si el precio sube 1,5 desviaciones sobre su media de 20 velas o salta un stop dinámico a 4 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 2 % o pasan 5 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: si en 7 días no avanza, acerca el stop a un 1,5 %. Escalera: empieza con stop a −5 % y objetivo a +10 %; cada vez que el precio sube un 5 %, stop y objetivo suben otro 5 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Ajusta la posición a la volatilidad. En mercado bajista: entra si está más bajo que hace 30 días y la volatilidad de 20 velas está por debajo del 70 % y rompe el máximo de 50 velas con 2 veces el volumen normal. Sale si pierde un soporte de las últimas 60 velas o salta un stop dinámico a 2 ATR o el precio cae un 2 % desde el máximo alcanzado (stop que sube con el precio) o gana un 2 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada.",
+   "invento": {
+    "desc": "Detecta el mercado con la media de 50 días y la tendencia de los últimos 3 días. En mercado alcista: entra si rompe el máximo de 20 velas. Sale si pierde el mínimo de 20 velas o salta un stop dinámico a 3 ATR o el precio cae un 10 % desde el máximo alcanzado (stop que sube con el precio) o pasan 3 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad. En mercado lateral: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si la media de 20 velas está por encima de la de 50 días y es entre las 16:00 y las 22:00 (hora UTC; en España, 1 o 2 horas más) y el MACD gira al alza. Sale si el precio sube 1,5 desviaciones sobre su media de 20 velas o salta un stop dinámico a 4 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 2 % o pasan 5 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: si en 7 días no avanza, acerca el stop a un 1,5 %. Escalera: empieza con stop a −5 % y objetivo a +10 %; cada vez que el precio sube un 5 %, stop y objetivo suben otro 5 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Ajusta la posición a la volatilidad. En mercado bajista: entra si está más bajo que hace 30 días y la volatilidad de 20 velas está por debajo del 70 % y rompe el máximo de 50 velas con 2 veces el volumen normal. Sale si pierde un soporte de las últimas 60 velas o salta un stop dinámico a 2 ATR o el precio cae un 2 % desde el máximo alcanzado (stop que sube con el precio) o gana un 2 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada.",
+    "entreno": {
+     "final": 176.48,
+     "ret": 0.7648,
+     "fees": 57.66,
+     "maxdd": 0.3027,
+     "dead": false,
+     "trades": 465,
+     "closed": 442,
+     "wins": 242,
+     "avg_trade": 0.0013,
+     "cortos": 292
+    },
+    "validacion": {
+     "final": 103.49,
+     "ret": 0.0349,
+     "fees": 29.8,
+     "maxdd": 0.4226,
+     "dead": false,
+     "trades": 233,
+     "closed": 216,
+     "wins": 118,
+     "avg_trade": 0.0002,
+     "cortos": 162
+    },
+    "generaciones": [
+     -0.3097,
+     -0.2953,
+     -0.2371,
+     -0.135,
+     -0.1164,
+     -0.0666,
+     0.0576,
+     0.0698,
+     0.486,
+     0.486,
+     0.1219,
+     0.5593,
+     0.4795,
+     0.6517,
+     0.6517
+    ],
+    "semanas_entreno": {
+     "semanas": 209,
+     "sem_pos": 0.5789473684210527,
+     "sem_objetivo": 0.3588516746411483,
+     "sem_neg": 0.4019138755980861,
+     "media_sem": 0.0031107735283807825,
+     "peor_sem": -0.08317495820345899,
+     "ops_sem": 2.22488038277512,
+     "dias_sem": 2.0861244019138754
+    },
+    "semanas_validacion": {
+     "semanas": 105,
+     "sem_pos": 0.41904761904761906,
+     "sem_objetivo": 0.2761904761904762,
+     "sem_neg": 0.5333333333333333,
+     "media_sem": 0.0008491790564316048,
+     "peor_sem": -0.08151803299301807,
+     "ops_sem": 2.219047619047619,
+     "dias_sem": 2.057142857142857
+    }
+   },
+   "suerte": {
+    "variantes": 6,
+    "siguen_ganando": 0
+   },
+   "exam": {
+    "final": 31.54,
+    "ret": -0.6846,
+    "fees": 19.14,
+    "maxdd": 0.7228,
+    "dead": false,
+    "trades": 250,
+    "closed": 231,
+    "wins": 102,
+    "avg_trade": -0.0045,
+    "cortos": 145
+   },
+   "exam_semanas": {
+    "semanas": 105,
+    "sem_pos": 0.4095238095238095,
+    "sem_objetivo": 0.17142857142857143,
+    "sem_neg": 0.580952380952381,
+    "media_sem": -0.010476458704542753,
+    "peor_sem": -0.10620508088909975,
+    "ops_sem": 2.380952380952381,
+    "dias_sem": 2.238095238095238
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: puede ser suerte: con pequeños cambios solo 0 de 6 versiones siguen ganando en 2022–23; en 2022–23 llegó a caer un 42 % (máximo 30 %); perdió un 68,5 % (mínimo +0 %); solo acabó en positivo el 41 % de las semanas (mínimo 55 %); su peor semana perdió un 10,6 % (máximo 8 %); llegó a caer un 72 % (máximo 20 %); de media gana un -0,45 % por operación tras comisiones (mínimo 0,2 %)."
+  },
+  {
+   "id": "3bb254ac54",
+   "name": "Úrsula 6",
+   "born": "2026-11-10",
+   "tf": "1h",
+   "tf_label": "velas de 1 hora",
+   "activo": "BTC-EUR",
+   "personalidad": "atrevido",
+   "status": "suspendido",
+   "ideas_internet": [
+    "BTC y ETH: EMA 50 al alza con estructura de Dow y ADX, objetivos escalonados (mm_mitsuya, 4 h)",
+    "BTC y ETH: tres EMAs 12/26/100 alineadas con confirmación de MACD y volumen (Triple EMA Multi-Signal, 1 h)",
+    "Retroceso a la EMA en tendencia de Dow con ADX y dos objetivos (Salaryman_G, Pullback Pro v7, aproximado)",
+    "Secado de volumen en el retroceso y vela de giro con volumen (The Right Trader, aproximado)",
+    "Tortugas con tres EMAs alineadas y ADX muy alto (cyatophilum)"
+   ],
+   "padres": [],
+   "estudio": {
+    "probadas": 111,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 200 velas",
+    "entreno": {
+     "final": 1041.83,
+     "ret": 9.4183,
+     "fees": 99.36,
+     "maxdd": 0.4163,
+     "dead": false,
+     "trades": 184,
+     "closed": 184,
+     "wins": 50,
+     "avg_trade": 0.0174,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 78.76,
+     "ret": -0.2124,
+     "fees": 8.91,
+     "maxdd": 0.5541,
+     "dead": false,
+     "trades": 113,
+     "closed": 113,
+     "wins": 25,
+     "avg_trade": -0.0009,
+     "cortos": 0
+    }
+   },
+   "invento": {
+    "desc": "Entra si rompe hacia arriba el techo de la zona de valor (VAH) de la sesión anterior y está más bajo que hace 3 velas y rebota en un soporte de las últimas 20 velas. Sale si la media de 5 velas está por debajo de la de 200 velas. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 1081.01,
+     "ret": 9.8101,
+     "fees": 8.63,
+     "maxdd": 0.2212,
+     "dead": false,
+     "trades": 52,
+     "closed": 21,
+     "wins": 21,
+     "avg_trade": 0.1288,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 89.0,
+     "ret": -0.11,
+     "fees": 0.16,
+     "maxdd": 0.6293,
+     "dead": false,
+     "trades": 31,
+     "closed": 0,
+     "wins": 0,
+     "avg_trade": 0.0,
+     "cortos": 0
+    },
+    "generaciones": [
+     2.1224,
+     1.9273,
+     1.9273,
+     1.9273,
+     1.9273,
+     4.4337,
+     4.4337,
+     4.4337,
+     4.4337,
+     4.4407,
+     4.4407,
+     4.6259,
+     4.6259,
+     7.6667,
+     7.9617
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": false,
+   "usa_cortos": false,
+   "genome": {
+    "family": "sma",
+    "filter": "ninguno",
+    "stop": 0,
+    "sizing": "completo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 200
+   },
+   "regla": {
+    "entry": [
+     [
+      "rompe_vah",
+      0.005
+     ],
+     [
+      "impulso_baja",
+      3,
+      0.0
+     ],
+     [
+      "rebote_soporte",
+      20,
+      0.02
+     ]
+    ],
+    "exit": [
+     [
+      "cruce_bajista",
+      5,
+      200
+     ]
+    ],
+    "stop": 0,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "riesgo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 0,
+    "pyr": 0,
+    "shrink": false,
+    "min_net": 0.015,
+    "escalera": 0
+   },
+   "firma": "77c6f1ae00e1",
+   "label": "Estrategia propia",
+   "desc": "Entra si rompe hacia arriba el techo de la zona de valor (VAH) de la sesión anterior y está más bajo que hace 3 velas y rebota en un soporte de las últimas 20 velas. Sale si la media de 5 velas está por debajo de la de 200 velas. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Ajusta la posición a la volatilidad.",
+   "exam": {
+    "final": 134.08,
+    "ret": 0.3408,
+    "fees": 1.35,
+    "maxdd": 0.3101,
+    "dead": false,
+    "trades": 27,
+    "closed": 6,
+    "wins": 6,
+    "avg_trade": 0.1109,
+    "cortos": 0
+   },
+   "examinado": "2026-11-10",
+   "motivo": "En 2026 operó exactamente igual que Diego 2, que ya está aprobado: no aporta nada nuevo.",
+   "exam2": {
+    "final": 97.68,
+    "ret": -0.0232,
+    "fees": 0.11,
+    "maxdd": 0.3876,
+    "dead": false,
+    "trades": 4,
+    "closed": 0,
+    "wins": 0,
+    "avg_trade": 0.0,
+    "cortos": 0
+   },
+   "firma2026": "4ec9ed14b721"
+  },
+  {
+   "id": "559d1d9ba7",
+   "name": "Víctor 6",
+   "born": "2026-11-10",
+   "tf": "1h",
+   "tf_label": "velas de 1 hora",
+   "activo": "BTC-EUR",
+   "personalidad": "prudente",
+   "status": "suspendido",
+   "ideas_internet": [
+    "Cruce de medias 5/20 de Richard Donchian (diario)",
+    "BTC: corto bajo la EMA 20 con salida al superar el máximo anterior (TradingView, 'Short Below 20 EMA')",
+    "BTC: rebote diario a la EMA 21 en tendencia bajista con volumen y ADX (JonnyBtc, corto)",
+    "RSI acumulado de Connors y Alvarez (RSI(2) de dos días bajo 35, aproximado)",
+    "BTC: corto al perder el mínimo previo con giro de tendencia a medio plazo (AIpricepatterns)"
+   ],
+   "padres": [],
+   "estilo": "diario",
+   "eleccion": "diario",
+   "regla": {
+    "regimen": {
+     "ma": 50,
+     "er": 7,
+     "x": 0.3
+    },
+    "alcista": {
+     "escalera": 0,
+     "entry": [
+      [
+       "delta_compra",
+       5,
+       0.02
+      ],
+      [
+       "z_bajo",
+       20,
+       1.0
+      ]
+     ],
+     "exit": [
+      [
+       "z_alto",
+       20,
+       2.5
+      ]
+     ],
+     "stop": 0,
+     "tp": 0.01,
+     "trail": 0.02,
+     "hold": 1,
+     "sizing": "completo",
+     "frac": 1.0,
+     "be": 0.02,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": true,
+     "min_net": 0.007,
+     "lado": "corto"
+    },
+    "lateral": {
+     "escalera": 0.03,
+     "entry": [
+      [
+       "dia_semana",
+       [
+        5,
+        6
+       ]
+      ]
+     ],
+     "exit": [
+      [
+       "llega_vah",
+       0.001
+      ]
+     ],
+     "stop": 0,
+     "tp": 0.015,
+     "trail": 0,
+     "hold": 2,
+     "sizing": "riesgo",
+     "frac": 1.0,
+     "be": 0,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": true,
+     "min_net": 0.015,
+     "lado": "largo"
+    },
+    "bajista": {
+     "entry": [
+      [
+       "cruce_alcista",
+       10,
+       30
+      ],
+      [
+       "impulso_sube",
+       30,
+       0.0
+      ]
+     ],
+     "exit": [
+      [
+       "bajo_media",
+       10
+      ]
+     ],
+     "stop": 2,
+     "tp": 0,
+     "trail": 0.01,
+     "hold": 1,
+     "sizing": "riesgo",
+     "frac": 0.5,
+     "be": 0,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": false,
+     "min_net": 0.01,
+     "lado": "corto",
+     "escalera": 0.03
+    }
+   },
+   "firma": "9b6637d607c4",
+   "label": "Operador diario",
+   "usa_cortos": true,
+   "desc": "Detecta el mercado con la media de 50 días y la tendencia de los últimos 7 días. En mercado alcista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si dominan las compras agresivas durante 5 velas (delta de más del 2 %) y el precio cae 1 desviaciones bajo su media de 20 velas. Sale si el precio sube 2,5 desviaciones sobre su media de 20 velas o el precio cae un 2 % desde el máximo alcanzado (stop que sube con el precio) o gana un 1 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 0,7 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada; cuanto más gana, más ajusta el stop. En mercado lateral: entra si es fin de semana. Sale si llega al techo de la zona de valor (VAH) de la sesión anterior o gana un 2 % o pasan 2 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −3 % y objetivo a +6 %; cada vez que el precio sube un 3 %, stop y objetivo suben otro 3 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Ajusta la posición a la volatilidad. En mercado bajista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si la media de 10 velas está por encima de la de 30 velas y está más alto que hace 30 velas. Sale si el precio está bajo su media de 10 velas o salta un stop dinámico a 2 ATR o el precio cae un 1 % desde el máximo alcanzado (stop que sube con el precio) o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −3 % y objetivo a +6 %; cada vez que el precio sube un 3 %, stop y objetivo suben otro 3 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad.",
+   "invento": {
+    "desc": "Detecta el mercado con la media de 50 días y la tendencia de los últimos 7 días. En mercado alcista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si dominan las compras agresivas durante 5 velas (delta de más del 2 %) y el precio cae 1 desviaciones bajo su media de 20 velas. Sale si el precio sube 2,5 desviaciones sobre su media de 20 velas o el precio cae un 2 % desde el máximo alcanzado (stop que sube con el precio) o gana un 1 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 0,7 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada; cuanto más gana, más ajusta el stop. En mercado lateral: entra si es fin de semana. Sale si llega al techo de la zona de valor (VAH) de la sesión anterior o gana un 2 % o pasan 2 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −3 % y objetivo a +6 %; cada vez que el precio sube un 3 %, stop y objetivo suben otro 3 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Ajusta la posición a la volatilidad. En mercado bajista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si la media de 10 velas está por encima de la de 30 velas y está más alto que hace 30 velas. Sale si el precio está bajo su media de 10 velas o salta un stop dinámico a 2 ATR o el precio cae un 1 % desde el máximo alcanzado (stop que sube con el precio) o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Escalera: empieza con stop a −3 % y objetivo a +6 %; cada vez que el precio sube un 3 %, stop y objetivo suben otro 3 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 124.79,
+     "ret": 0.2479,
+     "fees": 22.07,
+     "maxdd": 0.1743,
+     "dead": false,
+     "trades": 228,
+     "closed": 221,
+     "wins": 134,
+     "avg_trade": 0.001,
+     "cortos": 14
+    },
+    "validacion": {
+     "final": 91.14,
+     "ret": -0.0886,
+     "fees": 10.57,
+     "maxdd": 0.1806,
+     "dead": false,
+     "trades": 116,
+     "closed": 111,
+     "wins": 58,
+     "avg_trade": -0.001,
+     "cortos": 7
+    },
+    "generaciones": [
+     0.4592,
+     0.4592,
+     0.4987,
+     0.5215,
+     0.6188,
+     0.2626,
+     0.2626,
+     0.2626,
+     0.2681,
+     0.332,
+     0.332,
+     0.3489,
+     0.3489,
+     0.3489,
+     0.2479
+    ],
+    "semanas_entreno": {
+     "semanas": 209,
+     "sem_pos": 0.5789473684210527,
+     "sem_objetivo": 0.3923444976076555,
+     "sem_neg": 0.41148325358851673,
+     "media_sem": 0.0012966424808369583,
+     "peor_sem": -0.07998501662296209,
+     "ops_sem": 1.0909090909090908,
+     "dias_sem": 1.0813397129186604
+    },
+    "semanas_validacion": {
+     "semanas": 105,
+     "sem_pos": 0.4857142857142857,
+     "sem_objetivo": 0.2857142857142857,
+     "sem_neg": 0.4857142857142857,
+     "media_sem": -0.0007029007753525552,
+     "peor_sem": -0.056754150026493755,
+     "ops_sem": 1.1047619047619048,
+     "dias_sem": 1.0666666666666667
+    }
+   },
+   "suerte": {
+    "variantes": 6,
+    "siguen_ganando": 0
+   },
+   "exam": {
+    "final": 101.85,
+    "ret": 0.0185,
+    "fees": 13.11,
+    "maxdd": 0.2658,
+    "dead": false,
+    "trades": 112,
+    "closed": 109,
+    "wins": 67,
+    "avg_trade": 0.0009,
+    "cortos": 4
+   },
+   "exam_semanas": {
+    "semanas": 105,
+    "sem_pos": 0.5904761904761905,
+    "sem_objetivo": 0.37142857142857144,
+    "sem_neg": 0.4,
+    "media_sem": 0.00037287820273770736,
+    "peor_sem": -0.07957921714806337,
+    "ops_sem": 1.0666666666666667,
+    "dias_sem": 1.0571428571428572
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: puede ser suerte: con pequeños cambios solo 0 de 6 versiones siguen ganando en 2022–23; en 2022–23 perdió un 8,9 % (mínimo +0 %); en 2022–23 operó 1,1 días por semana (mínimo 1,5); en 2022–23 de media gana un -0,10 % por operación tras comisiones (mínimo 0 %); operó 1,1 días por semana (mínimo 2); llegó a caer un 27 % (máximo 20 %); de media gana un 0,09 % por operación tras comisiones (mínimo 0,2 %)."
+  },
+  {
+   "id": "8653dab2f2",
+   "name": "Alma 6",
+   "born": "2026-11-10",
+   "tf": "1h",
+   "tf_label": "velas de 1 hora",
+   "activo": "ETH-EUR",
+   "personalidad": "atrevido",
+   "status": "suspendido",
+   "ideas_internet": [
+    "ETH, SOL y XRP: pila de medias 8/21/55 bajista en corto (PineForge Triple EMA invertida, aproximado)",
+    "ETH, SOL y XRP: rebote con volumen menguante y vela bajista con volumen (The Right Trader, corto, aproximado)",
+    "ETH: ruptura tras medias apretadas con baja volatilidad (Gate Research, aproximado)",
+    "Altcoins: compra en la línea baja de un canal alcista (altFINS)",
+    "Altcoins: retroceso en tendencia fuerte con MACD a favor (altFINS)"
+   ],
+   "padres": [],
+   "estilo": "diario",
+   "eleccion": "diario",
+   "regla": {
+    "regimen": {
+     "ma": 50,
+     "er": 3,
+     "x": 0.15
+    },
+    "alcista": {
+     "escalera": 0,
+     "entry": [
+      [
+       "ema_cruza_vwap",
+       9
+      ]
+     ],
+     "exit": [
+      [
+       "bajo_ema",
+       21
+      ]
+     ],
+     "stop": 0,
+     "tp": 0.05,
+     "trail": 0.03,
+     "hold": 1,
+     "sizing": "riesgo",
+     "frac": 1.0,
+     "be": 0.02,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": true,
+     "min_net": 0.015,
+     "lado": "largo"
+    },
+    "lateral": {
+     "escalera": 0.02,
+     "entry": [
+      [
+       "ruptura_volumen",
+       4800,
+       1.5
+      ],
+      [
+       "doble_suelo",
+       60,
+       0.03
+      ]
+     ],
+     "exit": [
+      [
+       "bajo_ema",
+       9
+      ]
+     ],
+     "stop": 3,
+     "tp": 0.01,
+     "trail": 0.03,
+     "hold": 1,
+     "sizing": "completo",
+     "frac": 0.5,
+     "be": 0,
+     "stall": 1,
+     "pyr": 0,
+     "shrink": false,
+     "min_net": 0.007,
+     "lado": "largo"
+    },
+    "bajista": {
+     "entry": [
+      [
+       "cruce_alcista",
+       8,
+       21
+      ],
+      [
+       "cruce_alcista",
+       21,
+       55
+      ]
+     ],
+     "exit": [
+      [
+       "cruce_bajista",
+       8,
+       21
+      ]
+     ],
+     "stop": 3,
+     "tp": 0.05,
+     "trail": 0.03,
+     "hold": 2,
+     "sizing": "riesgo",
+     "frac": 0.5,
+     "be": 0,
+     "stall": 0,
+     "pyr": 0,
+     "shrink": false,
+     "salida_siempre": true,
+     "lado": "corto",
+     "min_net": 0.01
+    }
+   },
+   "firma": "35de72ab9be9",
+   "label": "Operador diario",
+   "usa_cortos": true,
+   "desc": "Detecta el mercado con la media de 50 días y la tendencia de los últimos 3 días. En mercado alcista: entra si la EMA de 9 velas cruza hacia arriba el VWAP del día. Sale si una vela cierra por debajo de la EMA de 21 velas o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 5 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada; cuanto más gana, más ajusta el stop. Ajusta la posición a la volatilidad. En mercado lateral: entra si rompe el máximo de 200 días con 1,5 veces el volumen normal y completa un doble suelo (W) en las últimas 60 velas. Sale si una vela cierra por debajo de la EMA de 9 velas o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 1 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 0,7 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: si en 1 día no avanza, acerca el stop a un 1,5 %. Escalera: empieza con stop a −2 % y objetivo a +4 %; cada vez que el precio sube un 2 %, stop y objetivo suben otro 2 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Usa el 50 % del fondo en cada operación. En mercado bajista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si la media de 8 velas está por encima de la de 21 velas y la media de 21 velas está por encima de la de 55 velas. Sale si la media de 8 velas está por debajo de la de 21 velas o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 5 % o pasan 2 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad.",
+   "invento": {
+    "desc": "Detecta el mercado con la media de 50 días y la tendencia de los últimos 3 días. En mercado alcista: entra si la EMA de 9 velas cruza hacia arriba el VWAP del día. Sale si una vela cierra por debajo de la EMA de 21 velas o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 5 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,5 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: al ganar un 2 % sube el stop al precio de entrada; cuanto más gana, más ajusta el stop. Ajusta la posición a la volatilidad. En mercado lateral: entra si rompe el máximo de 200 días con 1,5 veces el volumen normal y completa un doble suelo (W) en las últimas 60 velas. Sale si una vela cierra por debajo de la EMA de 9 velas o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 1 % o pasan 1 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 0,7 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: si en 1 día no avanza, acerca el stop a un 1,5 %. Escalera: empieza con stop a −2 % y objetivo a +4 %; cada vez que el precio sube un 2 %, stop y objetivo suben otro 2 % (si sigue subiendo, sigue dentro; si se da la vuelta, sale con lo ya asegurado), Usa el 50 % del fondo en cada operación. En mercado bajista: VENDE EN CORTO (gana si el precio baja), usando las reglas sobre el gráfico dado la vuelta: vENDE EN CORTO (gana cuando el precio baja), con las reglas aplicadas al gráfico dado la vuelta: entra si la media de 8 velas está por encima de la de 21 velas y la media de 21 velas está por encima de la de 55 velas. Sale si la media de 8 velas está por debajo de la de 21 velas o salta un stop dinámico a 3 ATR o el precio cae un 3 % desde el máximo alcanzado (stop que sube con el precio) o gana un 5 % o pasan 2 días. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Usa el 50 % del fondo en cada operación. Ajusta la posición a la volatilidad.",
+    "entreno": {
+     "final": 426.3,
+     "ret": 3.263,
+     "fees": 69.28,
+     "maxdd": 0.1279,
+     "dead": false,
+     "trades": 480,
+     "closed": 469,
+     "wins": 228,
+     "avg_trade": 0.0031,
+     "cortos": 207
+    },
+    "validacion": {
+     "final": 80.96,
+     "ret": -0.1904,
+     "fees": 15.57,
+     "maxdd": 0.3545,
+     "dead": false,
+     "trades": 234,
+     "closed": 224,
+     "wins": 88,
+     "avg_trade": -0.0009,
+     "cortos": 121
+    },
+    "generaciones": [
+     0.2324,
+     0.2324,
+     0.859,
+     1.4462,
+     1.9028,
+     3.1091,
+     1.9003,
+     1.9003,
+     3.1799,
+     3.4644,
+     3.4644,
+     3.4649,
+     3.3094,
+     3.3094,
+     3.263
+    ],
+    "semanas_entreno": {
+     "semanas": 209,
+     "sem_pos": 0.5789473684210527,
+     "sem_objetivo": 0.41626794258373206,
+     "sem_neg": 0.40669856459330145,
+     "media_sem": 0.007371773615129853,
+     "peor_sem": -0.07296960411762876,
+     "ops_sem": 2.2966507177033493,
+     "dias_sem": 2.0669856459330145
+    },
+    "semanas_validacion": {
+     "semanas": 105,
+     "sem_pos": 0.4095238095238095,
+     "sem_objetivo": 0.3047619047619048,
+     "sem_neg": 0.580952380952381,
+     "media_sem": -0.0016214311070912027,
+     "peor_sem": -0.11519998175876323,
+     "ops_sem": 2.2285714285714286,
+     "dias_sem": 2.085714285714286
+    }
+   },
+   "suerte": {
+    "variantes": 6,
+    "siguen_ganando": 0
+   },
+   "exam": {
+    "final": 148.67,
+    "ret": 0.4867,
+    "fees": 19.92,
+    "maxdd": 0.3283,
+    "dead": false,
+    "trades": 238,
+    "closed": 233,
+    "wins": 102,
+    "avg_trade": 0.0022,
+    "cortos": 115
+   },
+   "exam_semanas": {
+    "semanas": 105,
+    "sem_pos": 0.42857142857142855,
+    "sem_objetivo": 0.3333333333333333,
+    "sem_neg": 0.5238095238095238,
+    "media_sem": 0.0042986566825255375,
+    "peor_sem": -0.054960109672619994,
+    "ops_sem": 2.2666666666666666,
+    "dias_sem": 2.1333333333333333
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: puede ser suerte: con pequeños cambios solo 0 de 6 versiones siguen ganando en 2022–23; en 2022–23 perdió un 19,0 % (mínimo +0 %); en 2022–23 llegó a caer un 35 % (máximo 30 %); en 2022–23 de media gana un -0,09 % por operación tras comisiones (mínimo 0 %); solo acabó en positivo el 43 % de las semanas (mínimo 55 %); llegó a caer un 33 % (máximo 20 %)."
+  },
+  {
+   "id": "5adc331ebc",
+   "name": "Biel 6",
+   "born": "2026-11-10",
+   "tf": "4h",
+   "tf_label": "velas de 4 horas",
+   "activo": "BTC-EUR",
+   "personalidad": "prudente",
+   "status": "suspendido",
+   "ideas_internet": [
+    "TRIX positivo con mercado en tendencia y objetivo fijo (BVLabs, Alpha TRIX, aproximado)",
+    "BTC: retroceso diario a la EMA 21 con volumen y ADX (JonnyBtc)",
+    "Cruce bajista de EMAs 5/8 con filtro ADX y salida sobre la EMA 13 (sebamarghella SM-042, corto)",
+    "Piramidar a favor: media posición y completar con +5 % (TradersPost)",
+    "Retroceso tras el cruce 100/200 con el oscilador saliendo de sobreventa (Babypips, aproximado)"
+   ],
+   "padres": [
+    "Diego",
+    "Marcos 3"
+   ],
+   "estudio": {
+    "probadas": 117,
+    "familia": "sma",
+    "label": "Cruce de medias móviles",
+    "desc": "media 10 / 100 velas; stop dinámico a 2,5 ATR",
+    "entreno": {
+     "final": 1035.06,
+     "ret": 9.3506,
+     "fees": 33.3,
+     "maxdd": 0.2981,
+     "dead": false,
+     "trades": 69,
+     "closed": 69,
+     "wins": 29,
+     "avg_trade": 0.0416,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 190.7,
+     "ret": 0.907,
+     "fees": 5.45,
+     "maxdd": 0.1711,
+     "dead": false,
+     "trades": 38,
+     "closed": 38,
+     "wins": 17,
+     "avg_trade": 0.0196,
+     "cortos": 0
+    }
+   },
+   "invento": {
+    "desc": "Entra si la media de 10 velas está por encima de la de 100 velas. Sale si la media de 5 velas está por debajo de la de 20 velas o salta un stop dinámico a 2.5 ATR. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: si en 7 días no avanza, acerca el stop a un 1,5 %.",
+    "entreno": {
+     "final": 1318.5,
+     "ret": 12.185,
+     "fees": 67.28,
+     "maxdd": 0.2457,
+     "dead": false,
+     "trades": 105,
+     "closed": 105,
+     "wins": 67,
+     "avg_trade": 0.0268,
+     "cortos": 0
+    },
+    "validacion": {
+     "final": 141.5,
+     "ret": 0.415,
+     "fees": 6.69,
+     "maxdd": 0.2337,
+     "dead": false,
+     "trades": 56,
+     "closed": 56,
+     "wins": 26,
+     "avg_trade": 0.0076,
+     "cortos": 0
+    },
+    "generaciones": [
+     12.5671,
+     12.5671,
+     12.5671,
+     12.5671,
+     12.5671,
+     11.7369,
+     11.7369,
+     11.7369,
+     11.7369,
+     11.7369,
+     11.7369,
+     11.7733,
+     11.7733,
+     11.7733,
+     12.185
+    ]
+   },
+   "eleccion": "propia",
+   "cambio_por_copia": true,
+   "usa_cortos": false,
+   "genome": {
+    "family": "sma",
+    "filter": "ninguno",
+    "stop": 2.5,
+    "sizing": "completo"
+   },
+   "params": {
+    "fast": 10,
+    "slow": 100
+   },
+   "regla": {
+    "entry": [
+     [
+      "cruce_alcista",
+      10,
+      100
+     ]
+    ],
+    "exit": [
+     [
+      "cruce_bajista",
+      5,
+      20
+     ]
+    ],
+    "stop": 2.5,
+    "tp": 0,
+    "hold": 0,
+    "sizing": "completo",
+    "trail": 0,
+    "frac": 1.0,
+    "be": 0,
+    "stall": 7,
+    "pyr": 0,
+    "shrink": false,
+    "min_net": 0.01,
+    "escalera": 0
+   },
+   "firma": "0f6191a30e6b",
+   "label": "Estrategia propia",
+   "desc": "Entra si la media de 10 velas está por encima de la de 100 velas. Sale si la media de 5 velas está por debajo de la de 20 velas o salta un stop dinámico a 2.5 ATR. Solo cierra por su señal de salida si el precio ya ha subido al menos un 1,0 % desde la compra, para cubrir comisiones y ganar (los stops cierran siempre). Gestión: si en 7 días no avanza, acerca el stop a un 1,5 %.",
+   "exam": {
+    "final": 106.23,
+    "ret": 0.0623,
+    "fees": 8.07,
+    "maxdd": 0.3756,
+    "dead": false,
+    "trades": 58,
+    "closed": 57,
+    "wins": 27,
+    "avg_trade": 0.0038,
+    "cortos": 0
+   },
+   "examinado": "2026-11-10",
+   "motivo": "No aprobó: ganó +6,2 % (mínimo +10 %); de media gana un 0,4 % por operación tras comisiones (mínimo 1 %)."
   }
  ],
  "creado": "2026-10-15",
@@ -77563,6 +79504,14 @@
     "Equipo Tortuga: Equipo desde el 09/11: Marta 3 (ETH), Zoe (BTC), Úrsula (BTC), Luis 6 (ETH), Nuria 5 ↓ (XRP).",
     "Equipo Lobo: Equipo desde el 09/11: Paula 5 (BTC), Úrsula (BTC), Tomás 5 (ETH), Marta 3 (ETH)."
    ]
+  },
+  {
+   "fecha": "2026-11-10",
+   "estados": {
+    "suspendido": 354,
+    "simulado": 71
+   },
+   "novedades": []
   }
  ],
  "informes": [
@@ -78511,9 +80460,9 @@
    "generado": "2026-11-01"
   }
  ],
- "actualizado": "2026-11-09",
- "ultimo_dia_con_datos": "2026-11-08",
- "precio_btc_eur": 67078.0,
+ "actualizado": "2026-11-10",
+ "ultimo_dia_con_datos": "2026-11-09",
+ "precio_btc_eur": 67085.0,
  "kronos_cobertura": {
   "1d": 1.0,
   "4h": 1.0
@@ -78559,12 +80508,21 @@
     "pct": -0.01084,
     "ops": 5,
     "dias_con_ops": 3
+   },
+   {
+    "inicio": "2026-11-09",
+    "fin": "2026-11-09",
+    "completa": false,
+    "eur": -40.46,
+    "pct": -0.00584,
+    "ops": 0,
+    "dias_con_ops": 0
    }
   ],
   "ayer": {
-   "fecha": "2026-11-08",
-   "eur": -31.45,
-   "ops": 3
+   "fecha": "2026-11-09",
+   "eur": -40.46,
+   "ops": 0
   }
  },
  "equipos": {
@@ -78753,14 +80711,14 @@
      "cumple": null
     }
    ],
-   "valor": 95.18,
-   "dias": 21,
+   "valor": 95.12,
+   "dias": 22,
    "stats": {
-    "ret": -0.04819474748215047,
+    "ret": -0.04884438196978114,
     "verde": 0.0,
     "peor": -0.03281423250493809,
     "dd": 0.07091738458043884,
-    "semanas": 3
+    "semanas": 4
    },
    "semanas": [
     {
@@ -78780,6 +80738,12 @@
      "completa": true,
      "eur": -0.6,
      "pct": -0.00631
+    },
+    {
+     "inicio": "2026-11-09",
+     "completa": false,
+     "eur": -0.06,
+     "pct": -0.00068
     }
    ],
    "ahora": [
@@ -78788,7 +80752,7 @@
      "name": "Marta 3",
      "activo": "ETH-EUR",
      "tf": "4h",
-     "euros": 42.83,
+     "euros": 42.8,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -78801,7 +80765,7 @@
      "name": "Zoe",
      "activo": "BTC-EUR",
      "tf": "1h",
-     "euros": 42.83,
+     "euros": 42.8,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -78822,7 +80786,7 @@
      "contra_tendencia": true,
      "detalle": {
       "historial": 0.583,
-      "maquina": 0.372,
+      "maquina": 0.349,
       "objetivo": 0.254,
       "stop": 0.0227,
       "asegurada": false
@@ -78838,7 +80802,9 @@
     "5f51ae0bb8": 0.47,
     "1bb31aa54b": 0.39,
     "f5c86dff42": -4.34,
-    "3f967f4042": 0.1
+    "3f967f4042": 0.1,
+    "d204717343": 0.14,
+    "aa133a1e7a": -0.21
    },
    "curva": [
     99.97,
@@ -78861,7 +80827,8 @@
     94.54,
     95.22,
     95.24,
-    95.18
+    95.18,
+    95.12
    ]
   },
   "lobo": {
@@ -79055,14 +81022,14 @@
      "cumple": null
     }
    ],
-   "valor": 94.65,
-   "dias": 21,
+   "valor": 94.59,
+   "dias": 22,
    "stats": {
-    "ret": -0.05350054171923291,
+    "ret": -0.05412734999561197,
     "verde": 0.0,
     "peor": -0.02645346254342318,
     "dd": 0.07113213368930947,
-    "semanas": 3
+    "semanas": 4
    },
    "semanas": [
     {
@@ -79082,6 +81049,12 @@
      "completa": true,
      "eur": -1.5,
      "pct": -0.01557
+    },
+    {
+     "inicio": "2026-11-09",
+     "completa": false,
+     "eur": -0.06,
+     "pct": -0.00066
     }
    ],
    "ahora": [
@@ -79090,7 +81063,7 @@
      "name": "Paula 5",
      "activo": "BTC-EUR",
      "tf": "1d",
-     "euros": 31.55,
+     "euros": 31.53,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -79111,7 +81084,7 @@
      "contra_tendencia": true,
      "detalle": {
       "historial": 0.583,
-      "maquina": 0.372,
+      "maquina": 0.349,
       "objetivo": 0.254,
       "stop": 0.0227,
       "asegurada": false
@@ -79122,26 +81095,20 @@
      "name": "Tomás 5",
      "activo": "ETH-EUR",
      "tf": "1d",
-     "euros": 31.55,
+     "euros": 31.53,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
      "ganancia": 0.0,
      "contra_tendencia": false,
-     "detalle": {
-      "historial": 0.414,
-      "maquina": 0.349,
-      "objetivo": 0.0507,
-      "stop": 0.1,
-      "asegurada": false
-     }
+     "detalle": null
     },
     {
      "id": "d204717343",
      "name": "Marta 3",
      "activo": "ETH-EUR",
      "tf": "4h",
-     "euros": 31.55,
+     "euros": 31.53,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -79163,7 +81130,10 @@
     "1bb31aa54b": 0.25,
     "f5c86dff42": -3.74,
     "aa133a1e7a": 0.25,
-    "3f967f4042": 0.14
+    "3f967f4042": 0.14,
+    "7ed579b3b4": -0.16,
+    "72f626fa93": -0.01,
+    "d204717343": 0.11
    },
    "curva": [
     99.97,
@@ -79186,7 +81156,8 @@
     94.29,
     94.69,
     94.71,
-    94.65
+    94.65,
+    94.59
    ]
   },
   "tortuga": {
@@ -79384,14 +81355,14 @@
      "cumple": null
     }
    ],
-   "valor": 94.67,
-   "dias": 21,
+   "valor": 94.48,
+   "dias": 22,
    "stats": {
-    "ret": -0.0532506944623754,
+    "ret": -0.055178393484207056,
     "verde": 0.0,
     "peor": -0.03264473455531691,
     "dd": 0.07523528897922675,
-    "semanas": 3
+    "semanas": 4
    },
    "semanas": [
     {
@@ -79411,6 +81382,12 @@
      "completa": true,
      "eur": -0.99,
      "pct": -0.01037
+    },
+    {
+     "inicio": "2026-11-09",
+     "completa": false,
+     "eur": -0.19,
+     "pct": -0.00204
     }
    ],
    "ahora": [
@@ -79419,7 +81396,7 @@
      "name": "Marta 3",
      "activo": "ETH-EUR",
      "tf": "4h",
-     "euros": 8.94,
+     "euros": 8.92,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -79432,7 +81409,7 @@
      "name": "Zoe",
      "activo": "BTC-EUR",
      "tf": "1h",
-     "euros": 8.94,
+     "euros": 8.92,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -79453,7 +81430,7 @@
      "contra_tendencia": true,
      "detalle": {
       "historial": 0.583,
-      "maquina": 0.372,
+      "maquina": 0.349,
       "objetivo": 0.254,
       "stop": 0.0227,
       "asegurada": false
@@ -79464,7 +81441,7 @@
      "name": "Luis 6",
      "activo": "ETH-EUR",
      "tf": "4h",
-     "euros": 8.94,
+     "euros": 8.92,
      "invertido": 0.0,
      "posicion": 0.0,
      "prob": 0.0,
@@ -79477,15 +81454,15 @@
      "name": "Nuria 5 ↓",
      "activo": "XRP-EUR",
      "tf": "1d",
-     "euros": 25.77,
-     "invertido": 12.89,
+     "euros": 25.72,
+     "invertido": 12.86,
      "posicion": 0.5,
      "prob": 0.203,
      "ganancia": 0.0789,
      "contra_tendencia": false,
      "detalle": {
       "historial": 0.203,
-      "maquina": 0.637,
+      "maquina": 0.674,
       "objetivo": 0.0789,
       "stop": 0.0225,
       "asegurada": false
@@ -79503,12 +81480,15 @@
     "1e0c0d5f07": -0.03,
     "21fad22bf0": -0.03,
     "f5c86dff42": -4.19,
-    "d204717343": 0.2,
+    "d204717343": 0.29,
     "6ad0d34471": 0.2,
     "1bb31aa54b": 0.2,
     "89409479ea": -0.56,
     "3f967f4042": 0.33,
-    "3b92b16436": -0.08
+    "3b92b16436": -0.08,
+    "aa133a1e7a": -0.13,
+    "9e13affd5d": -0.13,
+    "f0ed328c51": -0.03
    },
    "curva": [
     100.01,
@@ -79531,30 +81511,31 @@
     94.04,
     94.72,
     94.74,
-    94.67
+    94.67,
+    94.48
    ]
   }
  },
  "mercados": {
   "BTC-EUR": {
-   "precio": 67078.0,
-   "semana": -0.0441,
-   "mes": -0.0904
+   "precio": 67085.0,
+   "semana": -0.0211,
+   "mes": -0.0942
   },
   "ETH-EUR": {
-   "precio": 1906.86,
-   "semana": -0.0641,
-   "mes": -0.1411
+   "precio": 1898.95,
+   "semana": -0.0553,
+   "mes": -0.151
   },
   "SOL-EUR": {
-   "precio": 77.564,
-   "semana": -0.0835,
-   "mes": -0.2037
+   "precio": 77.215,
+   "semana": -0.0591,
+   "mes": -0.214
   },
   "XRP-EUR": {
-   "precio": 0.9976,
-   "semana": -0.1091,
-   "mes": -0.1993
+   "precio": 0.9785,
+   "semana": -0.1226,
+   "mes": -0.2178
   }
  }
 }
