@@ -727,3 +727,20 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** Sin los de 1 h, los equipos sueltos cumplen algo más a menudo (700 → 750) y caen menos (casos con caída > 25 %: 80 → 40), pero el podio, que es lo que de verdad opera, no mejora (131 = 131), los tríos con alguno que cumple y los de orden de tiempo bajan (50 → 48, 23 → 19), 2022 baja (5 → 3) y la ganancia en 2023 cae bastante. Solo velas diarias es peor en todo salvo 2023. No es una mejora clara ni robusta; no se integró nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "quitar temporalidades de la cantera de los equipos" (sin 1 h, solo 1 d). No repetir. Si algún día las caídas grandes vuelven a ser el problema, quitar los de 1 h las reduce a la mitad sin perder podios. Base del banco hoy (391 agentes, post): 700 · 131.
+
+## 2026-11-11 10:45 (hora de Madrid) — "Candado de fin de semana": asegurar la semana el sábado/domingo si ya va en verde
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 11/11, datos hasta el 10/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** lo que más falla es la condición de semanas (mediana ~55 %, muy justa). El candado semanal del 24/10 (pasar a USDC en cuanto la semana gana un X %) subía las semanas pero se comía la rentabilidad, porque dejaba fuera casi toda la semana; además se probó antes del filtro de tendencia, del asegurar la mitad y del reparto medio, y solo con 2022–23. Si el candado se pone **solo el fin de semana** (desde el cierre del viernes o del sábado, si la semana ya va en verde), debería convertir en verdes las semanas que van justas perdiendo mucha menos ganancia. Nunca probado así. Se puede hacer por la API (vender y volver a comprar el lunes).
+- **Qué probé (en una copia, `experimentos/banco/m2lock.py` sobre `m1.py` → `m2ens.py ENS=post` → `m3x.py` / `m3c22.py` / `pares_ab.py`):** **ss0** = sábado y domingo fuera si la semana gana > 0 %; **s0** = solo domingo; **ssh** = sábado y domingo con la mitad; **ss1** / **s1** = igual que ss0 / s0 pero solo si la semana ya gana > 1 %. Salir y volver a entrar paga el coste de reparto habitual (0,2 % del dinero movido); el dinero fuera espera en USDC. Los equipos se forman y se juzgan ya con el candado (como haría `build`).
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 400 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad, dinero sin repartir en USDC y reparto medio actuales.
+- **Resultado (pares de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída · casos con caída > 25 %):**
+  - **base 714 · 131 [34/34/36/5/22] · 50 · 22 · +46 % / 55 % / 12 % · 75**
+  - ss0 661 · 125 [32/31/35/5/22] · 49 · 21 · +33 % / 57 % / 13 % · 67
+  - s0 673 · 131 [32/34/36/5/24] · 50 · 22 · +41 % / 55 % / 12 % · 66
+  - ssh 724 · 129 [33/29/36/6/25] · 50 · 22 · +43 % / 57 % / 12 % · 62
+  - ss1 741 · 126 [33/32/36/5/20] · 49 · 22 · +37 % / 57 % / 12 % · 63
+  - s1 703 · 123 [30/33/36/3/21] · 46 · 20 · +44 % / 55 % / 12 % · 62
+  - Pares A→B: el candado ayuda mucho cuando B = 2022 (p. ej. 2019→2022: 9 → 21–28; 2020→2022: 13 → 28–35 con ss0/ssh/ss1) pero empeora cuando B es alcista o 2023 (2023→2019: 48 → 18 con ss0; 2022→2023: 12 → 2–10). Solo 2022 / 2023 (de 36): base 5 y 22 · ss0 5 y 22 · s0 5 y 24 · ssh 6 y 25 · ss1 5 y 20 · s1 3 y 21.
+- **Conclusión: no se queda.** Sube las semanas en verde 1–2 puntos (sábado y domingo) pero cobra en rentabilidad (−3 a −13 puntos de mediana: dos idas y vueltas por semana a 0,2 %) y el podio, que es lo que opera, no mejora en ninguna variante (123–131 frente a 131; todo dentro del ruido de ±8). Lo que gana en los años bajistas lo pierde en los alcistas. No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "candado de fin de semana" (sáb+dom o solo dom, umbral 0 o +1 %, entero o la mitad). No repetir. Con este y el del 24/10, los candados semanales quedan descartados. Base del banco hoy (400 agentes, post): 714 · 131.
