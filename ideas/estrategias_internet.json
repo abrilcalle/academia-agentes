@@ -25057,6 +25057,1041 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "Aberration de Keith Fitschen (media de 80 y 2 desviaciones, diario)",
+      "fuente": "Keith Fitschen, sistema Aberration (1993; media de 80 días con bandas de 2 desviaciones, entrada al cerrar fuera de la banda y salida al volver a la media); versión en TradingView 'Aberration Trend Following Strategy' (https://in.tradingview.com/script/MHCzo0OZ-Aberration-Trend-Following-Strategy)",
+      "idea": "En velas diarias, comprar cuando el cierre supera la banda superior de 2 desviaciones de la media de 80 y mantener hasta que el precio vuelva bajo la media.",
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            80,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            80
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Aberration de Keith Fitschen en corto (diario)",
+      "fuente": "Keith Fitschen, sistema Aberration (1993; media de 80 días con bandas de 2 desviaciones, entrada al cerrar fuera de la banda y salida al volver a la media); versión en TradingView 'Aberration Trend Following Strategy' (https://in.tradingview.com/script/MHCzo0OZ-Aberration-Trend-Following-Strategy) — lado corto",
+      "idea": "En velas diarias de altcoins, vender en corto cuando el cierre cae bajo la banda inferior de 2 desviaciones de la media de 80 y cubrir al recuperar la media.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            80,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            80
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Bollinger Bandit de George Pruitt (50 / 1,25 con ROC de 30, diario)",
+      "fuente": "George Pruitt, sistema Bollinger Bandit (media de 50 con bandas de 1,25 desviaciones, filtro de ROC de 30 días y salida en una media que se acorta de 50 a 10 días) (https://www.prorealcode.com/prorealtime-indicators/bollinger-bandit/); George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html)",
+      "idea": "En diario, comprar al cerrar sobre la banda de 1,25 desviaciones de la media de 50 si el precio está más alto que hace 30 días, y salir al perder una media más corta (aproximada con la de 30).",
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            50,
+            1.25
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            30
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Bollinger Bandit de George Pruitt en corto (diario)",
+      "fuente": "George Pruitt, sistema Bollinger Bandit (media de 50 con bandas de 1,25 desviaciones, filtro de ROC de 30 días y salida en una media que se acorta de 50 a 10 días) (https://www.prorealcode.com/prorealtime-indicators/bollinger-bandit/); George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — lado corto",
+      "idea": "En diario, vender en corto al cerrar bajo la banda inferior de 1,25 desviaciones de la media de 50 con el precio más bajo que hace 30 días, y cubrir al recuperar la media de 30.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            50,
+            1.25
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            30
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "King Keltner de George Pruitt (media de 40 que sube y ruptura de banda, aproximado)",
+      "fuente": "George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — canal de Keltner de 40 ± 1 ATR aproximado con 1 desviación típica",
+      "idea": "En diario, comprar cuando la media de 40 sube y el precio rompe su banda superior, y salir al volver bajo la media de 40.",
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            40,
+            1.0
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            40
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "King Keltner de George Pruitt en corto (aproximado)",
+      "fuente": "George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — lado corto, banda de Keltner aproximada con 1 desviación típica",
+      "idea": "En SOL y XRP, vender en corto cuando la media de 40 baja y el precio pierde su banda inferior, y cubrir al recuperar la media de 40.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            40,
+            1.0
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            40
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Thermostat de Pruitt: modo tendencia (ruptura de Bollinger 50/2 con mercado direccional)",
+      "fuente": "George Pruitt, sistema Thermostat (cambia entre modo tendencia y modo rango según el Choppy Market Index) (https://www.fmz.com/bbs-topic/9891); George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — Choppy Market Index aproximado con la eficiencia de Kaufman",
+      "idea": "Solo cuando el mercado está en tendencia clara, comprar la ruptura de la banda superior de 2 desviaciones de la media de 50 y salir al perder la media.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            30,
+            0.3
+          ],
+          [
+            "z_alto",
+            50,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Thermostat de Pruitt: modo tendencia en corto",
+      "fuente": "George Pruitt, sistema Thermostat (cambia entre modo tendencia y modo rango según el Choppy Market Index) (https://www.fmz.com/bbs-topic/9891); George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — lado corto, Choppy Market Index aproximado con la eficiencia de Kaufman",
+      "idea": "En altcoins con tendencia bajista clara, vender en corto cuando el precio pierde la banda inferior de 2 desviaciones de la media de 50 y cubrir al recuperarla.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            30,
+            0.3
+          ],
+          [
+            "z_alto",
+            50,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Thermostat de Pruitt: modo rango (comprar abajo con mercado lateral)",
+      "fuente": "George Pruitt, sistema Thermostat (cambia entre modo tendencia y modo rango según el Choppy Market Index) (https://www.fmz.com/bbs-topic/9891); George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — Choppy Market Index aproximado con la eficiencia de Kaufman",
+      "idea": "Cuando el mercado está lateral, comprar el precio estirado 1,5 desviaciones bajo la media de 20 y vender al volver a la media o con un objetivo corto.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            30,
+            0.2
+          ],
+          [
+            "z_bajo",
+            20,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005
+      }
+    },
+    {
+      "nombre": "Dual Thrust en 1 h y 4 h (aproximado)",
+      "fuente": "Michael Chalek, Dual Thrust (rango = máx(HH−LC, HC−LL) de 4 días; compra sobre apertura + 0,5·rango, venta bajo apertura − 0,5·rango), tutorial de QuantConnect (https://www.quantconnect.com/tutorials/strategy-library/dual-thrust-trading-algorithm) — umbral sobre la apertura aproximado con la ruptura del máximo de 24 velas y un empuje mínimo",
+      "idea": "En BTC y ETH, comprar cuando el precio rompe con fuerza el rango de los últimos días y salir si pierde el mínimo de ese rango.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            24
+          ],
+          [
+            "impulso_sube",
+            6,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            24
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Dual Thrust en corto en 1 h y 4 h (aproximado)",
+      "fuente": "Michael Chalek, Dual Thrust (rango = máx(HH−LC, HC−LL) de 4 días; compra sobre apertura + 0,5·rango, venta bajo apertura − 0,5·rango), tutorial de QuantConnect (https://www.quantconnect.com/tutorials/strategy-library/dual-thrust-trading-algorithm) — lado corto, umbral aproximado con la pérdida del mínimo de 24 velas",
+      "idea": "En BTC y ETH, vender en corto cuando el precio rompe con fuerza por debajo del rango de los últimos días y cubrir si recupera el máximo.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            24
+          ],
+          [
+            "impulso_sube",
+            6,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            24
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Smash Day de compra de Larry Williams en altcoins (aproximado)",
+      "fuente": "Larry Williams, Smash Day (día de gran recorrido que cierra bajo el mínimo anterior; comprar al superar su máximo con stop bajo su mínimo), explicado por RoboForex (https://roboforex.com/blog/education/catch-your-smash-day-with-larry-williams/) — aproximado: día volátil que pierde el mínimo reciente en tendencia alcista",
+      "idea": "En SOL y XRP, tras un día de mucho recorrido que cierra bajo los mínimos recientes dentro de una tendencia alcista, comprar el rebote y salir rápido en pocos días.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "pierde_minimo",
+            3
+          ],
+          [
+            "vol_alta",
+            10,
+            0.03
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 4,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Smash Day de venta de Larry Williams en corto (aproximado)",
+      "fuente": "Larry Williams, Smash Day (día de gran recorrido que cierra bajo el mínimo anterior; comprar al superar su máximo con stop bajo su mínimo), explicado por RoboForex (https://roboforex.com/blog/education/catch-your-smash-day-with-larry-williams/) — lado corto, aproximado",
+      "idea": "En ETH y SOL, tras un día de mucho recorrido que cierra sobre los máximos recientes en tendencia bajista, vender en corto la vuelta y cubrir en pocos días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "pierde_minimo",
+            3
+          ],
+          [
+            "vol_alta",
+            10,
+            0.03
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 4,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ross Hook de Joe Ross en altcoins (aproximado)",
+      "fuente": "Joe Ross, Ross Hook (tras un 1-2-3, primer fallo en hacer un máximo nuevo; entrada al superar el gancho y objetivo medido), explicado por FXOpen (https://fxopen.com/blog/en/how-to-trade-with-a-ross-hook-pattern) — gancho aproximado con la ruptura del máximo de 10 velas en tendencia",
+      "idea": "En SOL y XRP con tendencia alcista, comprar cuando el precio supera el máximo del gancho tras una pausa, con objetivo medido y stop a break-even al avanzar.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Ross Hook de Joe Ross en corto (aproximado)",
+      "fuente": "Joe Ross, Ross Hook (tras un 1-2-3, primer fallo en hacer un máximo nuevo; entrada al superar el gancho y objetivo medido), explicado por FXOpen (https://fxopen.com/blog/en/how-to-trade-with-a-ross-hook-pattern) — lado corto, gancho aproximado con la pérdida del mínimo de 10 velas",
+      "idea": "En XRP con tendencia bajista, vender en corto cuando el precio pierde el mínimo del gancho y cubrir con objetivo medido o al recuperar la EMA 20.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: giro 1-2-3 alcista (The Right Trader, aproximado)",
+      "fuente": "The Right Trader, '1-2-3 Reversal' (punto 1 = mínimo final, 2 = máximo de la corrección, 3 = mínimo más alto; compra al romper el punto 2, stop bajo el 3, objetivo 2R) (https://therighttrader.com/learn/trading-strategies/one-two-three-reversal) — puntos 1 y 3 aproximados con un doble suelo de tolerancia amplia",
+      "idea": "En ETH bajo su media de 50, cuando se forma un mínimo más alto que el anterior y el precio rompe el máximo intermedio, comprar con stop bajo el punto 3 y objetivo de 2R.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "doble_suelo",
+            30,
+            0.05
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y XRP: giro 1-2-3 bajista en corto (The Right Trader, aproximado)",
+      "fuente": "The Right Trader, '1-2-3 Reversal' (punto 1 = mínimo final, 2 = máximo de la corrección, 3 = mínimo más alto; compra al romper el punto 2, stop bajo el 3, objetivo 2R) (https://therighttrader.com/learn/trading-strategies/one-two-three-reversal) — lado corto, aproximado con un doble techo de tolerancia amplia",
+      "idea": "En ETH y XRP sobre su media de 50, cuando se forma un máximo más bajo y el precio pierde el mínimo intermedio, vender en corto con objetivo de 2R.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "doble_suelo",
+            30,
+            0.05
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Retroceso en dos patas a la EMA 20 de Al Brooks (M2B, aproximado)",
+      "fuente": "Trading Setups Review, 'Two-legged Pullback to Moving Average (M2B, M2S)', setup de Al Brooks (https://www.tradingsetupsreview.com/two-legged-pullback-to-moving-average-m2b-m2s) — dos patas aproximadas con el precio de vuelta bajo la EMA 20 en tendencia",
+      "idea": "En tendencia alcista fuerte, cuando el precio retrocede hasta la EMA 20 manteniéndose sobre la media de 50, comprar buscando la continuación con objetivo corto.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            30,
+            0.35
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Rebote en dos patas a la EMA 20 de Al Brooks en corto (M2S, aproximado)",
+      "fuente": "Trading Setups Review, 'Two-legged Pullback to Moving Average (M2B, M2S)', setup de Al Brooks (https://www.tradingsetupsreview.com/two-legged-pullback-to-moving-average-m2b-m2s) — lado corto, aproximado",
+      "idea": "En tendencia bajista fuerte, cuando el precio rebota hasta la EMA 20 sin recuperar la media de 50, vender en corto buscando la continuación.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            30,
+            0.35
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y SOL: retesteo de un fair value gap alcista (ICT, aproximado)",
+      "fuente": "Altrady, 'Fair Value Gap' (concepto ICT: hueco de tres velas tras un desplazamiento; entrada en el retesteo a favor de la tendencia, stop al otro lado del hueco) (https://www.altrady.com/blog/crypto-trading-strategies/fair-value-gap) — hueco aproximado con un impulso fuerte seguido de un retroceso corto",
+      "idea": "En ETH y SOL sobre la EMA 50, tras un desplazamiento fuerte al alza, comprar cuando el precio retrocede un poco hacia la zona del hueco, con stop al otro lado.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            8,
+            0.06
+          ],
+          [
+            "rsi_bajo",
+            3,
+            45
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Altcoins: retesteo de un fair value gap bajista en corto (ICT, aproximado)",
+      "fuente": "Altrady, 'Fair Value Gap' (concepto ICT: hueco de tres velas tras un desplazamiento; entrada en el retesteo a favor de la tendencia, stop al otro lado del hueco) (https://www.altrady.com/blog/crypto-trading-strategies/fair-value-gap) — lado corto, aproximado",
+      "idea": "En ETH, SOL y XRP bajo la EMA 50, tras un desplazamiento fuerte a la baja, vender en corto cuando el precio rebota un poco hacia la zona del hueco.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            8,
+            0.06
+          ],
+          [
+            "rsi_bajo",
+            3,
+            45
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: retroceso a la SMA 20 sobre la SMA 200 en horario europeo y americano (grok, 1 h)",
+      "fuente": "Script de TradingView 'Super Optimized SMA 20/200 Strategy (Long/Short, grok)' para XRP en 1 h (SMA 20 que sube, retroceso a la SMA 20 sobre la SMA 200, RSI sobre 30, objetivo del 2 %, de 8 a 20 h UTC entre semana) (https://in.tradingview.com/script/HmXnC3oT-Super-Optimized-SMA-20-200-Strategy-Long-Short-grok)",
+      "idea": "En XRP de 1 h, con el precio sobre la media de 200 y la de 20 subiendo, comprar el retroceso a la media de 20 entre las 8 y las 20 h UTC de lunes a viernes, con objetivo del 2 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            3,
+            50
+          ],
+          [
+            "franja_horaria",
+            8,
+            12
+          ],
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: rebote a la SMA 20 bajo la SMA 200 en corto (grok, 1 h)",
+      "fuente": "Script de TradingView 'Super Optimized SMA 20/200 Strategy (Long/Short, grok)' para XRP en 1 h (SMA 20 que sube, retroceso a la SMA 20 sobre la SMA 200, RSI sobre 30, objetivo del 2 %, de 8 a 20 h UTC entre semana) (https://in.tradingview.com/script/HmXnC3oT-Super-Optimized-SMA-20-200-Strategy-Long-Short-grok) — lado corto",
+      "idea": "En XRP de 1 h, con el precio bajo la media de 200 y la de 20 bajando, vender en corto el rebote a la media de 20 entre las 8 y las 20 h UTC entre semana, con objetivo del 2 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            3,
+            50
+          ],
+          [
+            "franja_horaria",
+            8,
+            12
+          ],
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Dynamic Break Out de Pruitt (ruptura del máximo de 40 fuera de la banda de Bollinger, aproximado)",
+      "fuente": "George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — periodo adaptativo de 20 a 60 días fijado en 40",
+      "idea": "En diario, comprar solo cuando el precio rompe a la vez el máximo de 40 días y la banda superior de Bollinger, y salir al perder la media de 40.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            40
+          ],
+          [
+            "z_alto",
+            40,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            40
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Dynamic Break Out de Pruitt en corto (aproximado)",
+      "fuente": "George Pruitt y John R. Hill, 'Building Winning Trading Systems with TradeStation', apéndice con el código de los sistemas (https://www.oreilly.com/library/view/building-winning-trading/9780471215691/20_appendix-b.html) — lado corto, periodo adaptativo fijado en 40",
+      "idea": "En altcoins, vender en corto cuando el precio pierde a la vez el mínimo de 40 días y la banda inferior de Bollinger, y cubrir al recuperar la media de 40.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            40
+          ],
+          [
+            "z_alto",
+            40,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            40
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
     }
   ]
 }
