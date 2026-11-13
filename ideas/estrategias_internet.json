@@ -26092,6 +26092,1078 @@
         "salida_siempre": true,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "SOL y XRP: Donchian 20 con EMA 50 sobre 200 y stop de 3 ATR (TrendRider)",
+      "fuente": "TrendRider, 'Crypto Momentum Trading Strategies 2026' (https://trendrider.net/blog/crypto-momentum-trading-strategies-2026)",
+      "idea": "En altcoins de 4 h o diario, comprar la ruptura del canal de Donchian de 20 solo con la media de 50 sobre la de 200 y salir al perder el mínimo de 20, con stop de 3 ATR (el que propone para altcoins).",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "KST de Pring: los cuatro ROC (10, 15, 20, 30) en positivo (aproximado)",
+      "fuente": "Martin Pring, Know Sure Thing (KST: ROC de 10, 15, 20 y 30 suavizados), descrito por Optuma (https://www.optuma.com/kb/optuma/tools/price/pring-know-sure-thing-kst)",
+      "idea": "Seguir la tendencia en diario cuando los cambios de precio de 10, 15, 20 y 30 velas son todos positivos (el KST sube sobre cero) y salir cuando el de 10 se da la vuelta y el MACD se pone negativo.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            15,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            10,
+            0.03
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: ROC de 27 días optimizado (Murtazin)",
+      "fuente": "Ayrat Murtazin, 'How I Optimized a Bitcoin Rate of Change Trading Strategy Using Bayesian Optimization' (BTC diario, ROC de 27 días, entrada > 0,1 %, salida < -2,72 %) (https://ayratmurtazin.beehiiv.com/p/how-i-optimized-a-bitcoin-rate-of-change-trading-strategy-using-bayesian-optimization-31d8)",
+      "idea": "En BTC diario, comprar cuando el cambio de precio de 27 días supera el 0,1 % y vender cuando cae por debajo del -2,72 %.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            27,
+            0.001
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            27,
+            0.0272
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ADX trend rider: tendencia limpia sobre la EMA 50 (Tessen, aproximado)",
+      "fuente": "Tessen, 'We graded 13 famous trading strategies on 6 years of data. All 13 failed.' (DEV Community: el 'ADX trend rider' fue el mejor, 4 de 5 pruebas) (https://dev.to/tessen/we-graded-13-famous-trading-strategies-on-6-years-of-data-all-13-failed-26o4)",
+      "idea": "Comprar en 4 h cuando el mercado está en tendencia limpia (eficiencia alta, en lugar del ADX), sube y cierra sobre la EMA de 50; salir al perder la EMA de 50, con stop de 3 ATR.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            14,
+            0.35
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y SOL: squeeze de Bollinger en mínimos con RSI sobre 50 hasta volver dentro de las bandas (TrendRider)",
+      "fuente": "TrendRider, 'Crypto Momentum Trading Strategies 2026' (https://trendrider.net/blog/crypto-momentum-trading-strategies-2026)",
+      "idea": "Con la volatilidad muy comprimida, comprar cuando el precio perfora la banda superior de Bollinger con el RSI sobre 50 y vender cuando cierra de nuevo por debajo de la media de 10.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            60,
+            0.45
+          ],
+          [
+            "z_alto",
+            20,
+            2
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y SOL: retroceso a la EMA 21 de 4 h con tendencia diaria sobre la 50 y RSI 35-50 (TrendRider)",
+      "fuente": "TrendRider, 'Crypto Swing Trading Strategies 2026' (https://trendrider.net/blog/crypto-swing-trading-strategies-2026)",
+      "idea": "En 4 h, con el precio sobre la media de 50 días (300 velas), comprar cuando cierra de nuevo sobre la EMA de 21 tras un retroceso con el RSI entre 35 y 50, con objetivo 2:1.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            300
+          ],
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "impulso_baja",
+            6,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            35
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 14,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: cruce de EMAs 9/21 con RSI sobre 50 (SilverStar)",
+      "fuente": "SilverStar_Trading, 'EMA RSI Trend Reversal Ver.1' en TradingView (https://cn.tradingview.com/script/nlRify2G-EMA-RSI-Trend-Reversal-Ver-1)",
+      "idea": "En XRP, comprar cuando la media de 9 cruza sobre la de 21 con el RSI de 14 sobre 50 y vender en el cruce contrario.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "sobre_ema",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: momento de 1 h con EMAs 9/21, RSI, MACD y volumen (Cryptorbix)",
+      "fuente": "Cryptorbix, 'Momentum Trading Strategy for Crypto: Build, Backtest & Deploy' (https://cryptorbix.com/en/b/momentum-trading-strategy-crypto-guide)",
+      "idea": "En 1 h, comprar cuando el precio está sobre la EMA 21, la 9 sobre la 21, RSI sobre 50, histograma del MACD positivo y volumen sobre su media; salir si la 9 pierde la 21 o el RSI cae bajo 50.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            21
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: sobreventa de 3 filtros (RSI < 30, bajo Bollinger y volumen 1,2x) con objetivo del 8 % (LedgerMind)",
+      "fuente": "LedgerMind Research, 'Backtesting Crypto Trading Strategies: The Complete 2026 Guide' (https://theledgermind.com/backtesting-crypto-trading-strategies/)",
+      "idea": "En ETH diario, comprar a la apertura siguiente cuando el RSI está bajo 30, el cierre por debajo de la banda inferior de Bollinger y el volumen 1,2 veces su media; objetivo del 8 % y salida a los 14 días.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "z_bajo",
+            20,
+            2
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 14,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP y SOL: rebote en soporte probado con volumen sobre la media (TrendRider)",
+      "fuente": "TrendRider, 'Crypto Swing Trading Strategies 2026' (https://trendrider.net/blog/crypto-swing-trading-strategies-2026)",
+      "idea": "Comprar el rebote en un soporte tocado varias veces en las últimas 30 velas cuando la vela de rechazo llega con volumen superior a la media; stop bajo el soporte y objetivo 2:1.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebote_soporte",
+            30,
+            0.015
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y XRP: ruptura con volumen doble tras una compresión de Bollinger, salida en la EMA 21 (TrendRider)",
+      "fuente": "TrendRider, 'Crypto Swing Trading Strategies 2026' (https://trendrider.net/blog/crypto-swing-trading-strategies-2026)",
+      "idea": "Tras días de compresión de volatilidad, comprar el cierre diario sobre la resistencia con más del doble del volumen medio y seguir la subida con salida al perder la EMA de 21.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            30,
+            0.5
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: MACD diario cruzando su señal con filtro de tendencia limpia (CoinQuant, filtrado)",
+      "fuente": "CoinQuant, 'Ethereum Trading Strategy: 5 Approaches Backtested (2026)' (ETHUSDT diario, 2021-2026) (https://www.coinquant.ai/blog/ethereum-trading-strategy-5-approaches-backtested-2026)",
+      "idea": "En ETH diario, comprar cuando el histograma del MACD se pone positivo solo si el mercado está en tendencia (eficiencia sobre 0,3), para evitar los 76 cruces y comisiones del sistema original; salir con el histograma negativo.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Donchian 20 en corto con EMA 50 bajo 200 (TrendRider, corto)",
+      "fuente": "TrendRider, 'Crypto Momentum Trading Strategies 2026' (https://trendrider.net/blog/crypto-momentum-trading-strategies-2026) — lado corto",
+      "idea": "En altcoins, vender en corto cuando el precio pierde el mínimo de 20 velas con la media de 50 bajo la de 200 y cubrir al superar el máximo de 20, con stop de 3 ATR.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: cruce bajista de EMAs 9/21 con RSI bajo 50 (SilverStar, corto)",
+      "fuente": "SilverStar_Trading, 'EMA RSI Trend Reversal Ver.1' en TradingView (https://cn.tradingview.com/script/nlRify2G-EMA-RSI-Trend-Reversal-Ver-1) — lado corto",
+      "idea": "En XRP, vender en corto cuando la media de 9 cruza bajo la de 21 con el RSI de 14 bajo 50 y cubrir en el cruce contrario.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "sobre_ema",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura de soporte con volumen 1,5x en mercado bajista (DayTradingToolkit, corto)",
+      "fuente": "Kazi Mezanur Rahman, 'How to Trade Breakdowns: A Structured Short-Selling Strategy for Bear Markets' (DayTradingToolkit) (https://daytradingtoolkit.com/strategies/breakdown-trading-strategy-for-bear-markets)",
+      "idea": "Con el precio bajo la media de 200, vender en corto cuando una vela con volumen 1,5 veces la media cierra bajo un soporte de 20 velas y cubrir si recupera la EMA de 10, con objetivo 2:1.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: ROC de 27 días negativo (Murtazin, corto)",
+      "fuente": "Ayrat Murtazin, 'How I Optimized a Bitcoin Rate of Change Trading Strategy Using Bayesian Optimization' (BTC diario, ROC de 27 días, entrada > 0,1 %, salida < -2,72 %) (https://ayratmurtazin.beehiiv.com/p/how-i-optimized-a-bitcoin-rate-of-change-trading-strategy-using-bayesian-optimization-31d8) — lado corto (espejo)",
+      "idea": "En BTC diario, vender en corto cuando el cambio de precio de 27 días cae bajo el -0,1 % y cubrir cuando sube por encima del +2,72 %.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            27,
+            0.001
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            27,
+            0.0272
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "KST de Pring en corto: los cuatro ROC en negativo (aproximado)",
+      "fuente": "Martin Pring, Know Sure Thing (KST: ROC de 10, 15, 20 y 30 suavizados), descrito por Optuma (https://www.optuma.com/kb/optuma/tools/price/pring-know-sure-thing-kst) — lado corto",
+      "idea": "Vender en corto en diario cuando los cambios de precio de 10, 15, 20 y 30 velas son todos negativos y cubrir cuando el de 10 se gira al alza y el MACD se pone positivo.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            15,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            10,
+            0.03
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Retroceso con RSI de 4 sobre las EMAs 20/50/200 en tendencia (RSI Trend Rider, aproximado)",
+      "fuente": "'RSI Trend Rider' en TradingView (EMAs 20/50/200, retroceso con RSI de 4, filtro ADX, mejor en 2 h y 4 h) (https://it.tradingview.com/script/X4uv49RN-RSI-Trend-Rider)",
+      "idea": "En 4 h, con la EMA de 20 sobre la de 50 y el precio sobre la de 200 y sobre la media de 120 días (720 velas), comprar cuando el RSI de 4 cae bajo 30 en un mercado con tendencia y salir cuando el RSI de 4 pasa de 70.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "sobre_media",
+            720
+          ],
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "rsi_bajo",
+            4,
+            30
+          ],
+          [
+            "en_tendencia",
+            30,
+            0.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            4,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: retroceso al 61,8 % tras un impulso del 15 % (TrendRider, aproximado)",
+      "fuente": "TrendRider, 'Crypto Swing Trading Strategies 2026' (https://trendrider.net/blog/crypto-swing-trading-strategies-2026)",
+      "idea": "En SOL de 4 h, tras una subida de más del 15 % en 7 días, comprar el retroceso de las últimas 24 h con el RSI ya bajo 45 y salir en el máximo previo (objetivo del 10 %).",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            42,
+            0.15
+          ],
+          [
+            "impulso_baja",
+            6,
+            0.04
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: giro del RSI sobre 30 con cierre sobre la resistencia menor (TrendRider, divergencia aproximada)",
+      "fuente": "TrendRider, 'Crypto Swing Trading Strategies 2026' (https://trendrider.net/blog/crypto-swing-trading-strategies-2026)",
+      "idea": "En XRP diario, con el precio todavía por debajo de su media de 20, comprar cuando el RSI vuelve a superar 30 y el cierre rompe el máximo de las 3 últimas velas, con objetivo del 10 % (mitad de la caída previa).",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            1.0
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ],
+          [
+            "rsi_bajo",
+            14,
+            42
+          ],
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "MACD sobre la línea cero con filtro ADX (TrendRider, aproximado)",
+      "fuente": "TrendRider, 'Crypto Momentum Trading Strategies 2026' (https://trendrider.net/blog/crypto-momentum-trading-strategies-2026)",
+      "idea": "En 4 h o diario, comprar cuando la media de 12 pasa sobre la de 26 (MACD sobre cero) solo si el mercado tiene tendencia (en lugar del ADX sobre 20) y el histograma es positivo; salir en el cruce contrario.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            12,
+            26
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.25
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            12,
+            26
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Ruptura de una consolidación de 20 velas con volumen 1,5x y salida si se estanca (TrendRider)",
+      "fuente": "TrendRider, 'Crypto Momentum Trading Strategies 2026' (https://trendrider.net/blog/crypto-momentum-trading-strategies-2026)",
+      "idea": "Tras 20 velas de rango, comprar la ruptura de la resistencia solo si llega con 1,5 veces el volumen medio y salir si el precio se estanca o pierde la EMA de 20.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            20,
+            0.25
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 3,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Retroceso a la EMA 9 con la EMA 20 sobre el VWAP y RSI sobre 40 (dreamflysec, 1 h)",
+      "fuente": "dreamflysec, 'VWAP Pullback + RSI Confirmation' en TradingView (sesgo por el lado del VWAP, entrada en el retroceso al VWAP con el RSI fuera de sobreventa, objetivo 1,5-2R) (https://in.tradingview.com/script/tkbXWiUx-VWAP-Pullback-RSI-Confirmation)",
+      "idea": "En 1 h, con la tendencia del día sobre el VWAP, comprar cuando el precio retrocede bajo la EMA de 9 sin que el RSI baje de 40, con objetivo del 2 % y salida si la EMA rápida pierde el VWAP.",
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            20
+          ],
+          [
+            "bajo_ema",
+            9
+          ],
+          [
+            "rsi_alto",
+            14,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "ema_bajo_vwap",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: miércoles y domingos alcistas en 2025 (DaanCrypto)",
+      "fuente": "Análisis de DaanCrypto Trades sobre los datos de BTC de 2025 (miércoles y domingo, los mejores días; el miércoles, con diferencia), recogido por CoinTurk (https://en.coin-turk.com/discover-profitable-days-in-cryptocurrency-trading/)",
+      "idea": "En BTC de 1 h, comprar al empezar el miércoles y el domingo (00 h UTC), los mejores días de 2025, y cerrar al acabar el día.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              2,
+              6
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            23,
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y XRP: rebote a la EMA 9 bajo el VWAP con RSI bajo 60 (dreamflysec, 1 h, corto)",
+      "fuente": "dreamflysec, 'VWAP Pullback + RSI Confirmation' en TradingView (sesgo por el lado del VWAP, entrada en el retroceso al VWAP con el RSI fuera de sobreventa, objetivo 1,5-2R) (https://in.tradingview.com/script/tkbXWiUx-VWAP-Pullback-RSI-Confirmation) — lado corto",
+      "idea": "En ETH y XRP de 1 h, con la tendencia del día bajo el VWAP, vender en corto cuando el precio rebota sobre la EMA de 9 sin que el RSI pase de 60, con objetivo del 2 % y cierre si la EMA rápida recupera el VWAP.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            20
+          ],
+          [
+            "bajo_ema",
+            9
+          ],
+          [
+            "rsi_alto",
+            14,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "ema_bajo_vwap",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
     }
   ]
 }
