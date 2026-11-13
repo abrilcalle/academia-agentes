@@ -834,3 +834,20 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** La rejilla no gana más semanas que los agentes actuales de forma robusta (42–68 %, como ellos), no gana en 2022 y lo poco que gana depende de supuestos de ejecución que en real no están garantizados. No se integró ni se añadió a la fábrica.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "rejilla al contado" (1–5 %, 4/8 escalones, largo o largo/corto con la tendencia, con y sin stop). No repetir. Ojo para cualquier estrategia de escalones pequeños con órdenes limitadas en velas de 1 h: medir siempre con tolerancia de llenado (≥ 0,05 %), si no sale inflada.
+
+## 2026-11-13 16:39 (hora de Madrid) — Qué reservas y topes promedia el reparto medio del equipo
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 13/11, datos hasta el 12/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** desde el 08/11 el equipo reparte la media de 18 formas (reserva 10/25/50 % para los agentes que esperan, tope por agente 35/60/100 %, prioridad o medio Kelly). Ese conjunto se eligió antes y nunca se ha movido. Con menos reserva (el dinero "por si entra" casi siempre espera en USDC) el equipo trabajaría más; con topes más bajos ningún agente se lleva casi toda la cartera y las caídas se repartirían. Nunca probado (el 06/11 se probó invertir una parte fija de toda la cartera; el 09/11, un tope por mercado; el 08/11, qué formas promediar pero siempre con las mismas reservas y topes). Se puede hacer por la API (solo cambian los importes).
+- **Qué probé (en una copia, `experimentos/banco/m2res.py` = `m2ens.py ENS=post` con otro `PARAMS`, sobre `m1.py`; `m3x.py` / `m3c22.py` / `pares_ab.py`):** miembros buscados y equipos juzgados con el nuevo conjunto (como haría `build`). **r0** reservas 0/10/25 %; **rhi** 25/50/75 %; **clo** topes 25/35/60 %; **clo2** topes 20/25/35 %; **chi** topes 60/80/100 %. Lo demás igual (prioridad y Kelly, 3 prudencias).
+- **Datos:** solo 2019–2023 (datos cortados el 01/01/2024), 424 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad, dinero sin repartir en USDC y reparto medio actuales.
+- **Resultado (pares de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída):**
+  - **base 698 · 130 [34/33/36/5/22] · 50 · 23 · +44 % / 55 % / 11 %** (casos con caída > 25 %: 75)
+  - r0 698 · 128 [33/34/36/2/23] · 49 · 19 · +43 % / 55 % / 13 % (caídas > 25 %: 84)
+  - rhi 651 · 127 [33/29/35/7/23] · 52 · 24 · +37 % / 55 % / 10 % (69)
+  - clo 730 · 132 [32/35/36/8/21] · 49 · 25 · +39 % / 57 % / 10 % (55)
+  - clo2 728 · 126 [32/31/36/6/21] · 48 · 22 · +32 % / 57 % / 9 % (25)
+  - chi 658 · 114 [25/31/36/3/19] · 47 · 20 · +43 % / 55 % / 13 %
+  - Pares A→B (base / clo / clo2): mejoran 2020→2019 (43 / 49 / 54), 2023→2020 (26 / 43 / 43) y 2020→2022 (3 / 7 / 10), pero empeoran 2021→2023 (14 / 9 / 8) y 2022→2023 (12 / 9 / 2). Semanas en verde medianas de todos los pares: 54,7 % en todas las variantes.
+- **Conclusión: no se queda.** Topes más bajos sí bajan las caídas (casos > 25 %: 75 → 55 → 25) y suben los pares, pero el podio no mejora de forma clara (130 → 132 con clo, dentro del ruido de ±8; 126 con clo2), cuestan rentabilidad (+44 → +39 → +32 %) y empeoran 2023. Menos reserva no cambia nada; más reserva o topes más altos empeoran. El conjunto actual sigue siendo el mejor equilibrio. No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "reservas y topes del reparto medio" (reservas 0–75 %, topes 20–100 %). No repetir. Igual que el tope por mercado (09/11): si algún día las caídas pasan a ser el problema, topes 25/35/60 % las reducen sin perder podios. Base del banco hoy (424 agentes, post): 698 · 130.
