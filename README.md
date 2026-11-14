@@ -36,6 +36,7 @@ El primer día nacen 100 agentes; después, 10 nuevos cada día, para que siempr
 - **Filtro de tendencia:** el equipo solo da dinero a una compra si el precio de su mercado va por encima de su media de 50 días **y esa media sube** (comparada con hace 10 días); a un corto, si va por debajo y la media baja. Si no, la operación sigue en el agente pero el equipo espera fuera y reparte ese dinero entre los demás.
 - **Asegurar la mitad:** cuando una operación de un agente ya gana un 10 %, el equipo vende la mitad de su parte (esa mitad queda asegurada en efectivo) y deja correr la otra mitad hasta que el agente cierre. Desde el 05/11/2026 (`ASEGURAR_GANANCIA` en `src/equipos.py`): en las pruebas de 2019–23 los podios cumplían las condiciones más veces (91 → 104 de 180) y ganaban más semanas.
 - **El dinero que el equipo no reparte espera en USDC** (como en Bitvavo), así que su valor en euros sigue el cambio USDC/EUR igual que el de los agentes (desde el 07/11/2026, `DINERO_USDC` en `src/equipos.py`).
+- **Mover dinero entre agentes** del equipo cuesta lo mismo que pagan los agentes en los pares USDC (comisión 0,05 % + deslizamiento 0,03 % = 0,08 % de lo movido; antes se contaba un 0,2 %, que era el coste en euros). Desde el 14/11/2026 (`COSTE_REPARTO_USDC` en `src/equipos.py`); el simulado en vivo hasta el 13/11 se mantiene como estaba.
 - Una semana solo es buena si el equipo **gana**; igual o pérdidas = mala.
 - **Cada lunes** se repite todo con los agentes que haya: si uno nuevo lo hace mejor, entra en el equipo; el dinero de cada puesto del podio sigue.
 

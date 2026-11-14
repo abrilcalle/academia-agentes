@@ -47,7 +47,10 @@ MIN_MIEMBROS = 3                    # al menos 3 agentes por equipo, para repart
 MAX_MIEMBROS = 6
 MAX_POR_ACTIVO = 2                  # como mucho 2 agentes del mismo mercado (BTC, ETH...) en un equipo (0 = sin límite).
                                     # Laboratorio 27/10/2026: con 2019–2023 más equipos cumplen el año siguiente y nunca menos.
-COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes (comisión + algo de deslizamiento)
+COSTE_REPARTO = 0.002               # coste de mover dinero entre agentes en euros (comisión limitada 0,15 % + deslizamiento 0,05 %)
+COSTE_REPARTO_USDC = True           # si se cotiza en USDC, el coste de mover dinero es el de los pares USDC (comisión + deslizamiento de
+                                    # config.json → usdc: 0,05 + 0,03 = 0,08 %), igual que pagan los agentes (laboratorio 14/11/2026)
+COSTE_USDC_VIVO = "2026-11-14"      # en el simulado en vivo ya hecho (hasta el 13/11) se mantiene el 0,2 %, para no reescribir sus resultados
 GOOD = 0.0001                       # una semana es buena solo si gana (más de un 0,01 %)
 TENDENCIA_DIAS = 50                 # filtro de tendencia: media de 50 días del activo (0 = sin filtro)
 TENDENCIA_PENDIENTE = 10            # además la media tiene que ir a favor (subir/bajar en 10 días); si no, no hay tendencia clara y se espera fuera (0 = sin esta condición)
@@ -68,6 +71,7 @@ BLOQUEADO = -1.0                    # valor de P para una operación a la que el
 
 _MV0, _MV1 = (dt.date.fromisoformat(x) for x in MAQUINA_VIVO)
 _AV0, _AV1 = (dt.date.fromisoformat(x) for x in ASEGURAR_VIVO)
+_CV = dt.date.fromisoformat(COSTE_USDC_VIVO)
 
 
 def fx_returns(ac, days, desde=None):
@@ -320,10 +324,21 @@ def _alloc(P, G, prudencia, prm, L=None):
     return np.minimum(f, prm["cap"])
 
 
-def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None, fx=None):
+def coste_reparto(ac):
+    """Coste por euro movido entre agentes: el de los pares USDC si se cotiza en USDC; si no, el de euros."""
+    c = ac.cfg
+    if COSTE_REPARTO_USDC and c.get("cotizar_en_usdc") and "usdc" in c:
+        return (c["usdc"]["comision_pct"] + c["usdc"]["deslizamiento_pct"]) / 100
+    return COSTE_REPARTO
+
+
+def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None, fx=None, coste=None):
     """Devuelve (curva de valor, reparto F[miembro, día]). El reparto de cada día se decide con el cierre anterior.
-    fx: por día, cambio de 1 USDC en euros; el dinero que no se reparte espera en USDC y lo sigue (None = en euros)."""
+    fx: por día, cambio de 1 USDC en euros; el dinero que no se reparte espera en USDC y lo sigue (None = en euros).
+    coste: coste por euro movido entre agentes (un número o uno por día; None = COSTE_REPARTO)."""
     n, T = R.shape
+    coste = COSTE_REPARTO if coste is None else coste
+    por_dia = np.ndim(coste) > 0
     val = np.empty(T)
     F = np.zeros((n, T))
     v = cap0
@@ -333,7 +348,7 @@ def simulate(R, E, P, G, prudencia, prm, cap0=100.0, L=None, fx=None):
              else alloc(np.zeros(n), np.zeros(n), prudencia, prm))
         turnover = float(np.sum(np.abs(f - f_prev) * E[:, t - 1])) if t else 0.0
         idle = max(0.0, 1.0 - float(f.sum())) * (float(fx[t]) if fx is not None else 0.0)
-        v *= 1 + float(np.dot(f, R[:, t])) + idle - turnover * COSTE_REPARTO
+        v *= 1 + float(np.dot(f, R[:, t])) + idle - turnover * (float(coste[t]) if por_dia else coste)
         val[t] = v
         F[:, t] = f
         f_prev = f
@@ -413,10 +428,10 @@ def ataques(ac, mem, prm, k2, days):
     out = {}
     for var in ("comisiones_x2", "vela_tarde"):
         d, R, E, P, G, L = matrix(ac, mem, P1[0], days[-1], var)
-        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:], fx=fx_returns(ac, d)[k2:])
+        val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:], fx=fx_returns(ac, d)[k2:], coste=coste_reparto(ac))
         out[var] = float(val[-1] / 100 - 1) if len(val) else 0.0
     d, R, E, P, G, L = matrix(ac, mem, P1[0], days[-1])
-    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:], fx=fx_returns(ac, d)[k2:])
+    val, _ = simulate(R[:, k2:], E[:, k2:], P[:, k2:], G[:, k2:], prm["prudencia"], prm, L=L[:, k2:], fx=fx_returns(ac, d)[k2:], coste=coste_reparto(ac))
     rets = np.r_[val[0] / 100 - 1, val[1:] / val[:-1] - 1] if len(val) else np.array([])
     months = {}
     for dd_, r_ in zip(days[k2:], rets):
@@ -498,7 +513,7 @@ def build(ac, last_day, log=print):
                     if MAX_POR_ACTIVO and sum(cands[i].get("activo", ac.cfg["mercado"]) == act for i in team) >= MAX_POR_ACTIVO:
                         continue  # ya tiene bastantes de ese mercado: así el equipo reparte el riesgo
                     idx = team + [j]
-                    val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm, L=L[idx, :k1], fx=FX[:k1])
+                    val, _ = simulate(R[idx, :k1], E[idx, :k1], P[idx, :k1], G[idx, :k1], pr, prm, L=L[idx, :k1], fx=FX[:k1], coste=coste_reparto(ac))
                     sc = objective(stats(days[:k1], val), goal)
                     if add is None or sc > add[0]:
                         add = (sc, j)
@@ -510,8 +525,8 @@ def build(ac, last_day, log=print):
             prm_t = dict(prudencia=pr, medio=True) if REPARTO_MEDIO else dict(prm, prudencia=pr)
             if REPARTO_MEDIO and any(sorted(t["team"]) == sorted(team) and t["prm"]["prudencia"] == pr for t in teams):
                 continue  # con el reparto medio, los mismos miembros y prudencia dan el mismo equipo
-            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm_t, L=L[team, :k1], fx=FX[:k1])
-            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm_t, L=L[team, k2:], fx=FX[k2:])
+            v1, _ = simulate(R[team, :k1], E[team, :k1], P[team, :k1], G[team, :k1], pr, prm_t, L=L[team, :k1], fx=FX[:k1], coste=coste_reparto(ac))
+            v2, _ = simulate(R[team, k2:], E[team, k2:], P[team, k2:], G[team, k2:], pr, prm_t, L=L[team, k2:], fx=FX[k2:], coste=coste_reparto(ac))
             s1, s2 = stats(days[:k1], v1), stats(days[k2:], v2)
             teams.append(dict(team=team, prm=prm_t, s1=s1, s2=s2, f1=fails(s1, goal), f2=fails(s2, goal),
                               rank=s2["verde"] + 2 * s2["ret"]))
@@ -528,7 +543,7 @@ def build(ac, last_day, log=print):
         mem = [cands[j] for j in t["team"]]
         t["ataques"] = ataques(ac, mem, t["prm"], k2, days)
         t["ataques_ok"] = all(v > 0 for v in t["ataques"].values())
-        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"], L=L[t["team"]], fx=FX)
+        vall, _ = simulate(R[t["team"]], E[t["team"]], P[t["team"]], G[t["team"]], t["prm"]["prudencia"], t["prm"], L=L[t["team"]], fx=FX, coste=coste_reparto(ac))
         t["prob"] = prob_cumplir(np.r_[vall[0] / 100 - 1, vall[1:] / vall[:-1] - 1], goal)
     teams.sort(key=lambda t: (not t["f2"], t.get("ataques_ok", False), (t.get("prob") or 0) + t["rank"]), reverse=True)
     podium, used = [], []
@@ -634,7 +649,8 @@ def track(ac, tm, last_day):
             continue
         days, R, E, P, G, L = matrix(ac, mem, (d0 - dt.timedelta(days=1)).isoformat(), d1)
         val, F = simulate(R[:, 1:], E[:, 1:], P[:, 1:], G[:, 1:], prm["prudencia"], prm, cap0=v, L=L[:, 1:],
-                          fx=fx_returns(ac, days, DINERO_USDC_VIVO)[1:])
+                          fx=fx_returns(ac, days, DINERO_USDC_VIVO)[1:],
+                          coste=np.array([COSTE_REPARTO if d < _CV else coste_reparto(ac) for d in days[1:]]))
         days_all += days[1:]
         vals += [float(x) for x in val]
         if len(val):
