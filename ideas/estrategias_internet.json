@@ -27164,6 +27164,1046 @@
         "shrink": false,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "ETH: ruptura del +4,5 % sobre la apertura del día con objetivo del 20 % (Unger Academy, 1 h, aproximado)",
+      "fuente": "Unger Academy, 'ETH – Strategy On The Second Most Capitalized Crypto' (seguimiento de tendencia con ruptura del rango de apertura en velas de 30 min: entrada al cerrar un 4,5 % sobre la apertura de la sesión, stop en el mínimo de las 2 sesiones anteriores, stop duro del -5 % y objetivo del +20 %) (https://ungeracademy.com/?p=6667)",
+      "idea": "En ETH de 1 h, pasadas las dos primeras horas del día, comprar cuando el precio sube más de un 4,5 % en las últimas 12 horas (aproximación a 'sobre la apertura del día'), con objetivo del 20 % y salida si pierde el mínimo de los dos últimos días.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            2,
+            21
+          ],
+          [
+            "impulso_sube",
+            12,
+            0.045
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            48
+          ]
+        ],
+        "stop": 4,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: falsa ruptura del mínimo que se recupera (Andrea Unger, diario, aproximado)",
+      "fuente": "Andrea Unger en The Cryptonomist, 'Mean reverting trading system on cryptocurrencies: a strategy to exploit the false breakouts of Ethereum' (comprar cuando el precio vuelve al mínimo del día anterior tras perderlo, salida por tiempo de hasta 55 días, stop amplio) (https://en.cryptonomist.ch/2024/06/17/mean-reverting-trading-system-on-cryptocurrencies-a-strategy-to-exploit-the-false-breakouts-of-ethereum-eth/)",
+      "idea": "En ETH diario, tras una caída que lleva el precio 1,5 desviaciones bajo su media de 20, comprar cuando el cierre recupera el máximo de las 2 últimas velas (la ruptura bajista ha fallado) y mantener hasta que vuelva por encima de la media o pasen 55 días.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            1.5
+          ],
+          [
+            "rompe_maximo",
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            1.0
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 55,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: rebote fallido ajustado en 4 h (CoinGecko, Adjusted Failed Bounce)",
+      "fuente": "CoinGecko Learn, 'Internal Bar Strength (IBS)' y estrategia 'Adjusted Failed Bounce' en ETH de 4 h (entrada tras perder el mínimo de 5 velas con cierre a la baja, salida al superar el máximo de 5 velas) (https://www.coingecko.com/learn/internal-bar-strength-ibs)",
+      "idea": "En ETH de 4 h, comprar cuando el precio cierra a la baja por debajo del mínimo de las 5 velas anteriores y vender cuando supera el máximo de las 5 velas anteriores.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "pierde_minimo",
+            5
+          ],
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: RSI bajo 45 en la banda inferior de Bollinger con giro del MACD (Lorenzo SuperScalp, 1 h)",
+      "fuente": "lorenzbac, '[ETH] Optimized Trend Strategy - Lorenzo SuperScalp' en TradingView (RSI < 45, precio en la banda inferior de Bollinger y cruce alcista del MACD; salida con la señal contraria) (https://www.tradingview.com/script/EXfZsOdJ-ETH-Optimized-Trend-Strategy-Lorenzo-SuperScalp)",
+      "idea": "En ETH de 1 h, comprar cuando el RSI está bajo 45, el precio cae a la banda inferior de Bollinger y el MACD gira al alza; salir cuando el RSI pasa de 55 o el precio llega a la banda superior.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "z_bajo",
+            20,
+            1.8
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ],
+          [
+            "z_alto",
+            20,
+            1.8
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: RSI sobre 55 en la banda superior de Bollinger con giro del MACD (Lorenzo SuperScalp, 1 h, corto)",
+      "fuente": "lorenzbac, '[ETH] Optimized Trend Strategy - Lorenzo SuperScalp' en TradingView (espejo bajista: RSI > 55, precio en la banda superior y cruce bajista del MACD) (https://www.tradingview.com/script/EXfZsOdJ-ETH-Optimized-Trend-Strategy-Lorenzo-SuperScalp) — lado corto",
+      "idea": "En ETH de 1 h, vender en corto cuando el RSI pasa de 55, el precio toca la banda superior de Bollinger y el MACD gira a la baja; cerrar cuando el RSI cae bajo 45 o el precio llega a la banda inferior.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "z_bajo",
+            20,
+            1.8
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ],
+          [
+            "z_alto",
+            20,
+            1.8
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: día alcista comprado de 9 a 10 h UTC (Tradingstrategyguides)",
+      "fuente": "Tradingstrategyguides, 'Best Ripple Strategy in Cryptocurrency Trading' en TradingView (solo en días con el precio sobre la apertura, comprar en la franja de 9 a 10 h GMT, stop bajo la apertura del día y objetivo proyectado) (https://my.tradingview.com/chart/XRPUSD/on0ZKlpx-BEST-RIPPLE-STRATEGY-IN-CRYPTOCURRENCY-TRADING)",
+      "idea": "En XRP de 1 h, si a las 9 h UTC el precio está por encima del de la apertura del día, comprar con objetivo del 3 % y cerrar como tarde al final del día.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            9,
+            1
+          ],
+          [
+            "impulso_sube",
+            9,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            23,
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: retroceso a la EMA 21 con cruce 9/21 y RSI entre 40 y 60 (CryptoArena, 1 h)",
+      "fuente": "CryptoArena, 'Swing Trading SOL' (cruce de EMAs 9/21, retroceso a la EMA 21, RSI que rebota desde 40-50, objetivo 2:1 y stop asegurado tras 1,5 veces el riesgo; operaciones de 1 a 6 horas) (https://cryptoarena.it.com/?p=25991)",
+      "idea": "En SOL de 1 h, con la media de 9 sobre la de 21, comprar cuando una vela alcista cierra sobre la EMA 21 con el RSI entre 40 y 60, con objetivo del 3 %, stop a la entrada tras +1,5 % y salida si pierde la EMA 21.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            40
+          ],
+          [
+            "rsi_bajo",
+            14,
+            60
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.015,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: rebote a la EMA 21 con cruce bajista 9/21 y RSI entre 40 y 60 (CryptoArena, 1 h, corto)",
+      "fuente": "CryptoArena, 'Swing Trading SOL' (espejo bajista: cruce de la EMA 9 bajo la 21, rebote a la EMA 21 y RSI que cae desde 50-60, objetivo 2:1) (https://cryptoarena.it.com/?p=25991) — lado corto",
+      "idea": "En SOL de 1 h, con la media de 9 bajo la de 21, vender en corto cuando una vela bajista cierra bajo la EMA 21 con el RSI entre 40 y 60, con objetivo del 3 % y cierre si la recupera.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            40
+          ],
+          [
+            "rsi_bajo",
+            14,
+            60
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.015,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: ruptura de 20 días con stop de 2 ATR que sigue al mejor cierre (The Right Trader, plan ATR clásico)",
+      "fuente": "The Right Trader, 'ATR Trading Strategy: Stops, Size, and Breakout Rules' (plan clásico: cierre sobre el máximo de 20 velas, stop inicial de 2 ATR y stop móvil a 2 ATR del mejor cierre; ejemplos en SOL/USD) (https://therighttrader.com/learn/indicator-strategies/atr-trading-strategy)",
+      "idea": "En SOL diario, comprar el cierre sobre el máximo de 20 días y dejar correr la tendencia con un stop de 2 ATR que sube con el precio, sin objetivo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: cruce Tenkan/Kijun 20/60 sobre la nube con MFI sobre 50 en 4 h (TRADLEWARE, aproximado)",
+      "fuente": "cs_lev, 'TRADLEWARE-Ichimoku TK-Cross + MFI SOL' en TradingView (SOLUSDT de 4 h, Ichimoku 20/60/120, entrada con Tenkan sobre Kijun, precio sobre la nube y MFI(14) > 50; salida al cerrar bajo la Kijun) (https://www.tradingview.com/script/71yKm18B-TRADLEWARE-Ichimoku-TK-Cross-MFI-SOL/)",
+      "idea": "En SOL de 4 h, comprar cuando la media de 20 está sobre la de 60, el precio está sobre la media de 120 (la nube) y el impulso con volumen es positivo (RSI sobre 50 y volumen normal, en lugar del MFI); salir al cerrar bajo la media de 60.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            60
+          ],
+          [
+            "sobre_media",
+            120
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            60
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: sobreventa con RSI que gira en mercado sin tendencia (jura1986 Bot Webhook, 1 h, aproximado)",
+      "fuente": "jura1986, 'Bot Webhook v8.4 [ETH]' en TradingView (largo con RSI y estocástico bajos, pendiente del RSI al alza y ADX bajo; stop de 1,5 ATR y objetivo de 2,5 ATR) (https://www.tradingview.com/script/yANLUMFS/)",
+      "idea": "En ETH de 1 h, con el mercado lateral (ADX bajo), comprar cuando el RSI está bajo 35 y la vela cierra al alza (el RSI empieza a girar), con objetivo del 2,5 % y salida si el RSI llega a 55.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            14,
+            0.2
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.025,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: sobrecompra con RSI que gira en mercado sin tendencia (jura1986 Bot Webhook, 1 h, corto, aproximado)",
+      "fuente": "jura1986, 'Bot Webhook v8.4 [ETH]' en TradingView (espejo corto: RSI y estocástico altos, pendiente del RSI a la baja y ADX bajo; stop de 1,5 ATR y objetivo de 2,5 ATR) (https://www.tradingview.com/script/yANLUMFS/) — lado corto",
+      "idea": "En ETH de 1 h, con el mercado lateral, vender en corto cuando el RSI pasa de 65 y la vela cierra a la baja, con objetivo del 2,5 % y cierre si el RSI baja a 45.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            14,
+            0.2
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.025,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Altcoins: RSI(2) bajo 30 sobre la media de 50 con salida en RSI(2) sobre 80 (SetupAlpha, diario)",
+      "fuente": "SetupAlpha, 'This is How An Algorithmic Crypto Strategy Made +3,332% With RealTest' (universo de más de 500 futuros de Binance en diario, sin apalancamiento, máximo 10 posiciones: comprar con cierre sobre la SMA 50 y RSI(2) < 30, vender con RSI(2) > 80) (https://setup4alpha.substack.com/p/this-is-how-an-algorithmic-crypto-realtest)",
+      "idea": "En ETH, SOL y XRP diario, comprar el retroceso corto (RSI de 2 bajo 30) mientras el precio sigue sobre su media de 50 y vender en cuanto el RSI de 2 pasa de 80, con una fracción pequeña por operación.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "rsi_bajo",
+            2,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            80
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Ruptura del máximo de 20 velas con EMA 9 sobre la 20, objetivo +12 % y stop -6 % (ankurb171991)",
+      "fuente": "ankurb171991, 'EMA + S/R Breakout' en TradingView (tendencia por EMA 9 frente a EMA 20, ruptura de la resistencia de 20 velas, objetivo del 12 % y stop del 6 %, relación 1:2) (https://es.tradingview.com/script/xJyFUodA-EMA-S-R-Breakout)",
+      "idea": "Con la media rápida de 9 por encima de la de 20, comprar el cierre que rompe el máximo de las 20 velas anteriores, con objetivo del 12 % y salida si se pierde la tendencia corta.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            20
+          ],
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Pérdida del mínimo de 20 velas con EMA 9 bajo la 20, objetivo -12 % (ankurb171991, corto)",
+      "fuente": "ankurb171991, 'EMA + S/R Breakout' en TradingView (espejo bajista: EMA 9 bajo la EMA 20 y cierre bajo el soporte de 20 velas, objetivo del 12 % y stop del 6 %) (https://es.tradingview.com/script/xJyFUodA-EMA-S-R-Breakout) — lado corto",
+      "idea": "Con la media de 9 por debajo de la de 20, vender en corto el cierre que pierde el mínimo de las 20 velas anteriores, con objetivo de una caída del 12 % y cierre si la media rápida vuelve a cruzar al alza.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            20
+          ],
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Medias 3/8 sobre el VWAP con RSI sobre 55 (SAl VWAP LITE, 1 h)",
+      "fuente": "SignalArchitecT_AI, 'SAl VWAP LITE' en TradingView (largo con el precio sobre el VWAP, SMA 3 sobre SMA 8, cierre sobre la SMA 8 y RSI(14) > 55; pensado para intradía de futuros, adaptado a 1 h) (https://de.tradingview.com/script/sv3TEYvW-SAl-VWAP-LITE/)",
+      "idea": "En 1 h, comprar cuando la media de 3 cruza sobre la de 8, el precio cierra sobre la de 8 y sobre el VWAP del día y el RSI pasa de 55, con objetivo del 1,5 % y salida si la media de 3 vuelve bajo la de 8.",
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            3
+          ],
+          [
+            "cruce_alcista",
+            3,
+            8
+          ],
+          [
+            "sobre_media",
+            8
+          ],
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            3,
+            8
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.015,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005
+      }
+    },
+    {
+      "nombre": "Medias 3/8 bajo el VWAP con RSI bajo 45 (SAl VWAP LITE, 1 h, corto)",
+      "fuente": "SignalArchitecT_AI, 'SAl VWAP LITE' en TradingView (espejo corto: precio bajo el VWAP, SMA 3 bajo SMA 8, cierre bajo la SMA 8 y RSI < 45) (https://de.tradingview.com/script/sv3TEYvW-SAl-VWAP-LITE/) — lado corto",
+      "idea": "En 1 h, vender en corto cuando la media de 3 cae bajo la de 8, el precio cierra bajo la de 8 y bajo el VWAP del día y el RSI baja de 45, con objetivo del 1,5 % y cierre si la media de 3 recupera la de 8.",
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            3
+          ],
+          [
+            "cruce_alcista",
+            3,
+            8
+          ],
+          [
+            "sobre_media",
+            8
+          ],
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            3,
+            8
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.015,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.25,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Pérdida del mínimo de 20 días con volatilidad en expansión y salida sobre la media de 20 (The Right Trader, corto)",
+      "fuente": "The Right Trader, 'ATR Trading Strategy: Stops, Size, and Breakout Rules' (plan de expansión: ATR creciente, cierre bajo el mínimo de 20 velas, stop de 3 ATR y salida al cerrar sobre la SMA 20) (https://therighttrader.com/learn/indicator-strategies/atr-trading-strategy) — lado corto",
+      "idea": "En diario, vender en corto cuando el precio cierra bajo el mínimo de 20 días con la volatilidad abriéndose, con stop de 3 ATR y cierre en cuanto vuelve a cerrar sobre su media de 20.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "vol_alta",
+            20,
+            0.7
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Vender tras un día de subida dentro de la tendencia bajista (reglas de Richard Donchian, corto)",
+      "fuente": "Richard Donchian, guías de trading de 1934 recogidas en StockCharts ChartSchool, 'Donchian Trading Guidelines' (no perseguir tras tres días de movimiento; añadir cortos tras un día de subida en una tendencia bajista) (https://chartschool.stockcharts.com/table-of-contents/overview/donchian-trading-guidelines) — lado corto",
+      "idea": "En diario, con el precio bajo su media de 50 y la de 20 bajo la de 50, vender en corto tras un día de subida (el rebote de un día) y cerrar si el precio recupera la media de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ByteTrend 5 de 5: sobre las medias de 42 y 280 días con máximos recientes (ByteTree, diario, aproximado)",
+      "fuente": "Charlie Morris (ByteTree), 'Introducing ByteTrend: A Trend Following Strategy for Crypto' (puntuación de 0 a 5: precio sobre las medias de 280 y 42 días, ambas subiendo y último toque en el máximo de 20 días; 5 = tendencia alcista fuerte) (https://www.bytetree.com/research/2021/12/introducing-bytetrend-a-trend-following-strategy-for-crypto/)",
+      "idea": "En diario, estar comprado solo con la puntuación máxima: precio sobre las medias de 42 y 280 días, la de 42 sobre la de 280 y más alto que hace 20 días; salir al cerrar bajo la media de 42.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            280
+          ],
+          [
+            "sobre_media",
+            42
+          ],
+          [
+            "cruce_alcista",
+            42,
+            280
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            42
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ByteTrend 0 de 5: bajo las medias de 42 y 280 días con mínimos recientes (ByteTree, diario, corto, aproximado)",
+      "fuente": "Charlie Morris (ByteTree), 'Introducing ByteTrend: A Trend Following Strategy for Crypto' (puntuación 0 = tendencia bajista fuerte: precio bajo las medias de 280 y 42 días, ambas bajando y último toque en el mínimo de 20 días) (https://www.bytetree.com/research/2021/12/introducing-bytetrend-a-trend-following-strategy-for-crypto/) — lado corto",
+      "idea": "En diario, vender en corto solo con la puntuación mínima: precio bajo las medias de 42 y 280 días, la de 42 bajo la de 280 y más bajo que hace 20 días; cerrar al recuperar la media de 42.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            280
+          ],
+          [
+            "sobre_media",
+            42
+          ],
+          [
+            "cruce_alcista",
+            42,
+            280
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            42
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura del VAH a favor de la EMA 50 con tendencia (The Right Trader, plan de tendencia del perfil de volumen)",
+      "fuente": "The Right Trader, 'Volume Profile Trading Strategy: Three Trade Plans' (plan de tendencia: ruptura del techo de la zona de valor solo con la EMA 50 a favor y ADX sobre 20; salida al cerrar a través del POC o de la EMA 50) (https://therighttrader.com/learn/indicator-strategies/volume-profile-trading-strategy)",
+      "idea": "Comprar cuando el precio cruza al alza el techo de la zona de valor (VAH) de la sesión anterior con el precio sobre la EMA 50 y el mercado en tendencia; salir si pierde el POC o la EMA 50.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_vah",
+            0.0
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.25
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.0
+          ],
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Volatilidad en mínimos de 20 velas y ruptura del máximo anterior con salida a las 10 velas (The Right Trader, plan de contracción)",
+      "fuente": "The Right Trader, 'ATR Trading Strategy: Stops, Size, and Breakout Rules' (plan de contracción: ATR en su mínimo de 20 velas, entrada al cerrar sobre el máximo de la vela anterior, objetivo de 2 ATR y salida por tiempo a las 10 velas) (https://therighttrader.com/learn/indicator-strategies/atr-trading-strategy)",
+      "idea": "En diario, cuando la volatilidad está en mínimos, comprar el cierre que supera el máximo de la vela anterior, con objetivo del 5 % y salida como tarde a los 10 días.",
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            20,
+            0.35
+          ],
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: corto con RSI diario sobre 80 y recompra al volver a 50 (Forex Tester)",
+      "fuente": "Forex Tester Online, 'Is It Time to Sell Bitcoin? Statistical Approach to Find the Rational Answer' (corto al cierre diario con RSI(14) ≥ 80, objetivo en el retroceso de Fibonacci del 23,6 % y nueva señal solo tras volver el RSI a 50; resultados flojos con muestras pequeñas) (https://forextester.com/blog/is-it-time-to-sell-bitcoin/) — lado corto",
+      "idea": "En BTC diario, vender en corto cuando el RSI pasa de 80 (euforia), con objetivo de una caída del 8 % y cierre cuando el RSI vuelve a 50; con stop por ATR porque el original perdía mucho sin él.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: dos semanas verdes para entrar y dos rojas para salir (nTla, aproximado en diario)",
+      "fuente": "nTla, 'Very simple Bitcoin/Crypto Trading Strategy for Weekly Chart' en TradingView (comprar tras el cierre de la 2.ª vela semanal verde y vender tras la 2.ª roja; +419 % desde 2016 con el 46 % de aciertos, según el autor) (https://in.tradingview.com/chart/BTCUSD/1aGzX4jb-Very-simple-Bitcoin-Crypto-Trading-Strategy-for-Weekly-Chart)",
+      "idea": "En BTC diario, comprar cuando el precio está más alto que hace 7 y que hace 14 días (dos semanas al alza) y vender cuando está más bajo que hace 14 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            7,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
     }
   ]
 }
