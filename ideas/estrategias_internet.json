@@ -28204,6 +28204,1182 @@
         "shrink": false,
         "salida_siempre": true
       }
+    },
+    {
+      "nombre": "ETH: Schaff Trend Cycle que sale de 25 sobre una EMA 50 que sube (The Right Trader, plan con filtro, aproximado)",
+      "fuente": "The Right Trader, 'Schaff Trend Cycle Trading Strategy' (STC 10/23/50; plan B: cruce al alza de 25 solo sobre una EMA 50 que sube; salida al cerrar bajo la EMA 50; ejemplos en ETH y BTC diario) (https://therighttrader.com/learn/indicator-strategies/schaff-trend-cycle-trading-strategy)",
+      "idea": "En ETH de 4 h o diario, comprar cuando el oscilador rápido sale de la zona baja y la vela gira al alza con el precio sobre una EMA 50 que sube; salir al perder la EMA 50 o al llegar a sobrecompra extrema.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            10,
+            50
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "rsi_alto",
+            10,
+            80
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Schaff Trend Cycle que cae de 75 bajo una EMA 50 que baja (The Right Trader, corto, aproximado)",
+      "fuente": "The Right Trader, 'Schaff Trend Cycle Trading Strategy' (plan B en corto: cruce a la baja de 75 solo bajo una EMA 50 que baja; salida al cerrar sobre la EMA 50) (https://therighttrader.com/learn/indicator-strategies/schaff-trend-cycle-trading-strategy) — lado corto",
+      "idea": "En SOL y XRP, vender en corto cuando el oscilador rápido sale de la sobrecompra y la vela gira a la baja bajo una EMA 50 descendente; recomprar al recuperar la EMA 50 o en sobreventa extrema.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            10,
+            50
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "rsi_alto",
+            10,
+            80
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Fisher de Ehlers: ruptura del rango de 10 velas al cruzar cero (The Right Trader, plan C, aproximado)",
+      "fuente": "The Right Trader, 'Fisher Transform Trading Strategy' (Fisher de 9 de John Ehlers; plan C: con el precio dentro del rango de 10 velas, entrar cuando el Fisher cruza sobre cero y el cierre supera el máximo de 10 velas; stop bajo el mínimo de 10 velas) (https://therighttrader.com/learn/indicator-strategies/fisher-transform-trading-strategy)",
+      "idea": "Tras una fase lateral, comprar el cierre que rompe el máximo de las 10 velas anteriores y salir si cae bajo el mínimo de las 10 velas.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            20,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y SOL: Fisher de Ehlers que gira desde -1 sobre una EMA 50 que sube (The Right Trader, plan B, aproximado)",
+      "fuente": "The Right Trader, 'Fisher Transform Trading Strategy' (plan B: Fisher en -1 o menos en las últimas 5 velas que cruza sobre su señal, solo con EMA 50 al alza; salida al cerrar bajo la EMA 50; ejemplo en ETH diario) (https://therighttrader.com/learn/indicator-strategies/fisher-transform-trading-strategy)",
+      "idea": "En tendencia alcista (sobre una EMA 50 que sube), comprar la primera vela verde tras un estirón a la baja respecto a las últimas 10 velas; salir al perder la EMA 50 o en un estirón al alza.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "z_bajo",
+            10,
+            1.2
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "z_alto",
+            10,
+            1.5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: Fisher de Ehlers que gira desde +1 bajo una EMA 50 que baja (The Right Trader, corto, aproximado)",
+      "fuente": "The Right Trader, 'Fisher Transform Trading Strategy' (plan B en corto: Fisher en +1 o más que cruza bajo su señal con EMA 50 a la baja; salida al cerrar sobre la EMA 50) (https://therighttrader.com/learn/indicator-strategies/fisher-transform-trading-strategy) — lado corto",
+      "idea": "En XRP bajista (bajo una EMA 50 que baja), vender en corto la primera vela roja tras un estirón al alza; recomprar al recuperar la EMA 50 o tras un estirón a la baja.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "z_bajo",
+            10,
+            1.2
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "z_alto",
+            10,
+            1.5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: volumen de parada de VSA (stopping volume) bajo la media de 30 con stop móvil del 5 % (Ayrat Murtazin, aproximado)",
+      "fuente": "Ayrat Murtazin, GuruFinance Insights, 'Volume Spread Analysis (VSA) Strategy' (backtrader en BTC diario desde 2018: volumen ≥ 2 veces su media de 7, rango amplio, tendencia bajista bajo la SMA 30 y vela bajista → compra; stop móvil del 5 %) (https://ayratmurtazin.beehiiv.com/p/volume-spread-analysis-vsa-strategy-quantifying-market-action-for-trading-signals-with-rolling-backt)",
+      "idea": "En BTC diario bajista, comprar la vela roja de volumen clímax (el doble de lo normal) con rango amplio, señal de que alguien absorbe las ventas; stop móvil del 5 % y salida en sobrecompra.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            30
+          ],
+          [
+            "volumen_alto",
+            2.0
+          ],
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ],
+          [
+            "vol_alta",
+            7,
+            0.7
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: clímax de compra de VSA sobre la media de 30 (Ayrat Murtazin, corto, aproximado)",
+      "fuente": "Ayrat Murtazin, GuruFinance Insights, 'Volume Spread Analysis (VSA) Strategy' (patrón Climax bajista: volumen ≥ 2 veces su media, rango amplio, tendencia alcista sobre la SMA 30 y vela alcista → corto; stop móvil del 5 %; probado en BTC, aplicado aquí a altcoins) (https://ayratmurtazin.beehiiv.com/p/volume-spread-analysis-vsa-strategy-quantifying-market-action-for-trading-signals-with-rolling-backt) — lado corto",
+      "idea": "Vender en corto la vela verde de volumen clímax y rango amplio en plena subida (sobre la media de 30), típica de un techo de euforia; stop móvil del 5 % y recompra en sobreventa.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            30
+          ],
+          [
+            "volumen_alto",
+            2.0
+          ],
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ],
+          [
+            "vol_alta",
+            7,
+            0.7
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: debilidad de VSA bajo la media de 30 (Ayrat Murtazin, corto, aproximado)",
+      "fuente": "Ayrat Murtazin, GuruFinance Insights, 'Volume Spread Analysis (VSA) Strategy' (patrón Weakness: volumen ≥ 1,2 veces su media, rango estrecho, tendencia bajista bajo la SMA 30 y vela bajista → corto; stop móvil del 5 %) (https://ayratmurtazin.beehiiv.com/p/volume-spread-analysis-vsa-strategy-quantifying-market-action-for-trading-signals-with-rolling-backt) — lado corto",
+      "idea": "Con el precio bajo la media de 30, vender en corto una vela roja de rango estrecho pero con volumen alto (oferta que domina); recomprar al recuperar la media de 30, con stop móvil del 5 %.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            30
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "vol_baja",
+            7,
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            30
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto",
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: Donchian 15/7 de 4 h con EMAs 50/200 y sin entradas en domingo (BTC Platinum H4, Cristóbal Camberos)",
+      "fuente": "Cristóbal Camberos Padilla, blog de MQL5, 'I Analyzed Every Single Trade From 9 Years of Bitcoin Data' (BTCUSD 4 h: EMAs 50/200 alineadas, ruptura de Donchian de 15 velas, salida en el de 7, filtro ADX, stop por ATR, stop de tiempo y sin entradas en domingo; resultados dentro de muestra) (https://www.mql5.com/en/blogs/post/770303)",
+      "idea": "En BTC de 4 h, comprar la ruptura del máximo de 15 velas con el precio sobre las EMAs 50 y 200 y mercado en tendencia, nunca en domingo; salir al perder el mínimo de 7 velas o al día siguiente.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.25
+          ],
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            7
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: Donchian 15/7 de 4 h bajo las EMAs 50/200 y sin entradas en domingo (BTC Platinum H4, corto)",
+      "fuente": "Cristóbal Camberos Padilla, blog de MQL5, 'I Analyzed Every Single Trade From 9 Years of Bitcoin Data' (el mismo sistema opera en corto con la ruptura del mínimo de 15 velas bajo las EMAs 50/200) (https://www.mql5.com/en/blogs/post/770303) — lado corto",
+      "idea": "En BTC de 4 h, vender en corto la pérdida del mínimo de 15 velas con el precio bajo las EMAs 50 y 200 y mercado en tendencia, nunca en domingo; recomprar al superar el máximo de 7 velas o al día siguiente.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.25
+          ],
+          [
+            "dia_semana",
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            7
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: Donchian adaptativo de 20 velas con volatilidad baja (BTC Platinum H4, filtro 5)",
+      "fuente": "Cristóbal Camberos Padilla, blog de MQL5 (filtro 5: longitud de Donchian según el ATR, 20 velas con volatilidad baja, 15 con media y 10 con alta) (https://www.mql5.com/en/blogs/post/770303)",
+      "idea": "Con volatilidad baja, exigir una ruptura más larga: comprar el máximo de 20 velas sobre la EMA 200 y salir al perder el mínimo de 10 velas.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            30,
+            0.45
+          ],
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC y ETH: Donchian adaptativo de 10 velas con volatilidad alta (BTC Platinum H4, filtro 5)",
+      "fuente": "Cristóbal Camberos Padilla, blog de MQL5 (filtro 5: con ATR alto el canal de entrada se acorta a 10 velas) (https://www.mql5.com/en/blogs/post/770303)",
+      "idea": "Con volatilidad alta, entrar antes: comprar el máximo de 10 velas sobre la EMA 200, con stop amplio de 3 ATR y salida al perder el mínimo de 5 velas.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_alta",
+            30,
+            0.65
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: pérdida del mínimo de 15 velas solo tras caer un 5 % en 21 (filtro bajista de BTC Platinum, corto)",
+      "fuente": "Cristóbal Camberos Padilla, blog de MQL5 (filtro de mercado bajista: caída de más del 5 % en 21 velas; ruptura de Donchian 15 y salida en el de 7) (https://www.mql5.com/en/blogs/post/770303) — lado corto, aplicado a altcoins",
+      "idea": "Vender en corto la pérdida del mínimo de 15 velas bajo la EMA 200 solo si el precio ya cae más de un 5 % en las últimas 21 velas; recomprar al superar el máximo de 7 velas.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "impulso_sube",
+            21,
+            0.05
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            7
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Reversión tras un pico rápido que perfora un rango tranquilo (Koroush AK, 1 h, aproximado)",
+      "fuente": "Koroush AK, hilo en X de septiembre de 2025 recogido en ThreadReader (reversión a la media: varias horas laterales, pico rápido contra un nivel y cierre más allá; stop fuera del pico, objetivo 1R) (https://threadreaderapp.com/thread/1963232771356102804)",
+      "idea": "En 1 h, con el mercado lateral, comprar cuando una vela rápida perfora el mínimo de las últimas 8 velas y se aleja mucho de su media; salir al volver a la media de 8 o con un 1,2 % de ganancia.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            48,
+            0.2
+          ],
+          [
+            "z_bajo",
+            8,
+            2.0
+          ],
+          [
+            "pierde_minimo",
+            8
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            8
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.012,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004
+      }
+    },
+    {
+      "nombre": "Reversión tras un pico rápido que supera un rango tranquilo (Koroush AK, 1 h, corto, aproximado)",
+      "fuente": "Koroush AK, hilo en X de septiembre de 2025 recogido en ThreadReader (versión simétrica del pico contra una resistencia) (https://threadreaderapp.com/thread/1963232771356102804) — lado corto",
+      "idea": "En 1 h, con el mercado lateral, vender en corto cuando una vela rápida supera el máximo de las últimas 8 velas y se estira mucho sobre su media; recomprar al volver a la media de 8 o con un 1,2 %.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            48,
+            0.2
+          ],
+          [
+            "z_bajo",
+            8,
+            2.0
+          ],
+          [
+            "pierde_minimo",
+            8
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            8
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.012,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: seguidor de tendencia SITF sobre la media de 200 con volumen y MACD (TheRealHawk, aproximado)",
+      "fuente": "TheRealHawk, 'Systematic Index Trend Follower (SITF)' en TradingView (solo largos; régimen sobre una SMA 200 que sube, EMA 10 sobre la SMA 50, volumen relativo ≥ 1, MACD con fuerza; todo fuera al perder el régimen; ejemplos en SOLUSDT 4 h) (https://www.tradingview.com/script/lqmkrjmR-Systematic-Index-Trend-Follower-SITF/)",
+      "idea": "En SOL de 4 h o diario, comprar con el precio sobre las medias de 10, 50 y 200, subiendo, con volumen normal o alto y MACD positivo; venderlo todo al perder la media de 200.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            10
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            200
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Setup 9 de compra del TD Sequential de Tom DeMark (aproximado)",
+      "fuente": "Alireza Seifi en HackerNoon, 'How to Buy/Sell Cryptocurrency with Number Indicator (TD Sequential)' (9 cierres seguidos por debajo del cierre de 4 velas antes; lo usa Tone Vays) (https://hackernoon.com/how-to-buy-sell-cryptocurrency-with-number-indicator-td-sequential-5af46f0ebce1)",
+      "idea": "Tras una racha bajista agotada (más bajo que hace 4 y que hace 9 velas, con RSI bajo 35), comprar la primera vela verde; salir cuando el RSI recupera 55 o a los 10 días.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            4,
+            0.0
+          ],
+          [
+            "impulso_baja",
+            9,
+            0.06
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: setup 9 de venta del TD Sequential (Tom DeMark, corto, aproximado)",
+      "fuente": "Alireza Seifi en HackerNoon, 'How to Buy/Sell Cryptocurrency with Number Indicator (TD Sequential)' (9 cierres seguidos por encima del cierre de 4 velas antes; el ejemplo del artículo es un corto) (https://hackernoon.com/how-to-buy-sell-cryptocurrency-with-number-indicator-td-sequential-5af46f0ebce1) — lado corto",
+      "idea": "Tras una racha alcista agotada (más alto que hace 4 y que hace 9 velas, con RSI sobre 65), vender en corto la primera vela roja; recomprar cuando el RSI cae a 45 o a los 10 días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            4,
+            0.0
+          ],
+          [
+            "impulso_baja",
+            9,
+            0.06
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: RSI estocástico que sale de sobreventa sobre la EMA 200 con flujo comprador (SystemsOverFeelings, aproximado)",
+      "fuente": "SystemsOverFeelings, 'BTC Trend-Momentum Strategy' en TradingView (EMA 200 como tendencia, Chaikin Money Flow como confirmación de volumen y RSI estocástico que sale de sobreventa como gatillo; cierra con la señal contraria) (https://www.tradingview.com/script/OKxIjdsz/)",
+      "idea": "En BTC sobre la EMA 200, comprar cuando el RSI rápido sale de sobreventa con una vela verde y predominan las compras agresivas; salir al perder la EMA 200, con stop de 3 ATR añadido.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rsi_bajo",
+            3,
+            30
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "delta_compra",
+            20,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: RSI estocástico que sale de sobrecompra bajo la EMA 200 con flujo vendedor (SystemsOverFeelings, corto, aproximado)",
+      "fuente": "SystemsOverFeelings, 'BTC Trend-Momentum Strategy' en TradingView (lado corto: bajo la EMA 200, CMF negativo y RSI estocástico que sale de sobrecompra) (https://www.tradingview.com/script/OKxIjdsz/) — lado corto",
+      "idea": "En BTC bajo la EMA 200, vender en corto cuando el RSI rápido sale de sobrecompra con una vela roja y predominan las ventas agresivas; recomprar al recuperar la EMA 200, con stop de 3 ATR.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rsi_bajo",
+            3,
+            30
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "delta_compra",
+            20,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: ruptura de un rango de 72 h en 4 h con volumen de 2,5 veces (ExchangeScout)",
+      "fuente": "dylan renke en DEV Community, 'Volume Breakout — Crypto Trading Strategy Guide (2026)' (rango de varios días, ruptura de la resistencia con volumen ≥ 2,5 veces la media de 20; ejemplo en BTC 4 h con 72 h de rango y relación 1:2,7) (https://dev.to/dylan_renke_a4247fd53e822/volume-breakout-crypto-trading-strategy-guide-2026-3dp0)",
+      "idea": "En 4 h, tras unas 18 velas laterales, comprar la ruptura del techo del rango con un volumen de al menos 2,5 veces el normal; objetivo del 4,5 % y salida si vuelve bajo el suelo del rango.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            18,
+            0.25
+          ],
+          [
+            "ruptura_volumen",
+            18,
+            2.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            18
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.045,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: sobre la media de 20 días (Le y Ruthbah, CXO Advisory)",
+      "fuente": "Trinh Hue Le y Ummul Ruthbah, 'Trend-following Strategies for Crypto Investors' (SSRN 4551518), resumido por CXO Advisory (estar en BTC con el cierre sobre la SMA del día anterior; la de 20 días da un Sharpe neto de 1,25 con costes del 0,5 %) (https://www.cxoadvisory.com/technical-trading/applying-simple-trend-following-rules-to-cryptocurrencies)",
+      "idea": "En BTC diario, estar comprado mientras el cierre está por encima de la media de 20 días y en liquidez cuando está por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: RSI 80-20 con divergencia bajista en 4 h (Tradingstrategyguides, corto, aproximado)",
+      "fuente": "Tradingstrategyguides en TradingView, 'ETHUSD 4H RSI 80-20 Trading Strategy Short Trade' (RSI de 8 con niveles 80/20: máximo de 50 velas con RSI sobre 80, nuevo máximo con RSI más bajo y entrada al cerrar bajo el mínimo de la primera vela; objetivo 1:3) (https://tr.tradingview.com/chart/ETHUSD/wHmWvMT5-ETHUSD-4H-RSI-80-20-TRADING-STRATEGY-SHORT-TRADE) — lado corto",
+      "idea": "En ETH de 4 h, con el precio aún muy alto respecto a sus 50 velas pero el RSI de 8 ya fuera de sobrecompra, vender en corto el cierre que pierde el mínimo de 5 velas; objetivo del 6 % y recompra si el RSI llega a 20.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            50,
+            1.0
+          ],
+          [
+            "rsi_alto",
+            8,
+            30
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            8,
+            80
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL y XRP: RSI 80-20 con divergencia alcista en 4 h (Tradingstrategyguides, versión simétrica, aproximado)",
+      "fuente": "Tradingstrategyguides en TradingView, 'ETHUSD 4H RSI 80-20 Trading Strategy' (versión de compra: mínimo de 50 velas con RSI de 8 bajo 20, nuevo mínimo con RSI más alto y entrada al cerrar sobre el máximo de la primera vela; objetivo 1:3) (https://tr.tradingview.com/chart/ETHUSD/wHmWvMT5-ETHUSD-4H-RSI-80-20-TRADING-STRATEGY-SHORT-TRADE)",
+      "idea": "En 4 h, con el precio aún muy bajo respecto a sus 50 velas pero el RSI de 8 ya fuera de sobreventa, comprar el cierre que supera el máximo de 5 velas; objetivo del 6 % y salida si el RSI llega a 80.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            50,
+            1.0
+          ],
+          [
+            "rsi_alto",
+            8,
+            30
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            8,
+            80
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: banda de soporte del mercado alcista con salida por el Pi Cycle Top (Rabinovich, aproximado)",
+      "fuente": "Alejandro Rabinovich (Universidad del CEMA), 'Bitcoin cyclicality and investment strategy', Finance, Accounting and Business Analysis 7(2), 2025, DOI 10.37075/FABA.2025.2.10 (comprar con dos velas semanales sobre la banda SMA 20 / EMA 21 semanal; vender al abrir bajo ella o al confirmarse el Pi Cycle Top, SMA 111 sobre 2 × SMA 350; alfa significativo 2012-2025) (https://www.unwe.bg/doi/FABA/2025.2/FABA.2025.2.10.pdf)",
+      "idea": "En BTC diario, comprar cuando el precio está sobre la banda de 20 semanas (medias de 140 y 147 días) y sube en la semana; vender al perder la banda o cuando el precio se dispara muy por encima de su media de 350 días (aviso de techo de ciclo).",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            140
+          ],
+          [
+            "sobre_ema",
+            147
+          ],
+          [
+            "impulso_sube",
+            7,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            140
+          ],
+          [
+            "z_alto",
+            350,
+            2.5
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
     }
   ]
 }
