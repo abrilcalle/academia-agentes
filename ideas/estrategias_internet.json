@@ -29380,6 +29380,1017 @@
         "shrink": false,
         "salida_siempre": true
       }
+    },
+    {
+      "nombre": "Puntos pivotales de Livermore: ruptura de una pausa estrecha en tendencia (The Right Trader, diario, aproximado)",
+      "fuente": "The Right Trader, 'Livermore Pivotal Points' (tendencia sobre la SMA 50 con mínimos de 20 sesiones crecientes, pausa de 8-15 sesiones y entrada al cerrar fuera de ella; stop al otro lado de la pausa, objetivo 2R y salida a las 10 sesiones) (https://therighttrader.com/learn/trading-strategies/livermore-pivotal-points)",
+      "idea": "En diario, con el precio sobre la media de 50 y subiendo en 20 días, tras unas 12 sesiones de volatilidad baja comprar el cierre sobre el máximo de la pausa; objetivo del 10 %, stop de 2 ATR y salida a los 10 días.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "vol_baja",
+            12,
+            0.5
+          ],
+          [
+            "rompe_maximo",
+            12
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Puntos pivotales de Livermore en corto: pérdida de una pausa estrecha en tendencia bajista (The Right Trader, diario, corto, aproximado)",
+      "fuente": "The Right Trader, 'Livermore Pivotal Points' (tendencia sobre la SMA 50 con mínimos de 20 sesiones crecientes, pausa de 8-15 sesiones y entrada al cerrar fuera de ella; stop al otro lado de la pausa, objetivo 2R y salida a las 10 sesiones) (https://therighttrader.com/learn/trading-strategies/livermore-pivotal-points)",
+      "idea": "En diario, con el precio bajo la media de 50 y cayendo en 20 días, tras unas 12 sesiones tranquilas vender en corto el cierre bajo el mínimo de la pausa; objetivo del 10 %, stop de 2 ATR y salida a los 10 días.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "vol_baja",
+            12,
+            0.5
+          ],
+          [
+            "rompe_maximo",
+            12
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y SOL: vuelta desde la banda inferior de Bollinger con RSI bajo 35 en mercado sin tendencia (Bollinger Reverter, 4 h)",
+      "fuente": "Bollinger Reverter 4h (skill de Freqtrade publicada en implexa.ai: bandas 20/2, RSI 14 bajo 35 o sobre 65 y ADX bajo 25; salida en la media de Bollinger; mejor resultado en ETH; probada en BTC, ETH, SOL y DOGE) (https://implexa.ai/s/clawhub/bollinger-reverter-4h)",
+      "idea": "En 4 h, con el mercado lateral, comprar el cierre bajo la banda inferior de Bollinger (20, 2) con RSI bajo 35 y salir al volver a la media; objetivo del 2,5 % y como mucho 2 días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "mercado_lateral",
+            14,
+            0.25
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.025,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004
+      }
+    },
+    {
+      "nombre": "ETH y SOL: corto sobre la banda superior de Bollinger con RSI sobre 65 en mercado sin tendencia (Bollinger Reverter, 4 h, corto)",
+      "fuente": "Bollinger Reverter 4h (skill de Freqtrade publicada en implexa.ai: bandas 20/2, RSI 14 bajo 35 o sobre 65 y ADX bajo 25; salida en la media de Bollinger; mejor resultado en ETH; probada en BTC, ETH, SOL y DOGE) (https://implexa.ai/s/clawhub/bollinger-reverter-4h)",
+      "idea": "En 4 h, con el mercado lateral, vender en corto el cierre sobre la banda superior de Bollinger (20, 2) con RSI sobre 65 y recomprar al volver a la media; objetivo del 2,5 % y como mucho 2 días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "mercado_lateral",
+            14,
+            0.25
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.025,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: noches del lunes y del martes en máximos de 10 días (Quantpedia, sesiones nocturnas, 1 h, aproximado)",
+      "fuente": "Cyril Dujava, Quantpedia, 'How To Profitably Trade Bitcoin's Overnight Sessions?' (2024): comprar al cierre de las 16 h de Nueva York si BTC está en su máximo de 10 días y vender a las 10 h del día siguiente; la versión final se queda con las noches de viernes, lunes y martes (https://quantpedia.com/how-to-profitably-trade-bitcoins-overnight-sessions/)",
+      "idea": "En 1 h, los lunes y martes a las 20 h UTC, si BTC cierra sobre el máximo de las últimas 240 velas (10 días), comprar y vender a las 14 h UTC del día siguiente.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            20,
+            1
+          ],
+          [
+            "dia_semana",
+            [
+              0,
+              1
+            ]
+          ],
+          [
+            "rompe_maximo",
+            240
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            14,
+            1
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Sistema de volatilidad de Wilder: subida de 3 ATR desde el mínimo con stop móvil (LucF, diario, aproximado)",
+      "fuente": "LucF, 'Volatility System by Wilder' en TradingView (SAR = mínimo cierre de n velas + ATR × factor; largo al superarlo, corto al perder el simétrico; en cripto sugiere n 9-10 y factor 1,8-2,5, mejor en 12 h o más) (https://www.tradingview.com/script/pjZKWnHl-Volatility-System-by-Wilder-LucF)",
+      "idea": "En diario, comprar cuando el precio sube más de un 12 % en 9 velas (unos 3 ATR sobre el mínimo reciente) y mantener con un stop de 3 ATR que sigue al mejor cierre.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            9,
+            0.12
+          ],
+          [
+            "sobre_ema",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            9,
+            0.12
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Sistema de volatilidad de Wilder en corto: caída de 3 ATR desde el máximo con stop móvil (LucF, diario, corto, aproximado)",
+      "fuente": "LucF, 'Volatility System by Wilder' en TradingView (SAR = mínimo cierre de n velas + ATR × factor; largo al superarlo, corto al perder el simétrico; en cripto sugiere n 9-10 y factor 1,8-2,5, mejor en 12 h o más) (https://www.tradingview.com/script/pjZKWnHl-Volatility-System-by-Wilder-LucF)",
+      "idea": "En diario, vender en corto cuando el precio cae más de un 12 % en 9 velas (unos 3 ATR bajo el máximo reciente) y mantener con un stop de 3 ATR que sigue al precio.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            9,
+            0.12
+          ],
+          [
+            "sobre_ema",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            9,
+            0.12
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura del canal de 20 con salida en el de 40 (bvdbeld2, Donchian y Keltner, diario, aproximado)",
+      "fuente": "bvdbeld2, 'Donchian and Keltner Channels Trend Following with Trailing Stop' en TradingView (entrada al superar la banda superior de 20; salida al perder la banda inferior de 40, que hace de stop móvil) (https://www.tradingview.com/script/RY3OheIm-Donchian-and-Keltner-Channels-Trend-Following-with-Trailing-Stop/)",
+      "idea": "En diario, comprar al cerrar sobre el máximo de 20 velas y mantener hasta que el precio pierda el mínimo de 40, que funciona como stop móvil.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            40
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Pérdida del canal de 20 con salida en el de 40 (bvdbeld2 invertido, Donchian y Keltner, diario, corto, aproximado)",
+      "fuente": "bvdbeld2, 'Donchian and Keltner Channels Trend Following with Trailing Stop' en TradingView (entrada al superar la banda superior de 20; salida al perder la banda inferior de 40, que hace de stop móvil) (https://www.tradingview.com/script/RY3OheIm-Donchian-and-Keltner-Channels-Trend-Following-with-Trailing-Stop/)",
+      "idea": "En diario, vender en corto al cerrar bajo el mínimo de 20 velas y mantener hasta que el precio supere el máximo de 40.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            40
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: ruptura del máximo de la vela de 4 h anterior sobre la EMA 200 diaria con tendencia (4H Range Breakout, 4 h)",
+      "fuente": "'4H Range Breakout Strategy (ETH 4H optimized + dynamic stop)' en TradingView (ruptura del máximo o mínimo de la vela de 4 h anterior con filtro de EMA 200 diaria y ADX, stop de ATR, objetivo en R y stop móvil tipo Chandelier) (https://br.tradingview.com/script/uHJ9xPFu)",
+      "idea": "En 4 h, con ETH sobre la EMA de 1200 velas (200 días) y tendencia limpia, comprar el cierre sobre el máximo de la vela anterior; objetivo del 4 %, stop de 2 ATR y stop móvil del 3 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            1
+          ],
+          [
+            "sobre_ema",
+            1200
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0.03,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: pérdida del mínimo de la vela de 4 h anterior bajo la EMA 200 diaria con tendencia (4H Range Breakout, 4 h, corto)",
+      "fuente": "'4H Range Breakout Strategy (ETH 4H optimized + dynamic stop)' en TradingView (ruptura del máximo o mínimo de la vela de 4 h anterior con filtro de EMA 200 diaria y ADX, stop de ATR, objetivo en R y stop móvil tipo Chandelier) (https://br.tradingview.com/script/uHJ9xPFu)",
+      "idea": "En 4 h, con ETH bajo la EMA de 1200 velas (200 días) y tendencia bajista limpia, vender en corto el cierre bajo el mínimo de la vela anterior; objetivo del 4 %, stop de 2 ATR y stop móvil del 3 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            1
+          ],
+          [
+            "sobre_ema",
+            1200
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0.03,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: ruptura del rango de 150 días (Gerritsen y otros, TRB)",
+      "fuente": "Gerritsen, Bouri, Ramezanifar y Roubaud, 'The profitability of technical trading rules in the Bitcoin market', Finance Research Letters 34 (2020), resumido por Zeiierman en TradingView (BTC diario 2010-2018: la ruptura de rango de 50, 150 y 200 días fue la regla más consistente frente a comprar y mantener) (https://my.tradingview.com/chart/BTCUSD/tK5t6vU6-The-profitability-of-TA-trading-rules-in-the-Bitcoin-market)",
+      "idea": "En BTC diario, comprar al cerrar sobre el máximo de 150 días y vender solo al perder el mínimo de 150 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            150
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            150
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: pérdida del rango de 150 días en corto (Gerritsen y otros, TRB, corto)",
+      "fuente": "Gerritsen, Bouri, Ramezanifar y Roubaud, 'The profitability of technical trading rules in the Bitcoin market', Finance Research Letters 34 (2020), resumido por Zeiierman en TradingView (BTC diario 2010-2018: la ruptura de rango de 50, 150 y 200 días fue la regla más consistente frente a comprar y mantener) (https://my.tradingview.com/chart/BTCUSD/tK5t6vU6-The-profitability-of-TA-trading-rules-in-the-Bitcoin-market)",
+      "idea": "En BTC diario, vender en corto al cerrar bajo el mínimo de 150 días y recomprar solo al superar el máximo de 150 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            150
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            150
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: media de 2 días sobre la de 150 (Gerritsen y otros, cruce de medias)",
+      "fuente": "Gerritsen, Bouri, Ramezanifar y Roubaud, 'The profitability of technical trading rules in the Bitcoin market', Finance Research Letters 34 (2020), resumido por Zeiierman en TradingView (BTC diario 2010-2018: la ruptura de rango de 50, 150 y 200 días fue la regla más consistente frente a comprar y mantener) (https://my.tradingview.com/chart/BTCUSD/tK5t6vU6-The-profitability-of-TA-trading-rules-in-the-Bitcoin-market)",
+      "idea": "En BTC diario, estar comprado mientras la media de 2 días está sobre la de 150 y salir cuando cae por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            2,
+            150
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            2,
+            150
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: impulso de 10 días positivo (Gerritsen y otros, ROC 10)",
+      "fuente": "Gerritsen, Bouri, Ramezanifar y Roubaud, 'The profitability of technical trading rules in the Bitcoin market', Finance Research Letters 34 (2020), resumido por Zeiierman en TradingView (BTC diario 2010-2018: la ruptura de rango de 50, 150 y 200 días fue la regla más consistente frente a comprar y mantener) (https://my.tradingview.com/chart/BTCUSD/tK5t6vU6-The-profitability-of-TA-trading-rules-in-the-Bitcoin-market)",
+      "idea": "En BTC diario, comprar cuando el precio está por encima del de hace 10 días y salir cuando queda por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            10,
+            0.0
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: sobre la media de 5 días (Detzel y otros)",
+      "fuente": "Detzel, Liu, Strauss, Zhou y Zhu, 'Learning and predictability via technical analysis: Evidence from bitcoin and stocks with hard-to-value fundamentals', Financial Management 50(1), 2021, resumido por CXO Advisory (BTC sobre su SMA o en liquidez; SMA 5 con Sharpe bruto 2,6 y SMA 100 con 2,2 y la mayor tolerancia a costes, 4,5 %) (https://www.cxoadvisory.com/currency-trading/timing-bitcoin-with-smas/)",
+      "idea": "En BTC diario, estar comprado mientras el cierre está sobre su media de 5 días y pasar a liquidez al cerrar por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            5
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: sobre la media de 100 días (Detzel y otros, versión resistente a costes)",
+      "fuente": "Detzel, Liu, Strauss, Zhou y Zhu, 'Learning and predictability via technical analysis: Evidence from bitcoin and stocks with hard-to-value fundamentals', Financial Management 50(1), 2021, resumido por CXO Advisory (BTC sobre su SMA o en liquidez; SMA 5 con Sharpe bruto 2,6 y SMA 100 con 2,2 y la mayor tolerancia a costes, 4,5 %) (https://www.cxoadvisory.com/currency-trading/timing-bitcoin-with-smas/)",
+      "idea": "En BTC diario, estar comprado mientras el cierre está sobre su media de 100 días y pasar a liquidez al cerrar por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            100
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Rebote tras una caída brusca de 2 horas (De Nicola, reversión de saltos, 1 h)",
+      "fuente": "Ernesto De Nicola, 'On the Intraday Behavior of Bitcoin', Ledger 6 (2021) (BTC Bitstamp 2015-2018: tras un salto de varias desviaciones típicas, apostar por la vuelta durante una vela; la frecuencia de 2 h fue la mejor) (https://ledger.pitt.edu/ojs/ledger/article/view/213)",
+      "idea": "En 1 h, tras una caída de más del 4 % en dos velas, comprar y cerrar en la vela siguiente.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            2,
+            0.04
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            24
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Corto tras una subida brusca de 2 horas (De Nicola, reversión de saltos, 1 h, corto)",
+      "fuente": "Ernesto De Nicola, 'On the Intraday Behavior of Bitcoin', Ledger 6 (2021) (BTC Bitstamp 2015-2018: tras un salto de varias desviaciones típicas, apostar por la vuelta durante una vela; la frecuencia de 2 h fue la mejor) (https://ledger.pitt.edu/ojs/ledger/article/view/213)",
+      "idea": "En 1 h, tras una subida de más del 4 % en dos velas, vender en corto y recomprar en la vela siguiente.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            2,
+            0.04
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            24
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: apostar contra una vela roja gigante con RSI bajo 30 y volumen (Fade Giga Candle, 1 h, aproximado)",
+      "fuente": "'FADE GIGA CANDLE STRATEGY' v6.0 en TradingView (vela con cuerpo en el 7 % más grande de 500 velas, RSI 14 en 70/30 y volumen 1,5 veces su media de 20: apostar en contra durante una vela; el autor la pensó para BTC, ETH, SOL y XRP) (https://kr.tradingview.com/scripts/search/profit/page-18)",
+      "idea": "En 1 h, tras una vela que cae más de un 3 % con RSI bajo 30 y volumen de 1,5 veces su media, comprar y cerrar en la vela siguiente.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            1,
+            0.03
+          ],
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            24
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: apostar contra una vela verde gigante con RSI sobre 70 y volumen (Fade Giga Candle, 1 h, corto, aproximado)",
+      "fuente": "'FADE GIGA CANDLE STRATEGY' v6.0 en TradingView (vela con cuerpo en el 7 % más grande de 500 velas, RSI 14 en 70/30 y volumen 1,5 veces su media de 20: apostar en contra durante una vela; el autor la pensó para BTC, ETH, SOL y XRP) (https://kr.tradingview.com/scripts/search/profit/page-18)",
+      "idea": "En 1 h, tras una vela que sube más de un 3 % con RSI sobre 70 y volumen de 1,5 veces su media, vender en corto y recomprar en la vela siguiente.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            1,
+            0.03
+          ],
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            0,
+            24
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: tendencia diaria con EMA 50 sobre la 200 y stop de ATR (FlyingOceanTiger, aproximado)",
+      "fuente": "FlyingOceanTiger, 'Lab: Daily 50/200 EMA + ATR Stop (Long Only)' en TradingView (régimen alcista con EMA 50 sobre EMA 200, entrada con fuerza sobre la EMA rápida y stop móvil de ATR; probado en BTC, ETH, SOL, XRP y BNB) (https://il.tradingview.com/script/iEIyPbhj-Lab-Daily-50-200-EMA-ATR-Stop-Long-Only-by-FlyingOceanTiger)",
+      "idea": "En diario, con la media de 50 sobre la de 200 y el precio sobre las EMAs de 50 y 200, comprar al cerrar sobre el máximo de 5 días; stop móvil de 3 ATR y salida al perder la EMA 200.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: precio sobre la media de 40 con impulso al alza en horario europeo (PakunFX, MA Shift WaveTrend, 4 h, aproximado)",
+      "fuente": "PakunFX, 'Moving Average Shift WaveTrend Strategy' en TradingView (ETH/USD 4 h: precio sobre la SMA 40 de hl2, oscilador positivo y subiendo, EMA 200 a favor, ATR sobre su mediana, solo de 9 a 17 h; objetivo 1,5 %, stop 1 % y stop móvil 1 %; 224 operaciones 2016-2025) (https://my.tradingview.com/script/JBkhGG04-Moving-Average-Shift-WaveTrend-Strategy)",
+      "idea": "En 4 h, de 9 a 17 h UTC, con ETH sobre la media de 40 y la EMA 200, MACD positivo, subida en 3 velas y volatilidad alta, comprar; objetivo del 1,5 % y stop móvil del 1 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            9,
+            8
+          ],
+          [
+            "sobre_media",
+            40
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "vol_alta",
+            20,
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            40
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.015,
+        "trail": 0.01,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004
+      }
+    },
+    {
+      "nombre": "ETH: precio bajo la media de 40 con impulso a la baja en horario europeo (PakunFX, MA Shift WaveTrend, 4 h, corto, aproximado)",
+      "fuente": "PakunFX, 'Moving Average Shift WaveTrend Strategy' en TradingView (ETH/USD 4 h: precio sobre la SMA 40 de hl2, oscilador positivo y subiendo, EMA 200 a favor, ATR sobre su mediana, solo de 9 a 17 h; objetivo 1,5 %, stop 1 % y stop móvil 1 %; 224 operaciones 2016-2025) (https://my.tradingview.com/script/JBkhGG04-Moving-Average-Shift-WaveTrend-Strategy)",
+      "idea": "En 4 h, de 9 a 17 h UTC, con ETH bajo la media de 40 y la EMA 200, MACD negativo, caída en 3 velas y volatilidad alta, vender en corto; objetivo del 1,5 % y stop móvil del 1 %.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            9,
+            8
+          ],
+          [
+            "sobre_media",
+            40
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "vol_alta",
+            20,
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            40
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.015,
+        "trail": 0.01,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: Supertrend (10, 3) con ADX sobre 23 en 4 h (SUPERTREND VALIDADO ADX, aproximado)",
+      "fuente": "'SUPERTREND VALIDADO ADX EMAS VWAP' en TradingView (Supertrend ATR 10 × 3 con ADX 14 sobre 23; salida al girar el Supertrend; el autor da en BTC/USDT 4 h 2020-2024 un 52 % de aciertos y factor de beneficio 3,2) (https://de.tradingview.com/script/X9b81eu2)",
+      "idea": "En 4 h, con tendencia clara (equivalente a ADX sobre 23), comprar al cerrar sobre el máximo de 10 velas y la EMA 10, y mantener con un stop de 3 ATR que sigue al precio, como el Supertrend.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "sobre_ema",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
     }
   ]
 }
