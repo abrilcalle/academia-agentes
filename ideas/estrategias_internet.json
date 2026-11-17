@@ -30391,6 +30391,1088 @@
         "shrink": false,
         "salida_siempre": true
       }
+    },
+    {
+      "nombre": "XRP: cierre diario sobre la resistencia con volumen del 150 % a favor de la EMA 50 (CryptoArena)",
+      "fuente": "CryptoArena, 'Unlock Consistent Profits with XRP Breakout Trading on Binance' (diario; cierre al menos un 1,5 % más allá del nivel con volumen de al menos el 150 % de la media de 20 días, EMAs 50/200, stop 2-3 % al otro lado, primer objetivo 1:1 y stop móvil tras un 3 %; guía sin backtest) (https://cryptoarena.it.com/?p=20388)",
+      "idea": "En diario, comprar XRP cuando cierra sobre el máximo de 20 días con al menos 1,5 veces el volumen normal y por encima de la EMA 50, asegurar tras un 3 % y salir al perder la EMA 20.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: cierre diario bajo el soporte con volumen del 150 % bajo la EMA 50 (CryptoArena, corto)",
+      "fuente": "CryptoArena, 'Unlock Consistent Profits with XRP Breakout Trading on Binance' (diario; cierre al menos un 1,5 % más allá del nivel con volumen de al menos el 150 % de la media de 20 días, EMAs 50/200, stop 2-3 % al otro lado, primer objetivo 1:1 y stop móvil tras un 3 %; guía sin backtest) (https://cryptoarena.it.com/?p=20388) — lado corto, la misma guía describe la ruptura bajista",
+      "idea": "En diario, vender XRP en corto cuando cierra bajo el mínimo de 20 días con 1,5 veces el volumen normal y por debajo de la EMA 50; recomprar al recuperar la EMA 20.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: ruptura de una compresión con volumen del 150 % y RSI sobre 65 (CryptoArena, 1 h)",
+      "fuente": "CryptoArena, 'Unlock Profits with XRP Breakout Trading on Coinbase' (consolidación con Bandas de Bollinger estrechándose, cierre fuera del rango con volumen del 150 %, RSI sobre 65 para largos y bajo 35 para cortos, objetivo 1:2 y salida si vuelve dentro en 2 velas; pensada para 5 min, aquí en 1 h; guía sin backtest) (https://cryptoarena.it.com/?p=22443)",
+      "idea": "En 1 h, tras un periodo de volatilidad baja, comprar XRP cuando rompe el máximo de 20 velas con 1,5 veces el volumen y RSI sobre 65; objetivo del 4 % y fuera si no arranca en 2 velas.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            48,
+            0.5
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 1,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: pérdida de una compresión con volumen del 150 % y RSI bajo 35 (CryptoArena, 1 h, corto)",
+      "fuente": "CryptoArena, 'Unlock Profits with XRP Breakout Trading on Coinbase' (consolidación con Bandas de Bollinger estrechándose, cierre fuera del rango con volumen del 150 %, RSI sobre 65 para largos y bajo 35 para cortos, objetivo 1:2 y salida si vuelve dentro en 2 velas; pensada para 5 min, aquí en 1 h; guía sin backtest) (https://cryptoarena.it.com/?p=22443) — lado corto",
+      "idea": "En 1 h, tras volatilidad baja, vender XRP en corto cuando pierde el mínimo de 20 velas con 1,5 veces el volumen y RSI bajo 35; objetivo del 4 % y fuera si no cae en 2 velas.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            48,
+            0.5
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 1,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Cruce de EMAs 5/12 con RSI 21 sobre 50 en diario (Tradingpedia)",
+      "fuente": "Miroslav Marinov en Tradingpedia, 'Bitcoin technical trading strategies' (https://www.tradingpedia.com/bitcoin-guide/bitcoin-technical-trading-strategies/), estrategia 1",
+      "idea": "En diario, comprar cuando la EMA 5 cruza sobre la 12 con el RSI de 21 ya por encima de 50, y salir al cruce contrario o si el RSI pierde 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            5
+          ],
+          [
+            "sobre_ema",
+            12
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "rsi_alto",
+            21,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            12
+          ],
+          [
+            "rsi_bajo",
+            21,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Cruce bajista de EMAs 5/12 con RSI 21 bajo 50 en diario (Tradingpedia, corto)",
+      "fuente": "Miroslav Marinov en Tradingpedia, 'Bitcoin technical trading strategies' (https://www.tradingpedia.com/bitcoin-guide/bitcoin-technical-trading-strategies/), estrategia 1 en su versión corta",
+      "idea": "En diario, vender en corto cuando la EMA 5 cruza bajo la 12 con el RSI de 21 por debajo de 50, y recomprar al cruce contrario o si el RSI recupera 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            5
+          ],
+          [
+            "sobre_ema",
+            12
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "rsi_alto",
+            21,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            12
+          ],
+          [
+            "rsi_bajo",
+            21,
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Secuencia de medias 10-25-50-100-200 con ADX sobre 20 en 4 h (Tradingpedia, aproximado)",
+      "fuente": "Miroslav Marinov en Tradingpedia, 'Bitcoin technical trading strategies' (https://www.tradingpedia.com/bitcoin-guide/bitcoin-technical-trading-strategies/), estrategia 2 (medias 10, 25, 50, 100 y 200 ordenadas y ADX sobre 20 que sube; entrar 5 velas después; salir cuando se rompe el orden); aproximado con el precio sobre las cinco medias, la 10 sobre la 25 y la eficiencia de Kaufman en lugar del ADX",
+      "idea": "En 4 h, comprar cuando el precio está sobre las medias de 10, 25, 50, 100 y 200 con la 10 sobre la 25 y el mercado en tendencia clara; salir cuando la 10 cae bajo la 25 o el precio pierde la de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            10
+          ],
+          [
+            "sobre_media",
+            25
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "cruce_alcista",
+            10,
+            25
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            25
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Secuencia de medias 200-100-50-25-10 bajista con tendencia en 4 h (Tradingpedia, corto, aproximado)",
+      "fuente": "Miroslav Marinov en Tradingpedia, 'Bitcoin technical trading strategies' (https://www.tradingpedia.com/bitcoin-guide/bitcoin-technical-trading-strategies/), estrategia 2 en su versión corta (orden inverso de las medias); aproximado como la versión larga",
+      "idea": "En 4 h, vender en corto cuando el precio está bajo las cinco medias con la 10 bajo la 25 y el mercado en tendencia; recomprar cuando la 10 recupera la 25 o el precio la de 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            10
+          ],
+          [
+            "sobre_media",
+            25
+          ],
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "cruce_alcista",
+            10,
+            25
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            25
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "RichBugger: sobre la EMA 60 de 1 h y la de 4 h con salida al perder la de 1 h (Babypips, 1 h)",
+      "fuente": "Foro de Babypips, 'RichBugger System' (EMA 60 del precio medio en 4 h y en 1 h; entrar cuando el precio está sobre ambas, stop bajo la entrada que pasa a la EMA de 1 h, salida al cruzar la EMA de 1 h; pensado para forex, sin resultados medidos) (https://forums.babypips.com/free-forex-trading-systems/43633-richbugger-system.html)",
+      "idea": "En 1 h, comprar cuando el precio está sobre la EMA 60 y sobre la EMA 240 (la de 60 en 4 h) y sube con fuerza; salir al cerrar bajo la EMA 60, que hace de stop móvil.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            60
+          ],
+          [
+            "sobre_ema",
+            240
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.01
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            60
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "RichBugger en corto: bajo la EMA 60 de 1 h y la de 4 h (Babypips, 1 h, corto)",
+      "fuente": "Foro de Babypips, 'RichBugger System' (EMA 60 del precio medio en 4 h y en 1 h; entrar cuando el precio está sobre ambas, stop bajo la entrada que pasa a la EMA de 1 h, salida al cruzar la EMA de 1 h; pensado para forex, sin resultados medidos) (https://forums.babypips.com/free-forex-trading-systems/43633-richbugger-system.html) — el autor indica que los cortos son la regla inversa",
+      "idea": "En 1 h, vender en corto cuando el precio está bajo la EMA 60 y la EMA 240 y cae con fuerza; recomprar al cerrar sobre la EMA 60.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            60
+          ],
+          [
+            "sobre_ema",
+            240
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.01
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            60
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: corto cuando el RSI cae desde arriba de 50 bajo la media de 200 (Coinrule RSI Decrease Scalper, 1 h, aproximado)",
+      "fuente": "Coinrule Help Center, plantilla 'RSI Decrease Scalper' (RSI sobre 50 que cae 9 puntos en una vela, MA200 sobre MA100 en 1 h y precio bajo la MA200 de 4 h; recompra con -5 % y stop del 6 %; backtest del autor en ETH/USDT de mayo a agosto de 2022: +125 % y 78 % de aciertos) (https://help.coinrule.com/en/articles/6466327-rsi-decrease-scalper); aproximado en 1 h con la caída brusca de la vela y stop de ATR",
+      "idea": "En 1 h con ETH en tendencia bajista (bajo su media de 200 y la de 100 bajo la de 200), vender en corto cuando el RSI aún está sobre 50 pero la vela cae con fuerza; recomprar con un 5 % de ganancia.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "cruce_alcista",
+            100,
+            200
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.008
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: ruptura de Donchian en 4 h sobre la EMA 200 con objetivo de 5R (MQL5, estrategia B)",
+      "fuente": "Kobyn Schlichter en el blog de MQL5, 'Why I Stopped Looking for One Perfect BTC Strategy (And Started Running Three Instead)' (septiembre de 2026; resultados del propio autor con apalancamiento, aquí sin él) (https://www.mql5.com/en/blogs/post/775935), estrategia B: ruptura del canal de Donchian en H4, stop de 1,5 ATR, objetivo 5 veces el riesgo, break-even, stop móvil y filtro de EMA",
+      "idea": "En 4 h, comprar BTC al romper el máximo de 20 velas por encima de la EMA 200, pasar a break-even tras un 3 %, seguir con stop móvil y buscar un objetivo amplio (unas 5 veces el riesgo).",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.2,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: pérdida del Donchian en 4 h bajo la EMA 200 con objetivo de 5R (MQL5, estrategia B, corto)",
+      "fuente": "Kobyn Schlichter en el blog de MQL5, 'Why I Stopped Looking for One Perfect BTC Strategy (And Started Running Three Instead)' (septiembre de 2026; resultados del propio autor con apalancamiento, aquí sin él) (https://www.mql5.com/en/blogs/post/775935), estrategia B (el autor la opera en largo y en corto)",
+      "idea": "En 4 h, vender BTC en corto al perder el mínimo de 20 velas por debajo de la EMA 200, con break-even tras un 3 %, stop móvil y objetivo amplio.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.2,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: retroceso medido en ATR con EMAs 50/200 alineadas y ADX, stop móvil de 3,5 ATR (MQL5, estrategia C, aproximado)",
+      "fuente": "Kobyn Schlichter en el blog de MQL5, 'Why I Stopped Looking for One Perfect BTC Strategy (And Started Running Three Instead)' (septiembre de 2026; resultados del propio autor con apalancamiento, aquí sin él) (https://www.mql5.com/en/blogs/post/775935), estrategia C: EMAs 50/200 alineadas con ADX, entrada en retrocesos medidos con ATR y stop móvil de 3,5 ATR; aproximado con el z-score y stop de 4 ATR",
+      "idea": "Con la EMA 50 sobre la 200 y tendencia clara, comprar BTC cuando el precio retrocede algo más de una desviación bajo su media de 20, y dejar correr con un stop amplio de ATR que sigue al precio.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "en_tendencia",
+            50,
+            0.2
+          ],
+          [
+            "z_bajo",
+            20,
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": true,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Altcoins: sobre la SMA 50 con impulso de 3 días positivo (Adziima y otros, 2026)",
+      "fuente": "Adziima, Wara, Nasrudin y Pratama, 'Sharpe Ratio-Based Dynamic Crypto Asset Allocation with Trend Filtering Using Simple Moving Average', ENTHUSIASTIC 6(1), abril de 2026 (filtro de la SMA 50 con revisión cada 3 días; +231 % en 2024 frente a +132 % de comprar y mantener, un solo año de prueba) (https://journal.uii.ac.id/ENTHUSIASTIC/article/download/39963/19870/168730)",
+      "idea": "En diario, estar comprado en ETH, SOL o XRP mientras el precio está sobre su media de 50 y ha subido en los últimos 3 días; salir al perder la media de 50 o al girar el impulso.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.03
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y XRP: precio sobre su media de una semana (PMA de Wei y otros, diario)",
+      "fuente": "Wei, Kyriakou, Sermpinis y Stasinakis, 'Cryptocurrencies and Lucky Factors: The value of technical and fundamental analysis', International Journal of Finance & Economics (2024): de unas 7.850 reglas técnicas, solo la del precio frente a su media corta (PMA) mostró rentabilidad dentro y fuera de muestra (https://eprints.gla.ac.uk/302711/1/302711.pdf)",
+      "idea": "En diario, comprar ETH o XRP cuando el precio cierra sobre su media de 7 días y salir cuando cierra por debajo: la regla de media corta que sobrevivió al control de suerte.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            7
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            7
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y XRP: precio bajo su media de una semana en corto (PMA de Wei y otros, diario, corto)",
+      "fuente": "Wei, Kyriakou, Sermpinis y Stasinakis, 'Cryptocurrencies and Lucky Factors: The value of technical and fundamental analysis', International Journal of Finance & Economics (2024): de unas 7.850 reglas técnicas, solo la del precio frente a su media corta (PMA) mostró rentabilidad dentro y fuera de muestra (https://eprints.gla.ac.uk/302711/1/302711.pdf) — versión corta simétrica, solo con la tendencia de fondo bajista",
+      "idea": "En diario, con el precio bajo su media de 100, vender en corto ETH o XRP cuando cierra bajo su media de 7 días y recomprar cuando la recupera.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            7
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            7
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: precio sobre su media de dos semanas (PMA de Wei y otros, diario)",
+      "fuente": "Wei, Kyriakou, Sermpinis y Stasinakis, 'Cryptocurrencies and Lucky Factors: The value of technical and fundamental analysis', International Journal of Finance & Economics (2024): de unas 7.850 reglas técnicas, solo la del precio frente a su media corta (PMA) mostró rentabilidad dentro y fuera de muestra (https://eprints.gla.ac.uk/302711/1/302711.pdf) (SOL está entre las 12 monedas del estudio; aquí la PMA de 2 semanas)",
+      "idea": "En diario, comprar SOL cuando cierra sobre su media de 14 días y salir cuando cierra por debajo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            14
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            14
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL: giro del MACD sobre la EMA 200 con RSI entre 30 y 50 (CryptoArena, 1 h)",
+      "fuente": "CryptoArena, 'Master Swing Trading Solana on Bybit: Best 15-Minute Timeframe Settings' (EMA 200 como filtro, cruce del MACD 12/26/9, RSI 14 entre 30 y 50 para largos y entre 50 y 70 para cortos, objetivo mínimo 2:1 y stop móvil tras 1,5 veces el riesgo; pensada para 15 min, aquí en 1 h; guía sin backtest) (https://cryptoarena.it.com/?p=21052)",
+      "idea": "En 1 h, con SOL sobre su EMA 200, comprar cuando el MACD pasa a positivo y el RSI está entre 30 y 50 (retroceso), con objetivo de unas 2 veces el riesgo y stop asegurado tras subir.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.025,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: giro del MACD bajo la EMA 200 con RSI entre 50 y 70 (CryptoArena, 1 h, corto)",
+      "fuente": "CryptoArena, 'Master Swing Trading Solana on Bybit: Best 15-Minute Timeframe Settings' (EMA 200 como filtro, cruce del MACD 12/26/9, RSI 14 entre 30 y 50 para largos y entre 50 y 70 para cortos, objetivo mínimo 2:1 y stop móvil tras 1,5 veces el riesgo; pensada para 15 min, aquí en 1 h; guía sin backtest) (https://cryptoarena.it.com/?p=21052) — lado corto",
+      "idea": "En 1 h, con SOL bajo su EMA 200, vender en corto cuando el MACD pasa a negativo y el RSI está entre 50 y 70 (rebote), con objetivo de unas 2 veces el riesgo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.025,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura del área de valor con volumen y salida al volver al POC (Buildix, aproximado)",
+      "fuente": "The Buildix Team, 'Volume Profile Trading: Value Area, Naked POC & 5 Strategies You Can Use Today' (marzo de 2026), estrategia 3: ruptura del área de valor con stop de vuelta dentro (https://www.buildix.trade/blog/volume-profile-trading-strategies-value-area-naked-poc-free-guide-2026)",
+      "idea": "Comprar cuando el precio cierra sobre el VAH de la sesión anterior con volumen alto y salir si vuelve a perder el POC (vuelta dentro del área de valor).",
+      "regla": {
+        "entry": [
+          [
+            "rompe_vah",
+            0.002
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.002
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Pérdida del área de valor con volumen y recompra al volver al POC (Buildix, corto, aproximado)",
+      "fuente": "The Buildix Team, 'Volume Profile Trading: Value Area, Naked POC & 5 Strategies You Can Use Today' (marzo de 2026), estrategia 3: ruptura del área de valor con stop de vuelta dentro (https://www.buildix.trade/blog/volume-profile-trading-strategies-value-area-naked-poc-free-guide-2026) — lado corto (cierre bajo el VAL)",
+      "idea": "Vender en corto cuando el precio cierra bajo el VAL de la sesión anterior con volumen alto y recomprar si recupera el POC.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_vah",
+            0.002
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_poc",
+            0.002
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: viernes comprado (Cointelegraph, día de la semana 2019)",
+      "fuente": "Tiago Vidal en Cointelegraph, 'New Analysis Finds That Mondays Are the Best Days to Buy Bitcoin' (enero de 2020): en 2019 el viernes fue el día con mejor rentabilidad media de BTC, un 1,1 % (https://cointelegraph.com/news/new-analysis-finds-that-mondays-are-the-best-days-to-buy-bitcoin)",
+      "idea": "En velas de 1 h, comprar BTC al empezar el viernes (UTC) con el precio sobre su media de una semana y vender al acabar el día.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              4
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            1
+          ],
+          [
+            "sobre_media",
+            168
+          ]
+        ],
+        "exit": [
+          [
+            "dia_semana",
+            [
+              5,
+              6,
+              0,
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: ruptura tras compresión de 1 h con enfriamiento si no arranca (MQL5, estrategia A, aproximado)",
+      "fuente": "Kobyn Schlichter en el blog de MQL5, 'Why I Stopped Looking for One Perfect BTC Strategy (And Started Running Three Instead)' (septiembre de 2026; resultados del propio autor con apalancamiento, aquí sin él) (https://www.mql5.com/en/blogs/post/775935), estrategia A: ruptura de una consolidación estrecha con detección de impulso y filtro de régimen (en M1; aquí en 1 h)",
+      "idea": "En 1 h, cuando BTC lleva un día con volatilidad baja y en mercado ordenado, comprar la ruptura del máximo de 24 velas con impulso y salir rápido si se estanca.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            24,
+            0.4
+          ],
+          [
+            "rompe_maximo",
+            24
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.006
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            12
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.012,
+        "stall": 1,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: RSI que vuelve sobre 50 tras una caída con MACD positivo, salida en RSI 80 (Tradingstrategyguides, MFI + MACD, aproximado)",
+      "fuente": "Tradingstrategyguides en TradingView, 'HOW TO TRADE ETHEREUM' (MFI bajo 20, histograma del MACD positivo y MFI que supera 50 para comprar; stop bajo el último mínimo; salida con MFI sobre 80) (https://www.tradingview.com/chart/ETHUSD/AjGvgnM6-HOW-TO-TRADE-ETHEREUM); aproximado con el RSI en lugar del MFI y la caída previa como sustituto de la sobreventa",
+      "idea": "Comprar ETH cuando, tras caer más de un 6 % en 10 velas, el RSI vuelve sobre 50 con el MACD en positivo; vender cuando el RSI supera 80.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            10,
+            0.06
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            80
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
