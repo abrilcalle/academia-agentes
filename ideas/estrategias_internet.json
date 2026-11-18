@@ -31473,6 +31473,1050 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "Tortugas cripto de Forklog: ruptura de 90 velas de 4 h con salida en el mínimo de 45",
+      "fuente": "Forklog, 'How the Turtle strategy is used in the crypto market' (ejemplo cripto: ruptura de 90 velas, salida en 45, stop de 5N, gráfico de 4 h) (https://forklog.com/en/how-the-turtle-strategy-is-used-in-the-crypto-market/)",
+      "idea": "Comprar cuando el precio de 4 h cierra sobre el máximo de 90 velas y vender al perder el mínimo de 45, con un stop amplio de 4 ATR (lo más cercano al 5N que proponen para cripto).",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            90
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            45
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Tortugas cripto de Forklog en corto: pérdida del mínimo de 90 velas de 4 h con salida en el máximo de 45",
+      "fuente": "Forklog, 'How the Turtle strategy is used in the crypto market' (ejemplo cripto: ruptura de 90 velas, salida en 45, stop de 5N, gráfico de 4 h) (https://forklog.com/en/how-the-turtle-strategy-is-used-in-the-crypto-market/)",
+      "idea": "Vender en corto cuando el precio de 4 h cierra bajo el mínimo de 90 velas y cubrir al superar el máximo de 45, con stop de 4 ATR.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            90
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            45
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: comprar en el mínimo de 10 días y mantener un día (Quantpedia MIN)",
+      "fuente": "Quantpedia, 'Trend-following and Mean-reversion in Bitcoin' (variante 'at MIN': comprado el día en que el cierre marca el mínimo del periodo; los plazos cortos funcionan mejor) (https://quantpedia.com/trend-following-and-mean-reversion-in-bitcoin/)",
+      "idea": "En BTC diario, comprar cuando el cierre marca un nuevo mínimo de 10 días y vender al día siguiente o al recuperar la media de 5.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Bandera bajista con salida al recuperar la media de 20 (Rayner Teo, corto)",
+      "fuente": "Rayner Teo, 'Bear Flag Trading Strategy Guide' (entrar al romper el mínimo de la bandera, stop 1 ATR sobre su máximo, salida con la media de 20 como stop móvil) (https://www.tradingwithrayner.com/bear-flag-trading-strategy-guide)",
+      "idea": "En tendencia bajista diaria, vender en corto cuando una bandera bajista se rompe hacia abajo y aguantar mientras el precio siga bajo la media de 20.",
+      "regla": {
+        "entry": [
+          [
+            "bandera",
+            20,
+            0.1
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: bandera bajista con escalera 2:1 (Mind Math Money, corto)",
+      "fuente": "Mind Math Money, 'Bull Flag and Bear Flag: How to Actually Trade Them' (entrada al cerrar bajo el soporte de la bandera, stop sobre su máximo, objetivo 2:1 o altura del mástil) (https://www.mindmathmoney.com/articles/bull-flag-and-bear-flag-how-to-actually-trade-them-step-by-step)",
+      "idea": "En altcoins bajo la EMA 50, vender en corto la ruptura de una bandera bajista con stop a un escalón y objetivo a dos (riesgo 1:2).",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bandera",
+            15,
+            0.07
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.04,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Bandera bajista intradía de 1 h con volumen en horario de Nueva York (DayTradingToolkit, corto)",
+      "fuente": "DayTradingToolkit, 'The Bear Flag Trading Strategy' (mástil con volumen, ruptura con volumen renovado, franja de 9:45 a 15:30 ET) (https://daytradingtoolkit.com/strategies/bear-flag-trading-strategy)",
+      "idea": "En 1 h, vender en corto cuando una bandera bajista se rompe con volumen alto durante la sesión de EE. UU. y cerrar en el día.",
+      "regla": {
+        "entry": [
+          [
+            "bandera",
+            24,
+            0.05
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "franja_horaria",
+            14,
+            6
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Three Bar Play en 1 h (Tradingsim, aproximado)",
+      "fuente": "Tradingsim, 'The 3 Bar Play Pattern: Entry, Stop & Target Rules' (vela de ignición con volumen, pausa que no retrocede más del 50 %, entrada al romper, stop bajo la pausa, objetivo 2-3R) (https://www.tradingsim.com/blog/3-bar-play)",
+      "idea": "Tras una vela de subida fuerte con volumen y una pausa corta, comprar al romper el máximo de la pausa con stop a un escalón y objetivo a dos.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            3,
+            0.025
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "rompe_maximo",
+            3
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.015,
+        "salida_siempre": true,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Three Bar Play bajista en 1 h (Tradingsim, corto, aproximado)",
+      "fuente": "Tradingsim, 'The 3 Bar Play Pattern: Entry, Stop & Target Rules' (vela de ignición con volumen, pausa que no retrocede más del 50 %, entrada al romper, stop bajo la pausa, objetivo 2-3R) (https://www.tradingsim.com/blog/3-bar-play)",
+      "idea": "En SOL y XRP, tras una vela de caída fuerte con volumen y una pausa corta, vender en corto al perder el mínimo de la pausa con riesgo 1:2.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            3,
+            0.03
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "rompe_maximo",
+            3
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.02,
+        "salida_siempre": true,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Turtle Soup Plus One en corto (falsa ruptura del máximo de 20)",
+      "fuente": "Connors y Raschke, 'Street Smarts'; explicación de Turtle Soup Plus One en CryptoDataDownload (reversión del nuevo máximo de 20 días, salida en 2-6 velas) (https://www.cryptodatadownload.com/blog/posts/turtle-soup-trading-strategy-python-cryptocurrency/)",
+      "idea": "En un mercado lateral, cuando el precio marca un nuevo máximo de 20 velas, apostar a que es una trampa y vender en corto para cubrir en pocos días.",
+      "regla": {
+        "entry": [
+          [
+            "pierde_minimo",
+            20
+          ],
+          [
+            "mercado_lateral",
+            30,
+            0.25
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 6,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 3,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura clásica de Peter Brandt con medias 20>50>200, salida por clímax y stop de tiempo",
+      "fuente": "Peter Brandt, reglas resumidas de sus entrevistas en Forex.in.rs (filtro 20>50>200, stop solo se aprieta, salida parcial por clímax de más de 2 ATR en 3-5 sesiones, stop de tiempo a las 10 sesiones) (https://www.forex.in.rs/brandt-trader-strategy) y su 'Last Day Rule' (https://peterlbrandt.com/wp-content/uploads/2016/03/3-Day-Trailing-Stop-Rule-3DTSR.pdf)",
+      "idea": "Con las medias 20, 50 y 200 alineadas al alza, comprar el cierre sobre el máximo de 40 días; vender si se agota en un clímax o si pierde la media de 50, y salir si en 10 días no avanza.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "rompe_maximo",
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.15
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.04,
+        "stall": 10,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Ruptura clásica de Peter Brandt en corto con medias 20<50<200",
+      "fuente": "Peter Brandt, reglas resumidas de sus entrevistas en Forex.in.rs (filtro 20>50>200, stop solo se aprieta, salida parcial por clímax de más de 2 ATR en 3-5 sesiones, stop de tiempo a las 10 sesiones) (https://www.forex.in.rs/brandt-trader-strategy) y su 'Last Day Rule' (https://peterlbrandt.com/wp-content/uploads/2016/03/3-Day-Trailing-Stop-Rule-3DTSR.pdf)",
+      "idea": "Con las medias 20, 50 y 200 alineadas a la baja, vender en corto el cierre bajo el mínimo de 40 días; cubrir en un clímax bajista o al recuperar la media de 50.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "rompe_maximo",
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.15
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.04,
+        "stall": 10,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: retroceso del RSI(9) a 40-50 sobre la EMA 50 en 4 h (KuCoin)",
+      "fuente": "KuCoin Blog, 'RSI Indicator for Crypto Trading' (en mercado alcista comprar retrocesos con RSI en 40-50 que gira al alza; RSI 7-9 para señales rápidas en 4 h) (https://www.kucoin.com/blog/my-rsi-indicator-for-crypto-trading)",
+      "idea": "En altcoins con el precio sobre la EMA 50, comprar cuando el RSI rápido retrocede por debajo de 45 y la vela gira al alza; vender con el RSI en sobrecompra.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rsi_bajo",
+            9,
+            45
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "en_tendencia",
+            30,
+            0.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            9,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: RSI que sale de sobreventa con vela de giro (KuCoin)",
+      "fuente": "KuCoin Blog, 'RSI Indicator for Crypto Trading' (esperar RSI bajo 30 y su vuelta por encima con vela alcista; stop bajo el mínimo reciente) (https://www.kucoin.com/blog/my-rsi-indicator-for-crypto-trading)",
+      "idea": "En SOL y XRP, comprar cuando el RSI está en zona de sobreventa y aparece una vela alcista de más del 1,5 %, y vender cuando el RSI vuelve a la zona neutra alta.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            33
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.015
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            58
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.07,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: ruptura del RSI semanal sobre 50 con máximo de 20 días (Kevin Svenson, aproximado)",
+      "fuente": "Kevin Svenson, rupturas del RSI semanal como señal macro de BTC, según The Daily Hodl (https://dailyhodl.com/2025/04/15/bitcoin-five-days-away-from-confirming-reliable-macro-breakout-signal-says-analyst-kevin-svenson/amp)",
+      "idea": "En BTC diario, usar un RSI de 98 días (equivalente a un RSI semanal de 14) sobre 52 como señal macro y comprar al romper el máximo de 20 días; salir cuando el RSI largo vuelve bajo 48.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_alto",
+            98,
+            52
+          ],
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_bajo",
+            98,
+            48
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: salida de un rango de reacumulación de 8 semanas (Rekt Capital, aproximado)",
+      "fuente": "Rekt Capital, cierre semanal sobre el máximo del rango de reacumulación como inicio de la siguiente subida, según Cointelegraph (https://cointelegraph.com/news/bitcoin-must-close-week-this-level-start-price-discovery)",
+      "idea": "En BTC diario, tras casi dos meses de rango sin tendencia, comprar cuando el cierre supera el máximo del rango y aguantar mientras siga sobre la media de 50.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            56
+          ],
+          [
+            "mercado_lateral",
+            56,
+            0.3
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0.05,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP: compra en el soporte del rango con RSI bajo 35 y objetivo en el techo (Mudrex)",
+      "fuente": "Mudrex Learn, 'Range trading in crypto futures' (rango con al menos dos toques, entrada en el borde con RSI 30/70, objetivo en el borde contrario, se abandona si rompe con volumen) (https://mudrex.com/learn/range-trading-crypto-futures/) y BingX Learn (ejemplo de rango en XRP) (https://bingx.com/ro/learn/article/top-crypto-trading-strategies-for-range-bound-choppy-markets)",
+      "idea": "En XRP lateral, comprar el rebote en el soporte del rango con RSI bajo y vender al acercarse al techo con RSI en 70.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            40,
+            0.2
+          ],
+          [
+            "rebote_soporte",
+            40,
+            0.02
+          ],
+          [
+            "rsi_bajo",
+            14,
+            38
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "z_alto",
+            40,
+            1.5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP y ETH: corto en el techo del rango con RSI sobre 65 (Mudrex, corto)",
+      "fuente": "Mudrex Learn, 'Range trading in crypto futures' (rango con al menos dos toques, entrada en el borde con RSI 30/70, objetivo en el borde contrario, se abandona si rompe con volumen) (https://mudrex.com/learn/range-trading-crypto-futures/) y BingX Learn (ejemplo de rango en XRP) (https://bingx.com/ro/learn/article/top-crypto-trading-strategies-for-range-bound-choppy-markets)",
+      "idea": "En XRP y ETH laterales, vender en corto el rechazo en el techo del rango con RSI alto y cubrir al llegar al suelo.",
+      "activos": [
+        "XRP-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            40,
+            0.2
+          ],
+          [
+            "rebote_soporte",
+            40,
+            0.02
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "z_alto",
+            40,
+            1.5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: rebote en la banda inferior de Bollinger en rango con salida en la media de 20 (BingX)",
+      "fuente": "BingX Learn, 'Top crypto trading strategies for range-bound and choppy markets' (compra en la banda inferior, salida en la media de 20, evitar en tendencia) (https://bingx.com/ro/learn/article/top-crypto-trading-strategies-for-range-bound-choppy-markets)",
+      "idea": "En SOL sin tendencia, comprar cuando el precio cae por debajo de la banda inferior de Bollinger y vender en cuanto vuelve a la media de 20.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            30,
+            0.25
+          ],
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 8,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005
+      }
+    },
+    {
+      "nombre": "Altcoins: Donchian de 50 días con tamaño por volatilidad (Barbon, aproximado)",
+      "fuente": "Andrea Barbon, 'Catching Crypto Trends' (conjunto de modelos Donchian con tamaño por volatilidad en las 20 criptos más líquidas) (https://abarbon.com/papers/catching-crypto-trends)",
+      "idea": "En ETH, SOL y XRP diarios, comprar al romper el máximo de 50 días y vender al perder el mínimo de 25, con el tamaño ajustado al riesgo de cada operación.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            25
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Mezcla de EMAs de varios plazos 20/60/120 (Rohrbach, Suremann y Osterrieder, aproximado)",
+      "fuente": "Rohrbach, Suremann y Osterrieder, 'Momentum and trend following trading strategies for currencies and bitcoin' (señal de tendencia como mezcla de EMAs de distintos horizontes) (https://research.utwente.nl/en/publications/momentum-and-trend-following-trading-strategies-for-currencies-re/)",
+      "idea": "En velas diarias, comprar cuando el precio está a la vez sobre las EMAs de 20, 60 y 120 días y vender cuando pierde la de 60.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "sobre_ema",
+            60
+          ],
+          [
+            "sobre_ema",
+            120
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            60
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Mezcla de EMAs 20/60/120 en corto (Rohrbach, Suremann y Osterrieder, corto, aproximado)",
+      "fuente": "Rohrbach, Suremann y Osterrieder, 'Momentum and trend following trading strategies for currencies and bitcoin' (https://research.utwente.nl/en/publications/momentum-and-trend-following-trading-strategies-for-currencies-re/)",
+      "idea": "En velas diarias, vender en corto cuando el precio está bajo las EMAs de 20, 60 y 120 días y cubrir cuando recupera la de 60.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "sobre_ema",
+            60
+          ],
+          [
+            "sobre_ema",
+            120
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            60
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: giro tras divergencia alcista del RSI con ruptura del máximo de 5 velas (Kraken Learn, aproximado)",
+      "fuente": "Kraken Learn, 'RSI divergences: what they are and how they work' (divergencia en cierres, entrar solo tras confirmación: RSI que cruza un nivel o ruptura de la línea de tendencia) (https://www.kraken.com/learn/rsi-divergences-what-they-how-they-work)",
+      "idea": "En ETH, tras una caída fuerte con el RSI ya sin fuerza vendedora, comprar cuando el precio rompe el máximo de 5 velas como confirmación del giro.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            20,
+            0.15
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "rompe_maximo",
+            5
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 12,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Ruptura del rango con regla del último día de Brandt y break-even rápido",
+      "fuente": "Peter Brandt, reglas resumidas de sus entrevistas en Forex.in.rs (filtro 20>50>200, stop solo se aprieta, salida parcial por clímax de más de 2 ATR en 3-5 sesiones, stop de tiempo a las 10 sesiones) (https://www.forex.in.rs/brandt-trader-strategy) y su 'Last Day Rule' (https://peterlbrandt.com/wp-content/uploads/2016/03/3-Day-Trailing-Stop-Rule-3DTSR.pdf)",
+      "idea": "Tras una pausa estrecha de un mes, comprar la ruptura con volumen, con stop ajustado bajo la vela de ruptura y llevarlo a break-even en cuanto suba un 3 %.",
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            30,
+            0.7
+          ],
+          [
+            "rompe_maximo",
+            30
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            30
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.03,
+        "stall": 10,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Tortugas cripto de 4 h con 90/45 y tendencia de fondo (Forklog)",
+      "fuente": "Forklog, 'How the Turtle strategy is used in the crypto market' (ejemplo cripto: ruptura de 90 velas, salida en 45, stop de 5N, gráfico de 4 h) (https://forklog.com/en/how-the-turtle-strategy-is-used-in-the-crypto-market/)",
+      "idea": "En SOL y XRP de 4 h, comprar la ruptura del máximo de 90 velas solo si el precio está sobre la media de 200 y vender al perder el mínimo de 45, con piramidación moderada.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            90
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            45
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0.08,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Rango de 1 h: EMA 9 bajo el VWAP en el borde inferior con salida al volver sobre el VWAP (Mudrex, aproximado)",
+      "fuente": "Mudrex Learn, 'Range trading in crypto futures' (rango con al menos dos toques, entrada en el borde con RSI 30/70, objetivo en el borde contrario, se abandona si rompe con volumen) (https://mudrex.com/learn/range-trading-crypto-futures/) y BingX Learn (ejemplo de rango en XRP) (https://bingx.com/ro/learn/article/top-crypto-trading-strategies-for-range-bound-choppy-markets)",
+      "idea": "En 1 h y con el mercado lateral, comprar cuando el precio está muy por debajo de su media de 48 velas y la EMA 9 bajo el VWAP del día, y vender cuando la EMA 9 vuelve sobre el VWAP (la línea media del rango).",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            48,
+            0.2
+          ],
+          [
+            "ema_bajo_vwap",
+            9
+          ],
+          [
+            "z_bajo",
+            48,
+            1.8
+          ]
+        ],
+        "exit": [
+          [
+            "ema_sobre_vwap",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.003
+      }
     }
   ]
 }
