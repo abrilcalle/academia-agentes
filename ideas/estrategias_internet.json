@@ -32517,6 +32517,1074 @@
         "shrink": false,
         "min_net": 0.003
       }
+    },
+    {
+      "nombre": "Hikkake alcista: falsa ruptura del mínimo de una compresión (Chesler, aproximado)",
+      "fuente": "Patrón Hikkake de Dan Chesler (barra interior, falsa ruptura y giro en sentido contrario) (https://capital.com/en-ae/learn/technical-analysis/hikkake-pattern y https://en.wikipedia.org/wiki/Hikkake_pattern)",
+      "idea": "Con el mercado comprimido en rango, tras perforar la parte baja el precio vuelve a romper el máximo de las últimas 3 velas: los que vendieron la ruptura falsa quedan atrapados.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            15,
+            0.3
+          ],
+          [
+            "z_bajo",
+            15,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 6,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: Hikkake bajista en corto (Chesler, aproximado)",
+      "fuente": "Patrón Hikkake de Dan Chesler (barra interior, falsa ruptura y giro en sentido contrario) (https://capital.com/en-ae/learn/technical-analysis/hikkake-pattern y https://en.wikipedia.org/wiki/Hikkake_pattern)",
+      "idea": "En las altcoins comprimidas en rango, tras superar la parte alta el precio vuelve a perder el mínimo de las últimas 3 velas: vender en corto la trampa alcista.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            15,
+            0.3
+          ],
+          [
+            "z_bajo",
+            15,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.07,
+        "trail": 0,
+        "hold": 6,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: SafeZone de Elder en largo (EMA 22 que sube y stop bajo el mínimo de 4 días)",
+      "fuente": "Alexander Elder, SafeZone stops (EMA de 22 o 63 días, stop a 2,5 veces la penetración media bajo el mínimo de ayer, suavizado con 3 días) (https://incrediblecharts.com/indicators/safezone.php)",
+      "idea": "En las altcoins con la EMA de 22 subiendo, comprar un nuevo máximo de 5 velas y salir solo cuando el precio pierde el mínimo de 4 velas (stop de ruido de mercado de Elder).",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            22
+          ],
+          [
+            "impulso_sube",
+            22,
+            0.0
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            4
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SafeZone de Elder en corto (bajo la EMA 63, nuevo mínimo de 5 días)",
+      "fuente": "Alexander Elder, SafeZone stops (EMA de 22 o 63 días, stop a 2,5 veces la penetración media bajo el mínimo de ayer, suavizado con 3 días) (https://incrediblecharts.com/indicators/safezone.php)",
+      "idea": "Con el precio bajo una EMA de 63 días que baja, vender en corto al marcar un nuevo mínimo de 5 días y cerrar cuando recupera el máximo de 4 días (SafeZone para cortos).",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            63
+          ],
+          [
+            "impulso_sube",
+            63,
+            0.0
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            4
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ultimate Oscillator de Larry Williams en sobreventa (aproximado con RSI de 7, 14 y 28)",
+      "fuente": "Ultimate Oscillator de Larry Williams (periodos 7, 14 y 28; compra bajo 30 con divergencia, salida sobre 70) (https://en.wikipedia.org/wiki/Ultimate_oscillator)",
+      "idea": "Cuando los tres plazos del oscilador (corto, medio y largo) están en sobreventa, comprar y vender al llegar a sobrecompra.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            7,
+            30
+          ],
+          [
+            "rsi_bajo",
+            14,
+            38
+          ],
+          [
+            "rsi_bajo",
+            28,
+            45
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: Ultimate Oscillator en sobrecompra (Larry Williams, corto, aproximado)",
+      "fuente": "Ultimate Oscillator de Larry Williams (periodos 7, 14 y 28; compra bajo 30 con divergencia, salida sobre 70) (https://en.wikipedia.org/wiki/Ultimate_oscillator)",
+      "idea": "En las altcoins, cuando los tres plazos del oscilador están en sobrecompra, vender en corto hasta que vuelva a sobreventa.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            7,
+            30
+          ],
+          [
+            "rsi_bajo",
+            14,
+            38
+          ],
+          [
+            "rsi_bajo",
+            28,
+            45
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Rectángulo de continuación de 3 meses roto con volumen (StockCharts)",
+      "fuente": "StockCharts ChartSchool, 'Rectangle' (continuación tras unos 3 meses de rango, ruptura solo con cierre, filtro del 3 % y volumen, objetivo = altura del rango) (https://chartschool.stockcharts.com/table-of-contents/chart-analysis/chart-patterns/rectangle)",
+      "idea": "En tendencia alcista de fondo, tras unos 60 días de rango lateral, comprar el cierre que rompe el techo del rango con volumen y buscar un recorrido como la altura del rango.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "mercado_lateral",
+            60,
+            0.2
+          ],
+          [
+            "rompe_maximo",
+            60
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.06,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: rectángulo bajista de 3 meses perdido con volumen (StockCharts, corto)",
+      "fuente": "StockCharts ChartSchool, 'Rectangle' (continuación tras unos 3 meses de rango, ruptura solo con cierre, filtro del 3 % y volumen, objetivo = altura del rango) (https://chartschool.stockcharts.com/table-of-contents/chart-analysis/chart-patterns/rectangle)",
+      "idea": "En las altcoins bajo la media de 200, tras unos 60 días de rango, vender en corto el cierre que pierde el suelo del rango con volumen.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "mercado_lateral",
+            60,
+            0.2
+          ],
+          [
+            "rompe_maximo",
+            60
+          ],
+          [
+            "volumen_alto",
+            1.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.06,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ciclo de 3 días de Taylor: día de compra tras la caída (aproximado)",
+      "fuente": "George Douglass Taylor, 'The Taylor Trading Technique', resumido por StoneX (día de compra tras 1-3 días de caída, día de venta, día de venta en corto tras un exceso) (https://futures.stonex.com/blog/the-taylor-trading-technique)",
+      "idea": "Tras 2-3 días de caída dentro de una tendencia alcista, comprar el día de compra y vender en el rebote de los dos días siguientes (día de venta).",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.04
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            2,
+            0.03
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: ciclo de 3 días de Taylor, día de venta en corto (aproximado)",
+      "fuente": "George Douglass Taylor, 'The Taylor Trading Technique', resumido por StoneX (día de compra tras 1-3 días de caída, día de venta, día de venta en corto tras un exceso) (https://futures.stonex.com/blog/the-taylor-trading-technique)",
+      "idea": "En las altcoins bajo la media de 100, tras 2-3 días de subida en exceso, vender en corto y recomprar en la caída de los dos días siguientes.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            100
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.05
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            2,
+            0.03
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.005,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Giro de 3 velas (3-Bar Reversal de HPotter) en un retroceso alcista",
+      "fuente": "HPotter, '3-Bar-Reversal-Pattern Strategy Backtest' en TradingView (la vela central marca el mínimo más bajo y la última cierra sobre el máximo de la anterior, diario) (https://www.tradingview.com/script/IPLkvrzq-3-Bar-Reversal-Pattern-Strategy-Backtest/)",
+      "idea": "Con el precio sobre la media de 200 pero bajo la de 20 tras un retroceso, comprar cuando una vela cierra por encima del máximo de las dos anteriores después de marcar un mínimo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "bajo_media",
+            20
+          ],
+          [
+            "impulso_baja",
+            5,
+            0.03
+          ],
+          [
+            "rompe_maximo",
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: momento compuesto de 4, 8 y 12 semanas solo si los tres son positivos (Quantpedia)",
+      "fuente": "Quantpedia, 'Dual Momentum Allocation Between Physical Gold and Bitcoin' (rebalanceo semanal, momento compuesto de 4, 8 y 12 semanas, solo si es positivo, con tope de volatilidad) (https://quantpedia.com/dual-momentum-allocation-between-physical-gold-and-bitcoin-digital-gold/?a=6080)",
+      "idea": "Estar comprado en BTC solo mientras su rentabilidad de 4, 8 y 12 semanas es positiva y la volatilidad no se dispara; salir cuando la de 4 semanas se vuelve negativa.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            28,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            56,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            84,
+            0.0
+          ],
+          [
+            "vol_baja",
+            84,
+            0.9
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            28,
+            0.0
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": true,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: momento compuesto de 2, 4 y 8 semanas (ajuste altcoin de Quantpedia)",
+      "fuente": "Quantpedia, 'Dual Momentum Allocation Between Physical Gold and Bitcoin' (rebalanceo semanal, momento compuesto de 4, 8 y 12 semanas, solo si es positivo, con tope de volatilidad) (https://quantpedia.com/dual-momentum-allocation-between-physical-gold-and-bitcoin-digital-gold/?a=6080)",
+      "idea": "En las altcoins, que giran más rápido, estar comprado solo con la rentabilidad de 2, 4 y 8 semanas en positivo y salir cuando la de 2 semanas cae por debajo de cero.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            28,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            56,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": true,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Último punto de apoyo de Wyckoff (LPS) tras la señal de fuerza (aproximado)",
+      "fuente": "Método Wyckoff: señal de fuerza (SOS) y último punto de apoyo (LPS) / de oferta (LPSY) (https://www.tradingview.com/education/wyckoffmethod y https://www.tmgm.com/en/academy/trading-academy/wyckoff-accumulation)",
+      "idea": "Tras una subida fuerte con volumen que sale de un rango (señal de fuerza), comprar el primer retroceso que respeta el soporte recién superado.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            30,
+            0.15
+          ],
+          [
+            "impulso_baja",
+            4,
+            0.03
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            72
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.05,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y SOL: último punto de oferta de Wyckoff (LPSY) en corto (aproximado)",
+      "fuente": "Método Wyckoff: señal de fuerza (SOS) y último punto de apoyo (LPS) / de oferta (LPSY) (https://www.tradingview.com/education/wyckoffmethod y https://www.tmgm.com/en/academy/trading-academy/wyckoff-accumulation)",
+      "idea": "En ETH y SOL, tras una caída fuerte que pierde el rango (señal de debilidad), vender en corto el primer rebote débil que no recupera el soporte perdido.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            30,
+            0.15
+          ],
+          [
+            "impulso_baja",
+            4,
+            0.03
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            72
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.12,
+        "trail": 0,
+        "hold": 15,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.05,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y SOL: Volatility Stop de Coinrule en 4 h (stop móvil por volatilidad, aproximado)",
+      "fuente": "Coinrule, 'Volatility Stop Strategy' en TradingView (entrar cuando el precio cruza sobre el Volatility Stop de multiplicador 3 y salir cuando lo pierde; velas de 2 h) (https://in.tradingview.com/script/SYICP93E-Volatility-Stop-Strategy-by-Coinrule)",
+      "idea": "En ETH y SOL de 4 h, comprar cuando el precio rompe el máximo de 20 velas con el mercado en tendencia y seguirlo con un stop móvil amplio que solo sube.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "en_tendencia",
+            30,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.07,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Cambio de carácter alcista (CHoCH, Smart Money Concepts)",
+      "fuente": "Smart Money Concepts: cambio de carácter (CHoCH) tras romper el último máximo o mínimo de la estructura (https://3commas.io/blog/change-of-character-choch y https://www.dextools.io/tutorials/break-of-structure-vs-change-of-character-bos-vs-choch)",
+      "idea": "Tras una caída clara, comprar cuando el precio rompe con volumen el último máximo relevante (15 velas): la estructura pasa de bajista a alcista.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            40,
+            0.12
+          ],
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 12,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.04,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Cambio de carácter bajista (CHoCH, Smart Money Concepts, corto)",
+      "fuente": "Smart Money Concepts: cambio de carácter (CHoCH) tras romper el último máximo o mínimo de la estructura (https://3commas.io/blog/change-of-character-choch y https://www.dextools.io/tutorials/break-of-structure-vs-change-of-character-bos-vs-choch)",
+      "idea": "Tras una subida clara, vender en corto cuando el precio pierde con volumen el último mínimo relevante (15 velas): la estructura pasa de alcista a bajista.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            40,
+            0.12
+          ],
+          [
+            "rompe_maximo",
+            15
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.1,
+        "trail": 0,
+        "hold": 12,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.04,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Gann HiLo Activator en diario (aproximado)",
+      "fuente": "Gann HiLo Activator Strategy en TradingView (cierre sobre la media de los máximos = largo, bajo la de los mínimos = fuera) (https://www.tradingview.com/script/PyFdxzcj-Gann-HiLo-Activator-Strategy) y LuxAlgo (https://www.luxalgo.com/library/concept/gann-hilo-activator/)",
+      "idea": "Con el mercado en tendencia, comprar cuando el precio cierra sobre la EMA de 10 rompiendo el máximo de 3 velas, y salir en cuanto pierde el mínimo de 3 velas.",
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "sobre_ema",
+            10
+          ],
+          [
+            "rompe_maximo",
+            3
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: Gann HiLo Activator en corto en diario (aproximado)",
+      "fuente": "Gann HiLo Activator Strategy en TradingView (cierre sobre la media de los máximos = largo, bajo la de los mínimos = fuera) (https://www.tradingview.com/script/PyFdxzcj-Gann-HiLo-Activator-Strategy) y LuxAlgo (https://www.luxalgo.com/library/concept/gann-hilo-activator/)",
+      "idea": "En las altcoins en tendencia bajista, vender en corto cuando el precio cierra bajo la EMA de 10 perdiendo el mínimo de 3 velas, y cerrar al recuperar el máximo de 3.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "sobre_ema",
+            10
+          ],
+          [
+            "rompe_maximo",
+            3
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Abultamiento de reversión del Mass Index de Donald Dorsey (aproximado)",
+      "fuente": "Donald Dorsey, Mass Index (el rango se ensancha y luego se estrecha, 'reversal bulge' 27/26,5, operado contra la dirección de la EMA 9) (https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/mass-index y https://en.wikipedia.org/wiki/Mass_index)",
+      "idea": "Tras una caída en la que la volatilidad se disparó y ahora se calma, comprar el giro: la expansión y contracción del rango suele anunciar el fin del movimiento.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            9,
+            0.06
+          ],
+          [
+            "vol_alta",
+            25,
+            0.8
+          ],
+          [
+            "vol_baja",
+            5,
+            0.6
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Chande Momentum Oscillator bajo -50 en mercado lateral (TradeDots, equivalente con RSI de 9)",
+      "fuente": "TradeDots, 'Chande Momentum Oscillator (CMO) Buy Sell Strategy' en TradingView (compra al salir de -50, venta en +50) (https://www.tradingview.com/script/MNBZqC72-Chande-Momentum-Oscillator-CMO-Buy-Sell-Strategy-TradeDots); un CMO de -50 equivale a un RSI de 25",
+      "idea": "Con el mercado sin tendencia, comprar cuando el oscilador de Chande cae bajo -50 (RSI de 9 bajo 25) y vender cuando sube sobre +50 (RSI sobre 75).",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            30,
+            0.25
+          ],
+          [
+            "rsi_bajo",
+            9,
+            25
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            9,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.07,
+        "trail": 0,
+        "hold": 8,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Judas swing de ICT en 1 h: falsa caída de Londres y giro (aproximado)",
+      "fuente": "ICT Power of 3 / Judas swing (acumulación, manipulación con un movimiento falso al inicio de la sesión y distribución en sentido contrario) (https://www.luxalgo.com/library/concept/judas-swing/ y https://www.mql5.com/en/blogs/post/771729)",
+      "idea": "En 1 h, entre las 7 y las 11 h UTC, comprar cuando el precio barre el mínimo reciente y vuelve a romper el máximo de 3 velas, y cerrar en el mismo día.",
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            7,
+            4
+          ],
+          [
+            "rebote_soporte",
+            24,
+            0.008
+          ],
+          [
+            "rompe_maximo",
+            3
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.004
+      }
+    },
+    {
+      "nombre": "Retesteo de order block alcista tras un impulso (SMC, aproximado)",
+      "fuente": "Phemex Academy, 'Order block crypto trading' (zona de la última vela contraria antes de un impulso que rompe estructura; se compra cuando el precio vuelve a ella) (https://phemex.com/academy/order-block-crypto-trading)",
+      "idea": "Tras un impulso alcista fuerte, comprar cuando el precio retrocede bajo la EMA de 10 hacia la zona de origen del impulso, mientras siga sobre la EMA de 50.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            15,
+            0.1
+          ],
+          [
+            "bajo_ema",
+            10
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.09,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: breaker block bajista, rebote al soporte perdido (ICT, corto, aproximado)",
+      "fuente": "Plisio, 'Breaker Block Trading: The ICT Failed Order Block Strategy' (un order block que falla se convierte en resistencia y se vende su retesteo) (https://plisio.net/education/breaker-block-trading)",
+      "idea": "En las altcoins, tras perder un soporte con una caída fuerte, vender en corto el rebote que vuelve a esa zona bajo la EMA de 50.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            15,
+            0.08
+          ],
+          [
+            "impulso_baja",
+            3,
+            0.025
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
     }
   ]
 }
