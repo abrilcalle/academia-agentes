@@ -1105,3 +1105,22 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** El dólar no avisa de las bajadas de las criptos (en euros incluso suben juntos a menudo): bloquear compras con el dólar fuerte quita mucha ganancia en los años buenos (mediana +50 → +16–30 %), deja 2022 en 0–2 podios que cumplen (7 con la base) y el podio no mejora en ninguna variante (110–130 frente a 131). Solo baja las caídas grandes, como todos los frenos. No se integró nada.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "puerta del dólar" (USDC/EUR sobre su media de 20/50/100, con pendiente, también para cortos). No repetir. Base del banco hoy (476 agentes, post, coste 0,08 %): 704 · 131.
+
+## 2026-11-19 10:36 (hora de Madrid) — "Ancla bajista": poner en corto el dinero que el equipo no reparte cuando el mercado va en bajada
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 19/11, datos hasta el 18/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** el equipo falla sobre todo en los años bajistas (2022: 7 de 36 podios cumplen) porque los equipos formados en años de subida no tienen agentes que ganen en bajada, y el dinero que no reparte espera en USDC. Si ese dinero libre se pone en corto (sin apalancamiento) en el propio mercado solo cuando va en tendencia bajista con el mismo filtro del equipo (cierre < media de 50 días y la media bajando en 10 días), el equipo ganaría en las bajadas sin tocar los años buenos. Es lo contrario del "ancla de tendencia" del 04/11 (que solo compraba). Nunca probado. En simulación se puede (cortos permitidos; Bitvavo aún no los da por API).
+- **Qué probé (en una copia, `experimentos/banco/m2ancs.py` sobre `mat.pkl` de `m1.py`, con el reparto medio y el coste de reparto 0,08 %; después `m3x.py` / `m3c22.py` / `pares_ab.py`; comprobación previa `chk_anc.py`):** **base** (como ahora) · **btc_05 / btc_1** = la mitad / todo el dinero libre en corto de BTC · **mix_05 / mix_1** = repartido entre los mercados del equipo que van en bajada · **btc200_1 / mix200_05** = además cierre < media de 200 días. Paga el interés del préstamo (0,0023 %/h) y el coste de entrar y salir. Equipos formados y juzgados ya con cada variante (como haría `build`).
+- **Datos:** solo 2018–2023 (datos cortados el 01/01/2024), 487 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad, dinero sin repartir en USDC. La base reproduce la de las vueltas anteriores (702 · 130, antes 704 · 131 con 476 agentes).
+- **Comprobación previa (el corto solo, sin equipo):** BTC con la media de 50: 2018 −14 %, 2019 −26 %, 2020 −38 %, 2021 +24 %, **2022 −9 %**, 2023 −16 %; con la de 200 también pierde en 2022 (−11 %). ETH y XRP igual de mal (XRP 2022 +3 %). En 2022 los rebotes bruscos y el interés del préstamo (~20 % al año) se comen la bajada.
+- **Resultado (pares de 1.080 · podios que cumplen en C de 180 [2019/2020/2021/2022/2023] · tríos con alguno de 60 · en orden de tiempo de 30 · mediana ret / semanas / caída · casos con caída > 25 % en los pares):**
+  - **base 702 · 130 [31/33/36/7/23] · 51 · 24 · +48 % / 57 % / 11 % · 76**
+  - btc_05 719 · 126 [30/34/36/2/24] · 47 · 21 · +49 % / 55 % / 12 % · 95
+  - btc_1 692 · 123 [29/33/36/0/25] · 46 · 20 · +43 % / 55 % / 13 % · 109
+  - mix_05 656 · 119 [27/32/36/0/24] · 44 · 20 · +44 % / 55 % / 13 % · 111
+  - mix_1 596 · 119 [30/30/36/0/23] · 44 · 20 · +39 % / 53 % / 15 % · 196
+  - btc200_1 677 · 118 [29/32/35/0/22] · 45 · 19 · +46 % / 55 % / 13 % · 111
+  - mix200_05 663 · 121 [30/33/36/2/20] · 47 · 19 · +45 % / 55 % / 12 % · 115
+  - Solo 2022 (de 36): base 7 (−12 %, caída 23 %) → 0–2 en todas (−13 a −19 %, caída 25–29 %).
+- **Conclusión: no se queda.** Justo donde tenía que ayudar (2022) empeora: el corto por tendencia pierde dinero en ese año por los rebotes y el interés, y los podios que cumplen bajan de 7 a 0–2. El podio baja en todas las variantes (118–126 frente a 130), bajan las semanas en verde (57 → 55 %) y suben las caídas grandes. No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "ancla bajista" (corto del dinero libre en BTC o en los mercados del equipo, media de 50 con pendiente, con o sin media de 200, 50–100 %). No repetir. Con el ancla de tendencia (04/11), poner el dinero libre en el mercado, en cualquiera de los dos lados, no sirve: un corto simple por tendencia no gana ni en 2022. Base del banco hoy (487 agentes, post, coste 0,08 %): 702 · 130.
