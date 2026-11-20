@@ -33585,6 +33585,1036 @@
         "shrink": false,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "BTC, ETH y XRP: cruce de medias 30/50 con stop de 2 ATR (Bansal, Kumar y Sharma, IJERT, diario)",
+      "fuente": "Bansal, Kumar y Sharma, 'Enhanced Moving Average Strategy for Maximizing Cryptocurrency Profits during Bear Markets' (IJERT, 2023): compra con la EMA 30 sobre la 50, venta en el cruce contrario y stop de 2 ATR(14); probado en BTC, ETH y XRP entre 2021 y 2023 (https://www.ijert.org/enhanced-moving-average-strategy-for-maximizing-cryptocurrency-profits-during-bear-markets). Aproximado con medias simples.",
+      "idea": "Seguir la tendencia diaria mientras la media de 30 esté sobre la de 50, con un stop de 2 ATR para limitar el daño en mercados bajistas.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            30,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            30,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y XRP: cruce bajista de medias 30/50 con stop de 2 ATR (Bansal, Kumar y Sharma, IJERT, diario, corto)",
+      "fuente": "Bansal, Kumar y Sharma (IJERT, 2023), señal de venta del cruce EMA 30/50 con stop de 2 ATR, estudiada en el mercado bajista de 2021-2023 (https://www.ijert.org/enhanced-moving-average-strategy-for-maximizing-cryptocurrency-profits-during-bear-markets). Versión en corto, aproximada con medias simples.",
+      "idea": "En ETH y XRP, vender en corto mientras la media de 30 esté bajo la de 50 y cerrar cuando vuelva a cruzar al alza.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            30,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            30,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Comprar el cruce de la muerte 50/200 y mantener una semana (CoinPaprika, contrario, aproximado)",
+      "fuente": "Bartek Hagan, CoinPaprika, 'Which Crypto Indicators Actually Work?' (2026): en 8 criptos desde 2017, 7 días después de un cruce de la muerte el precio estaba más alto el 65,7 % de las veces (mediana +2,2 %), frente al 49,9 % de base (https://coinpaprika.com/uk/education/crypto-indicators-actually-work). Aproximado: se compra en el primer giro al alza con la 50 bajo la 200.",
+      "idea": "Llevar la contraria al cruce de la muerte: con la media de 50 bajo la de 200, comprar el primer giro al alza y salir en una semana como mucho.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_bajista",
+            50,
+            200
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: comprar el RSI sobre 70 como señal de fuerza y mantener hasta un mes (CoinPaprika)",
+      "fuente": "Bartek Hagan, CoinPaprika, 'Which Crypto Indicators Actually Work?' (2026): el RSI(14) sobre 70 en diario no fue señal de venta; 30 días después la media fue de +21 % en las 8 criptos estudiadas (ETH, SOL y XRP entre ellas) (https://coinpaprika.com/uk/education/crypto-indicators-actually-work).",
+      "idea": "En las altcoins, tratar la sobrecompra como impulso: comprar con el RSI sobre 70 y salir cuando se apague o tras 30 días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_bajo",
+            14,
+            45
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.12,
+        "hold": 30,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: comprar el toque de la banda superior de Bollinger y mantener una semana (CoinPaprika)",
+      "fuente": "Bartek Hagan, CoinPaprika, 'Which Crypto Indicators Actually Work?' (2026): el toque de la banda superior de Bollinger (20, 2) acertó la subida a 7 días el 54,1 % de las veces, por encima de la base del 49,9 % (https://coinpaprika.com/uk/education/crypto-indicators-actually-work).",
+      "idea": "En las altcoins, el cierre sobre la banda superior de Bollinger es fuerza y no techo: comprar y salir al perder la media de 20 o en 7 días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            20,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 7,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "NR7 de Galen Woods: vela estrecha con las 7 anteriores sobre la EMA 20",
+      "fuente": "Galen Woods, Trading Setups Review, 'NR7 Trading Strategy': largo al romper el máximo de una vela NR7 solo si las 7 velas previas están por encima de la EMA 20 (https://tradingsetupsreview.com/nr7-trading-strategy). Aproximado: rango estrecho por volatilidad baja de 7 velas y tendencia de 7 velas.",
+      "idea": "Tras una vela de rango mínimo dentro de una subida limpia sobre la EMA 20, comprar la ruptura de su máximo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "impulso_sube",
+            7,
+            0.0
+          ],
+          [
+            "vol_baja",
+            7,
+            0.35
+          ],
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: NR7 de Galen Woods en corto (7 velas bajo la EMA 20)",
+      "fuente": "Galen Woods, Trading Setups Review, 'NR7 Trading Strategy': venta al perder el mínimo de la vela NR7 si las 7 velas previas están por debajo de la EMA 20 (https://tradingsetupsreview.com/nr7-trading-strategy). Aproximado.",
+      "idea": "En las altcoins, tras una vela estrecha en una caída limpia bajo la EMA 20, vender en corto la pérdida de su mínimo.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "impulso_sube",
+            7,
+            0.0
+          ],
+          [
+            "vol_baja",
+            7,
+            0.35
+          ],
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Barra interior con objetivo de la altura de la vela madre y salida a las 5 velas (The Right Trader)",
+      "fuente": "The Right Trader, 'Inside Bar Trading Strategy' (2026): compra al romper el máximo de la vela madre sobre una media de 50 que sube, stop en su mínimo, objetivo de una altura de la madre y salida por tiempo al cierre de la 5.ª vela (https://therighttrader.com/learn/trading-strategies/inside-bar-trading-strategy). Aproximado: barra interior como volatilidad baja de 3 velas.",
+      "idea": "Tras una pausa de una vela dentro de la anterior, comprar la ruptura con la media de 50 subiendo y salir en el objetivo medido o a las 5 velas.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ],
+          [
+            "vol_baja",
+            3,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            2
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: barra interior en corto bajo la media de 50 que baja (The Right Trader)",
+      "fuente": "The Right Trader, 'Inside Bar Trading Strategy' (2026): lado corto, venta al perder el mínimo de la vela madre bajo una media de 50 que cae, con objetivo de una altura y salida a las 5 velas (https://therighttrader.com/learn/trading-strategies/inside-bar-trading-strategy). Aproximado.",
+      "idea": "En las altcoins en caída, vender en corto la pérdida del mínimo tras una barra interior y salir en el objetivo medido o a las 5 velas.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ],
+          [
+            "vol_baja",
+            3,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            2
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Comprar tras una vela envolvente bajista y salir al superar el máximo anterior (QuantifiedStrategies)",
+      "fuente": "QuantifiedStrategies, '10 Best Candlestick Patterns Ranked by Backtest' (2026): la envolvente bajista fue el mejor patrón, pero como señal de compra por reversión (+0,46 % de media a 5 días); la estrategia combinada sale cuando un cierre supera el máximo del día anterior (https://www.quantifiedstrategies.com/candlestick-patterns-ranked-by-backtest/). Probado en el SPY; aproximado con una caída fuerte de una vela con volumen.",
+      "idea": "Tras una vela roja fuerte que envuelve a la anterior, comprar por reversión y vender en cuanto un cierre supere el máximo previo.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            1,
+            0.03
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Comprar tras un Three Outside Down y mantener 3 velas (QuantifiedStrategies, aproximado)",
+      "fuente": "QuantifiedStrategies, '10 Best Candlestick Patterns Ranked by Backtest' (2026): el patrón bajista Three Outside Down fue el segundo mejor como compra, con +0,58 % de media a 3 días (https://www.quantifiedstrategies.com/candlestick-patterns-ranked-by-backtest/). Aproximado como tres velas de caída que terminan con otra vela roja.",
+      "idea": "Tras tres velas de caída rematadas por una envolvente bajista, comprar por reversión y salir a las 3 velas.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            3,
+            0.04
+          ],
+          [
+            "impulso_baja",
+            1,
+            0.01
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: reversión bajo la media de 200 con RSI en sobreventa, solo en largo (CantorTechnologies)",
+      "fuente": "CantorTechnologies, 'Technical Trading Option 2: Mean Reversion' (TradingView, 2019): en BTC la reversión a la media funciona en largo (comprar bajo la media de 200 con el RSI en sobreventa) y es mala idea en corto (https://www.tradingview.com/chart/BTCUSD/N2dwvlK1-Technical-Trading-Option-2-Mean-Reversion/). Umbral del RSI aproximado.",
+      "idea": "En BTC, comprar solo cuando el precio esté bajo su media de 200 y el RSI en sobreventa, y vender al recuperarse el RSI.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "bajo_media",
+            200
+          ],
+          [
+            "rsi_bajo",
+            14,
+            30
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Oscilador de Klinger con giro y vuelta (MotiveWave, aproximado con el delta de 34 y 13)",
+      "fuente": "MotiveWave, 'Klinger Volume Strategy': largo con la señal de compra del oscilador de volumen de Klinger (34/55 con señal de 13) y cierre con la de venta (https://docs.motivewave.com/strategies/klinger-volume-strategy). Aproximado con el delta de flujo de órdenes de 34 velas, la EMA 55 y el delta de 13 para salir.",
+      "idea": "Comprar cuando el volumen comprador domine a medio plazo con el precio sobre la EMA 55 y salir cuando el flujo corto se vuelva vendedor.",
+      "regla": {
+        "entry": [
+          [
+            "delta_compra",
+            34,
+            0.02
+          ],
+          [
+            "sobre_ema",
+            55
+          ]
+        ],
+        "exit": [
+          [
+            "delta_venta",
+            13,
+            0.02
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC y ETH: oscilador de Klinger en corto (MotiveWave, aproximado con el delta)",
+      "fuente": "MotiveWave, 'Klinger Volume Strategy', modo solo cortos: abrir corto con la señal de venta del oscilador de Klinger y cerrar con la de compra (https://docs.motivewave.com/strategies/klinger-volume-strategy). Aproximado con el delta de flujo de 34 y 13 velas y la EMA 55.",
+      "idea": "Vender en corto cuando el volumen vendedor domine a medio plazo bajo la EMA 55 y cerrar cuando el flujo corto se vuelva comprador.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "delta_compra",
+            34,
+            0.02
+          ],
+          [
+            "sobre_ema",
+            55
+          ]
+        ],
+        "exit": [
+          [
+            "delta_venta",
+            13,
+            0.02
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y SOL: régimen de Hurst en tendencia con ruptura de 20 velas (Jeko693, aproximado, 4 h y diario)",
+      "fuente": "Jeko693, 'Hurst Exponent Strategy [Fast + Weekly]' (TradingView): exponente de Hurst como filtro de régimen, tendencia si H > 0,60, reversión si H < 0,45 (https://es.tradingview.com/script/Ge1aDt2n/). Aproximado con la eficiencia de Kaufman de 100 velas y una ruptura de 20.",
+      "idea": "Seguir la tendencia solo cuando el régimen de largo plazo sea persistente: comprar la ruptura de 20 velas y salir al perder el mínimo de 10.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "en_tendencia",
+            100,
+            0.3
+          ],
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Régimen de Hurst con reversión a la media: z-score bajo en mercado antipersistente (Jeko693, aproximado)",
+      "fuente": "Jeko693, 'Hurst Exponent Strategy [Fast + Weekly]' (TradingView): con H < 0,45 el mercado revierte a la media (https://es.tradingview.com/script/Ge1aDt2n/). Aproximado con eficiencia de Kaufman baja y z-score de 20 velas.",
+      "idea": "Solo cuando el mercado está en régimen de ida y vuelta, comprar las caídas de 2 desviaciones y vender al volver a la media de 20.",
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            50,
+            0.15
+          ],
+          [
+            "z_bajo",
+            20,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: ruptura de 20 velas confirmada por flujo de dinero positivo (Chaikin Money Flow, Bitfinex, aproximado)",
+      "fuente": "Tammy Ha, Bitfinex, 'Chart Decoder Series: Chaikin Money Flow' (2026): una ruptura con CMF(20) positivo y fuerte es real; con CMF débil, probable trampa; ejemplos de BTC en 1 h y 4 h (https://blog.bitfinex.com/education/chart-decoder-series-chaikin-money-flow-the-net-capital-inflow-indicator/). Aproximado con el delta de 20 velas.",
+      "idea": "En BTC, comprar la ruptura del máximo de 20 velas solo si el dinero entra (delta de 20 velas comprador) y salir cuando se vuelva vendedor.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "delta_compra",
+            20,
+            0.03
+          ]
+        ],
+        "exit": [
+          [
+            "delta_venta",
+            20,
+            0.03
+          ],
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: divergencia bajista del flujo de dinero en máximos (Chaikin Money Flow, Bitfinex, corto, aproximado)",
+      "fuente": "Tammy Ha, Bitfinex, 'Chart Decoder Series: Chaikin Money Flow' (2026): divergencia bajista cuando el precio marca máximos más altos y el CMF máximos más bajos (https://blog.bitfinex.com/education/chart-decoder-series-chaikin-money-flow-the-net-capital-inflow-indicator/). Aproximado con la divergencia del delta acumulado y RSI alto.",
+      "idea": "En las altcoins, vender en corto un nuevo máximo que no acompaña el flujo comprador y cerrar al enfriarse el RSI.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "divergencia_delta",
+            20
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 10,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: corto el lunes tras una subida de fin de semana para cerrar el hueco del CME (1 h, aproximado)",
+      "fuente": "TrendmasterOfficial, 'BTC Weekend CME Gap - Past 2 Filled on Monday' (TradingView, 2022) (https://www.tradingview.com/chart/BTCUSD/CXovKc1I-BTC-Weekend-CME-Gap-Past-2-Filled-on-Monday/); CoinDesk, 'Bitcoin's weekend surge forms another CME gap, signaling possible drop back' (2025) (https://hotfix.coindesk.com/markets/2025/03/24/bitcoin-s-weekend-surge-forms-another-cme-gap-signaling-possible-drop-back). Aproximado: el hueco como subida de más del 3 % en las 48 h anteriores.",
+      "idea": "Si BTC sube fuerte durante el fin de semana, vender en corto en la primera mitad del lunes esperando que vuelva al cierre del viernes del CME.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              0
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            12
+          ],
+          [
+            "impulso_baja",
+            48,
+            0.03
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            12,
+            12
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: compra el lunes tras una caída de fin de semana para cerrar el hueco del CME (1 h, aproximado)",
+      "fuente": "TrendmasterOfficial, 'BTC Weekend CME Gap - Past 2 Filled on Monday' (TradingView, 2022), que atribuye a los huecos del CME una tasa de cierre de más del 90 % (https://www.tradingview.com/chart/BTCUSD/CXovKc1I-BTC-Weekend-CME-Gap-Past-2-Filled-on-Monday/). Lado largo, aproximado: el hueco como caída de más del 3 % en las 48 h anteriores.",
+      "idea": "Si BTC cae fuerte durante el fin de semana, comprar en la primera mitad del lunes esperando que vuelva al cierre del viernes del CME.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "dia_semana",
+            [
+              0
+            ]
+          ],
+          [
+            "franja_horaria",
+            0,
+            12
+          ],
+          [
+            "impulso_baja",
+            48,
+            0.03
+          ]
+        ],
+        "exit": [
+          [
+            "franja_horaria",
+            12,
+            12
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "SOL: ruptura diaria de 5 velas sobre las EMAs 50/200 con escalera de R (Algonney, R-Ladder Trail)",
+      "fuente": "Algonney, 'Daily Trend Breakout + R-Ladder Trail' (TradingView, 2026): diario, EMA 50 sobre la 200, cierre sobre la EMA 50 y sobre el máximo de 5 velas, stop de 1,5 ATR (1R) que sube 1R por cada 1R ganado y salida al cerrar bajo la EMA 20; SOL fue de lo mejor (PF 2,03) en 2020-2026 (https://www.tradingview.com/script/rnYfjVk4-Daily-Trend-Breakout-R-Ladder-Trail/). Escalón aproximado al 7 %.",
+      "idea": "En SOL, comprar la ruptura del máximo de 5 días en tendencia y subir el stop escalón a escalón hasta que el precio cierre bajo la EMA 20.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "escalera": 0.07
+      }
+    },
+    {
+      "nombre": "BTC y XRP: ruptura diaria de 5 velas sobre las EMAs 50/200 con escalera de R (Algonney, R-Ladder Trail)",
+      "fuente": "Algonney, 'Daily Trend Breakout + R-Ladder Trail' (TradingView, 2026): mismas reglas en BTC (PF 1,37) y XRP (PF 1,20); el autor dice que en 4 h perdía por costes (https://www.tradingview.com/script/rnYfjVk4-Daily-Trend-Breakout-R-Ladder-Trail/). Escalón aproximado al 5 %.",
+      "idea": "En BTC y XRP, comprar en diario la ruptura del máximo de 5 velas en tendencia y gestionar el stop por escalones de R.",
+      "activos": [
+        "BTC-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "escalera": 0.05
+      }
+    },
+    {
+      "nombre": "ETH y XRP: pérdida diaria del mínimo de 5 velas bajo las EMAs 50/200 con escalera de R (R-Ladder Trail, corto)",
+      "fuente": "Algonney, 'Daily Trend Breakout + R-Ladder Trail' (TradingView, 2026), estrategia solo larga que no operó en 2022 (https://www.tradingview.com/script/rnYfjVk4-Daily-Trend-Breakout-R-Ladder-Trail/). Versión simétrica en corto para mercados bajistas; escalón aproximado al 6 %.",
+      "idea": "En ETH y XRP en tendencia bajista diaria, vender en corto la pérdida del mínimo de 5 velas y bajar el stop escalón a escalón hasta que cierre sobre la EMA 20.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "escalera": 0.06,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL y XRP: cierre fuera del canal de volatilidad a favor de la EMA 200 con ADX y volumen (debdaspt85, 1 h y 4 h, aproximado)",
+      "fuente": "debdaspt85, 'Volatility Breakout System [Fixed Risk]' (TradingView): cierre fuera del canal de Keltner solo a favor de la EMA 200, con ADX sobre 20 y volumen sobre su media, stop por ATR, stop móvil y break-even (https://www.tradingview.com/script/36zwwSMa-Volatility-Breakout-System-Fixed-Risk/). Aproximado: banda como z-score de 2 y ADX como eficiencia de Kaufman.",
+      "idea": "En SOL y XRP, comprar el cierre que se escapa del canal de volatilidad solo con tendencia de fondo, ADX y volumen, protegiendo pronto con break-even.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "z_alto",
+            20,
+            2.0
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ],
+          [
+            "volumen_alto",
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: compra en el mínimo del ciclo de unos 60 días (método de Bob Loukas, aproximado)",
+      "fuente": "'Bitcoin 60 Day Cycle Tracker - Bob Loukas Method' (TradingView): BTC en diario forma mínimos de ciclo cada 50-65 días; se compra en el mínimo confirmado y se recoge en el máximo del ciclo, arriesgando poco por señal (https://www.tradingview.com/script/AcBSOwqP-Bitcoin-60-Day-Cycle-Tracker-with-Alerts-Bob-Loukas-Method). Aproximado: caída de más del 10 % en 30 días, RSI bajo 40 y primer giro al alza.",
+      "idea": "En BTC, comprar el giro tras la caída típica hacia el mínimo del ciclo de unos 60 días y vender en la euforia del ciclo o a los 40 días.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            30,
+            0.1
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 40,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
