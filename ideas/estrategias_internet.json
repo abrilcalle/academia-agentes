@@ -34615,6 +34615,990 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "ETH: ruptura del máximo de 200 velas sin tendencia extrema y salida en el mínimo de 200 (Andrea Unger, ADX, aproximado)",
+      "fuente": "Andrea Unger, 'Trading system Ethereum: ADX' en The Cryptonomist (23/04/2023: ETH de 15 min, solo largos, entrar al romper el máximo de las últimas 200 velas solo con el ADX bajo 50; stop móvil en el mínimo de 200 velas y stop del 5 %; sin objetivo) (https://en.cryptonomist.ch/2023/04/23/trading-system-ethereum-adx-2/). Aproximado: ADX bajo como eficiencia de Kaufman baja y velas de 1 h en lugar de 15 min.",
+      "idea": "En ETH, comprar la ruptura de un máximo largo cuando el mercado aún no está sobreextendido y dejar correr hasta perder el mínimo del mismo canal.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            200
+          ],
+          [
+            "mercado_lateral",
+            14,
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            200
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Ruptura del máximo de la vela anterior con volumen 1,5 veces la media sobre la EMA 200 en 4 h (Oguzbey07, King Trade)",
+      "fuente": "Oguzbey07, 'King Trade 4 and 3 hour buy-sell strategy V2' en TradingView (4 h y 3 h: largo cuando el precio supera el máximo de la vela anterior, con volumen al menos 1,5 veces su media de 20 y precio sobre la EMA 200) (https://www.tradingview.com/script/euiNzqi9/). Salida y stop no publicados: añadidos aquí.",
+      "idea": "En 4 h, comprar cuando el precio supera el máximo de la vela anterior con volumen fuerte y a favor de la EMA 200.",
+      "activos": [
+        "BTC-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            1
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.03,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Pérdida del mínimo de la vela anterior con volumen 1,5 veces la media bajo la EMA 200 en 4 h (Oguzbey07, King Trade, corto)",
+      "fuente": "Oguzbey07, 'King Trade 4 and 3 hour buy-sell strategy V2' en TradingView, lado corto (pierde el mínimo de la vela anterior con volumen ≥1,5 veces la media de 20 y precio bajo la EMA 200) (https://www.tradingview.com/script/euiNzqi9/).",
+      "idea": "En 4 h, vender en corto cuando el precio pierde el mínimo de la vela anterior con volumen fuerte y por debajo de la EMA 200.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            1
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.03,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Media de 8 sobre la de 55 con RSI bajo 70 que sube y objetivo del 7 % (Coinrule, EMA crossings with RSI)",
+      "fuente": "Coinrule, 'EMA crossings with RSI' (vídeo y transcripción en Medium: entrar cuando la EMA 8 cruza sobre la EMA 55, el RSI está bajo 70 y ha subido 5 puntos; salir con +7 % o en el cruce contrario de medias rápidas) (https://medium.com/coinrule/ema-crossings-with-rsi-2b18ac431f27). Aproximado con medias simples.",
+      "idea": "Comprar el giro de medias rápido sobre lento mientras el RSI aún no está en sobrecompra y recoger un 7 %.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            8,
+            55
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            8,
+            55
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.07,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: MACD a favor con la tendencia adaptativa MESA (cryptohopper, aproximado)",
+      "fuente": "cryptohopper, 'Trading Ethereum: Profitable Strategy Example With Backtest' en TradingView (16/04/2021: ETH, solo largos mientras la MESA/MAMA está sobre la FAMA; entrar con la señal de compra del MACD y salir con la de venta) (https://www.tradingview.com/chart/ETHUSD/7SIYpcCm-Trading-Ethereum-Profitable-Strategy-Example-With-Backtest). Aproximado: la MESA como tendencia medida por la eficiencia y la EMA 20.",
+      "idea": "En ETH, comprar cuando el MACD gira al alza y la tendencia adaptativa es alcista, y salir cuando el MACD gira a la baja.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.25
+          ],
+          [
+            "sobre_ema",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "ETH y XRP: regla de filtro del 5 % en diario (Hudson y Urquhart, aproximado)",
+      "fuente": "Robert Hudson y Andrew Urquhart, 'Technical trading and cryptocurrencies', Annals of Operations Research (2019): prueban casi 15.000 reglas (medias, filtros, soporte y resistencia, osciladores, canales) en BTC, LTC, XRP y ETH diarios; las reglas de filtro dieron el mayor margen ante costes en ETH (https://link.springer.com/article/10.1007/s10479-019-03357-1). Parámetro del 5 % elegido aquí.",
+      "idea": "En ETH y XRP diario, comprar cuando el precio sube más de un 5 % en unos días y salir cuando cae un 5 %.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            5,
+            0.05
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            5,
+            0.05
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: regla de filtro del 5 % en diario en corto (Hudson y Urquhart, corto, aproximado)",
+      "fuente": "Robert Hudson y Andrew Urquhart, 'Technical trading and cryptocurrencies', Annals of Operations Research (2019), reglas de filtro con señales largas y cortas (https://link.springer.com/article/10.1007/s10479-019-03357-1).",
+      "idea": "En altcoins diario, vender en corto cuando el precio cae más de un 5 % en unos días y cerrar cuando rebota un 5 %.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            5,
+            0.05
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            5,
+            0.05
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: subida en la franja de 14 a 18 h UTC sobre la EMA 50 (arXiv 2606.08232, 1 h, aproximado)",
+      "fuente": "Paper 'Solana memecoin paper-trading' (arXiv 2606.08232, 2026): las entradas entre las 14 y las 17 h UTC fueron las mejores y las de las 2, 13 y 23 h las peores (muestra corta, no significativa) (https://arxiv.org/pdf/2606.08232). Se aplica solo el filtro horario sobre SOL.",
+      "idea": "En SOL de 1 h, comprar solo en la franja horaria de más actividad de EE. UU. cuando el precio sube sobre su EMA 50, y salir el mismo día.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "franja_horaria",
+            14,
+            4
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: RSI bajo que gira al alza en mercado sin tendencia con stop de 2 ATR (jura1986, Bot Webhook SOL, aproximado)",
+      "fuente": "jura1986, 'Bot Webhook v8.4 [SOL]' en TradingView (largo con RSI y estocástico bajo umbral, pendiente del RSI al alza y ADX bajo; stop 1,5 ATR y objetivo 2,5 ATR) (https://www.tradingview.com/script/zqXBrutH/). Aproximado: ADX bajo como eficiencia baja y stop de 2 ATR.",
+      "idea": "En SOL, comprar la sobreventa que empieza a girar cuando el mercado está de lado, con objetivo corto.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "mercado_lateral",
+            14,
+            0.25
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH: corto al perder el mínimo de 20 velas con objetivo y stop parecidos (Price Channel Strategy, corto)",
+      "fuente": "Script 'Price Channel Strategy' (solo cortos, ETH 2016-2025) en TradingView: orden de venta al perder el mínimo de las 20 velas anteriores, con objetivo y stop fijos y simétricos (https://in.tradingview.com/script/4qov8khN).",
+      "idea": "En ETH, vender en corto la ruptura bajista del canal de 20 velas con objetivo fijo cercano y stop equivalente.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura de precio y de volumen a la vez sobre la media de 100 (TradeDots, Price and Volume Breakout)",
+      "fuente": "TradeDots, 'Price and Volume Breakout Buy Strategy' en TradingView (largo cuando el cierre y el volumen superan a la vez su máximo del periodo, con el precio sobre una media) (https://tradingview.com/script/jc2hs2qK-Price-and-Volume-Breakout-Buy-Strategy-TradeDots). Aproximado: volumen 2 veces la media.",
+      "idea": "Comprar cuando el precio rompe su máximo de 50 velas con un volumen excepcional y a favor de la tendencia.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            50
+          ],
+          [
+            "volumen_alto",
+            2.0
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: ruptura bajista de precio y volumen bajo la media de 100 (TradeDots, corto)",
+      "fuente": "TradeDots, 'Price and Volume Breakout Buy Strategy' en TradingView, versión bajista añadida en 2024 (https://tradingview.com/script/jc2hs2qK-Price-and-Volume-Breakout-Buy-Strategy-TradeDots).",
+      "idea": "En altcoins, vender en corto cuando el precio pierde su mínimo de 50 velas con volumen excepcional y bajo la media de 100.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            50
+          ],
+          [
+            "volumen_alto",
+            2.0
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: MACD de 1 h solo con el MACD diario alcista y salida en la primera vela roja (Quantpedia, D1H1, 1 h)",
+      "fuente": "Quantpedia, 'How to Design a Simple Multi-Timeframe Trend Strategy on Bitcoin' (BTC 1 h desde 2018: comprar el cruce alcista del MACD de 1 h solo si el MACD diario está sobre su señal; salir en la primera vela de 1 h que cierra en rojo; Sharpe 1,07 frente a 0,33 del MACD solo) (https://quantpedia.com/how-to-design-a-simple-multi-timeframe-trend-strategy-on-bitcoin/). Aproximado: el MACD diario como media de 12 días sobre la de 26.",
+      "idea": "En BTC de 1 h, comprar el giro del MACD horario a favor de la tendencia diaria y salir en cuanto cierra una vela roja.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "cruce_alcista",
+            288,
+            624
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            1,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC y ETH: EWMAC 16/64 de Robert Carver en diario",
+      "fuente": "Robert Carver, 'Advanced Futures Trading Strategies' (estrategia 8: una sola media exponencial rápida menos lenta, EWMAC 16/64, largo si es positiva); recreada en QuantConnect (https://www.quantconnect.com/research/15959/adjusted-trend-on-futures/). Aproximado con medias simples y sin dimensionar por la fuerza de la señal.",
+      "idea": "Estar comprado mientras la media de 16 días está sobre la de 64, sin objetivo, y salir solo cuando se da la vuelta.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            16,
+            64
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            16,
+            64
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: EWMAC 16/64 de Robert Carver en diario (corto)",
+      "fuente": "Robert Carver, 'Advanced Futures Trading Strategies' (EWMAC 16/64: el signo de la señal da largo o corto); recreación en QuantConnect (https://www.quantconnect.com/research/15959/adjusted-trend-on-futures/).",
+      "idea": "En altcoins, estar vendido en corto mientras la media de 16 días está bajo la de 64 y cerrar cuando se da la vuelta.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            16,
+            64
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            16,
+            64
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "EWMAC lenta 64/256 de Robert Carver en diario",
+      "fuente": "Robert Carver, 'Advanced Futures Trading Strategies' (estrategia 12 con seis velocidades de EWMAC, de 2/8 a 64/256; aquí solo la más lenta); recreación en QuantConnect (https://www.quantconnect.com/research/15959/adjusted-trend-on-futures/).",
+      "idea": "Seguir la tendencia de fondo: comprado mientras la media de 64 días está sobre la de 256.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            64,
+            256
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            64,
+            256
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL y XRP: EWMAC rápida 8/32 de Robert Carver en 4 h",
+      "fuente": "Robert Carver, 'Advanced Futures Trading Strategies' (velocidad EWMAC 8/32 de la estrategia 12); recreación en QuantConnect (https://www.quantconnect.com/research/15959/adjusted-trend-on-futures/). Aplicada aquí a velas de 4 h, con stop de 3 ATR.",
+      "idea": "En SOL y XRP de 4 h, ir comprado mientras la media de 8 velas está sobre la de 32.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            8,
+            32
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            8,
+            32
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y SOL: EWMAC 32/128 de Robert Carver en diario",
+      "fuente": "Robert Carver, 'Advanced Futures Trading Strategies' (velocidad EWMAC 32/128 de la estrategia 12); recreación en QuantConnect (https://www.quantconnect.com/research/15959/adjusted-trend-on-futures/).",
+      "idea": "En ETH y SOL, seguir la tendencia intermedia: comprado mientras la media de 32 días está sobre la de 128.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            32,
+            128
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            32,
+            128
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Retroceso de Adam Grimes tras un impulso con stop por tiempo (aproximado)",
+      "fuente": "Adam Grimes, retroceso tras un impulso fuerte: pausa de 2-5 velas hacia la media de 10-20 sobre una media de 50 que sube, stop a 1,5-2 ATR y stop por tiempo de 2-4 velas en diario (resumen de Forex.in.rs de su entrevista en Desire To Trade, https://www.forex.in.rs/grimes-edge-swing; Topstep, https://topstep.com/blog/going-deep-on-adam-grimes-approach).",
+      "idea": "Comprar la pausa hacia la media corta tras un impulso en tendencia y salir si en pocos días no arranca.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.1
+          ],
+          [
+            "bajo_ema",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 4,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0.03,
+        "stall": 3,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: retroceso de Adam Grimes en tendencia bajista (corto, aproximado)",
+      "fuente": "Adam Grimes, retroceso tras un impulso, versión bajista (rebote de 2-5 velas hacia la media de 10-20 bajo una media de 50 que baja, stop por tiempo) (https://www.forex.in.rs/grimes-edge-swing).",
+      "idea": "En altcoins, vender en corto el rebote hacia la media corta tras una caída fuerte y salir si no sigue bajando en pocos días.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "impulso_sube",
+            20,
+            0.1
+          ],
+          [
+            "bajo_ema",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 4,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0.03,
+        "stall": 3,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Vuelta desde la banda inferior del VWAP con salida al cruzar el VWAP (RVWAP Mean Reversion, 1 h, aproximado)",
+      "fuente": "Script 'RVWAP Mean Reversion Strategy' en TradingView (largo cuando el cierre cae bajo la banda inferior del VWAP móvil y vuelve a cerrar por encima; salida al cruzar el VWAP) (https://www.tradingview.com/script/oZcWZsvU-RVWAP-Mean-Reversion-Strategy/). Aproximado: banda como z-score de 2 sobre 24 velas.",
+      "idea": "En 1 h, comprar cuando el precio se ha alejado mucho por debajo del VWAP y empieza a volver, y cerrar al tocar el VWAP.",
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            24,
+            2.0
+          ],
+          [
+            "ema_bajo_vwap",
+            3
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "ema_sobre_vwap",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: vuelta desde la banda superior del VWAP en corto (RVWAP Mean Reversion, 1 h, corto, aproximado)",
+      "fuente": "Script 'RVWAP Mean Reversion Strategy' en TradingView, lado corto (cruce bajo la banda superior del VWAP móvil y salida en el VWAP) (https://www.tradingview.com/script/oZcWZsvU-RVWAP-Mean-Reversion-Strategy/).",
+      "idea": "En SOL y XRP de 1 h, vender en corto cuando el precio se aleja mucho por encima del VWAP y empieza a volver.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            24,
+            2.0
+          ],
+          [
+            "ema_bajo_vwap",
+            3
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "ema_sobre_vwap",
+            3
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y SOL: caída a 2 desviaciones del VWAP confirmada por RSI y MACD (VWAP SD2 Reversion, 1 h, aproximado)",
+      "fuente": "Script 'VWAP SD2 Reversion Long' en TradingView (cierre bajo la banda de 2 desviaciones del VWAP del día, RSI que vuelve sobre 30 y cruce alcista del MACD en 5 velas; objetivo en el VWAP y break-even rápido) (https://www.tradingview.com/script/oSV81CXs-VWAP-SD2-Reversion-Long/). Pensado para divisas en 5 min; aquí en cripto de 1 h.",
+      "idea": "En ETH y SOL, comprar la caída extrema bajo el VWAP solo cuando RSI y MACD confirman el giro, y cerrar en el VWAP.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            24,
+            2.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "ema_bajo_vwap",
+            5
+          ]
+        ],
+        "exit": [
+          [
+            "ema_sobre_vwap",
+            5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0.01,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0
+      }
+    },
+    {
+      "nombre": "Ruptura de la banda superior del VWAP a favor de la tendencia del día (wbburgin, Premium VWAP Trendfollow, aproximado)",
+      "fuente": "wbburgin, 'Premium VWAP Trendfollow Strategy' en TradingView (largo cuando el precio rompe la banda superior de desviación del VWAP anclado, cierre al perder la inferior, stop y objetivo por ATR; según el autor funciona mejor en cripto 24/7) (https://www.tradingview.com/script/XZM37cpL-Premium-VWAP-Trendfollow-Strategy-wbburgin/). Aproximado: z-score de 2 y salida al perder el VWAP.",
+      "idea": "Comprar cuando el precio se escapa por arriba del VWAP con fuerza y mantener mientras siga sobre él.",
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            9
+          ],
+          [
+            "z_alto",
+            48,
+            2.0
+          ]
+        ],
+        "exit": [
+          [
+            "ema_bajo_vwap",
+            9
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.04,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 1.0,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL y XRP: corto tras un bombeo con RSI sobre 65 que se agota y volumen alto (PferdeTrader, P&D Short 4 h, aproximado)",
+      "fuente": "PferdeTrader (créditos a Kevko87), 'P&D Short Signal v4.0 [4H]' en TradingView (solo cortos en 4 h: RSI(14) sobre 65 que pierde fuerza, MFI sobre 75 que baja dos velas y OBV que cae; stop en el máximo más 3 ATR; objetivos del 15 % al 60 %) (https://www.tradingview.com/script/WbMB85iL/). Aproximado: MFI y OBV como RSI que gira y volumen alto.",
+      "idea": "En SOL y XRP de 4 h, vender en corto cuando una subida rápida llega a sobrecompra y empieza a girar con mucho volumen.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.15,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
     }
   ]
 }
