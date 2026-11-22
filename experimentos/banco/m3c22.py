@@ -3,7 +3,8 @@ import os, sys, pickle, itertools
 sys.path.insert(0, 'lab/src')
 import numpy as np, equipos as eq
 goal = dict(semanas_en_verde_pct=50, ganancia_minima_anual_pct=10, caida_maxima_pct=25)
-YRS = [2019, 2020, 2021, 2022, 2023]
+import os
+YRS = [int(y) for y in os.environ.get("YRS", "2019,2020,2021,2022,2023").split(",")]
 ok = lambda s: not eq.fails(s, goal)
 rank = lambda t, B: t["s"][B]["verde"] + 2 * t["s"][B]["ret"]
 def podio(ts, B):
@@ -18,7 +19,7 @@ for v in sys.argv[1:]:
     T = pickle.load(open(f"teams_{v}.pkl", "rb"))
     res = [((A, B, C), podio(T[A], B)) for A, B, C in itertools.permutations(YRS, 3)]
     o = []
-    for c in (2022, 2023):
+    for c in [int(x) for x in os.environ.get("CS", "2022,2023").split(",")]:
         fl = [t["s"][C] for (A, B, C), p in res if C == c for t in p]
-        o.append(f"C{c}: cumple {sum(ok(s) for s in fl)}/36 ret {np.median([s['ret'] for s in fl])*100:+.0f} verde {np.median([s['verde'] for s in fl])*100:.0f} dd {np.median([s['dd'] for s in fl])*100:.0f} | ")
+        o.append(f"C{c}: cumple {sum(ok(s) for s in fl)}/{len([1 for (A, B, C), p in res if C == c for t in p])} ret {np.median([s['ret'] for s in fl])*100:+.0f} verde {np.median([s['verde'] for s in fl])*100:.0f} dd {np.median([s['dd'] for s in fl])*100:.0f} | ")
     print(f"{v:5s}", *o)

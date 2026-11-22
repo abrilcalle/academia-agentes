@@ -3,7 +3,7 @@ import os, sys, pickle, itertools
 S = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(S, "lab", "src"))
 import numpy as np, equipos as eq
 goal = dict(semanas_en_verde_pct=50, ganancia_minima_anual_pct=10, caida_maxima_pct=25)
-YRS = [2019, 2020, 2021, 2022, 2023]
+YRS = [int(y) for y in os.environ.get("YRS", "2019,2020,2021,2022,2023").split(",")]
 ok = lambda s: not eq.fails(s, goal)
 rank = lambda t, B: t["s"][B]["verde"] + 2 * t["s"][B]["ret"]
 def podio(ts, B):

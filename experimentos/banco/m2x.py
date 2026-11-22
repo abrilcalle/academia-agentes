@@ -12,7 +12,7 @@ import equipos as eq
 M = pickle.load(open(os.path.join(S, os.environ.get("MAT", "mat.pkl")), "rb"))
 days, R, E, P, G, L, info = M["days"], M["R"], M["E"], M["P"], M["G"], M["L"], M["info"]
 goal = dict(semanas_en_verde_pct=50, ganancia_minima_anual_pct=10, caida_maxima_pct=25)
-YRS = [2019, 2020, 2021, 2022, 2023]
+YRS = [int(y) for y in os.environ.get("YRS", "2019,2020,2021,2022,2023").split(",")]
 rng_ = {y: [k for k, d in enumerate(days) if d.year == y] for y in YRS}
 sl = {y: slice(rng_[y][0], rng_[y][-1] + 1) for y in YRS}
 

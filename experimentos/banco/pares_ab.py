@@ -2,7 +2,8 @@ import sys, pickle, numpy as np
 sys.path.insert(0,'lab/src'); import equipos as eq
 goal = dict(semanas_en_verde_pct=50, ganancia_minima_anual_pct=10, caida_maxima_pct=25)
 ok = lambda s: not eq.fails(s, goal)
-YRS=[2019,2020,2021,2022,2023]
+import os
+YRS = [int(y) for y in os.environ.get("YRS", "2019,2020,2021,2022,2023").split(",")]
 T={v:pickle.load(open(f"teams_{v}.pkl","rb")) for v in sys.argv[1:]}
 print("A->B  "+"  ".join(sys.argv[1:]))
 for A in YRS:
