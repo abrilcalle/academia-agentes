@@ -36699,6 +36699,1080 @@
         "min_net": 0.0,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "Elder Ray: poder bajista negativo que sube en tendencia alcista (Elder, aproximado)",
+      "fuente": "Alexander Elder, 'Trading for a Living' (Elder Ray: Bull Power = máximo − EMA 13, Bear Power = mínimo − EMA 13); reglas explicadas por Capital.com (https://capital.com/en-gb/learn/technical-analysis/elder-ray-indicator) y Bajaj Finserv (https://www.bajajfinserv.in/elder-ray-index-trading-strategy). Aproximado: tendencia por la EMA 65 (EMA 13 semanal), retroceso por RSI corto y entrada al superar el máximo reciente.",
+      "idea": "Con la tendencia mayor al alza, comprar cuando tras un pequeño retroceso bajo la EMA 13 el precio vuelve a superar el máximo de las dos últimas velas, y salir cuando cierra bajo la EMA 13.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            65
+          ],
+          [
+            "rsi_bajo",
+            5,
+            50
+          ],
+          [
+            "rompe_maximo",
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            13
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH y SOL: Elder Ray en corto, poder alcista positivo que cae en tendencia bajista (Elder, aproximado)",
+      "fuente": "Alexander Elder (Elder Ray); regla de venta descrita por Bajaj Finserv (https://www.bajajfinserv.in/elder-ray-index-trading-strategy): tendencia bajista, Bull Power positivo pero cayendo y entrada al perder el mínimo reciente. Aproximado con EMA 65, RSI corto y mínimo de 2 velas. (lado corto).",
+      "idea": "En ETH y SOL con tendencia mayor bajista, vender en corto cuando tras un rebote sobre la EMA 13 el precio pierde el mínimo de las dos últimas velas, y recomprar cuando vuelve a cerrar sobre la EMA 13.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            65
+          ],
+          [
+            "rsi_bajo",
+            5,
+            50
+          ],
+          [
+            "rompe_maximo",
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            13
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Oops de Larry Williams: falsa caída bajo el mínimo anterior que se recupera (aproximado para cripto)",
+      "fuente": "Larry Williams, patrón 'Oops' (abrir bajo el mínimo de ayer tras una vela bajista y comprar al recuperarlo); script 'Larry Williams Oops Strategy' en TradingView (https://www.tradingview.com/script/7Gqs0Sqn-Larry-Williams-Oops-Strategy/) y prueba de Oxford Capital Strategies con salida por tiempo (https://oxfordstrat.com/trading-strategies/bull-oops-pattern/). Cripto no tiene huecos: se aproxima con un rebote sobre el mínimo de 3 velas tras una caída.",
+      "idea": "Tras una vela bajista, comprar cuando el precio barre el mínimo reciente y lo recupera con una vela alcista, y salir a los pocos días o al subir por encima de la media corta.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            3,
+            0.02
+          ],
+          [
+            "rebote_soporte",
+            3,
+            0.005
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            85
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 4,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Oops de Larry Williams en corto: falsa subida sobre el máximo anterior que se pierde (aproximado)",
+      "fuente": "Larry Williams, patrón 'Oops' en su versión vendedora (abrir sobre el máximo de ayer tras una vela alcista y vender al perderlo); script 'Larry Williams Oops Strategy' (https://www.tradingview.com/script/7Gqs0Sqn-Larry-Williams-Oops-Strategy/). Aproximado sin huecos. (lado corto).",
+      "idea": "Tras una vela alcista, vender en corto cuando el precio supera el máximo reciente y vuelve a caer por debajo con una vela bajista, y cubrir a los pocos días.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            3,
+            0.02
+          ],
+          [
+            "rebote_soporte",
+            3,
+            0.005
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            2,
+            85
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 4,
+        "sizing": "riesgo",
+        "frac": 0.35,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL y XRP: suelo en pinzas bajo la banda inferior de Bollinger con salida a las 5 velas (QuantifiedStrategies)",
+      "fuente": "QuantifiedStrategies, 'Tweezer Bottom Candlestick Pattern' (estrategia 1: suelo en pinzas y cierre bajo la Bollinger inferior de 2 desviaciones, salida tras 5 velas) (https://www.quantifiedstrategies.com/tweezer-bottom-candlestick-pattern/). El suelo en pinzas se aproxima con un rebote sobre el mismo mínimo.",
+      "idea": "En SOL y XRP, comprar cuando dos velas defienden el mismo mínimo y el precio está estirado bajo la banda inferior de Bollinger, y vender a las cinco velas.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebote_soporte",
+            3,
+            0.003
+          ],
+          [
+            "z_bajo",
+            20,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            1
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: suelo en pinzas con cierres en la mitad alta de la vela (QuantifiedStrategies, aproximado)",
+      "fuente": "QuantifiedStrategies, 'Tweezer Bottom Candlestick Pattern' (estrategia 2: suelo en pinzas con las velas cerrando en la mitad superior de su rango, salida tras 5 velas) (https://www.quantifiedstrategies.com/tweezer-bottom-candlestick-pattern/). La fuerza del cierre se aproxima con una vela que sube más del 1 %.",
+      "idea": "En ETH, comprar un mínimo defendido dos veces cuando la última vela cierra con fuerza al alza, y salir a las cinco velas.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebote_soporte",
+            3,
+            0.003
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.01
+          ],
+          [
+            "impulso_baja",
+            10,
+            0.04
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: harami alcista confirmado al superar el máximo con volumen (Altrady)",
+      "fuente": "Altrady, 'Bullish Harami Candlestick Pattern' (tras una tendencia bajista, vela interior y confirmación con cierre sobre el máximo y volumen creciente; stop bajo la primera vela, objetivo 1,5R a 3R; ejemplo con ETH) (https://www.altrady.com/blog/crypto-trading-strategies/bullish-harami-candlestick-pattern). Aproximado.",
+      "idea": "En ETH diario, tras una caída, comprar cuando una vela de confirmación cierra por encima del máximo de las dos velas del harami con más volumen, con stop bajo la vela madre y objetivo de unas dos veces el riesgo.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            10,
+            0.08
+          ],
+          [
+            "rompe_maximo",
+            2
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.04,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Trend Magic en 4 h (CCI 20 sobre cero con línea ATR, aproximado)",
+      "fuente": "Indicador Trend Magic (línea que sigue al precio según el CCI de 20 y un ATR de 5 x 1), explicado por LuxAlgo (https://www.luxalgo.com/library/indicator/trend-magic/) y script de TradingView (https://www.tradingview.com/script/kRIjThLZ-Trend-Magic/). El CCI sobre cero se aproxima con el cierre sobre la media de 20 y la línea con un stop que sube.",
+      "idea": "En SOL y XRP en velas de 4 h, comprar cuando el CCI pasa a positivo en un mercado con tendencia y seguir la subida con un stop por ATR que solo sube, saliendo cuando el CCI vuelve a negativo.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.0
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: Trend Magic en corto en 4 h (CCI bajo cero, aproximado)",
+      "fuente": "Trend Magic (CCI 20 y ATR 5), LuxAlgo (https://www.luxalgo.com/library/indicator/trend-magic/): la línea pasa encima del precio cuando el CCI se vuelve negativo. Aproximado con la media de 20. (lado corto).",
+      "idea": "En altcoins con velas de 4 h, vender en corto cuando el CCI pasa a negativo con tendencia bajista clara y cubrir cuando vuelve a positivo o salta el stop por ATR.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            20
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.0
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ],
+          [
+            "sobre_media",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "UT Bot con gestión de riesgo en 4 h (TradeIQ: ATR 10 x 3, volumen 1,2x y tendencia, aproximado)",
+      "fuente": "TradeIQ, 'UT Bot Strategy with Risk Management' (cruce del stop de ATR 10 x 3, filtro de volumen 1,2x la media de 20, filtro de tendencia por EMA y ADX, stop de 2 ATR y riesgo del 1 %, pensado para cripto en 4 h) (https://www.tradingview.com/script/pWT8wmAC-UT-Bot-Strategy-with-Risk-Management-TradeIQ/). El cruce del stop de ATR se aproxima con la ruptura del máximo de 10 velas.",
+      "idea": "En 4 h, comprar cuando el precio cruza al alza la línea de stop por ATR con volumen por encima de lo normal y a favor de la tendencia, y salir cuando la cruza a la baja.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.07,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC y ETH: UT Bot en corto en 4 h (TradeIQ, aproximado)",
+      "fuente": "TradeIQ, 'UT Bot Strategy with Risk Management' (señal vendedora al perder la línea de ATR 10 x 3 con volumen y tendencia bajista, stop de 2 ATR) (https://www.tradingview.com/script/pWT8wmAC-UT-Bot-Strategy-with-Risk-Management-TradeIQ/). Aproximado con el mínimo de 10 velas. (lado corto).",
+      "idea": "En BTC y ETH con velas de 4 h, vender en corto cuando el precio pierde la línea de stop por ATR con volumen y bajo la EMA 200, y cubrir cuando la recupera.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.07,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: cruce de medias de 20 y 100 días, comprado o en liquidez (Grayscale Research)",
+      "fuente": "Grayscale Research, 'The Trend is Your Friend: Managing Bitcoin's Volatility with Momentum Signals' (2023; cruce 20/100 días en BTC desde 2012: Sharpe 1,7 frente a 1,3 de comprar y mantener) (https://research.grayscale.com/reports/the-trend-is-your-friend-managing-bitcoins-volatility-with-momentum-signals).",
+      "idea": "En BTC diario, estar comprado mientras la media de 20 días está sobre la de 100 y pasar a liquidez cuando cruza por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            20,
+            100
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: sobre la EMA de 150 días, comprado o en liquidez (Grayscale Research)",
+      "fuente": "Grayscale Research, 'The Trend is Your Friend' (señal con EMA de 150 días en BTC: 126 % anual y Sharpe 1,9 en 2012-2023 sin comisiones) (https://research.grayscale.com/reports/the-trend-is-your-friend-managing-bitcoins-volatility-with-momentum-signals).",
+      "idea": "En BTC diario, comprar cuando el cierre supera la EMA de 150 días y vender cuando cierra por debajo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            150
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            150
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "BTC: cruce de medias de 50 y 55 días (Bloomberg Terminal)",
+      "fuente": "Bloomberg Professional, 'This Bitcoin trading strategy gained 7,830% in 5 years' (el mejor par de medias entre 120 pruebas en el Terminal fue 50/55 días, frente al 937 % del cruce 50/200; resultado optimizado dentro de la muestra) (https://www.bloomberg.com/professional/insights/markets/this-bitcoin-trading-strategy-gained-7830-in-5-years).",
+      "idea": "En BTC diario, comprar cuando la media de 50 días cruza sobre la de 55 y vender en el cruce contrario, con un stop amplio de seguridad.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            55
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            50,
+            55
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y SOL: corto con la media de 20 días bajo la de 100 (Grayscale invertido, corto)",
+      "fuente": "Adaptación en corto de la señal 20/100 días de Grayscale Research, 'The Trend is Your Friend' (https://research.grayscale.com/reports/the-trend-is-your-friend-managing-bitcoins-volatility-with-momentum-signals), que en el original pasa a liquidez; aquí se vende en corto en altcoins. (lado corto).",
+      "idea": "En ETH y SOL diario, vender en corto mientras la media de 20 días está bajo la de 100 y el precio bajo la de 20, y cubrir cuando el precio recupera la media de 20.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            100
+          ],
+          [
+            "sobre_media",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.15,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Retroceso a la EMA 21 sobre la EMA 50 y el VWAP con vela verde de giro (Ron9000 Multi-Engine, motor A)",
+      "fuente": "Ron9000, 'Multi-Engine Strategy (Green Optimized + Candlestick Breakout)' en TradingView (motor A: precio sobre EMA 50 y VWAP, toca la EMA 21 y da una vela verde fuerte; stop en el mínimo de 5 velas, objetivo 1:2, salida bajo la EMA 50) (https://www.tradingview.com/script/rliMxcaE-Multi-Engine-Strategy-Green-Optimized-Candlestick-Breakout/).",
+      "idea": "En 1 h, con el precio sobre la EMA 50 y el VWAP del día, comprar cuando tras caer a la EMA 21 aparece una vela verde fuerte, con objetivo del doble del riesgo y salida si pierde la EMA 50.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "ema_sobre_vwap",
+            3
+          ],
+          [
+            "rsi_bajo",
+            5,
+            45
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.005
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH y SOL: ruptura del máximo de 5 velas con volumen sobre la EMA 50 y el VWAP (Ron9000 Multi-Engine, motor B)",
+      "fuente": "Ron9000, 'Multi-Engine Strategy' (motor B: ruptura del máximo de 5 velas con volumen 1,2x la media de 5, solo sobre EMA 50 y VWAP; objetivo 1:2) (https://www.tradingview.com/script/rliMxcaE-Multi-Engine-Strategy-Green-Optimized-Candlestick-Breakout/).",
+      "idea": "En ETH y SOL en 1 h o 4 h, comprar la ruptura del máximo de las últimas cinco velas con volumen alto cuando el precio está sobre la EMA 50 y el VWAP, con objetivo del doble del riesgo.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            5
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "ema_sobre_vwap",
+            3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "ETH: desviación de la media en velas de 3-4 h con entradas pequeñas escalonadas (Bias Ratio ETH 3H, aproximado)",
+      "fuente": "CTTC5108, 'Bias Ratio-ETH-3H' en TradingView (entrada por tasa de desviación respecto a la media, 10 % del capital por entrada y toma de beneficios escalonada; el autor avisa de que el beneficio no es alto pero sí estable) (https://www.tradingview.com/script/hl0xyZr7/). Umbral no publicado: se usa 2,5 desviaciones.",
+      "idea": "En ETH con velas de 4 h, comprar poco a poco cuando el precio se aleja mucho por debajo de su media y vender por tramos al volver hacia ella.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            30,
+            2.5
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            30,
+            0.5
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0.03,
+        "shrink": false,
+        "min_net": 0.01,
+        "escalera": 0.03
+      }
+    },
+    {
+      "nombre": "ETH: cruce del precio suavizado (Heikin Ashi) sobre la EMA con stop ATR que sube (Mutanabby_AI ATR+, aproximado)",
+      "fuente": "Mutanabby_AI, 'ATR+ Trend-Following Strategy' en TradingView (cruce del precio Heikin Ashi con una EMA para entrar y salir, solo largos, stop por ATR que sigue al precio; BTC y ETH) (https://www.tradingview.com/script/EdeSmT9i-Mutanabby-AI-ATR-Trend-Following-Strategy). Heikin Ashi aproximado con dos cierres al alza.",
+      "idea": "En ETH en 4 h o diario, comprar cuando el precio suavizado cruza sobre la EMA de 20 y seguirlo con un stop por ATR que solo sube.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Atty Trend Pro: cuatro velas de tendencia seguidas que cierran en máximo del tramo (aproximado)",
+      "fuente": "Atty, 'Atty Trend Pro Strategy' en TradingView (cinta de dos medias; entrada tras 4 velas de tendencia seguidas cuya última cierra en un nuevo máximo del tramo; stop en el borde de la cinta o por ATR; salida al cambiar de color la cinta) (https://www.tradingview.com/script/UisLvJMI-Atty-Trend-Pro-Strategy/).",
+      "idea": "En 4 h o diario, con la media rápida sobre la lenta, comprar cuando cuatro velas seguidas empujan al alza y la última marca un nuevo máximo, y salir cuando la cinta se da la vuelta.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            30
+          ],
+          [
+            "impulso_sube",
+            4,
+            0.03
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            30
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Atty Trend Pro en corto (cuatro velas bajistas que cierran en mínimo, aproximado)",
+      "fuente": "Atty, 'Atty Trend Pro Strategy' (versión vendedora: 4 velas de tendencia bajista y cierre en nuevo mínimo del tramo, salida al cambiar la cinta) (https://www.tradingview.com/script/UisLvJMI-Atty-Trend-Pro-Strategy/). (lado corto).",
+      "idea": "En SOL y XRP, con la media rápida bajo la lenta, vender en corto cuando cuatro velas seguidas empujan a la baja y la última marca un nuevo mínimo, y cubrir cuando la cinta se da la vuelta.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            30
+          ],
+          [
+            "impulso_sube",
+            4,
+            0.04
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            30
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: Double U, cruce del stop ATR sobre la EMA larga con piramidación (aproximado)",
+      "fuente": "'Double U Strategy with Webhook Alerts' en TradingView (dos motores de stop por ATR, entrada al cruzar el stop a favor de una EMA larga, hasta 3 entradas y salida tras varias velas seguidas en contra) (https://www.tradingview.com/script/Fnph6Wzr-Double-U-Strategy-with-Webhook-Alerts/). Aproximado: ruptura de 14 velas sobre la EMA 200 y salida tras una caída de 3 velas.",
+      "idea": "En XRP, comprar cuando el precio cruza al alza su stop por ATR estando sobre la EMA de 200, añadir si sigue subiendo y salir tras varias velas seguidas a la baja.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            14
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            3,
+            0.04
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0.05,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Double U en corto bajo la EMA larga (aproximado)",
+      "fuente": "'Double U Strategy with Webhook Alerts' (motor corto: cruce a la baja del stop por ATR bajo la EMA larga, salida tras varias velas seguidas en contra) (https://www.tradingview.com/script/Fnph6Wzr-Double-U-Strategy-with-Webhook-Alerts/). (lado corto).",
+      "idea": "En SOL y XRP, vender en corto cuando el precio cruza a la baja su stop por ATR estando bajo la EMA de 200 y cubrir tras varias velas seguidas al alza.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            14
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            3,
+            0.05
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.35,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: techo en pinzas sobre la banda superior de Bollinger con salida a las 5 velas (corto)",
+      "fuente": "Versión vendedora del estudio de QuantifiedStrategies sobre las pinzas (https://www.quantifiedstrategies.com/tweezer-bottom-candlestick-pattern/) y del techo en pinzas descrito por Liberated Stock Trader (https://www.liberatedstocktrader.com/tweezer-top-bottom-candle-patterns/). Aproximado. (lado corto).",
+      "idea": "En altcoins, vender en corto cuando dos velas chocan con el mismo máximo y el precio está estirado sobre la banda superior de Bollinger, y cubrir a las cinco velas.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebote_soporte",
+            3,
+            0.003
+          ],
+          [
+            "z_bajo",
+            20,
+            2
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            1
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.35,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y XRP: harami bajista confirmado al perder el mínimo con volumen (Bybit Learn, corto)",
+      "fuente": "Bybit Learn, 'How to Use Bullish and Bearish Harami Candles to Find Trend Reversals' (https://www.bybit.com/en/learn/candlestick/trading-with-bullish-and-bearish-harami-candles) y el esquema de confirmación de Altrady (https://www.altrady.com/blog/crypto-trading-strategies/bullish-harami-candlestick-pattern) aplicado al revés. Aproximado. (lado corto).",
+      "idea": "En ETH y XRP diario, tras una subida, vender en corto cuando una vela de confirmación cierra bajo el mínimo de las dos velas del harami con más volumen, con objetivo de unas dos veces el riesgo.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            10,
+            0.08
+          ],
+          [
+            "rompe_maximo",
+            2
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.04,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
     }
   ]
 }
