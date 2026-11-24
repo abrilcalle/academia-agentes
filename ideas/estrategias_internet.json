@@ -37773,6 +37773,1041 @@
         "min_net": 0.0,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "BTC: canal gaussiano de 144 que sube con cierre sobre la banda superior (Foneysmiles v1.0, diario, aproximado)",
+      "fuente": "Foneysmiles, 'BTC/USD Gaussian Channel 1 Day Chart - Foneysmiles v1.0' en TradingView (https://in.tradingview.com/script/CEzcqTUb-BTC-USD-Gaussian-Channel-1-Day-Chart-Foneysmiles-v1-0). Aproximado: el filtro gaussiano de 4 polos y 144 velas se sustituye por la media de 144 y una ruptura de 20 días; se omite el StochRSI.",
+      "idea": "En BTC diario, comprar cuando el precio está sobre la media de 144 días, sube y cierra en máximos de 20 días (sobre la banda superior), y vender al cerrar bajo la EMA de 21; un 60 % del capital, sin stop fijo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            144
+          ],
+          [
+            "impulso_sube",
+            5,
+            0.0
+          ],
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Ruptura del fractal de 5 velas sobre los dientes del Alligator con volatilidad contenida (Fractal Breakout Trend Following, 4 h)",
+      "fuente": "Script 'Fractal Breakout Trend Following Strategy' en TradingView (https://www.tradingview.com/script/IqUET4xO-Fractal-Breakout-Trend-Following-Strategy/). Aproximado: el filtro de ATR normalizado se sustituye por volatilidad realizada baja.",
+      "idea": "En 4 h o más, comprar cuando el precio rompe el último fractal alcista (máximo de 5 velas) por encima de los dientes del Alligator (media de 8) y la volatilidad no está disparada; salir al perder el fractal bajista (mínimo de 5 velas); un 30 % del capital.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            5
+          ],
+          [
+            "sobre_media",
+            8
+          ],
+          [
+            "vol_baja",
+            20,
+            0.8
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: siete velas alcistas seguidas con RSI-100 sobre 46 en corto (3Commas BCH Heikin Ashi RSI Fade Short, 1 h, aproximado)",
+      "fuente": "Script '3Commas BCH Heikin Ashi RSI Fade Short Strategy' en TradingView (https://www.tradingview.com/script/nuqVC5F7-3Commas-BCH-Heikin-Ashi-RSI-Fade-Short-Strategy/), pasado de 15 min a 1 h y de BCH a SOL y XRP. Aproximado: las 7 velas Heikin Ashi verdes se aproximan con una subida sostenida de 7 velas. (lado corto).",
+      "idea": "En SOL y XRP de 1 h, vender en corto tras una racha de subida de 7 velas con el RSI de 100 por encima de 46, con objetivo del 2,1 % y stop de 2 ATR, sin promediar.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_baja",
+            7,
+            0.03
+          ],
+          [
+            "rsi_bajo",
+            100,
+            54
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_sube",
+            7,
+            0.03
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.021,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: RSI de 4 h que se gira desde 74 en corto con objetivo del 6 % (ARB RSI Short 3Commas, sin promediar)",
+      "fuente": "Script 'ARB RSI Short Strategy [3Commas]' en TradingView (https://www.tradingview.com/script/ZiHWqvCl-ARB-RSI-Short-Strategy-3Commas/), pasado de ARB a ETH, SOL y XRP. Se omiten las órdenes de promedio (aumentan la posición al perder). (lado corto).",
+      "idea": "En 4 h, vender en corto cuando el RSI-14 está en sobrecompra extrema (sobre 70-74) y la vela ya cierra en rojo, con objetivo del 6 % y stop de 3 ATR.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            30
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            55
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL y XRP: %B de Bollinger sobre 1 con RSI-7 sobre 65 en corto con objetivo del 2,1 % (BB RSI Overbought Short, sin promediar)",
+      "fuente": "Script 'BB RSI Overbought DCA Short Strategy' en TradingView (https://www.tradingview.com/script/PnnQc7fs-BB-RSI-Overbought-DCA-Short-Strategy/), pasado de ATOM en 30 min a SOL y XRP en 1 h. Se omiten las 9 órdenes de promedio y se añade un stop de 2 ATR. (lado corto).",
+      "idea": "Vender en corto cuando el precio cierra por encima de la banda superior de Bollinger (20, 2) y a la vez el RSI-7 supera 65; recoger un 2,1 % o cerrar al volver a la media.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "rsi_bajo",
+            7,
+            35
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.0211,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: RSI bajo 20 sobre la EMA 200 con objetivo del 6 % (Optimized BTC Mean Reversion RSI 20/65)",
+      "fuente": "Script 'Optimized BTC Mean Reversion (RSI 20/65)' en TradingView (https://in.tradingview.com/script/pIrgsDpT-Optimized-BTC-Mean-Reversion-RSI-20-65/). Aproximado: se omite el estocástico y el stop del 4 % pasa a 2 ATR.",
+      "idea": "En BTC, comprar una sobreventa extrema (RSI-14 bajo 20) solo si el precio sigue sobre la EMA de 200, con objetivo del 6 % y salida si el RSI llega a 65.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            20
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            65
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: RSI sobre 65 bajo la EMA 200 en corto con objetivo del 6 % (Optimized BTC Mean Reversion RSI 20/65, corto)",
+      "fuente": "Script 'Optimized BTC Mean Reversion (RSI 20/65)' en TradingView (https://in.tradingview.com/script/pIrgsDpT-Optimized-BTC-Mean-Reversion-RSI-20-65/), lado corto. Aproximado: se omite el estocástico y el stop del 4 % pasa a 2 ATR. (lado corto).",
+      "idea": "En BTC bajista (bajo la EMA 200), vender en corto cuando el RSI-14 rebota por encima de 65, con objetivo del 6 % y cierre si el RSI cae bajo 20.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            35
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            80
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH y SOL: RSI que se recupera desde 30 con vela verde sobre la EMA 200 y salida en 70 (RSI + 200 EMA Strategy, 1 h, aproximado)",
+      "fuente": "Script 'RSI + 200 EMA Strategy' en TradingView (https://tw.tradingview.com/script/LNEpwWvY-RSI-200-EMA-Strategy), pasado de 5 min a 1 h. Aproximado: el giro del RSI sobre 30 se aproxima con RSI aún bajo 38 y una vela verde; la salida en 70 y el stop de 2 ATR son añadidos.",
+      "idea": "En ETH y SOL de 1 h y por encima de la EMA de 200, comprar la primera vela verde cuando el RSI sale de la sobreventa, y vender cuando el RSI llega a 70.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            38
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y SOL: RSI que cae desde 70 con vela roja bajo la EMA 200 en corto (RSI + 200 EMA Strategy, 1 h, corto, aproximado)",
+      "fuente": "Script 'RSI + 200 EMA Strategy' en TradingView (https://tw.tradingview.com/script/LNEpwWvY-RSI-200-EMA-Strategy), lado corto, pasado de 5 min a 1 h. Aproximado. (lado corto).",
+      "idea": "En ETH y SOL de 1 h y por debajo de la EMA de 200, vender en corto la primera vela roja cuando el RSI sale de la sobrecompra, y cerrar cuando el RSI cae a 30.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            14,
+            38
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Medias de 50 sobre 200 con MACD positivo y RSI entre 45 y 70, objetivo del 3 % (1EMA 1MACD 1RSI Crypto AB-092, aproximado)",
+      "fuente": "Script '1EMA 1MACD 1RSI Crypto Strategy AB-092' en TradingView (https://jp.tradingview.com/script/YUB9WqZQ-1EMA-1MACD-1RSI-Crypto-Strategy-AB-092). Aproximado: el cruce de MACD sobre su señal se toma como histograma positivo, las EMAs como medias simples y el stop del 1,5 % como 2 ATR.",
+      "idea": "En 1 h, 4 h o diario, comprar cuando la media de 50 está sobre la de 200, el MACD está a favor y el RSI está entre 45 y 70 (impulso sin estirar), con objetivo del 3 %.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_alto",
+            14,
+            45
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y SOL: medias de 50 bajo 200 con MACD negativo y RSI entre 30 y 55 en corto (1EMA 1MACD 1RSI Crypto AB-092, corto, aproximado)",
+      "fuente": "Script '1EMA 1MACD 1RSI Crypto Strategy AB-092' en TradingView (https://jp.tradingview.com/script/YUB9WqZQ-1EMA-1MACD-1RSI-Crypto-Strategy-AB-092), lado corto. Aproximado. (lado corto).",
+      "idea": "En ETH y SOL, vender en corto cuando la media de 50 está bajo la de 200, el MACD gira a la baja y el RSI está entre 30 y 55, con objetivo del 3 %.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            50,
+            200
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_alto",
+            14,
+            45
+          ],
+          [
+            "rsi_bajo",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "RSI que cruza 50 con la media de 8 sobre la de 21 y salida al perder 50 (StockSharp 1504, aproximado)",
+      "fuente": "StockSharp, ejemplo 1504 'Ultimate Oscillator Trading' (https://doc.stocksharp.com/de/api-examples/1504_Ultimate_Oscillator_Trading); la lógica del código usa RSI-14 y EMAs 8/21. Aproximado: EMAs como medias simples, sin el periodo de espera de 80 velas.",
+      "idea": "Comprar cuando el RSI-14 pasa de 50 con la media rápida de 8 sobre la de 21, y cerrar siempre en cuanto el RSI vuelve bajo 50.",
+      "regla": {
+        "entry": [
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "cruce_alcista",
+            8,
+            21
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Banda inferior de Bollinger con máximo reciente de 12 días (StockSharp 0412 Bollinger Aroon, 1 h, aproximado)",
+      "fuente": "StockSharp, ejemplo 0412 'Bollinger Aroon' (https://doc.stocksharp.com/en/api-examples/0412_Bollinger_Aroon). Aproximado: el Aroon Up de 288 velas sobre 90 (máximo muy reciente) se aproxima con el precio más alto que hace 288 velas; pasado de 15 min a 1 h.",
+      "idea": "Comprar cuando el precio cae a la banda inferior de Bollinger (20, 2) dentro de una tendencia alcista larga (288 velas), y vender en la banda superior.",
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "impulso_sube",
+            288,
+            0.05
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            2.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: banda superior de Bollinger en tendencia bajista larga en corto (StockSharp 0412 Bollinger Aroon, corto, aproximado)",
+      "fuente": "StockSharp, ejemplo 0412 'Bollinger Aroon' (https://doc.stocksharp.com/en/api-examples/0412_Bollinger_Aroon), parte corta del código. Aproximado. (lado corto).",
+      "idea": "En ETH, SOL y XRP de 1 h, vender en corto cuando el precio toca la banda superior de Bollinger estando más bajo que hace 288 velas, y cerrar en la banda inferior.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ],
+          [
+            "impulso_sube",
+            288,
+            0.05
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            20,
+            2.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Ruptura del canal con OBV a favor sobre la EMA 100 y stop ATR (Trend Pulse OBV, 4 h y diario, aproximado)",
+      "fuente": "Script 'Trend Pulse OBV' en TradingView (https://de.tradingview.com/script/LBcj22se-Trend-Pulse-OBV/). Aproximado: el canal suavizado se toma como máximo de 20 velas y el OBV sobre su media como delta comprador.",
+      "idea": "En 4 h o diario, comprar cuando el precio rompe por arriba el canal, el volumen comprador domina y el cierre está sobre la EMA de régimen; salir con stop de 2 ATR o al perder la EMA; un 70 % del capital.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "delta_compra",
+            20,
+            0.02
+          ],
+          [
+            "sobre_ema",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            100
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: RSI-9 que cae desde 80 en corto con stop móvil tras ganar un 1,3 % (3Commas BCH Overbought RSI Fade Short, 1 h, sin promediar)",
+      "fuente": "Script '3Commas BCH Overbought RSI Fade Short Strategy' en TradingView (https://www.tradingview.com/script/vnCdOkpO-3Commas-BCH-Overbought-RSI-Fade-Short-Strategy/), pasado de BCH en 5 min a SOL y XRP en 1 h. Se omiten las 3 órdenes de promedio; el stop duro del 8 % se aproxima con 4 ATR. (lado corto).",
+      "idea": "Vender en corto cuando el RSI-9 sale de una sobrecompra extrema (sobre 80) con una vela roja; al ganar un 1,3 % el stop pasa a coste y sigue al precio con un stop móvil corto.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rsi_bajo",
+            9,
+            22
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            9,
+            60
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0.01,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.013,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: cierre muy por encima de la EMA 200 con salida al perderla (Inkedlau Swing Trend, 4 h, aproximado)",
+      "fuente": "Inkedlau, 'Swing Trend Strategy' en TradingView (https://www.tradingview.com/script/Z51SyFk2-Swing-Trend-Strategy/). Aproximado: 'cierre sobre EMA 200 + ATR' se aproxima con el precio sobre la EMA 200 y una desviación por encima de su media de 50.",
+      "idea": "En BTC y ETH de 4 h, entrar en tendencia cuando el cierre queda claramente por encima de la EMA de 200 y salir solo cuando cierra por debajo de ella.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "z_alto",
+            50,
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 0,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: cierre muy por debajo de la EMA 200 en corto con salida al recuperarla (Inkedlau Swing Trend, 4 h, corto, aproximado)",
+      "fuente": "Inkedlau, 'Swing Trend Strategy' en TradingView (https://www.tradingview.com/script/Z51SyFk2-Swing-Trend-Strategy/), con los cortos activados. Aproximado; se añade un stop de 3 ATR. (lado corto).",
+      "idea": "En ETH, SOL y XRP de 4 h, vender en corto cuando el cierre queda claramente por debajo de la EMA de 200 y cerrar cuando vuelve a cerrar por encima.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "z_alto",
+            50,
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            200
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Sobre la EMA 50 con ruptura de 10 velas y volatilidad en expansión, riesgo fijo (Semtex76 ATR Trend-Following, diario, aproximado)",
+      "fuente": "Semtex76, 'ATR Trend-Following System' en TradingView (https://in.tradingview.com/script/YReIYYzc). Aproximado: el SuperTrend (10, 3) se aproxima con ruptura y pérdida del canal de 10 velas y el filtro ATR(14) > media de ATR(50) con volatilidad realizada alta.",
+      "idea": "En diario o 4 h, comprar cuando el cierre está sobre la EMA de 50, el precio rompe el máximo de 10 velas y la volatilidad se expande, arriesgando un 1 % con stop de unos 2,5-3 ATR; salir al girar la tendencia.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "vol_alta",
+            14,
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ],
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: bajo la EMA 50 con pérdida de 10 velas y volatilidad en expansión en corto (Semtex76 ATR Trend-Following, diario, corto, aproximado)",
+      "fuente": "Semtex76, 'ATR Trend-Following System' en TradingView (https://in.tradingview.com/script/YReIYYzc), lado corto. Aproximado. (lado corto).",
+      "idea": "En SOL y XRP diario o 4 h, vender en corto cuando el cierre está bajo la EMA de 50, pierde el mínimo de 10 velas y la volatilidad se expande; cerrar al recuperar el máximo de 10 velas o la EMA.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "vol_alta",
+            14,
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ],
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: EMA 20 sobre la 50 con objetivo del 25 % (XRP Non-Stop Strategy, aproximado)",
+      "fuente": "Script 'XRP Non-Stop Strategy (TP 25% / SL 15%)' en TradingView (https://www.tradingview.com/script/J5akHbOr-XRP-Non-Stop-Strategy-TP-25-SL-15). Aproximado: las EMAs 20/50 como medias simples y el stop del 15 % como 4 ATR.",
+      "idea": "En XRP, comprar cuando el precio está sobre la EMA 20 y la media de 20 sobre la de 50, con objetivo del 25 % y stop amplio, y volver a entrar en la siguiente señal.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "cruce_alcista",
+            20,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            20,
+            50
+          ]
+        ],
+        "stop": 4,
+        "tp": 0.25,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL: Hash Supertrend de 16 velas con tendencia eficiente (Hash Supertrend ATR 16 x 3,11, aproximado)",
+      "fuente": "Script 'Hash Supertrend' en TradingView (https://in.tradingview.com/script/uUPkpnjB-Hash-Supertrend), mostrado en SOL y BTC. Aproximado: el giro del SuperTrend (ATR 16, factor 3,11) se aproxima con ruptura del canal de 16 velas en tendencia limpia y stop de 3 ATR.",
+      "idea": "En SOL de 4 h o diario, comprar cuando el precio rompe el máximo de 16 velas con una tendencia eficiente y salir cuando pierde el mínimo de 16 velas.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            16
+          ],
+          [
+            "en_tendencia",
+            16,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            16
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Ruptura de 10 velas sobre la EMA 200 con RSI sobre 50 y stop móvil que se activa tras ganar (Multi-Timeframe Supertrend with Confirmations, aproximado)",
+      "fuente": "Script 'Multi-Timeframe Supertrend Strategy with Confirmations' en TradingView (https://in.tradingview.com/script/Fect5Raf-Multi-Timeframe-Supertrend-Strategy-with-Confirmations). Aproximado: el giro del SuperTrend como ruptura de 10 velas, filtros RSI y EMA, y stop móvil del 5 % con paso a coste al 3 %.",
+      "idea": "Comprar cuando el SuperTrend gira al alza (ruptura de 10 velas) con el RSI sobre 50 y el precio sobre la EMA de 200; salir con un stop móvil que se activa tras un avance o al girar a la baja.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "MACD que gira al alza desde zona baja sobre la EMA 100 con objetivo de 2 riesgos (Trend Filtered MACD, 4 h, aproximado)",
+      "fuente": "Script 'Trend Filtered MACD Strategy' en TradingView (https://in.tradingview.com/script/Bg0HGDX6-Trend-Filtered-MACD-Strategy). Aproximado: la señal de MACD desde sobreventa se toma como histograma positivo con RSI aún bajo 50; objetivo fijo del 6 % frente a un stop de 2 ATR.",
+      "idea": "En 4 h y solo sobre la EMA de 100, comprar cuando el MACD gira al alza tras un retroceso (RSI todavía bajo 50), con stop ATR y objetivo de unas dos veces el riesgo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            100
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH y XRP: MACD que gira a la baja desde zona alta bajo la EMA 100 en corto (Trend Filtered MACD, 4 h, corto, aproximado)",
+      "fuente": "Script 'Trend Filtered MACD Strategy' en TradingView (https://in.tradingview.com/script/Bg0HGDX6-Trend-Filtered-MACD-Strategy), lado corto. Aproximado. (lado corto).",
+      "idea": "En ETH y XRP de 4 h y solo bajo la EMA de 100, vender en corto cuando el MACD gira a la baja tras un rebote (RSI todavía sobre 50), con stop ATR y objetivo del 6 %.",
+      "activos": [
+        "ETH-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            100
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
     }
   ]
 }
