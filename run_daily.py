@@ -102,10 +102,20 @@ def main():
     ap.add_argument("--solo-kronos", action="store_true", help="solo calcular previsiones de Kronos (sin agentes ni panel)")
     ap.add_argument("--datos-locales", default=None)
     ap.add_argument("--hoy", default=None, help="fecha simulada AAAA-MM-DD (pruebas)")
+    ap.add_argument("--repetir", action="store_true", help="ejecutar el día aunque ya esté hecho hoy")
     args = ap.parse_args()
 
     cfg = json.load(open(os.path.join(ROOT, "config.json")))
     today = dt.date.fromisoformat(args.hoy) if args.hoy else dt.datetime.now(dt.timezone.utc).date()
+    if not (args.hoy or args.datos_locales or args.solo_kronos or args.repetir):
+        # si GitHub lanza el día dos veces (programado con retraso + lanzado a mano), la segunda no hace nada
+        try:
+            hecho = json.load(open(os.path.join(ROOT, "state", "agents.json"))).get("actualizado")
+        except (OSError, ValueError):
+            hecho = None
+        if hecho == today.isoformat():
+            print(f"El día {today} ya está hecho (state/agents.json): no se repite. Usa --repetir para forzarlo.")
+            return
     intraday = any(t in cfg["fabrica"]["temporalidades"] for t in ("1h", "4h"))
     mk = load_markets(cfg, args.datos_locales, today, intraday)
     d = mk["1d"]
