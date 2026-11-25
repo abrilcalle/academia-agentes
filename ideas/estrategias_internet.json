@@ -38808,6 +38808,1039 @@
         "min_net": 0.0,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "Qstick de 14 que cruza sobre cero con ruptura del máximo reciente (Chande, The Right Trader, diario, aproximado)",
+      "fuente": "The Right Trader, 'Qstick Indicator: Formula, Settings, and How to Trade It' (https://therighttrader.com/learn/indicators/qstick-indicator; Tushar Chande, Qstick de 14 sobre cierre menos apertura, ejemplos en SPY, META y SOL/USD diario) y HPotter, 'Qstick Indicator Strategy' en TradingView (https://kr.tradingview.com/script/ieXS6pnV-Qstick-Indicator-Strategy/). Aproximado: en cripto la apertura coincide con el cierre anterior, así que el Qstick positivo equivale a un impulso de 14 velas positivo; la ruptura del máximo de 10 velas hace de 'romper el swing'.",
+      "idea": "Comprar cuando el Qstick de 14 pasa a positivo y el precio rompe el máximo del tramo previo; salir cuando el Qstick vuelve a negativo.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: Qstick de 14 que cruza bajo cero con pérdida del mínimo reciente (Chande, The Right Trader, diario, corto, aproximado)",
+      "fuente": "The Right Trader, 'Qstick Indicator: Formula, Settings, and How to Trade It' (https://therighttrader.com/learn/indicators/qstick-indicator; Tushar Chande, Qstick de 14 sobre cierre menos apertura, ejemplos en SPY, META y SOL/USD diario) y HPotter, 'Qstick Indicator Strategy' en TradingView (https://kr.tradingview.com/script/ieXS6pnV-Qstick-Indicator-Strategy/). Lado corto (las reglas se aplican al gráfico dado la vuelta). Aproximado.",
+      "idea": "En SOL y XRP, vender en corto cuando el Qstick de 14 pasa a negativo y el precio pierde el mínimo del tramo previo; cerrar cuando el Qstick vuelve a positivo.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "rompe_maximo",
+            10
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: retroceso con el Qstick todavía positivo sobre la EMA 50 (Chande, The Right Trader, plan 2, aproximado)",
+      "fuente": "The Right Trader, 'Qstick Indicator: Formula, Settings, and How to Trade It' (https://therighttrader.com/learn/indicators/qstick-indicator; Tushar Chande, Qstick de 14 sobre cierre menos apertura, ejemplos en SPY, META y SOL/USD diario) y HPotter, 'Qstick Indicator Strategy' en TradingView (https://kr.tradingview.com/script/ieXS6pnV-Qstick-Indicator-Strategy/). Plan 2: en tendencia alcista con Qstick sobre cero, entrar en el retroceso que respeta el mínimo. Aproximado con RSI bajo 50 como retroceso.",
+      "idea": "En ETH, con tendencia sobre la EMA 50 y el Qstick de 14 aún positivo, comprar el retroceso (RSI bajo 50) y salir cuando el Qstick cierra bajo cero.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "rsi_bajo",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.03,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Zero Lag Trend: cierre sobre la banda alta de la ZLEMA 70 con salida bajo la EMA 9 (AlgoAlpha, 4 h, aproximado)",
+      "fuente": "AlgoAlpha, 'Zero Lag Trend Strategy (MTF)' en TradingView (https://my.tradingview.com/script/rgBIZeZX-Zero-Lag-Trend-Strategy-MTF-AlgoAlpha): ZLEMA de 70 con bandas de 1,2 ATR, filtro y salida con la EMA 9. Aproximado: la ZLEMA con banda de 1,2 ATR se aproxima con la EMA 70 y una desviación de 1 sobre la media de 70.",
+      "idea": "En 4 h, comprar cuando el precio cierra por encima de la banda superior de la media sin retraso de 70 y sobre la EMA 9; salir en cuanto cierra bajo la EMA 9.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            70
+          ],
+          [
+            "z_alto",
+            70,
+            1.0
+          ],
+          [
+            "sobre_ema",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: Zero Lag Trend en corto bajo la banda baja de la ZLEMA 70 (AlgoAlpha, 4 h, corto, aproximado)",
+      "fuente": "AlgoAlpha, 'Zero Lag Trend Strategy (MTF)' en TradingView (https://my.tradingview.com/script/rgBIZeZX-Zero-Lag-Trend-Strategy-MTF-AlgoAlpha): ZLEMA de 70 con bandas de 1,2 ATR, filtro y salida con la EMA 9. Lado corto, aproximado.",
+      "idea": "En ETH, SOL y XRP de 4 h, vender en corto cuando el precio cierra bajo la banda inferior de la media sin retraso de 70 y bajo la EMA 9; cerrar al recuperar la EMA 9.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            70
+          ],
+          [
+            "z_alto",
+            70,
+            1.0
+          ],
+          [
+            "sobre_ema",
+            9
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC y ETH: el precio recupera la ZLSMA de 100 con objetivo corto por ATR (ZLSMA Cross ATR Targets, 1 h, aproximado)",
+      "fuente": "Script 'ZLSMA Cross ATR Targets - Enhanced Trading Strategy' en TradingView (https://in.tradingview.com/script/V5Zsv2LV-ZLSMA-Cross-ATR-Targets-Enhanced-Trading-Strategy): cruce del precio sobre la ZLSMA de 100, stop de 1 ATR y objetivos de 1,5 y 3 ATR, filtro opcional de EMA 200. Aproximado: ZLSMA como EMA 100 recién recuperada, stop de 2 ATR (el mínimo permitido) y objetivo fijo del 3 %.",
+      "idea": "En 1 h, comprar cuando el precio vuelve por encima de la media sin retraso de 100 con impulso y sobre la EMA 200; objetivo corto y stop por volatilidad.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            100
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.01
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            100
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 3,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Vuelta dentro del canal de Jurik tras una falsa caída, salida en la línea central (ChuckBanger, aproximado)",
+      "fuente": "ChuckBanger, 'Jurik Moving Average Crossover Strategy' en TradingView (https://www.tradingview.com/script/pM6FkCHY-Jurik-Moving-Average-Crossover-Strategy-ChuckBanger): canal de JMA 30 ± 1,5 ATR(30); entrada al volver dentro tras una falsa ruptura, salida al cruzar la línea central. Aproximado: canal como media de 30 ± 1 desviación y giro de 2 velas.",
+      "idea": "Comprar cuando el precio, tras perforar la banda inferior del canal de la media de Jurik de 30, vuelve a subir; salir al cruzar la línea central.",
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            30,
+            1.0
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.005
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            30,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 5,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: vuelta dentro del canal de Jurik tras una falsa subida (ChuckBanger, corto, aproximado)",
+      "fuente": "ChuckBanger, 'Jurik Moving Average Crossover Strategy' en TradingView (https://www.tradingview.com/script/pM6FkCHY-Jurik-Moving-Average-Crossover-Strategy-ChuckBanger): canal de JMA 30 ± 1,5 ATR(30); entrada al volver dentro tras una falsa ruptura, salida al cruzar la línea central. Lado corto, aproximado.",
+      "idea": "En ETH, SOL y XRP, vender en corto cuando el precio, tras superar la banda superior del canal de Jurik, vuelve a caer dentro; cerrar en la línea central.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            30,
+            1.0
+          ],
+          [
+            "impulso_sube",
+            2,
+            0.005
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            30,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 5,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: velocidad de Kalman sobre el umbral en 1 h (Kalman Velocity Trend Filter, Jayadev Rana, aproximado)",
+      "fuente": "JayadevRana, 'Kalman Velocity Trend Filter [Jayadev Rana]' en TradingView (https://www.tradingview.com/script/OXeepkpc-Kalman-Velocity-Trend-Filter-Jayadev-Rana/): filtro de Kalman de nivel y velocidad, compra cuando la velocidad (en ATR por vela) supera el umbral, ajustado en BTCUSDT de 1 h. Aproximado: velocidad como subida de 3 velas en tendencia limpia.",
+      "idea": "En BTC de 1 h, comprar cuando el precio filtrado acelera al alza (subida de más del 1,5 % en 3 velas con tendencia limpia) y vender cuando acelera a la baja.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            3,
+            0.015
+          ],
+          [
+            "en_tendencia",
+            10,
+            0.4
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            3,
+            0.015
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: cierre sobre la banda alta del filtro de Kalman sobre la EMA 200 (Kinetic Kalman Breakout, aproximado)",
+      "fuente": "egoigor1976, 'Kinetic Kalman Breakout' en TradingView (https://www.tradingview.com/script/nd8EpyQ5/): filtro de Kalman adaptativo con bandas por error absoluto medio (200), mostrado en ETH/USDT; siempre en mercado y se da la vuelta al cambiar la tendencia. Aproximado: banda alta como 1,5 desviaciones sobre la media de 50; salida al perder la EMA 50 en lugar de darse la vuelta.",
+      "idea": "En ETH, comprar cuando el precio cierra por encima de la banda superior del filtro de Kalman con la EMA 200 por debajo; salir cuando pierde la EMA 50.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            50,
+            1.5
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: cierre bajo la banda baja del filtro de Kalman bajo la EMA 200 en corto (Kinetic Kalman Breakout, corto, aproximado)",
+      "fuente": "egoigor1976, 'Kinetic Kalman Breakout' en TradingView (https://www.tradingview.com/script/nd8EpyQ5/): filtro de Kalman adaptativo con bandas por error absoluto medio (200), mostrado en ETH/USDT; siempre en mercado y se da la vuelta al cambiar la tendencia. Lado corto, aproximado.",
+      "idea": "En ETH, vender en corto cuando el precio cierra por debajo de la banda inferior del filtro de Kalman con la EMA 200 por encima; cerrar al recuperar la EMA 50.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            50,
+            1.5
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC: ruptura de las bandas cuantitativas con pendiente positiva y stop móvil (AIBitcoinTrend, aproximado)",
+      "fuente": "aibitcointrend, 'Quantitative Breakout Bands (AIBitcoinTrend)' en TradingView (https://in.tradingview.com/script/pR45Susf-Quantitative-Breakout-Bands-AIBitcoinTrend): cierre sobre la banda superior de un filtro de Kalman con pendiente positiva y salida con stop móvil de ATR. Aproximado: banda como 1,5 desviaciones sobre la media de 40 y stop móvil del 6 %.",
+      "idea": "En BTC, comprar cuando el precio cierra fuera de la banda superior con la pendiente de 10 velas al alza y dejar correr la ganancia con un stop móvil.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            40,
+            1.5
+          ],
+          [
+            "impulso_sube",
+            10,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "Solo largos con el Ulcer Index bajo: subida de 14 velas con poca volatilidad sobre la media de 50 (TradingSim, aproximado)",
+      "fuente": "Al Hill, TradingSim, 'Ulcer Index – How to Forecast Shorts and Filter Volatile Trades' (https://www.tradingsim.com/blog/ulcer-index): evitar compras con el Ulcer Index de 14 en 10 o más. Aproximado: Ulcer bajo como impulso de 14 positivo con volatilidad realizada baja; salida si la caída de 14 velas supera el 10 % (Ulcer alto).",
+      "idea": "Comprar solo cuando el mercado sube sin sustos (14 velas al alza, volatilidad baja, sobre la media de 50) y salir cuando aparece una caída profunda.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            14,
+            0.0
+          ],
+          [
+            "vol_baja",
+            14,
+            0.6
+          ],
+          [
+            "sobre_media",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            14,
+            0.1
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Cruce dorado de las ZLEMA 34 y 89 (Predictive ZLEMA Navigator, 4 h y diario, aproximado)",
+      "fuente": "kingshukghosh71, 'Predictive ZLEMA Navigator' en TradingView (https://in.tradingview.com/script/vnPBDvma-Predictive-ZLEMA-Navigator): cruce dorado y de la muerte de las ZLEMA 34 y 89, recomendado en 4 h y diario. Aproximado: medias simples de 34 y 89 con el precio sobre la EMA 34.",
+      "idea": "En 4 h o diario, comprar en el cruce dorado de las medias sin retraso de 34 y 89 con el precio por encima de la rápida; salir en el cruce de la muerte.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            34,
+            89
+          ],
+          [
+            "sobre_ema",
+            34
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            34,
+            89
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y XRP: cruce de la muerte de las ZLEMA 34 y 89 en corto (Predictive ZLEMA Navigator, 4 h y diario, corto, aproximado)",
+      "fuente": "kingshukghosh71, 'Predictive ZLEMA Navigator' en TradingView (https://in.tradingview.com/script/vnPBDvma-Predictive-ZLEMA-Navigator): cruce dorado y de la muerte de las ZLEMA 34 y 89, recomendado en 4 h y diario. Lado corto, aproximado.",
+      "idea": "En SOL y XRP, vender en corto en el cruce de la muerte de las medias sin retraso de 34 y 89 con el precio bajo la rápida; cerrar en el cruce dorado.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            34,
+            89
+          ],
+          [
+            "sobre_ema",
+            34
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            34,
+            89
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Hermes: cruce de ALMA 30/250 con máximo de 7 velas sobre la EMA 200 (aicccia, diario, aproximado)",
+      "fuente": "aicccia, 'Hermes' en TradingView (https://www.tradingview.com/script/nhsUBtUD-Hermes): dos ALMA (30 y 250) sobre los rendimientos, compra en el cruce al alza con nuevo máximo de 7 velas y filtro de EMA 200; venta en el cruce a la baja, sin stop fijo. Aproximado con medias simples sobre el precio.",
+      "idea": "En diario, comprar cuando la media rápida de 30 cruza sobre la lenta de 250 con un máximo de 7 velas y el precio sobre la EMA 200; mantener todo el régimen alcista.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            30,
+            250
+          ],
+          [
+            "rompe_maximo",
+            7
+          ],
+          [
+            "sobre_ema",
+            200
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            30,
+            250
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.7,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "XRP: el cierre recupera la McGinley Dynamic de 14 sobre la EMA 50 (The Right Trader, plan 1, diario, aproximado)",
+      "fuente": "The Right Trader, 'McGinley Dynamic Indicator: Formula and Trade Rules' (https://therighttrader.com/learn/indicators/mcginley-dynamic; John McGinley, N = 14, gráficos diarios y semanales). Plan 1: con la línea subiendo o el precio sobre la EMA 50, comprar el cierre que vuelve sobre la línea tras cerrar por debajo; salir al cerrar de nuevo bajo la línea. Aproximado con la EMA 14.",
+      "idea": "En XRP diario, con tendencia sobre la EMA 50, comprar cuando el cierre recupera la McGinley Dynamic tras un pequeño retroceso y salir al volver a cerrar por debajo.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            14
+          ],
+          [
+            "impulso_baja",
+            5,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            14
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH y SOL: el cierre pierde la McGinley Dynamic de 14 bajo la EMA 50 en corto (The Right Trader, diario, corto, aproximado)",
+      "fuente": "The Right Trader, 'McGinley Dynamic Indicator: Formula and Trade Rules' (https://therighttrader.com/learn/indicators/mcginley-dynamic; John McGinley, N = 14, gráficos diarios y semanales). Versión corta de los planes (el artículo indica que los cortos son la imagen especular). Aproximado.",
+      "idea": "En ETH y SOL diario, con tendencia bajo la EMA 50, vender en corto cuando el cierre vuelve bajo la McGinley Dynamic tras un pequeño rebote; cerrar al recuperarla.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "sobre_ema",
+            14
+          ],
+          [
+            "impulso_baja",
+            5,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            14
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: cruce de las McGinley 14 y 50 con objetivo por ATR (McGinley Dynamic Fusion, MarkitTick, 4 h, aproximado)",
+      "fuente": "MarkitTick, 'McGinley Dynamic Fusion' en TradingView (https://es.tradingview.com/script/FF7bdrMr-McGinley-Dynamic-Fusion-MarkitTick/): cruce de la McGinley rápida (14) sobre la lenta (50) confirmado en vela cerrada, stop y objetivos por ATR. Aproximado con medias de 14 y 50 y objetivo fijo del 8 %.",
+      "idea": "En SOL de 4 h, comprar cuando la McGinley de 14 cruza sobre la de 50 con el precio por encima; stop por ATR y objetivo fijo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            14,
+            50
+          ],
+          [
+            "sobre_ema",
+            14
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            14,
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: giro del SuperTrend con confluencia fuera de régimen lateral, stop amplio y objetivo 2,5:1 (SuperTrend Regime Confluence, 4 h, aproximado)",
+      "fuente": "DefinedEdge, 'SuperTrend Regime Confluence' en TradingView (https://www.tradingview.com/script/mpjNqADq-SuperTrend-Regime-Confluence/): giro del SuperTrend (ATR 10 x 3) con puntuación de confluencia mínima de 65, fuera de régimen lateral, EMA 50 de tendencia, stop de 6 ATR y objetivo 2,5:1, en BTCUSDT de 4 h. Aproximado: giro como ruptura de 10 velas en tendencia eficiente con volumen 1,2x; stop de 4 ATR (máximo permitido) y objetivo del 20 %.",
+      "idea": "En BTC de 4 h, comprar el giro alcista del SuperTrend solo si hay tendencia (no lateral), sobre la EMA 50 y con volumen; stop amplio y objetivo de 2,5 veces el riesgo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            40,
+            0.3
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 4,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "BTC y ETH: giro bajista del SuperTrend con confluencia fuera de régimen lateral (SuperTrend Regime Confluence, 4 h, corto, aproximado)",
+      "fuente": "DefinedEdge, 'SuperTrend Regime Confluence' en TradingView (https://www.tradingview.com/script/mpjNqADq-SuperTrend-Regime-Confluence/): giro del SuperTrend (ATR 10 x 3) con puntuación de confluencia mínima de 65, fuera de régimen lateral, EMA 50 de tendencia, stop de 6 ATR y objetivo 2,5:1, en BTCUSDT de 4 h. Lado corto (el script permite cortos). Aproximado.",
+      "idea": "En BTC y ETH de 4 h, vender en corto el giro bajista del SuperTrend con tendencia, bajo la EMA 50 y con volumen; stop amplio y objetivo de 2,5 veces el riesgo.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            40,
+            0.3
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 4,
+        "tp": 0.2,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Elder Impulse a contratendencia: barra azul en la banda de 3 ATR de la EMA 13 dentro de tendencia alcista (christoefert, aproximado)",
+      "fuente": "christoefert, 'Elder Impulse System + ATR Bands' en TradingView (https://www.tradingview.com/script/YEx0gnq6-Elder-Impulse-System-ATR-Bands/): bandas de 1, 2 y 3 ATR alrededor de la EMA 13; entradas a contratendencia en barra azul en la banda exterior. Aproximado: banda exterior como 2 desviaciones bajo la media de 13 y tendencia sobre la media de 100; salida al volver a la EMA 13.",
+      "idea": "Comprar cuando el precio cae hasta la banda exterior bajo la EMA 13 dentro de una tendencia alcista, y salir cuando vuelve a la EMA 13.",
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            13,
+            2.0
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            13,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: Elder Impulse a contratendencia en la banda alta de 3 ATR en tendencia bajista (christoefert, corto, aproximado)",
+      "fuente": "christoefert, 'Elder Impulse System + ATR Bands' en TradingView (https://www.tradingview.com/script/YEx0gnq6-Elder-Impulse-System-ATR-Bands/): bandas de 1, 2 y 3 ATR alrededor de la EMA 13; entradas a contratendencia en barra azul en la banda exterior. Lado corto, aproximado.",
+      "idea": "En ETH, SOL y XRP, vender en corto cuando el precio sube hasta la banda exterior sobre la EMA 13 dentro de una tendencia bajista, y cerrar al volver a la EMA 13.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_bajo",
+            13,
+            2.0
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            13,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: velocidad del filtro de Kalman que cruza cero en tendencia (Kalman Trend Filter JOAT, diario, aproximado)",
+      "fuente": "officialjackofalltrades, 'Kalman Trend Filter [JOAT]' en TradingView (https://www.tradingview.com/script/tnWkCBVp-Kalman-Trend-Filter-JOAT/): filtro de Kalman de dos estados (Q 0,01, R 1,0); señal alcista cuando la velocidad pasa de negativa a positiva. Aproximado: velocidad como impulso de 8 velas, con filtro de eficiencia.",
+      "idea": "En XRP diario, comprar cuando la velocidad del precio filtrado pasa a positiva con una tendencia razonablemente limpia y salir cuando vuelve a negativa.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            8,
+            0.0
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            8,
+            0.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL: velocidad del filtro de Kalman que cruza bajo cero en tendencia bajista (Kalman Trend Filter JOAT, diario, corto, aproximado)",
+      "fuente": "officialjackofalltrades, 'Kalman Trend Filter [JOAT]' en TradingView (https://www.tradingview.com/script/tnWkCBVp-Kalman-Trend-Filter-JOAT/): el cruce de la velocidad de positiva a negativa es la señal bajista. Lado corto, aproximado con impulso de 8 velas y filtro de eficiencia.",
+      "idea": "En SOL diario, vender en corto cuando la velocidad del precio filtrado pasa a negativa con una tendencia bajista limpia y cerrar cuando vuelve a positiva.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            8,
+            0.0
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            8,
+            0.0
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
     }
   ]
 }
