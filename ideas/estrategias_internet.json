@@ -39841,6 +39841,1074 @@
         "min_net": 0.0,
         "lado": "corto"
       }
+    },
+    {
+      "nombre": "Giro del SuperTrend solo en régimen de tendencia ADX, sin entradas en lateral (TrendShift, 4 h, aproximado)",
+      "fuente": "blitz_algo, 'TrendShift | Supertrend + ADX Regime-Adaptive Strategy' en TradingView (https://www.tradingview.com/script/TbK1rB5B-TrendShift-Supertrend-ADX-Regime-Adaptive-Strategy/): ADX sobre 25 = tendencia (SuperTrend de multiplicador 1,75), bajo 20 = lateral (4,5) y entradas en lateral desactivadas; el SuperTrend hace de stop móvil. Aproximado: giro como ruptura de 10 velas y régimen ADX como eficiencia de Kaufman.",
+      "idea": "Comprar la ruptura que gira la tendencia solo cuando el mercado está en tendencia clara, con stop ajustado de 2 ATR y salida al perder el mínimo de 10 velas.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.35
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: giro bajista del SuperTrend solo en régimen de tendencia (TrendShift, 4 h, corto, aproximado)",
+      "fuente": "blitz_algo, 'TrendShift | Supertrend + ADX Regime-Adaptive Strategy' en TradingView (https://www.tradingview.com/script/TbK1rB5B-TrendShift-Supertrend-ADX-Regime-Adaptive-Strategy/): ADX sobre 25 = tendencia (SuperTrend de multiplicador 1,75), bajo 20 = lateral (4,5) y entradas en lateral desactivadas; el SuperTrend hace de stop móvil. Lado corto, aproximado igual que la versión larga.",
+      "idea": "En ETH, SOL y XRP, vender en corto cuando el precio pierde el mínimo de 10 velas en una tendencia bajista limpia y cerrar al recuperar el máximo de 10 velas.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.35
+          ],
+          [
+            "sobre_media",
+            100
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SuperTrend lento con canal SSL y QQE a favor, stop de 3 ATR (Adaptive Swing, diario, aproximado)",
+      "fuente": "simonfuture2, 'Adaptive Swing Strategy' en TradingView (https://www.tradingview.com/script/evDtaoej-Adaptive-Swing-Strategy/): giro del SuperTrend (ATR 21, factor 8) con cierre fuera del canal SSL Hybrid y QQE MOD a favor; stop de 3 ATR(14), salida al girar el SuperTrend; diario o 4 h. Aproximado: SuperTrend lento como ruptura de 21 velas, SSL como media de 21 y QQE como RSI sobre 50; sin el cierre parcial a 1,8R.",
+      "idea": "Seguir la tendencia diaria entrando cuando el precio rompe el máximo de 21 velas sobre su media de 21 con impulso del RSI, y aguantar hasta que pierde el mínimo de 21 velas.",
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            21
+          ],
+          [
+            "sobre_media",
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            21
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0.05,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: SuperTrend lento con canal SSL y QQE en contra (Adaptive Swing, diario, corto, aproximado)",
+      "fuente": "simonfuture2, 'Adaptive Swing Strategy' en TradingView (https://www.tradingview.com/script/evDtaoej-Adaptive-Swing-Strategy/): giro del SuperTrend (ATR 21, factor 8) con cierre fuera del canal SSL Hybrid y QQE MOD a favor; stop de 3 ATR(14), salida al girar el SuperTrend; diario o 4 h. La estrategia es simétrica; lado corto aproximado igual que la larga.",
+      "idea": "En ETH, SOL y XRP diario, vender en corto cuando el precio pierde el mínimo de 21 velas bajo su media de 21 con RSI débil y cerrar cuando recupera el máximo de 21 velas.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            21
+          ],
+          [
+            "sobre_media",
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            21
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH, SOL y XRP: sobre el SuperTrend y la media de 50 con ADX fuerte, fuera tras velas de giro (dinhchien, 4 h, aproximado)",
+      "fuente": "dinhchien, '[Crypto] Supertrend - ADX - Reversal Candle' en TradingView (https://in.tradingview.com/script/E4Y9LQS0-Crypto-Supertrend-ADX-Reversal-Candle): ADX(14) sobre 25 en 1 h y 4 h, precio al lado bueno del SuperTrend con media de 50; la tendencia se cancela con 5 velas de giro o una envolvente en contra. Aproximado: ADX como eficiencia, SuperTrend como máximo de 10 velas y las 5 velas de giro como caída del 3 % en 5 velas.",
+      "idea": "En ETH, SOL y XRP, comprar en tendencia fuerte sobre la media de 50 al marcar máximo de 10 velas y salir cuando 5 velas seguidas giran el precio a la baja.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            5,
+            0.03
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "BTC y ETH: bajo el SuperTrend y la media de 50 con ADX fuerte, cierre tras velas de giro (dinhchien, 4 h, corto, aproximado)",
+      "fuente": "dinhchien, '[Crypto] Supertrend - ADX - Reversal Candle' en TradingView (https://in.tradingview.com/script/E4Y9LQS0-Crypto-Supertrend-ADX-Reversal-Candle): ADX(14) sobre 25 en 1 h y 4 h, precio al lado bueno del SuperTrend con media de 50; la tendencia se cancela con 5 velas de giro o una envolvente en contra. Lado corto, aproximado como la versión larga.",
+      "idea": "En BTC y ETH, vender en corto en tendencia bajista fuerte bajo la media de 50 al marcar mínimo de 10 velas y cerrar cuando 5 velas giran el precio al alza.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            5,
+            0.03
+          ],
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL: cruce de medias con RSI aún bajo y MACD al alza, salida con cualquiera en contra (SOL Multi-Indicator Strategy, aproximado)",
+      "fuente": "'SOL Multi-Indicator Strategy' en TradingView (https://my.tradingview.com/script/pcrmyrnj-SOL-Multi-Indicator-Strategy): largo con EMA rápida sobre lenta, RSI en sobreventa (30) y MACD que cruza al alza; sale con el cruce contrario, RSI sobre 70 o MACD a la baja. Longitudes no publicadas; aproximado con medias 9/21 y RSI bajo 45, y se añade stop de 3 ATR (el original no tiene).",
+      "idea": "En SOL, comprar cuando la media corta ya está sobre la larga y el MACD gira al alza con el RSI todavía bajo, y salir con el primer indicador que se gire.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            9,
+            21
+          ],
+          [
+            "rsi_bajo",
+            14,
+            45
+          ],
+          [
+            "macd_pos"
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            9,
+            21
+          ],
+          [
+            "rsi_alto",
+            14,
+            70
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: comprar sobreventa sobre la media de 700 días y vender en euforia (A Physicist's Bitcoin Trading Strategy, aproximado)",
+      "fuente": "anon2414691, 'A Physicist's Bitcoin Trading Strategy' en TradingView (https://de.tradingview.com/script/4J5psNDo-A-Physicist-s-Bitcoin-Trading-Strategy): BTC en 6 h, EMA lenta de 600 a 1000 días como régimen y compras de caídas en velas de sobreventa consecutivas; sin cortos ni apalancamiento. Parámetros no publicados; aproximado con media de 700 y RSI.",
+      "idea": "En BTC, comprar las caídas de sobreventa solo mientras el precio está sobre su media de 700 velas y vender cuando el RSI marca euforia.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            700
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            75
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.02
+      }
+    },
+    {
+      "nombre": "BTC: tendencia y confirmaciones del mismo color con stop 2 ATR y objetivo del 3,9 % (BTC 4h bot 2.0, mk77777, aproximado)",
+      "fuente": "mk77777, 'BTC 4h bot 2.0 Strategy' en TradingView (https://www.tradingview.com/script/FurbLDsq-BTC-4h-bot-2-0-Strategy/): BTC en 4 h; la tendencia principal (SuperTrends y medias) y las confirmaciones (RSI, MACD, ADX) deben coincidir; zona gris sin posiciones; SL 4,7 % y TP 3,9 % por defecto. Aproximado: stop de 2 ATR en lugar del 4,7 %.",
+      "idea": "En BTC de 4 h, comprar solo cuando media de 50, MACD, RSI y fuerza de tendencia están todos alcistas, con objetivo del 3,9 %.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.039,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: envolvente bajista con volumen 1,5x bajo la EMA 50 y RSI débil, cierre en 24 h (MTF Engulfing Flip, jagadeeshmanne, corto, sin apalancamiento)",
+      "fuente": "Jagadeesh Manne, 'BTC MTF Engulfing Flip + Pyramid Strategy (1H, 2X)' en TradingView (https://jp.tradingview.com/script/GoUoySJs-BTC-MTF-Engulfing-Flip-Pyramid-Strategy-1H-2X/): cortos con cierre diario bajo la EMA 50, RSI(14) bajo 50 en 4 h y bajo 55 en 1 h, MACD bajista, vela envolvente y volumen sobre 1,5x su media de 20; las operaciones de giro tienen límite de 24 h. Sin el 2x ni la pirámide.",
+      "idea": "En BTC de 1 h, vender en corto con vela de mucho volumen bajo la EMA 50 y con RSI y MACD bajistas, cerrando como mucho en un día.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "volumen_alto",
+            1.5
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 1,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.02,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Corto con EMA 13 bajo la 33 y cierre cuando la 13 recupera la 25, stop móvil (monkrs, diario, aproximado)",
+      "fuente": "monkrs, 'EMA Crossover (Short Focus with Trailing Stop)' en TradingView (https://www.tradingview.com/script/wZaUyI1j-EMA-Crossover-Short-Focus-with-Trailing-Stop): velas diarias en cripto mayores; corto cuando la EMA 13 cruza bajo la EMA 33 y cierre cuando la EMA 13 vuelve sobre la EMA 25; largo con 13 sobre 33; stops móviles desde el extremo de la vela. Aproximado con medias simples y stop móvil del 8 %.",
+      "idea": "Vender en corto en velas diarias cuando la media de 13 cae bajo la de 33 y cerrar en cuanto la de 13 vuelve sobre la de 25, con stop móvil.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            13,
+            33
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            13,
+            25
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.08,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Largo con EMA 13 sobre la 33 y stop móvil desde el máximo de la vela (monkrs, diario, aproximado)",
+      "fuente": "monkrs, 'EMA Crossover (Short Focus with Trailing Stop)' en TradingView (https://www.tradingview.com/script/wZaUyI1j-EMA-Crossover-Short-Focus-with-Trailing-Stop): velas diarias en cripto mayores; corto cuando la EMA 13 cruza bajo la EMA 33 y cierre cuando la EMA 13 vuelve sobre la EMA 25; largo con 13 sobre 33; stops móviles desde el extremo de la vela. Lado largo, aproximado con medias simples y stop móvil del 10 %.",
+      "idea": "Seguir la tendencia diaria comprando mientras la media de 13 está sobre la de 33 y salir al cruzarse a la baja o saltar el stop móvil.",
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            13,
+            33
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            13,
+            33
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.1,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: salida de la compresión que cierra sobre la Bollinger alta, sobre la EMA 200 y con ROC(3) positivo (Momentum Squeeze Breakout Engine, 1 h, aproximado)",
+      "fuente": "Pridarasx, 'Momentum Squeeze Breakout Engine' en TradingView (https://cn.tradingview.com/script/bN8jxMy5-Momentum-Squeeze-Breakout-Engine/): 1 h en BTC, ETH y otros; compra si el squeeze (Bollinger dentro de Keltner) se rompe en las últimas 3 velas, el cierre supera la Bollinger alta, el precio está sobre la EMA 200 y el ROC(3) es positivo; sale al perder la Bollinger baja. Aproximado: squeeze como volatilidad baja de 60 velas.",
+      "idea": "En ETH de 1 h, comprar cuando el precio sale de una fase tranquila cerrando sobre la banda alta de Bollinger con tendencia de fondo alcista, y salir al perder la banda baja.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            60,
+            0.6
+          ],
+          [
+            "z_alto",
+            20,
+            2.0
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "impulso_sube",
+            3,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "z_bajo",
+            20,
+            2.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: cruce alcista del MACD sobre la EMA 18 con salida bajo la media de 10 (Amit Eth Strategy, 1 h)",
+      "fuente": "BurnerView, 'Amit Eth Strategy' en TradingView (https://cn.tradingview.com/script/ZJZb6mII-Amit-Eth-Strategy/): entrada con cruce del MACD y cierre al lado bueno de la EMA 18; salida al cruzar la SMA 10 de mínimos (o máximos) o con el cruce contrario del MACD; de 5 a 60 minutos. La SMA 10 de mínimos se aproxima con la media de 10 de cierres.",
+      "idea": "En ETH de 1 h, comprar cuando el MACD gira al alza con el precio sobre la EMA 18 y salir al cerrar bajo la media de 10 o con el MACD a la baja.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "sobre_ema",
+            18
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            10
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH: cruce bajista del MACD bajo la EMA 18 con cierre sobre la media de 10 (Amit Eth Strategy, 1 h, corto)",
+      "fuente": "BurnerView, 'Amit Eth Strategy' en TradingView (https://cn.tradingview.com/script/ZJZb6mII-Amit-Eth-Strategy/): entrada con cruce del MACD y cierre al lado bueno de la EMA 18; salida al cruzar la SMA 10 de mínimos (o máximos) o con el cruce contrario del MACD; de 5 a 60 minutos. Lado corto; la SMA 10 de máximos se aproxima con la media de 10 de cierres.",
+      "idea": "En ETH de 1 h, vender en corto cuando el MACD gira a la baja con el precio bajo la EMA 18 y cerrar al volver sobre la media de 10 o con el MACD al alza.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "macd_pos"
+          ],
+          [
+            "sobre_ema",
+            18
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            10
+          ],
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH: escalones del 1 % comprando caídas en rango lateral (ETH Grid Bot Long de 3Commas, aproximado)",
+      "fuente": "3Commas, 'ETH Grid Bot - Long Strategy' en TradingView (https://in.tradingview.com/script/WhxmHc8H-ETH-Grid-Bot-Long-Strategy/): rejilla de 23 niveles con pasos de cerca del 1 %; compra al cruzar un nivel hacia abajo y vende en el nivel de arriba. Aproximado con escalera del 1 % solo en mercado lateral (con stop, a diferencia del original).",
+      "idea": "En ETH, comprar una caída dentro de un rango lateral y gestionar la posición con escalones del 1 %, como una rejilla de un solo hueco.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            48,
+            0.2
+          ],
+          [
+            "z_bajo",
+            48,
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            48,
+            1.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.01
+      }
+    },
+    {
+      "nombre": "SOL y XRP: ruptura de 20 velas con volumen y EMAs alineadas con RSI fuerte, stop y stop móvil ATR (Momentum Bands, blitz_algo, aproximado)",
+      "fuente": "blitz_algo, 'Momentum Bands | Breakout' en TradingView (https://kr.tradingview.com/script/gqaZYhUN-Momentum-Bands-Breakout/): ruptura del máximo de N velas con volumen sobre su media, EMAs rápida/lenta a favor y RSI subiendo cerca de su pico; stop y stop móvil por ATR, riesgo fijo por operación. Valores no publicados; aproximado con EMAs 21/55, RSI sobre 60, volumen 1,2x y stop móvil del 6 %.",
+      "idea": "En SOL y XRP, comprar la ruptura del máximo de 20 velas con volumen y tendencia a favor y RSI con fuerza, y dejar correr con stop móvil.",
+      "activos": [
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ],
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "sobre_ema",
+            55
+          ],
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            10
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "BTC y ETH: vender la ruptura alcista contra la tendencia bajista (Momentum Bands, blitz_algo, corto a la contra, aproximado)",
+      "fuente": "blitz_algo, 'Momentum Bands | Breakout' en TradingView (https://kr.tradingview.com/script/gqaZYhUN-Momentum-Bands-Breakout/): ruptura del máximo de N velas con volumen sobre su media, EMAs rápida/lenta a favor y RSI subiendo cerca de su pico; stop y stop móvil por ATR, riesgo fijo por operación. La versión corta solo opera rupturas contra tendencia; aproximado: máximo de 20 velas bajo la EMA 55 y cierre cuando el RSI cae bajo 40, sin la divergencia.",
+      "idea": "En BTC y ETH, vender en corto cuando el precio marca un máximo de 20 velas pero sigue bajo la EMA 55 de una tendencia bajista, y cerrar cuando el RSI se hunde.",
+      "activos": [
+        "BTC-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "pierde_minimo",
+            20
+          ],
+          [
+            "sobre_ema",
+            55
+          ]
+        ],
+        "exit": [
+          [
+            "rsi_alto",
+            14,
+            60
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP: giro del SuperTrend con filtros RSI y EMA, stop móvil que se activa tras un 4 % a favor (Multi-Timeframe Supertrend with Confirmations, aproximado)",
+      "fuente": "'Multi-Timeframe Supertrend Strategy with Confirmations' en TradingView (https://in.tradingview.com/script/Fect5Raf-Multi-Timeframe-Supertrend-Strategy-with-Confirmations): largo al girar el SuperTrend a verde con filtros opcionales de RSI, EMA y ADX; salida con stop móvil que se activa tras un % a favor o con el giro contrario. Valores no publicados; aproximado con ruptura de 14 velas, EMA 50, RSI sobre 50, break-even al 4 %.",
+      "idea": "En XRP, comprar el giro alcista confirmado por RSI y EMA 50, poner el stop a la entrada tras ganar un 4 % y luego seguir con stop móvil.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            14
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            14
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.05,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0.04,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL y ETH: EMA rápida sobre el VWAP con ruptura en tendencia y stop en escalera de 1,5 % (Apex Engine Multi Trail, 1 h, aproximado)",
+      "fuente": "Aadhiraju, 'Apex Engine Multi Trail' en TradingView (https://it.tradingview.com/script/H7KkoF5d-Apex-Engine-Multi-Trail): disparador de SuperTrend sobre HMA con filtro de VWAP o ADX y salida con escalera de pasos fijos, ATR, SAR o mínimo de N velas. Valores no publicados; aproximado con EMA 9 sobre VWAP, ruptura de 10 velas, eficiencia y escalera del 1,5 %.",
+      "idea": "En SOL y ETH de 1 h, comprar la ruptura con la EMA rápida sobre el VWAP del día y mover stop y objetivo en escalones del 1,5 %.",
+      "activos": [
+        "SOL-EUR",
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "ema_sobre_vwap",
+            9
+          ],
+          [
+            "rompe_maximo",
+            10
+          ],
+          [
+            "en_tendencia",
+            14,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "ema_bajo_vwap",
+            9
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.015
+      }
+    },
+    {
+      "nombre": "BTC: impulso de 20 velas a favor del SuperTrend y salida solo al girar este (ProTrend Adaptive, TradingClue, 4 h, aproximado)",
+      "fuente": "TradingClue, 'ProTrend Adaptive Strategy' en TradingView (https://in.tradingview.com/script/RENFZklm-ProTrend-Adaptive-Strategy-by-TradingClue): BTCUSD en 4 h; la señal adaptativa debe coincidir con la dirección del SuperTrend y se sale al girar el SuperTrend, sin objetivo fijo. Aproximado: señal adaptativa como impulso de 20 velas y SuperTrend como canal de 14 velas.",
+      "idea": "En BTC de 4 h, comprar cuando el impulso de 20 velas es positivo y el precio rompe el máximo de 14 velas, y salir solo cuando pierde el mínimo de 14 velas.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            20,
+            0.0
+          ],
+          [
+            "rompe_maximo",
+            14
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            14
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL: rotación de tendencia diaria con reducción defensiva de la posición (SOL USD Position Rotation, Ivan_0312, aproximado)",
+      "fuente": "Ivan_0312, 'SOL USD Position Rotation v1.0' en TradingView (https://in.tradingview.com/script/b8PlTW58-SOL-USD-Position-Rotation-v1-0/): motor de 3 días con HMA de marco alto, fuerza relativa SOL/BTC y contexto de BTC; estados SOL 100 %, SOL 25 % (defensa) y USD. Aproximado sin la fuerza relativa: EMA 30 y impulso de 9 días, reduciendo la posición al flojear.",
+      "idea": "En SOL diario, estar dentro mientras el precio va sobre su EMA 30 con impulso de 9 días positivo, reducir la posición cuando se debilita y salir a euros al perder la EMA.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            30
+          ],
+          [
+            "impulso_sube",
+            9,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            30
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 0.8,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": true,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "SOL: tendencia de medio plazo por puntuación de varios indicadores sobre +0,1 (MTPI SOL, JeffreyTimmermans, diario, aproximado)",
+      "fuente": "JeffreyTimmermans, 'MTPI SOL' en TradingView (https://in.tradingview.com/script/AoeBbc0r-MTPI-SOL-JeffreyTimmermans): ocho indicadores puntúan +1, 0 o -1 y la media sobre +0,1 es alcista, bajo -0,1 bajista; horizonte de semanas a meses. Componentes no publicados; aproximado con media de 50, MACD, RSI e impulso de 30 días.",
+      "idea": "En SOL diario, entrar cuando varios indicadores de tendencia coinciden en alcista y salir cuando el impulso de 30 días se vuelve negativo.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "rsi_alto",
+            14,
+            50
+          ],
+          [
+            "impulso_sube",
+            30,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "impulso_baja",
+            30,
+            0.0
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "XRP: flujo comprador sobre la EMA 50 con break-even al 1 % y objetivo del 3 % (Chanu Delta inspired, pggo88, 1 h, aproximado)",
+      "fuente": "pggo88, '[XRP][1h] Chanu Delta inspired - Breakeven Strategy' en TradingView (https://in.tradingview.com/script/tz9DxyAw-XRP-1h-Chanu-Delta-inspired-Breakeven-Strategy): adaptación a XRP en 1 h del Chanu Delta V3 de BTC con dos objetivos y opción de break-even. Reglas no publicadas; aproximado con delta de compras de 24 velas, EMA 50, break-even al 1 % y objetivo del 3 %.",
+      "idea": "En XRP de 1 h, comprar cuando dominan las compras agresivas sobre la EMA 50, subir el stop a la entrada al ganar un 1 % y cobrar al 3 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "delta_compra",
+            24,
+            0.1
+          ],
+          [
+            "sobre_ema",
+            50
+          ]
+        ],
+        "exit": [
+          [
+            "delta_venta",
+            24,
+            0.1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.03,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.01,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: salida de la compresión con impulso al alza y salida bajo la EMA 21 (Squeeze Momentum Strategy, esonusharma, aproximado)",
+      "fuente": "esonusharma, 'Squeeze Momentum Strategy' en TradingView (https://in.tradingview.com/script/QQMVhEi5-Squeeze-Momentum-Strategy-esonusharma): variante del squeeze de John Carter (Bollinger dentro de Keltner), solo largos al terminar el squeeze con impulso al alza; salidas por EMA y objetivos. Valores no publicados; aproximado con volatilidad baja, ruptura de 20 velas, EMA 21 y objetivo del 8 %.",
+      "idea": "En XRP, comprar cuando termina una fase de volatilidad baja y el precio rompe al alza con impulso, y salir al cerrar bajo la EMA 21 o al ganar un 8 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "vol_baja",
+            40,
+            0.6
+          ],
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "impulso_sube",
+            12,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            21
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
