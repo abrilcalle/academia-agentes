@@ -1434,3 +1434,19 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** El rebote tras un desplome es sobre todo del entreno (2018–21) y fuera de él no es claro ni robusto: falla en 2022, cambia de signo según el mercado y apenas da operaciones. No se pasó al banco de equipos ni se añadió como pieza del inventor.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "reversión tras desplome / subida brusca" (k 1–24 h, z 2,5–4, H 6–48 h, con y sin tendencia diaria). No repetir.
+
+## 2026-11-26 10:05 (hora de Madrid) — Formar los equipos "robustos a perder un miembro" (que no dependan de un solo agente con suerte)
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 26/11, datos hasta el 25/11), sin incidencias. Nada que arreglar.
+- **Hipótesis:** al formar un equipo, `build` añade agentes uno a uno mientras suba la nota del año de formación. Un equipo puede cumplir solo porque uno de sus miembros tuvo un año de suerte; si ese agente falla al año siguiente, el equipo falla entero. Si al formar se puntúa cada equipo también **quitándole cada miembro por turnos** (y repartiendo su dinero entre los demás), saldrían equipos que no dependen de un solo agente y deberían cumplir más veces fuera del año de formación. Nunca probado (el registro no tiene nada de quitar un miembro, concentración o contribución de cada agente; el 29/10 y el 02/11 se probó la constancia y el orden de la cantera, no esto). Se puede hacer por la API (solo cambia quién entra en el equipo).
+- **Qué probé (en una copia, `experimentos/banco/m2xloo.py` = `m2x.py` con la nota cambiada, vía `m2ensloo.py` / `m2loo.py`; todo en `run_loo.sh`, sobre `mat.pkl` de `m1_18.py`):** **base** (como el código) · **min** (nota = ½ × nota del equipo + ½ × la peor nota quitando un miembro, desde 3 miembros) · **mean** (igual, con la media de las notas quitando un miembro). Mismo método de formación (24 mejores y distintos + gemelos, como mucho 2 por mercado, 3 prudencias × 18 repartos), juzgados con el reparto medio.
+- **Datos:** solo 2018–2023 (datos cortados el 01/01/2024), 557 agentes examinados sin clones, comisiones USDC con cambio USDC/EUR, filtro de tendencia, asegurar la mitad, dinero sin repartir en USDC, reparto medio y coste de reparto 0,08 % actuales. 2018–21 es entreno de los agentes; 2022–23, validación.
+- **Resultado, banco de 6 años (pares que cumplen de 1.296 · podios que cumplen en C de 360 [2018/2019/2020/2021/2022/2023] · tríos con alguno de 120 · en orden de tiempo de 60 · mediana ret / semanas en verde / caída):**
+  - **base 892 · 221 [22/46/56/59/11/27] · 89 · 35 · +26 % / 55 % / 12 %**
+  - min 909 · 214 [24/42/55/57/8/28] · 84 · 33 · +27 % / 55 % / 12 %
+  - mean 897 · 217 [24/43/57/56/9/28] · 86 · 35 · +28 % / 55 % / 12 %
+  - Juzgados en 2022 (de 60 podios): base 11 (mediana −0 %) · min 8 (−3 %) · mean 9 (−3 %); en 2023: 27 · 28 · 28.
+  - Banco de 5 años (2019–23, 180 podios): base 134 · min 128 · mean 130; en orden de tiempo (30): 26 · 24 · 25.
+  - Por pares A→B, min mejora 2019→2023 (30 → 38) y 2022→2023 (0 → 5) pero empeora 2018→2019 (13 → 5), 2021→2023 (28 → 23) y 2023→2021 (52 → 44). Equipos con caída > 25 %: 86 → 89 / 90 (no baja).
+- **Conclusión: no se queda.** Pedir que el equipo siga bien sin cualquiera de sus miembros sube un poco los equipos sueltos que cumplen (892 → 909 / 897, dentro del ruido) pero baja los podios (221 → 214 / 217), los tríos y 2022 (11 → 8 / 9), y no reduce las caídas. Los equipos que cumplen no fallan fuera de su año por depender de un solo agente con suerte, sino porque fallan casi todos sus miembros a la vez (los años malos son malos para todos). No se integró nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "formación robusta a perder un miembro" (peor y media de las notas sin cada miembro). No repetir. Base de hoy con 557 agentes: 6 años 892 · 221; 5 años 134.
