@@ -40909,6 +40909,1023 @@
         "pyr": 0,
         "shrink": false
       }
+    },
+    {
+      "nombre": "BTC: precio típico sobre la media de 30 días con la de 360 debajo (Professional MA Strategy, victhoreb, diario, aproximado)",
+      "fuente": "victhoreb, '[Outperforms Bitcoin Since 2011] Professional MA Strategy' en TradingView (https://www.tradingview.com/script/nriVgPCi/): en BTC diario, largo cuando el precio típico cruza sobre la WMA de 30 días con el precio sobre la WMA de 360; sale al perderla. Aproximado con medias simples y sin apalancamiento.",
+      "idea": "En BTC diario, comprar cuando el precio está sobre la media de 30 días y sobre la de 360, y vender al cerrar bajo la de 30.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            30
+          ],
+          [
+            "sobre_media",
+            360
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            30
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "BTC corto: precio bajo la media de 30 días y bajo la de 360 (Professional MA Strategy, victhoreb, diario, aproximado)",
+      "fuente": "victhoreb, '[Outperforms Bitcoin Since 2011] Professional MA Strategy' en TradingView (https://www.tradingview.com/script/nriVgPCi/): la parte corta abre cuando el precio típico cruza bajo la WMA de 30 días con el precio bajo la WMA de 360. Aproximado con medias simples, sin apalancamiento, salida al recuperar la de 30.",
+      "idea": "En BTC diario, vender en corto cuando el precio está bajo la media de 30 días y bajo la de 360, y cerrar al recuperar la de 30.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            30
+          ],
+          [
+            "sobre_media",
+            360
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            30
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "ETH diario: tendencia de semanas con ruptura de 30 días y salida al perder el mínimo de 15, todo el capital (Universal Trend Algorithm, AutomatedTradingAlgorithms, aproximado)",
+      "fuente": "AutomatedTradingAlgorithms, 'Forward Test of the Universal Trend Algorithm on Ethereum' en TradingView (https://in.tradingview.com/chart/ETHUSDT/6jykgsqU-Forward-Test-of-the-Universal-Trend-Algorithm-on-Ethereum): algoritmo de swing para tendencias de medio plazo en ETH, señales que duran de semanas a meses, 100 % del capital por operación. Reglas no publicadas; aproximado con ruptura de 30 días, eficiencia de tendencia y salida al perder el mínimo de 15 días.",
+      "idea": "En ETH diario, entrar con todo el capital cuando rompe el máximo de 30 días en una subida ordenada y aguantar hasta que pierde el mínimo de 15 días.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            30
+          ],
+          [
+            "en_tendencia",
+            30,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            15
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "completo",
+        "frac": 1,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "ETH 4 h: ruptura con volumen a favor de la tendencia y objetivo fijo (DarkKnight ETH 4H, geoclassic83, aproximado)",
+      "fuente": "geoclassic83, 'DarkKnight ETH 4H Strategy' en TradingView (https://in.tradingview.com/script/b3BoIanf/): seguimiento de tendencia en ETH 4 h que exige tendencia, impulso, volumen y ruptura de soporte/resistencia, con TP y SL fijos desde la entrada. Valores no publicados; aproximado con EMA 50, ruptura de 20 velas con volumen 1,5x, objetivo del 6 % y stop de 2 ATR.",
+      "idea": "En ETH de 4 h, comprar la ruptura de una resistencia con volumen cuando el precio está sobre la EMA 50 y hay impulso, con objetivo y stop fijos.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "impulso_sube",
+            6,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "ETH 4 h corto: pérdida de soporte con volumen bajo la EMA 50 (DarkKnight ETH 4H, geoclassic83, aproximado)",
+      "fuente": "geoclassic83, 'DarkKnight ETH 4H Strategy' en TradingView (https://in.tradingview.com/script/b3BoIanf/): la estrategia también abre cortos al romper un soporte con tendencia e impulso bajistas, con TP y SL fijos. Valores no publicados; aproximado en espejo con EMA 50, ruptura de 20 velas con volumen 1,5x, objetivo del 6 % y stop de 2 ATR.",
+      "idea": "En ETH de 4 h, vender en corto cuando pierde un soporte con volumen estando bajo la EMA 50, con objetivo y stop fijos.",
+      "activos": [
+        "ETH-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "ruptura_volumen",
+            20,
+            1.5
+          ],
+          [
+            "impulso_sube",
+            6,
+            0.0
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.06,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL 4 h: ruptura de 30 velas con volumen sobre la EMA 100 y objetivo del 9 % (DarkKnight SOL 4H, geoclassic83, aproximado)",
+      "fuente": "geoclassic83, 'DarkKnight SOL 4H Strategy' en TradingView (https://ar.tradingview.com/script/A0N8Yar4/): versión para SOL (más volátil) del sistema de tendencia de 4 h con confirmación de impulso, volumen y ruptura, TP y SL fijos. Valores no publicados; aproximado con EMA 100, ruptura de 30 velas con volumen 1,5x, objetivo del 9 % y stop de 3 ATR.",
+      "idea": "En SOL de 4 h, comprar la ruptura de un máximo de 30 velas con volumen cuando la tendencia de fondo es alcista, con objetivo amplio.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            100
+          ],
+          [
+            "ruptura_volumen",
+            30,
+            1.5
+          ],
+          [
+            "impulso_sube",
+            12,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            100
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.09,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL 4 h corto: ruptura bajista de 30 velas con volumen bajo la EMA 100 (DarkKnight SOL 4H, geoclassic83, aproximado)",
+      "fuente": "geoclassic83, 'DarkKnight SOL 4H Strategy' en TradingView (https://ar.tradingview.com/script/A0N8Yar4/): la estrategia opera también en corto con las mismas confirmaciones en espejo. Valores no publicados; aproximado con EMA 100, ruptura de 30 velas con volumen 1,5x, objetivo del 9 % y stop de 3 ATR.",
+      "idea": "En SOL de 4 h, vender en corto cuando rompe a la baja un mínimo de 30 velas con volumen y tendencia bajista, con objetivo amplio.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            100
+          ],
+          [
+            "ruptura_volumen",
+            30,
+            1.5
+          ],
+          [
+            "impulso_sube",
+            12,
+            0.02
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            100
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.09,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "SOL 1 h: siete filtros alcistas a la vez con RSI sobre 63 (2/6 SOL 30M Sharp 3.04, aproximado a 1 h)",
+      "fuente": "'2/6 SOL 30M Sharp 3.04' en TradingView (https://in.tradingview.com/script/MJIFi7Hl): en SOL 30 min, largo solo si coinciden ruptura de la línea de tendencia, SAR bajo el precio, T3 girando al alza, RSI > 63, histograma MACD > 0 y volumen > media mitad. Aproximado a 1 h con ruptura de 24 velas, EMA 20, RSI(14) > 63, MACD positivo y volumen; sin apalancamiento.",
+      "idea": "En SOL de 1 h, comprar solo cuando ruptura, tendencia corta, RSI fuerte y MACD positivo coinciden, y salir cuando el MACD se gira.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            24
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "rsi_alto",
+            14,
+            63
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "volumen_alto",
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.015,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "SOL 1 h corto: siete filtros bajistas a la vez con RSI bajo 37 (2/6 SOL 30M Sharp 3.04, aproximado a 1 h)",
+      "fuente": "'2/6 SOL 30M Sharp 3.04' en TradingView (https://in.tradingview.com/script/MJIFi7Hl): el corto es el espejo del largo (ruptura de la línea inferior, RSI débil, MACD negativo). Aproximado a 1 h con ruptura de 24 velas a la baja, EMA 20, RSI(14) < 37, MACD negativo y volumen; sin apalancamiento.",
+      "idea": "En SOL de 1 h, vender en corto cuando ruptura a la baja, tendencia corta bajista, RSI débil y MACD negativo coinciden.",
+      "activos": [
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rompe_maximo",
+            24
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "rsi_alto",
+            14,
+            63
+          ],
+          [
+            "macd_pos"
+          ],
+          [
+            "volumen_alto",
+            0.5
+          ]
+        ],
+        "exit": [
+          [
+            "macd_neg"
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.04,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.015,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC diario: media de 10 días sobre la de 40 (Mo y otros 2025, resumido por Harbourfront Quant)",
+      "fuente": "Nam Nguyen, 'Bitcoin Trend Following Strategies vs. Traditional Indices: A Comparative Study' (Harbourfront Quant, https://harbourfrontquant.substack.com/p/bitcoin-trend-following-strategies), resumen del estudio de L. Mo y otros (2025): medias cortas de 1-20 días contra largas de 21-50, comprado cuando la corta está encima; mejor comportamiento de BTC en mercados bajistas. Se elige 10/40.",
+      "idea": "En BTC diario, estar comprado mientras la media de 10 días está sobre la de 40 y salir cuando se cruza a la baja.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            10,
+            40
+          ]
+        ],
+        "exit": [
+          [
+            "cruce_bajista",
+            10,
+            40
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "BTC corto: rotura de soporte en tendencia bajista con riesgo 1:1 (Btc Short Strategy, BullStats, aproximado)",
+      "fuente": "BullStats, 'Btc Short Strategy' en TradingView (https://in.tradingview.com/script/lTz7AoOq-Btc-Short-Strategy): solo cortos en BTC cuando hay tendencia bajista y se rompe una zona de soporte, con volumen y medias; SL y TP a riesgo 1:1. Parámetros no publicados; aproximado en 1 h con media de 200, pérdida de soporte y volumen 1,3x.",
+      "idea": "En BTC de 1 h, vender en corto cuando rompe un soporte con volumen estando bajo la media de 200, con objetivo igual al riesgo.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            200
+          ],
+          [
+            "ruptura_volumen",
+            24,
+            1.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            50
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.02,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Altcoins corto: seguimiento de tendencia bajista con riesgo fijo (Bear Market Defender, QuantraSystems, aproximado)",
+      "fuente": "Cryptosystems (antes QuantraSystems), 'Bear Market Defender [QuantraSystems]' en TradingView (https://www.tradingview.com/script/svFXBcc7-Bear-Market-Defender-QuantraSystems): sistema solo corto de seguimiento de tendencia para altcoins, tamaño por riesgo hasta el stop. Reglas no publicadas; aproximado en diario con media de 50, mínimo de 20 días y salida al recuperar la EMA 20.",
+      "idea": "En ETH, SOL o XRP diario, vender en corto cuando están bajo la media de 50 y marcan un mínimo de 20 días, y cerrar al recuperar la EMA 20.",
+      "activos": [
+        "ETH-EUR",
+        "SOL-EUR",
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            50
+          ],
+          [
+            "rompe_maximo",
+            20
+          ],
+          [
+            "en_tendencia",
+            20,
+            0.25
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "EMA 20 sobre EMA 50 con RSI por encima de 70 como impulso (EMA + RSI Momentum Strategy, aproximado)",
+      "fuente": "'EMA + RSI Momentum Strategy' en TradingView (https://in.tradingview.com/script/rnIEmDEv-EMA-RSI-Momentum-Strategy): EMA rápida 20 y lenta 50, RSI con niveles 70/30; compra cuando el RSI cruza sobre 70 con la EMA rápida sobre la lenta, varios objetivos y SL fijo. Aproximado con objetivo del 5 % y stop de 2 ATR.",
+      "idea": "Comprar el impulso cuando el RSI supera 70 con el precio sobre las EMA 20 y 50, y salir si pierde la EMA 20.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "sobre_ema",
+            50
+          ],
+          [
+            "rsi_alto",
+            14,
+            70
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            20
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.05,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "BTC: caída del RSI sobre la EMA larga con stop del 5 % y objetivo del 9,6 % (EMA+RSI Pump & Drop Swing Sniper, mmoiwgg, aproximado)",
+      "fuente": "mmoiwgg, 'EMA+RSI Pump & Drop Swing Sniper (SL+TP) - Strategy' en TradingView (https://www.tradingview.com/script/83Ijv4aU-EMA-RSI-Pump-Drop-Swing-Sniper-SL-TP-Strategy): BTC en 1 h y 4 h, solo largos con EMA y RSI, valores de ejemplo SL 5,1 % y TP 9,6 %. Longitudes no publicadas en el texto; aproximado con EMA 100, RSI(14) < 35 y stop de 3 ATR.",
+      "idea": "En BTC de 4 h, comprar cuando el RSI cae bajo 35 con el precio aún sobre la EMA 100, y cobrar cerca de un 9,6 %.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            100
+          ],
+          [
+            "rsi_bajo",
+            14,
+            35
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            100
+          ]
+        ],
+        "stop": 3,
+        "tp": 0.096,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "Dos días al alza con mínimos crecientes sobre la media de 21 y salida al superar el máximo anterior (Trend Follow Daily, aproximado)",
+      "fuente": "'Trend Follow Daily' en TradingView (https://in.tradingview.com/script/eRs6faIX-Trend-Follow-Daily): diario, compra al cierre tras dos días al alza con mínimo mayor que el anterior y cierre sobre la SMA 21; vende al cierre cuando supera el máximo del día anterior. Aproximado con impulso de 2 velas y ruptura del máximo de 1 vela.",
+      "idea": "En diario, comprar tras dos días seguidos al alza con el precio sobre la media de 21 y vender en cuanto cierra sobre el máximo de la vela anterior.",
+      "regla": {
+        "entry": [
+          [
+            "impulso_sube",
+            2,
+            0.0
+          ],
+          [
+            "impulso_sube",
+            1,
+            0.0
+          ],
+          [
+            "sobre_media",
+            21
+          ]
+        ],
+        "exit": [
+          [
+            "rompe_maximo",
+            1
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 5,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Diario: precio sobre la media de 44 días sin apalancamiento (Pro SMA Trend Strategy, imthetradingdoge)",
+      "fuente": "imthetradingdoge, 'Pro SMA Trend Strategy (Dynamic Leverage & Direction Control)' en TradingView (https://in.tradingview.com/script/oF6FmwfR-Pro-SMA-Trend-Strategy/): en BTC diario, largo con cierre sobre la SMA elegida (ejemplos 11, 37, 44, 58, 125) y salida al girar. Se elige 44 y se quita el apalancamiento 2x.",
+      "idea": "En diario, estar comprado mientras el cierre está sobre la media de 44 días y salir al cerrar por debajo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            44
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            44
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "Diario corto: cierre bajo la media de 44 días (Pro SMA Trend Strategy, imthetradingdoge)",
+      "fuente": "imthetradingdoge, 'Pro SMA Trend Strategy (Dynamic Leverage & Direction Control)' en TradingView (https://in.tradingview.com/script/oF6FmwfR-Pro-SMA-Trend-Strategy/): la parte corta abre con el cierre diario bajo la SMA (1x por defecto) y cierra al recuperarla.",
+      "idea": "En diario, vender en corto mientras el cierre está bajo la media de 44 días y cerrar al recuperarla.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_media",
+            44
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            44
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "Diario: escalera de medias rápidas alineadas con trailing del 5,75 % (ATR Momentum Rider, newton61, aproximado)",
+      "fuente": "newton61, 'BIST30 to SP 500 ATR Momentum Rider' en TradingView (https://th.tradingview.com/script/jd1KSVn7/): diario, entra la primera vez que HMA8 > HMA9 > HMA20 con pendiente de la HMA20 no muy negativa; sale con trailing del 5,75 % bajo el máximo tras ganar 1,5 ATR y un mínimo de 4 sesiones. Probado en índices; aproximado con EMA 8 y 20, cruce 8/20 y trailing del 5,75 %.",
+      "idea": "En diario, comprar cuando las medias rápidas se alinean al alza y salir con un stop que sigue al máximo a un 5,75 %.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            8
+          ],
+          [
+            "sobre_ema",
+            20
+          ],
+          [
+            "cruce_alcista",
+            8,
+            20
+          ],
+          [
+            "en_tendencia",
+            10,
+            0.3
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_media",
+            20
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.0575,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.5,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "min_net": 0.03
+      }
+    },
+    {
+      "nombre": "EMA 21 sobre EMA 55, RSI sobre 52 y volumen 1,2x con objetivo 2R y break-even (AlphaEdge Pro, btall, aproximado)",
+      "fuente": "btall, 'AR | AlphaEdge Pro (No-Repaint) v1.0' en TradingView (https://in.tradingview.com/script/TA92tE9T): largo con Supertrend(10,3) alcista, cierre > EMA21 > EMA55, RSI(14) ≥ 52, volumen > 1,2x su media de 20 y precio sobre la EMA 200 de 4 h; stop 1,6 ATR, objetivo 2R y break-even a +1 ATR. Sin Supertrend; aproximado con stop de 2 ATR, escalera del 2 % y break-even al 1,5 %.",
+      "idea": "Comprar cuando el precio está sobre la EMA 21 y la 55 y sobre la 200, con RSI sobre 52 y volumen alto, con objetivo del doble del riesgo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "sobre_ema",
+            55
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rsi_alto",
+            14,
+            52
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.015,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.02
+      }
+    },
+    {
+      "nombre": "Corto: precio bajo EMA 21, 55 y 200 con RSI bajo 48 y volumen 1,2x (AlphaEdge Pro, btall, aproximado)",
+      "fuente": "btall, 'AR | AlphaEdge Pro (No-Repaint) v1.0' en TradingView (https://in.tradingview.com/script/TA92tE9T): el corto es el espejo: Supertrend bajista, cierre < EMA21 < EMA55, RSI ≤ 48 y precio bajo la EMA 200 de 4 h; stop 1,6 ATR, objetivo 2R. Aproximado sin Supertrend con escalera del 2 %.",
+      "idea": "Vender en corto cuando el precio está bajo las EMA 21, 55 y 200 con RSI bajo 48 y volumen alto, con objetivo del doble del riesgo.",
+      "regla": {
+        "entry": [
+          [
+            "sobre_ema",
+            21
+          ],
+          [
+            "sobre_ema",
+            55
+          ],
+          [
+            "sobre_ema",
+            200
+          ],
+          [
+            "rsi_alto",
+            14,
+            52
+          ],
+          [
+            "volumen_alto",
+            1.2
+          ]
+        ],
+        "exit": [
+          [
+            "bajo_ema",
+            55
+          ]
+        ],
+        "stop": 2,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.015,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "escalera": 0.02,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "BTC diario: inicio de tendencia con EMA rápida sobre lenta y ruptura del Donchian, fin al perder el mínimo (BTC 1D Trend START/END, Frodo1978, aproximado)",
+      "fuente": "Frodo1978, 'BTC 1D — Trend START/END Signals (clean, no repaint)' en TradingView (https://il.tradingview.com/script/9z4zPdxe-BTC-1D-Trend-START-END-Signals-clean-no-repaint): compra con EMA rápida sobre la lenta y ruptura del máximo de Donchian; vende al perder el mínimo de Donchian, cerrar bajo la EMA lenta o RSI débil. Longitudes no publicadas; aproximado con medias 20/50, Donchian de 20 y RSI 40.",
+      "idea": "En BTC diario, comprar cuando empieza una tendencia (medias alineadas y máximo de 20 días) y salir cuando pierde el mínimo de 20, la EMA 50 o el RSI se debilita.",
+      "activos": [
+        "BTC-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "cruce_alcista",
+            20,
+            50
+          ],
+          [
+            "rompe_maximo",
+            20
+          ]
+        ],
+        "exit": [
+          [
+            "pierde_minimo",
+            20
+          ],
+          [
+            "bajo_ema",
+            50
+          ],
+          [
+            "rsi_bajo",
+            14,
+            40
+          ]
+        ],
+        "stop": 4,
+        "tp": 0,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.6,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "min_net": 0.0
+      }
+    },
+    {
+      "nombre": "BTC y SOL 1 h: rango en mercado lateral comprando el extremo bajo (Range Trading, haugeneder, aproximado)",
+      "fuente": "haugeneder, 'Range Trading' en TradingView (https://ar.tradingview.com/script/BjLwxoH4): para BTC o SOL, confirmar en diario que el mercado está lateral y operar el rango en 1 h con desplazamientos porcentuales. Valores no publicados; aproximado con eficiencia baja de 72 velas, z-score de 24 bajo -1,8 y salida en la media.",
+      "idea": "En BTC o SOL de 1 h, cuando el mercado lleva días sin dirección, comprar el extremo bajo del rango y vender al volver a la media.",
+      "activos": [
+        "BTC-EUR",
+        "SOL-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "mercado_lateral",
+            72,
+            0.2
+          ],
+          [
+            "z_bajo",
+            24,
+            1.8
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            24,
+            0.0
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.025,
+        "trail": 0,
+        "hold": 2,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
+    },
+    {
+      "nombre": "XRP: ruptura de una Bollinger corta (6, 1,66) con trailing doble del 6 % (Profit Trailing BBands, Kev_Bourn, aproximado)",
+      "fuente": "Kevin Bourn (Kev_Bourn), 'Profit Trailing BBands' v4.7.5 en TradingView (https://kr.tradingview.com/script/E7sLJal6-Profit-Trailing-BBands/): pensada para XRP en 1 h o 4 h; largo cuando el precio cruza sobre la banda superior de Bollinger (6, 1,66); trailing del 6 % que al alcanzarse se estrecha a la mitad. Sin apalancamiento ni stop de margen; aproximado con z-score de 6 velas y trailing del 6 % con break-even al 6 %.",
+      "idea": "En XRP de 4 h, comprar cuando el precio rompe por encima de una Bollinger muy corta y dejar correr con un stop que sigue al precio a un 6 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            6,
+            1.66
+          ]
+        ],
+        "exit": [
+          [
+            "z_bajo",
+            6,
+            1.66
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0.06,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true
+      }
+    },
+    {
+      "nombre": "XRP corto: pérdida de la banda inferior de una Bollinger corta (6, 1,66) con trailing del 6 % (Profit Trailing BBands, Kev_Bourn, aproximado)",
+      "fuente": "Kevin Bourn (Kev_Bourn), 'Profit Trailing BBands' v4.7.5 en TradingView (https://kr.tradingview.com/script/E7sLJal6-Profit-Trailing-BBands/): corto cuando el precio cruza bajo la banda inferior de Bollinger (6, 1,66), con el mismo trailing doble. Sin apalancamiento; aproximado con z-score de 6 velas.",
+      "idea": "En XRP de 4 h, vender en corto cuando el precio rompe bajo una Bollinger muy corta y cerrar con un stop que sigue al precio a un 6 %.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "z_alto",
+            6,
+            1.66
+          ]
+        ],
+        "exit": [
+          [
+            "z_bajo",
+            6,
+            1.66
+          ]
+        ],
+        "stop": 3,
+        "tp": 0,
+        "trail": 0.06,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.3,
+        "be": 0.06,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false,
+        "salida_siempre": true,
+        "lado": "corto"
+      }
+    },
+    {
+      "nombre": "XRP 4 h: recuperar la zona de soporte por desviación típica (XRP Standard Deviation Zone Strategy, aproximado)",
+      "fuente": "'XRP Standard Deviation Zone Strategy' en TradingView (https://in.tradingview.com/script/n1PA5JTV-XRP-Standard-Deviation-Zone-Strategy): zonas de soporte y resistencia por desviación típica para XRP de 15 min a 4 h; compra cuando el precio recupera el soporte y vende al rechazar la resistencia. Valores no publicados; aproximado con rebote en soporte de 40 velas, z-score de 40 bajo -1 y salida en z > 1,5.",
+      "idea": "En XRP de 4 h, comprar cuando el precio rebota desde la zona baja de desviación típica y vender al llegar a la zona alta.",
+      "activos": [
+        "XRP-EUR"
+      ],
+      "regla": {
+        "entry": [
+          [
+            "rebote_soporte",
+            40,
+            0.02
+          ],
+          [
+            "z_bajo",
+            40,
+            1.0
+          ]
+        ],
+        "exit": [
+          [
+            "z_alto",
+            40,
+            1.5
+          ]
+        ],
+        "stop": 2,
+        "tp": 0.08,
+        "trail": 0,
+        "hold": 0,
+        "sizing": "riesgo",
+        "frac": 0.4,
+        "be": 0,
+        "stall": 0,
+        "pyr": 0,
+        "shrink": false
+      }
     }
   ]
 }
