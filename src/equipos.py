@@ -59,6 +59,7 @@ MAQUINA_VIVO = ("2026-10-19", "2026-11-04")  # en el simulado en vivo ya hecho s
 ASEGURAR_GANANCIA = 0.10            # cuando una operación ya gana un 10 % para el agente, el equipo vende la mitad de su parte y deja correr el resto (laboratorio 05/11/2026; 0 = no)
 ASEGURAR_QUEDA = 0.5                # parte que el equipo deja en la operación después de asegurar
 ASEGURAR_VIVO = ("2026-10-19", "2026-11-05")  # en el simulado en vivo ya hecho (hasta el 04/11) no se aplica, para no reescribir sus resultados
+ASEGURAR_USDC_VIVO = "2026-11-28"   # la mitad vendida al asegurar espera en USDC (sigue el cambio USDC/EUR, laboratorio 27/11/2026); en el simulado en vivo ya hecho (hasta el 27/11) no se aplica
 DINERO_USDC = True                  # el dinero que el equipo no reparte espera en USDC (como en Bitvavo) y sigue el cambio USDC/EUR (laboratorio 07/11/2026)
 DINERO_USDC_VIVO = "2026-11-07"     # en el simulado en vivo ya hecho (hasta el 06/11) no se aplica, para no reescribir sus resultados
 REPARTO_MEDIO = True                # el equipo reparte cada día la MEDIA de las partes de las 18 formas de repartir (PARAMS), en vez de
@@ -71,6 +72,7 @@ BLOQUEADO = -1.0                    # valor de P para una operación a la que el
 
 _MV0, _MV1 = (dt.date.fromisoformat(x) for x in MAQUINA_VIVO)
 _AV0, _AV1 = (dt.date.fromisoformat(x) for x in ASEGURAR_VIVO)
+_AUV = dt.date.fromisoformat(ASEGURAR_USDC_VIVO)
 _CV = dt.date.fromisoformat(COSTE_USDC_VIVO)
 
 
@@ -241,13 +243,15 @@ def series(ac, ag, start, variante=None):
                                                                      objetivo=round(tp, 4), stop=round(sl, 4),
                                                                      asegurada=n_ in seguro)
     # Asegurar la mitad: desde el día siguiente a que la operación gane un 10 %, el equipo solo tiene en ella
-    # ASEGURAR_QUEDA de su parte (el resto, vendido, espera en efectivo) y paga la venta una vez.
+    # ASEGURAR_QUEDA de su parte (el resto, vendido, espera en USDC) y paga la venta una vez.
     coste = (cfg["fee"] + cfg["slip"]) / 100
+    fxa = fx_returns(ac, days)  # la parte vendida espera en USDC, como el resto del dinero sin repartir
     for n_ in range(1, len(days)):
         e_ = seguro.get(n_ - 1)
         if e_ is None or _AV0 <= days[n_] < _AV1:
             continue
-        ret[n_] = ASEGURAR_QUEDA * ret[n_] - (0 if seguro.get(n_ - 2) == e_ else (1 - ASEGURAR_QUEDA) * coste)
+        fx_n = 0.0 if _AV0 <= days[n_] < _AUV else fxa[n_]
+        ret[n_] = ASEGURAR_QUEDA * ret[n_] + (1 - ASEGURAR_QUEDA) * fx_n - (0 if seguro.get(n_ - 2) == e_ else (1 - ASEGURAR_QUEDA) * coste)
         expo[n_ - 1] *= ASEGURAR_QUEDA
     keep = [k for k, d in enumerate(days) if d >= s0]
     return [days[k] for k in keep], ret[keep], np.array(expo)[keep], P[keep], G[keep], L[keep]
