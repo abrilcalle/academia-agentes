@@ -1492,3 +1492,18 @@ Regla: se ajusta solo con entreno (2018–21) y validación (2022–23); 2026 y 
 - **Conclusión: no se queda.** Supertrend y ADX son otra forma de seguir la tendencia y, como las medias, caen en los giros falsos de 2022; el inventor los usa (1 de cada 4 reglas) pero no salen agentes que ganen más en 2022–23 ni que cumplan más veces (incluso algo menos). No se integró nada (el genoma sigue igual) ni se pasó al banco de equipos.
 - **Juez 2026:** no se miró.
 - **Para próximas vueltas:** probado ya "Supertrend / ADX / DMI" como piezas del inventor y como estrategias solas. No repetir. Las ideas de la biblioteca que usan ADX o Supertrend pueden seguir aproximadas: no se pierde nada.
+
+## 2026-11-27 15:05 (hora de Madrid) — Intensidad de búsqueda del inventor (tamaño de la población y número de generaciones) de los agentes clásicos
+- **Comprobación técnica:** la ejecución de anoche se actualizó (state del 27/11, datos hasta el 26/11), sin incidencias. Nada que arreglar. (Se revisó también que el "en vivo" de los equipos se calcula con el mismo `simulate` que las pruebas, así que no hay desfase entre lo probado y lo que se simula en vivo.)
+- **Hipótesis:** el inventor evoluciona cada regla con 30 reglas × 15 generaciones en 2018–21 (`fabrica.poblacion_inventor` / `generaciones_inventor`). Nunca se ha probado cuánto buscar: con más búsqueda la regla se ajusta más al entreno (y podría fallar más en 2022–23); con menos, la regla queda más cerca de las estrategias conocidas y quizá aguanta mejor fuera del entreno. Se puede hacer por la API (solo cambia qué regla se elige).
+- **Qué probé (en una copia, `experimentos/banco/gen_inv.py` = `st_inv.py` con POP y GENS como parámetros, `run_gen.sh`, `gen_ana.py`):** escuela completa de agentes clásicos con las **mismas semillas** en cada brazo (mismo mercado, temporalidad y personalidad): **g5** (30 × 5) · **g15** (30 × 15, como ahora) · **g30** (30 × 30) · **p60** (60 × 15). 200 agentes por brazo: 120 de 1 d, 60 de 4 h y 20 de 1 h.
+- **Datos:** entreno 2018–21 para evolucionar y elegir; 2022 y 2023 solo para medir. Datos cortados el 01/01/2024, comisiones USDC con cambio USDC/EUR, órdenes limitadas.
+- **Resultado (regla que el agente acaba eligiendo; mediana 2021 · 2022 [ganan / cumplen las condiciones del equipo] · 2023 [ganan / cumplen] · ganan en 2022 y 2023 · cumplen en 2022 o 2023 · caída mediana 2022):**
+  - g5: +85 % · −12 % [50 / 7] · +30 % [174 / 75] · 40 · 78 · 27 %
+  - **g15 (actual): +108 % · −17 % [50 / 7] · +34 % [185 / 95] · 41 · 99 · 29 %**
+  - g30: +124 % · −19 % [39 / 7] · +44 % [183 / 86] · 31 · 90 · 33 %
+  - p60: +112 % · −20 % [50 / 7] · +41 % [186 / 82] · 44 · 84 · 31 %
+  - Más búsqueda = más ganancia en el entreno (2018 +15 → +26 → +34 %), pero no más agentes que cumplen fuera de él. Con menos búsqueda (g5) se pierde menos en 2022 (−12 % frente a −17 %; en 4 h −1 % frente a −10 %) porque la regla está menos invertida, pero cumplen bastantes menos en 2023 (75 frente a 95). Par a par (mismas semillas) la mediana de la diferencia es 0 puntos en todos los brazos.
+- **Conclusión: no se queda.** 30 × 15 es el mejor o empata en todo lo que cuenta para los equipos (cumplen en 2023 y en 2022 o 2023); buscar más o menos no da agentes mejores fuera del entreno, y ninguno consigue más agentes que cumplan en 2022 (7 en todos). No se cambió nada.
+- **Juez 2026:** no se miró.
+- **Para próximas vueltas:** probado ya "intensidad del inventor" (30 × 5, 30 × 15, 30 × 30, 60 × 15). No repetir. El ajuste actual está bien elegido.
